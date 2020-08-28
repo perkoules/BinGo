@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement name="Screen" style="flex-grow: 1; justify-content: space-around;">
+        <ui:VisualElement name="Top" style="flex-direction: row; align-items: stretch; justify-content: space-between;">
+            <ui:VisualElement />
+            <ui:VisualElement style="flex-direction: row;">
+                <ui:Label text="Redeem Points" style="font-size: 100px; -unity-text-align: middle-center; color: rgba(0, 255, 0, 255); align-items: center; justify-content: center; left: auto; flex-grow: 0; flex-shrink: 0; white-space: nowrap; -unity-font: url(&apos;/Assets/Mapbox/Fonts/OpenSans-Regular.ttf&apos;); -unity-font-style: normal;" />
+                <ui:Button style="background-image: url(&apos;/Assets/Textures/Sprites/CoinInfo.png&apos;); width: 128px; height: 128px; background-color: rgba(228, 228, 228, 0); -unity-background-image-tint-color: rgb(255, 255, 255); border-left-color: rgba(255, 255, 255, 0); border-right-color: rgba(255, 255, 255, 0); border-top-color: rgba(255, 255, 255, 0); border-bottom-color: rgba(255, 255, 255, 0); left: auto; bottom: 30px;" />
+            </ui:VisualElement>
+            <ui:VisualElement />
+        </ui:VisualElement>
+        <ui:VisualElement name="Main" />
+        <ui:VisualElement name="Bottom" />
+    </ui:VisualElement>
+</ui:UXML>

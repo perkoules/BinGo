@@ -4,9 +4,9 @@
         <ui:VisualElement name="bottomScreenContainer" style="justify-content: space-between; flex-direction: row;">
             <ui:VisualElement name="bottomleft" style="flex-direction: row;">
                 <ui:Button name="close" class="optionButton" style="background-color: rgba(228, 228, 228, 0); border-left-color: rgba(255, 255, 255, 0); border-right-color: rgba(255, 255, 255, 0); border-top-color: rgba(255, 255, 255, 0); border-bottom-color: rgba(255, 255, 255, 0);" />
-                <ui:Button name="world" class="optionButtons optionButton" style="left: -200px; bottom: 400px;" />
-                <ui:Button name="team" class="optionButton" style="left: -150px; bottom: 250px;" />
-                <ui:Button name="personal" class="optionButton" style="left: -150px;" />
+                <ui:Button name="world" class="optionButtons optionButton" style="left: 0; bottom: 300px; position: absolute; background-image: url(&apos;/Assets/Textures/Sprites/World.png&apos;); -unity-background-image-tint-color: rgb(255, 255, 255);" />
+                <ui:Button name="team" class="optionButton" style="left: 200px; bottom: 200px; position: absolute; background-image: url(&apos;/Assets/Textures/Sprites/Team 1.png&apos;); -unity-background-image-tint-color: rgb(255, 255, 255); background-color: rgb(111, 111, 111); padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; -unity-background-scale-mode: stretch-to-fill; align-items: stretch; flex-direction: column;" />
+                <ui:Button name="personal" class="optionButton" style="left: 300px; position: absolute; -unity-background-image-tint-color: rgb(255, 255, 255); background-image: url(&apos;/Assets/Textures/Sprites/Personal.png&apos;); background-color: rgb(111, 111, 111);" />
             </ui:VisualElement>
             <ui:VisualElement name="bottomright" />
         </ui:VisualElement>

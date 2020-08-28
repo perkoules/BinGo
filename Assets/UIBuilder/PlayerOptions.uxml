@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement name="Screen" style="justify-content: flex-end; flex-direction: column; flex-grow: 1;">
+        <Style src="MainWindowStyles.uss" />
+        <ui:VisualElement name="bottomScreenContainer" style="justify-content: space-between; flex-direction: row;">
+            <ui:VisualElement name="bottomleft" style="flex-direction: row;">
+                <ui:Button name="close" class="optionButton" style="background-color: rgba(228, 228, 228, 0); border-left-color: rgba(255, 255, 255, 0); border-right-color: rgba(255, 255, 255, 0); border-top-color: rgba(255, 255, 255, 0); border-bottom-color: rgba(255, 255, 255, 0);" />
+                <ui:Button name="world" class="optionButtons optionButton" style="left: -200px; bottom: 400px;" />
+                <ui:Button name="team" class="optionButton" style="left: -150px; bottom: 250px;" />
+                <ui:Button name="personal" class="optionButton" style="left: -150px;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="bottomright" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

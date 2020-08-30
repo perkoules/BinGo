@@ -346,7 +346,7 @@ GameObject:
   - component: {fileID: 18160230}
   - component: {fileID: 18160233}
   m_Layer: 5
-  m_Name: TabsArea
+  m_Name: WorldRankOptionTabs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -542,7 +542,7 @@ GameObject:
   - component: {fileID: 21137578}
   - component: {fileID: 21137577}
   m_Layer: 5
-  m_Name: Donate
+  m_Name: DonateOption
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -886,7 +886,7 @@ GameObject:
   - component: {fileID: 57744453}
   - component: {fileID: 57744452}
   m_Layer: 5
-  m_Name: Settings
+  m_Name: SettingsOption
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1025,7 +1025,7 @@ GameObject:
   - component: {fileID: 66105553}
   - component: {fileID: 66105552}
   m_Layer: 5
-  m_Name: Text (TMP) (2)
+  m_Name: PersonalWorldResultsCountryText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1293,7 +1293,7 @@ GameObject:
   - component: {fileID: 80900190}
   - component: {fileID: 80900193}
   m_Layer: 5
-  m_Name: Country
+  m_Name: PersonalCountryTab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1425,7 +1425,7 @@ GameObject:
   - component: {fileID: 104719336}
   - component: {fileID: 104719335}
   m_Layer: 5
-  m_Name: PlayerAndTeam
+  m_Name: InfoPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1725,7 +1725,7 @@ GameObject:
   - component: {fileID: 155919061}
   - component: {fileID: 155919060}
   m_Layer: 5
-  m_Name: LvlHolder
+  m_Name: LvlBgImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1874,7 +1874,7 @@ GameObject:
   - component: {fileID: 176230097}
   - component: {fileID: 176230096}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: PersonalBadgesSubTabLevelText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2214,7 +2214,7 @@ GameObject:
   - component: {fileID: 230142043}
   - component: {fileID: 230142042}
   m_Layer: 5
-  m_Name: Text (TMP) (3)
+  m_Name: PlayersRankInWorldRubbishText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2349,7 +2349,7 @@ GameObject:
   - component: {fileID: 232124590}
   - component: {fileID: 232124593}
   m_Layer: 5
-  m_Name: Players
+  m_Name: PlayersRankInWorldTab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2601,7 +2601,7 @@ GameObject:
   - component: {fileID: 256413753}
   - component: {fileID: 256413752}
   m_Layer: 5
-  m_Name: WorldTeams
+  m_Name: TeamsRankInWorldResult
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2780,7 +2780,7 @@ GameObject:
   - component: {fileID: 262488895}
   - component: {fileID: 262488894}
   m_Layer: 5
-  m_Name: CouncilTax
+  m_Name: CouncilTaxOption
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2986,7 +2986,7 @@ GameObject:
   - component: {fileID: 312658986}
   - component: {fileID: 312658985}
   m_Layer: 5
-  m_Name: TabResults
+  m_Name: WorldRankOptionTabsResults
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3065,7 +3065,7 @@ GameObject:
   - component: {fileID: 327933236}
   - component: {fileID: 327933239}
   m_Layer: 5
-  m_Name: Countries
+  m_Name: CountriesRankInWorldTab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3197,7 +3197,7 @@ GameObject:
   - component: {fileID: 340494521}
   - component: {fileID: 340494520}
   m_Layer: 5
-  m_Name: Image (13)
+  m_Name: Badge lvl 14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3272,7 +3272,7 @@ GameObject:
   - component: {fileID: 344273279}
   - component: {fileID: 344273278}
   m_Layer: 5
-  m_Name: CityResults
+  m_Name: PersonalCityResults
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3388,9 +3388,9 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2062026363}
   - {fileID: 1693855161}
   - {fileID: 1618557686}
+  - {fileID: 2062026363}
   - {fileID: 45910106}
   m_Father: {fileID: 1097750952}
   m_RootOrder: 2
@@ -3523,7 +3523,7 @@ GameObject:
   - component: {fileID: 383112094}
   - component: {fileID: 383112093}
   m_Layer: 5
-  m_Name: Image (11)
+  m_Name: Badge lvl 12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3718,7 +3718,7 @@ GameObject:
   - component: {fileID: 403789722}
   - component: {fileID: 403789725}
   m_Layer: 5
-  m_Name: Amazon
+  m_Name: AmazonOption
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3869,7 +3869,6 @@ RectTransform:
   m_Children:
   - {fileID: 1151871657}
   - {fileID: 962364270}
-  - {fileID: 1739135561}
   - {fileID: 1426567209}
   - {fileID: 1849891048}
   m_Father: {fileID: 1097750952}
@@ -4225,7 +4224,7 @@ GameObject:
   - component: {fileID: 465628719}
   - component: {fileID: 465628718}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: TeamsRankInWorldResultTeamNameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4507,16 +4506,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 490502864}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 690542210}
+  m_Father: {fileID: 2115892833}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 97.000015, y: 97.000015}
   m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &490502866
@@ -4744,7 +4743,7 @@ GameObject:
   - component: {fileID: 513486126}
   - component: {fileID: 513486125}
   m_Layer: 5
-  m_Name: LvlHolder
+  m_Name: LvlBgImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4893,7 +4892,7 @@ GameObject:
   - component: {fileID: 529099608}
   - component: {fileID: 529099607}
   m_Layer: 5
-  m_Name: TabResults
+  m_Name: PersonalBadgesAreaResultsSubTabResults
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4969,7 +4968,7 @@ GameObject:
   - component: {fileID: 535226228}
   - component: {fileID: 535226227}
   m_Layer: 5
-  m_Name: TabResults
+  m_Name: RedeemOptionTabResults
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5048,7 +5047,7 @@ GameObject:
   - component: {fileID: 542346244}
   - component: {fileID: 542346243}
   m_Layer: 5
-  m_Name: Image (10)
+  m_Name: Badge lvl 11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5122,7 +5121,7 @@ GameObject:
   - component: {fileID: 548539640}
   - component: {fileID: 548539639}
   m_Layer: 5
-  m_Name: Image
+  m_Name: temp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5270,7 +5269,7 @@ GameObject:
   - component: {fileID: 578269470}
   - component: {fileID: 578269469}
   m_Layer: 5
-  m_Name: Image (5)
+  m_Name: Badge City 1000
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5344,7 +5343,7 @@ GameObject:
   - component: {fileID: 580988203}
   - component: {fileID: 580988202}
   m_Layer: 5
-  m_Name: Image (14)
+  m_Name: Badge lvl 15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5494,7 +5493,7 @@ GameObject:
   - component: {fileID: 620178121}
   - component: {fileID: 620178124}
   m_Layer: 5
-  m_Name: Badges
+  m_Name: PersonalBadgesTab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5700,7 +5699,7 @@ GameObject:
   - component: {fileID: 638005667}
   - component: {fileID: 638005666}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: PersonalBadgesSubTabTasksText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6192,81 +6191,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 686961605}
   m_CullTransparentMesh: 0
---- !u!1 &690542209
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 690542210}
-  - component: {fileID: 690542212}
-  - component: {fileID: 690542211}
-  m_Layer: 5
-  m_Name: CircleHolder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &690542210
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 690542209}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 490502865}
-  m_Father: {fileID: 2115892833}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -31, y: -31}
-  m_SizeDelta: {x: 74, y: 74}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &690542211
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 690542209}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 1, b: 0, a: 255}
-  m_RaycastTarget: 1
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: beacb270f85680c45970deaa97458e1e, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &690542212
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 690542209}
-  m_CullTransparentMesh: 0
 --- !u!1 &692073168
 GameObject:
   m_ObjectHideFlags: 0
@@ -6279,7 +6203,7 @@ GameObject:
   - component: {fileID: 692073171}
   - component: {fileID: 692073170}
   m_Layer: 5
-  m_Name: Image (4)
+  m_Name: Badge lvl 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6354,7 +6278,7 @@ GameObject:
   - component: {fileID: 692813438}
   - component: {fileID: 692813437}
   m_Layer: 5
-  m_Name: WorldPlayers
+  m_Name: PlayersRankInWorldResult
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6457,7 +6381,7 @@ GameObject:
   - component: {fileID: 713685029}
   - component: {fileID: 713685028}
   m_Layer: 5
-  m_Name: Text (TMP) (2)
+  m_Name: TeamsRankInWorldResultCountriesText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6797,7 +6721,7 @@ GameObject:
   - component: {fileID: 761765750}
   - component: {fileID: 761765749}
   m_Layer: 5
-  m_Name: Text (TMP) (3)
+  m_Name: TeamsRankInWorldResultRubbishText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6930,7 +6854,7 @@ GameObject:
   - component: {fileID: 767694100}
   - component: {fileID: 767694099}
   m_Layer: 5
-  m_Name: Text (TMP) (2)
+  m_Name: PlayersRankInWorldCountryText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7063,7 +6987,7 @@ GameObject:
   - component: {fileID: 784863659}
   - component: {fileID: 784863658}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: Badge City 10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7137,7 +7061,7 @@ GameObject:
   - component: {fileID: 803473618}
   - component: {fileID: 803473617}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: PersonalCityText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7344,7 +7268,7 @@ GameObject:
   - component: {fileID: 805838883}
   - component: {fileID: 805838882}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Badge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7418,7 +7342,7 @@ GameObject:
   - component: {fileID: 819765218}
   - component: {fileID: 819765217}
   m_Layer: 5
-  m_Name: Image (6)
+  m_Name: Badge lvl 7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7743,7 +7667,7 @@ GameObject:
   - component: {fileID: 858391117}
   - component: {fileID: 858391116}
   m_Layer: 5
-  m_Name: PersonalProgress
+  m_Name: PersonalProgressWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7821,7 +7745,7 @@ GameObject:
   - component: {fileID: 858839598}
   - component: {fileID: 858839597}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: CountriesRankInWorldResultPositionText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7954,7 +7878,7 @@ GameObject:
   - component: {fileID: 871824401}
   - component: {fileID: 871824400}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: PlayersRankInWorldPositionText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8089,7 +8013,7 @@ GameObject:
   - component: {fileID: 882179587}
   - component: {fileID: 882179590}
   m_Layer: 5
-  m_Name: Teams
+  m_Name: TeamsRankInWorldTab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8221,7 +8145,7 @@ GameObject:
   - component: {fileID: 891275377}
   - component: {fileID: 891275376}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: Badge lvl 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8295,7 +8219,7 @@ GameObject:
   - component: {fileID: 892681212}
   - component: {fileID: 892681211}
   m_Layer: 5
-  m_Name: WorldRanking
+  m_Name: WorldRankingWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8373,7 +8297,7 @@ GameObject:
   - component: {fileID: 904703162}
   - component: {fileID: 904703161}
   m_Layer: 5
-  m_Name: Image (2)
+  m_Name: Badge City 50
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8862,7 +8786,7 @@ GameObject:
   - component: {fileID: 962364271}
   - component: {fileID: 962364273}
   m_Layer: 5
-  m_Name: Coins
+  m_Name: CoinsButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9140,7 +9064,7 @@ GameObject:
   - component: {fileID: 981559540}
   - component: {fileID: 981559539}
   m_Layer: 5
-  m_Name: WorldCountries
+  m_Name: CountriesRankInWorldResult
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9243,7 +9167,7 @@ GameObject:
   - component: {fileID: 992291895}
   - component: {fileID: 992291894}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: PlayersRankInWorldPlayerNameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9377,7 +9301,7 @@ GameObject:
   - component: {fileID: 997319446}
   - component: {fileID: 997319445}
   m_Layer: 5
-  m_Name: LevelResults
+  m_Name: PersonalBadgesAreaResultsSubTabLevelResults
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9504,16 +9428,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1012917648}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1612104671}
+  m_Father: {fileID: 1426567209}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 97.00001, y: 96.999954}
   m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1012917650
@@ -9801,7 +9725,7 @@ GameObject:
   - component: {fileID: 1037903679}
   - component: {fileID: 1037903678}
   m_Layer: 5
-  m_Name: Image (3)
+  m_Name: Badge lvl 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9875,7 +9799,7 @@ GameObject:
   - component: {fileID: 1040824380}
   - component: {fileID: 1040824379}
   m_Layer: 5
-  m_Name: RubbishCollected
+  m_Name: RubbishCollectedText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10009,7 +9933,7 @@ GameObject:
   - component: {fileID: 1050050749}
   - component: {fileID: 1050050748}
   m_Layer: 5
-  m_Name: TasksResults
+  m_Name: PersonalBadgesAreaResultsSubTabTasksResults
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10159,7 +10083,7 @@ GameObject:
   - component: {fileID: 1051913074}
   - component: {fileID: 1051913077}
   m_Layer: 5
-  m_Name: PersonalTabsArea
+  m_Name: PersonalProgressOptionTabs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10283,7 +10207,7 @@ GameObject:
   - component: {fileID: 1084772007}
   - component: {fileID: 1084772010}
   m_Layer: 5
-  m_Name: World
+  m_Name: PersonalWorldTab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10726,7 +10650,7 @@ GameObject:
   - component: {fileID: 1139215633}
   - component: {fileID: 1139215632}
   m_Layer: 5
-  m_Name: Image (8)
+  m_Name: Badge lvl 9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10802,7 +10726,7 @@ GameObject:
   - component: {fileID: 1147366223}
   - component: {fileID: 1147366226}
   m_Layer: 5
-  m_Name: Transportation
+  m_Name: TransportationOption
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10936,7 +10860,7 @@ GameObject:
   - component: {fileID: 1151871658}
   - component: {fileID: 1151871660}
   m_Layer: 5
-  m_Name: Exit
+  m_Name: ExitButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11066,7 +10990,7 @@ GameObject:
   - component: {fileID: 1159865283}
   - component: {fileID: 1159865282}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: PlayersRankInWorldText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11265,7 +11189,7 @@ GameObject:
   - component: {fileID: 1198782513}
   - component: {fileID: 1198782512}
   m_Layer: 5
-  m_Name: Text (TMP) (3)
+  m_Name: CountriesRankInWorldResultRubbishText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12035,7 +11959,7 @@ GameObject:
   - component: {fileID: 1266566641}
   - component: {fileID: 1266566640}
   m_Layer: 5
-  m_Name: Image
+  m_Name: SettingsBgImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12391,7 +12315,7 @@ GameObject:
   - component: {fileID: 1290775136}
   - component: {fileID: 1290775135}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: PersonalCountryResultsPlayerText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12631,7 +12555,7 @@ GameObject:
   - component: {fileID: 1327330175}
   - component: {fileID: 1327330174}
   m_Layer: 5
-  m_Name: BadgeHolder
+  m_Name: BadgeBgImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12706,7 +12630,7 @@ GameObject:
   - component: {fileID: 1330264570}
   - component: {fileID: 1330264569}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Badge City 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12782,7 +12706,7 @@ GameObject:
   - component: {fileID: 1344055779}
   - component: {fileID: 1344055782}
   m_Layer: 5
-  m_Name: City
+  m_Name: PersonalCityTab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13197,7 +13121,7 @@ GameObject:
   - component: {fileID: 1367194254}
   - component: {fileID: 1367194253}
   m_Layer: 5
-  m_Name: BadgeHolder
+  m_Name: BadgeBgImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13346,7 +13270,7 @@ GameObject:
   - component: {fileID: 1384716907}
   - component: {fileID: 1384716906}
   m_Layer: 5
-  m_Name: Image (12)
+  m_Name: Badge lvl 13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13420,7 +13344,7 @@ GameObject:
   - component: {fileID: 1413393622}
   - component: {fileID: 1413393621}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: PersonalCountryResultsPositionText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13629,7 +13553,7 @@ GameObject:
   - component: {fileID: 1420232409}
   - component: {fileID: 1420232408}
   m_Layer: 5
-  m_Name: TabsArea
+  m_Name: PersonalBadgesAreaResultsSubTabs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13748,7 +13672,7 @@ GameObject:
   - component: {fileID: 1426567210}
   - component: {fileID: 1426567212}
   m_Layer: 5
-  m_Name: Avatar
+  m_Name: AvatarButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13765,12 +13689,12 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1612104671}
+  - {fileID: 1012917649}
   - {fileID: 513486124}
   - {fileID: 1367194252}
   - {fileID: 1854667810}
   m_Father: {fileID: 406965492}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -13892,7 +13816,7 @@ GameObject:
   - component: {fileID: 1431985505}
   - component: {fileID: 1431985504}
   m_Layer: 5
-  m_Name: CountryResults
+  m_Name: PersonalCountryResults
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13997,7 +13921,7 @@ GameObject:
   - component: {fileID: 1437503502}
   - component: {fileID: 1437503505}
   m_Layer: 5
-  m_Name: Ebay
+  m_Name: EbayOption
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14129,7 +14053,7 @@ GameObject:
   - component: {fileID: 1438015937}
   - component: {fileID: 1438015936}
   m_Layer: 5
-  m_Name: Text (TMP) (3)
+  m_Name: PersonalWorldResultsRubbishText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14336,7 +14260,7 @@ GameObject:
   - component: {fileID: 1442618696}
   - component: {fileID: 1442618695}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: CountriesRankInWorldText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14469,7 +14393,7 @@ GameObject:
   - component: {fileID: 1444108216}
   - component: {fileID: 1444108215}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: PersonalWorldResultsPositionText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14603,7 +14527,7 @@ GameObject:
   - component: {fileID: 1495245586}
   - component: {fileID: 1495245585}
   m_Layer: 5
-  m_Name: WorldResults
+  m_Name: PersonalWorldResults
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14706,7 +14630,7 @@ GameObject:
   - component: {fileID: 1502012839}
   - component: {fileID: 1502012838}
   m_Layer: 5
-  m_Name: Image (9)
+  m_Name: Badge lvl 10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14780,7 +14704,7 @@ GameObject:
   - component: {fileID: 1510774354}
   - component: {fileID: 1510774353}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: PersonalBadgesText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15046,7 +14970,7 @@ GameObject:
   - component: {fileID: 1537024722}
   - component: {fileID: 1537024721}
   m_Layer: 5
-  m_Name: Image (2)
+  m_Name: Badge lvl 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15610,7 +15534,7 @@ GameObject:
   - component: {fileID: 1562538261}
   - component: {fileID: 1562538264}
   m_Layer: 5
-  m_Name: TabsArea
+  m_Name: RedeemOptionTabs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16656,7 +16580,7 @@ GameObject:
   - component: {fileID: 1609194594}
   - component: {fileID: 1609194593}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: CountriesRankInWorldResultCountryText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16777,81 +16701,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1609194591}
   m_CullTransparentMesh: 0
---- !u!1 &1612104670
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1612104671}
-  - component: {fileID: 1612104673}
-  - component: {fileID: 1612104672}
-  m_Layer: 5
-  m_Name: CircleHolder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1612104671
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1612104670}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1012917649}
-  m_Father: {fileID: 1426567209}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -31, y: -31}
-  m_SizeDelta: {x: 74, y: 74}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1612104672
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1612104670}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 1, b: 0, a: 255}
-  m_RaycastTarget: 1
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: beacb270f85680c45970deaa97458e1e, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1612104673
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1612104670}
-  m_CullTransparentMesh: 0
 --- !u!1 &1617058568
 GameObject:
   m_ObjectHideFlags: 0
@@ -16864,7 +16713,7 @@ GameObject:
   - component: {fileID: 1617058571}
   - component: {fileID: 1617058570}
   m_Layer: 5
-  m_Name: Text (TMP) (2)
+  m_Name: CountriesRankInWorldResultPlayersText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17017,7 +16866,7 @@ RectTransform:
   - {fileID: 206036112}
   - {fileID: 1741939442}
   m_Father: {fileID: 346869694}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -17686,7 +17535,7 @@ RectTransform:
   - {fileID: 1586883086}
   - {fileID: 1138264371}
   m_Father: {fileID: 346869694}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -17742,7 +17591,7 @@ GameObject:
   - component: {fileID: 1702859616}
   - component: {fileID: 1702859615}
   m_Layer: 5
-  m_Name: TabResults
+  m_Name: PersonalProgressOptionTabsResults
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18207,7 +18056,7 @@ GameObject:
   - component: {fileID: 1724509658}
   - component: {fileID: 1724509657}
   m_Layer: 5
-  m_Name: Level
+  m_Name: PersonalBadgesSubTabLevelTab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18339,7 +18188,7 @@ GameObject:
   - component: {fileID: 1730749923}
   - component: {fileID: 1730749922}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: TeamsRankInWorldText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18472,7 +18321,7 @@ GameObject:
   - component: {fileID: 1738962719}
   - component: {fileID: 1738962718}
   m_Layer: 5
-  m_Name: PlayerOptionsMenu
+  m_Name: PlayerOptionsWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18538,124 +18387,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1738962716}
   m_CullTransparentMesh: 0
---- !u!1 &1739135560
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1739135561}
-  - component: {fileID: 1739135563}
-  - component: {fileID: 1739135562}
-  - component: {fileID: 1739135564}
-  m_Layer: 5
-  m_Name: Settings
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &1739135561
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1739135560}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 406965492}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -100, y: -75}
-  m_SizeDelta: {x: 128, y: 128}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1739135562
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1739135560}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 92bb95df99f30124cbf7690c567c9e7f, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1739135563
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1739135560}
-  m_CullTransparentMesh: 0
---- !u!114 &1739135564
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1739135560}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 1426567210}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &1741939441
 GameObject:
   m_ObjectHideFlags: 0
@@ -19141,7 +18872,7 @@ GameObject:
   - component: {fileID: 1777387948}
   - component: {fileID: 1777387947}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: PersonalWorldResultsCityText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19407,7 +19138,7 @@ GameObject:
   - component: {fileID: 1793932499}
   - component: {fileID: 1793932498}
   m_Layer: 5
-  m_Name: Image (6)
+  m_Name: Badge City 5000
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19481,7 +19212,7 @@ GameObject:
   - component: {fileID: 1843773051}
   - component: {fileID: 1843773050}
   m_Layer: 5
-  m_Name: BadgesAreaResults
+  m_Name: PersonalBadgesAreaResults
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19558,7 +19289,7 @@ GameObject:
   - component: {fileID: 1849891049}
   - component: {fileID: 1849891051}
   m_Layer: 5
-  m_Name: Rubbish
+  m_Name: RubbishCameraButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19576,7 +19307,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 406965492}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -19808,7 +19539,7 @@ GameObject:
   - component: {fileID: 1860890950}
   - component: {fileID: 1860890949}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Badge lvl 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20001,7 +19732,7 @@ GameObject:
   - component: {fileID: 1901145235}
   - component: {fileID: 1901145234}
   m_Layer: 5
-  m_Name: Image (7)
+  m_Name: Badge lvl 8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20330,7 +20061,7 @@ GameObject:
   - component: {fileID: 1927885531}
   - component: {fileID: 1927885530}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: TeamsRankInWorldResultPositionText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20463,7 +20194,7 @@ GameObject:
   - component: {fileID: 1935963158}
   - component: {fileID: 1935963157}
   m_Layer: 5
-  m_Name: Image (3)
+  m_Name: Badge City 100
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20539,7 +20270,7 @@ GameObject:
   - component: {fileID: 1945689173}
   - component: {fileID: 1945689172}
   m_Layer: 5
-  m_Name: Tasks
+  m_Name: PersonalBadgesSubTabTasksTab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20864,7 +20595,7 @@ GameObject:
   - component: {fileID: 1974490256}
   - component: {fileID: 1974490255}
   m_Layer: 5
-  m_Name: Image (5)
+  m_Name: Badge lvl 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21649,7 +21380,7 @@ GameObject:
   - component: {fileID: 2052535106}
   - component: {fileID: 2052535105}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: PersonalWorldText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21782,7 +21513,7 @@ GameObject:
   - component: {fileID: 2062026365}
   - component: {fileID: 2062026364}
   m_Layer: 5
-  m_Name: TabWindow
+  m_Name: RedeemWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21802,7 +21533,7 @@ RectTransform:
   - {fileID: 1562538260}
   - {fileID: 535226226}
   m_Father: {fileID: 346869694}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -21858,7 +21589,7 @@ GameObject:
   - component: {fileID: 2064788216}
   - component: {fileID: 2064788215}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Badge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21933,7 +21664,7 @@ GameObject:
   - component: {fileID: 2065362531}
   - component: {fileID: 2065362530}
   m_Layer: 5
-  m_Name: Personal
+  m_Name: PersonalOption
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22072,7 +21803,7 @@ GameObject:
   - component: {fileID: 2072960586}
   - component: {fileID: 2072960585}
   m_Layer: 5
-  m_Name: Text (TMP) (3)
+  m_Name: PersonalCountryResultsRubbishText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22364,7 +22095,7 @@ GameObject:
   - component: {fileID: 2085949667}
   - component: {fileID: 2085949666}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: PersonalCountryText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22690,7 +22421,7 @@ GameObject:
   - component: {fileID: 2089251092}
   - component: {fileID: 2089251091}
   m_Layer: 5
-  m_Name: Text (TMP) (2)
+  m_Name: PersonalCountryResultsCountryText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22824,7 +22555,7 @@ GameObject:
   - component: {fileID: 2106781201}
   - component: {fileID: 2106781200}
   m_Layer: 5
-  m_Name: World
+  m_Name: WorldOption
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22981,7 +22712,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.125, y: 1.125, z: 1.125}
   m_Children:
-  - {fileID: 690542210}
+  - {fileID: 490502865}
   - {fileID: 155919059}
   - {fileID: 1327330173}
   - {fileID: 1220404102}
@@ -23085,7 +22816,7 @@ GameObject:
   - component: {fileID: 2127160902}
   - component: {fileID: 2127160901}
   m_Layer: 5
-  m_Name: Image (4)
+  m_Name: Badge City 500
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

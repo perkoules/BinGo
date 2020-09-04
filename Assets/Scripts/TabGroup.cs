@@ -9,6 +9,10 @@ public class TabGroup : MonoBehaviour
     public TabButton selectedTab;
     public List<GameObject> gameobjectsToSwap;
 
+    public Color pressedColor;
+    public Color hoverColor;
+    public Color disabledColor;
+
     public void Subscribe(TabButton button)
     {
         if(tabButtons == null)
@@ -23,7 +27,7 @@ public class TabGroup : MonoBehaviour
         ResetTabs();
         if (selectedTab == null || button != selectedTab)
         {
-            button.background.color = Color.red;
+            button.background.color = hoverColor;
         }
     }
     public void OnTabExit(TabButton button)
@@ -34,7 +38,7 @@ public class TabGroup : MonoBehaviour
     {
         selectedTab = button;
         ResetTabs();
-        button.background.color = Color.green;
+        button.background.color = pressedColor;
         int index = button.transform.GetSiblingIndex();
         for (int i = 0; i < gameobjectsToSwap.Count; i++)
         {
@@ -55,7 +59,7 @@ public class TabGroup : MonoBehaviour
         foreach (TabButton button  in tabButtons)
         {
             if(selectedTab!=null && button == selectedTab) { continue; }
-            button.background.color = Color.gray;
+            button.background.color = disabledColor;
         }
     }
 }

@@ -32,6 +32,6 @@ public class LevelManager : MonoBehaviour
     }*/
     public void LoadLevelWithIndex(int levelIndex)
     {
-        SceneManager.LoadScene(levelIndex, LoadSceneMode.Single);
+        SceneManager.LoadSceneAsync(levelIndex, LoadSceneMode.Single);
     }
 }

@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1029,15 +1029,40 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4627864051068068741, guid: 9a6252b80ce7ecf469291f85e29d33aa,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4627864051068068741, guid: 9a6252b80ce7ecf469291f85e29d33aa,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4627864051068068741, guid: 9a6252b80ce7ecf469291f85e29d33aa,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4729706538433336279, guid: 9a6252b80ce7ecf469291f85e29d33aa,
         type: 3}
       propertyPath: _previewOptions.isPreviewEnabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4729706538433336279, guid: 9a6252b80ce7ecf469291f85e29d33aa,
         type: 3}
       propertyPath: _tileProvider
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729706538433336279, guid: 9a6252b80ce7ecf469291f85e29d33aa,
+        type: 3}
+      propertyPath: _options.locationOptions.latitudeLongitude
+      value: 54.572557, -1.232467
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729706538433336279, guid: 9a6252b80ce7ecf469291f85e29d33aa,
+        type: 3}
+      propertyPath: _imagery._layerProperty.sourceOptions.layerSource.Id
+      value: mapbox://styles/perkoules/cke4ilt5217k51ast9ktidbu8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a6252b80ce7ecf469291f85e29d33aa, type: 3}

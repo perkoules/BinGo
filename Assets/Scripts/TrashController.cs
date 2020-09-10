@@ -1,12 +1,13 @@
-﻿using System.Collections;
+﻿using Mapbox.Examples;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TrashController : MonoBehaviour
 {
-
     public Camera cameraMap, cameraAR;
     public GameObject mapMainPanel, cameraPanel;
+    public SpawnOnMap spawn;
 
     private void OnEnable()
     {
@@ -17,6 +18,7 @@ public class TrashController : MonoBehaviour
             cameraAR.gameObject.SetActive(true);
             cameraPanel.SetActive(true);
         }
+        SpawnPins();
     }
 
     private void OnDisable()
@@ -25,5 +27,11 @@ public class TrashController : MonoBehaviour
         cameraPanel.SetActive(false);
         cameraMap.gameObject.SetActive(true);
         mapMainPanel.SetActive(true);
+    }
+
+
+    public void SpawnPins()
+    {
+        //
     }
 }

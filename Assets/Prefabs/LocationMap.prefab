@@ -774,13 +774,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236352220211372762}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 125, z: 0}
+  m_LocalRotation: {x: 0.5, y: -0, z: -0, w: 0.8660254}
+  m_LocalPosition: {x: 0, y: 114.6, z: -67.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8240679656692242874}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
 --- !u!20 &8236352220211372761
 Camera:
   m_ObjectHideFlags: 0
@@ -805,7 +805,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1500
+  far clip plane: 1000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -896,7 +896,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236667841531260650}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -917,7 +917,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _options:
     locationOptions:
-      latitudeLongitude: 54.5718113, -1.2322553
+      latitudeLongitude: 37.784179, -122.401583
       zoom: 18
     extentOptions:
       extentType: 2
@@ -951,7 +951,7 @@ MonoBehaviour:
         isActive: 1
         layerSource:
           Name: Streets
-          Id: mapbox://styles/perkoules/cke4ilt5217k51ast9ktidbu8/
+          Id: mapbox://styles/perkoules/cke4ilt5217k51ast9ktidbu8
           Modified: 
           UserName: 
       rasterOptions:
@@ -989,15 +989,16 @@ MonoBehaviour:
       tileJsonData:
         tileJSONLoaded: 0
         LayerDisplayNames:
-        - 
         - admin
         - aeroway
         - airport_label
         - barrier_line
-        - Bins
         - building
+        - contour
         - country_label
+        - hillshade
         - housenum_label
+        - landcover
         - landuse
         - landuse_overlay
         - marine_label
@@ -1009,16 +1010,17 @@ MonoBehaviour:
         - road
         - road_label
         - state_label
+        - traffic
         - water
         - water_label
         - waterway
         - waterway_label
-      _sourceType: 2
+      _sourceType: 3
       sourceOptions:
-        isActive: 1
+        isActive: 0
         layerSource:
           Name: Mapbox Terrain
-          Id: mapbox.mapbox-streets-v7,perkoules.cke8ggc8g1gf029o6l6c914f8-2at9l
+          Id: mapbox.3d-buildings,mapbox.mapbox-streets-v7,mapbox.mapbox-traffic-v1,mapbox.mapbox-terrain-v2
           Modified: 
           UserName: 
       useOptimizedStyle: 0
@@ -1030,139 +1032,8 @@ MonoBehaviour:
       performanceOptions:
         isEnabled: 1
         entityPerCoroutine: 20
-      vectorSubLayers:
-      - coreOptions:
-          sourceId: 
-          isActive: 1
-          sublayerName: Untitled
-          geometryType: 3
-          layerName: poi_label
-          snapToTerrain: 1
-          combineMeshes: 0
-        lineGeometryOptions:
-          Width: 1
-          MiterLimit: 0.2
-          RoundLimit: 1.05
-          JoinType: 1
-          CapType: 1
-        filterOptions:
-          _selectedLayerName: poi_label
-          filters: []
-          combinerType: 0
-        extrusionOptions:
-          _selectedLayerName: 
-          extrusionType: 0
-          extrusionGeometryType: 0
-          propertyName: height
-          propertyDescription: 
-          minimumHeight: 0
-          maximumHeight: 1
-          extrusionScaleFactor: 1
-        colliderOptions:
-          colliderType: 0
-        materialOptions:
-          style: 0
-          texturingType: 2
-          materials:
-          - Materials:
-            - {fileID: 0}
-          - Materials:
-            - {fileID: 0}
-          atlasInfo: {fileID: 0}
-          lightStyleOpacity: 1
-          darkStyleOpacity: 1
-          colorStyleColor: {r: 0.1764706, g: 0.8509805, b: 1, a: 1}
-          samplePalettes: 0
-          colorPalette: {fileID: 0}
-          customStyleOptions:
-            texturingType: 0
-            materials:
-            - Materials:
-              - {fileID: 0}
-            - Materials:
-              - {fileID: 0}
-            atlasInfo: {fileID: 11400000, guid: 414754d7155df47beb52ca117a774f21,
-              type: 2}
-            colorPalette: {fileID: 11400000, guid: 57bdfa37edf7a4f7f999d19443497554,
-              type: 2}
-        performanceOptions:
-          isEnabled: 0
-          entityPerCoroutine: 0
-        honorBuildingIdSetting: 1
-        buildingsWithUniqueIds: 1
-        moveFeaturePositionTo: 0
-        MeshModifiers: []
-        GoModifiers: []
-        presetFeatureType: 3
-        _maskValue: 0
-        selectedTypes: 
-      locationPrefabList:
-      - coreOptions:
-          sourceId: 
-          isActive: 1
-          sublayerName: WasteBins
-          geometryType: 0
-          layerName: 
-          snapToTerrain: 1
-          combineMeshes: 0
-        lineGeometryOptions:
-          Width: 0
-          MiterLimit: 0
-          RoundLimit: 0
-          JoinType: 0
-          CapType: 0
-        filterOptions:
-          _selectedLayerName: 
-          filters: []
-          combinerType: 1
-        extrusionOptions:
-          _selectedLayerName: 
-          extrusionType: 0
-          extrusionGeometryType: 0
-          propertyName: height
-          propertyDescription: 
-          minimumHeight: 0
-          maximumHeight: 0
-          extrusionScaleFactor: 1
-        colliderOptions:
-          colliderType: 0
-        materialOptions:
-          style: 0
-          texturingType: 0
-          materials: []
-          atlasInfo: {fileID: 0}
-          lightStyleOpacity: 0
-          darkStyleOpacity: 0
-          colorStyleColor: {r: 0, g: 0, b: 0, a: 0}
-          samplePalettes: 0
-          colorPalette: {fileID: 0}
-          customStyleOptions:
-            texturingType: 0
-            materials: []
-            atlasInfo: {fileID: 0}
-            colorPalette: {fileID: 0}
-        performanceOptions:
-          isEnabled: 1
-          entityPerCoroutine: 20
-        honorBuildingIdSetting: 0
-        buildingsWithUniqueIds: 0
-        moveFeaturePositionTo: 1
-        MeshModifiers: []
-        GoModifiers: []
-        presetFeatureType: 3
-        _maskValue: 0
-        selectedTypes: 
-        spawnPrefabOptions:
-          prefab: {fileID: 1064074361305596, guid: 748e2c1db1257594bb438fbb7bd185f0,
-            type: 3}
-          scaleDownWithWorld: 0
-        findByType: 2
-        categories: -1
-        nameString: 
-        coordinates:
-        - 54.572529,-1.232589
-        - 54.572162,-1.232648
-        density: 15
+      vectorSubLayers: []
+      locationPrefabList: []
   _tileProvider: {fileID: 0}
   _previewOptions:
     isPreviewEnabled: 0

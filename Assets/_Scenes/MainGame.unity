@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -878,7 +878,7 @@ PrefabInstance:
     - target: {fileID: 723576529427488296, guid: ec673ac884bb8aa4ab61ee8d40eec112,
         type: 3}
       propertyPath: _locationStrings.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 723576529427488296, guid: ec673ac884bb8aa4ab61ee8d40eec112,
         type: 3}
@@ -895,6 +895,12 @@ PrefabInstance:
       propertyPath: _map
       value: 
       objectReference: {fileID: 1542799197}
+    - target: {fileID: 723576529427488296, guid: ec673ac884bb8aa4ab61ee8d40eec112,
+        type: 3}
+      propertyPath: _markerPrefab
+      value: 
+      objectReference: {fileID: 5671645415187557968, guid: c509bb77d2bd453489bd8dbfed8fecaa,
+        type: 3}
     - target: {fileID: 5812031003065057227, guid: ec673ac884bb8aa4ab61ee8d40eec112,
         type: 3}
       propertyPath: m_Name
@@ -1332,6 +1338,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_CameraType
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8236713836078068820, guid: 4927bc54ace5d0f48a49560c047ccc08,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8240528871826495852, guid: 4927bc54ace5d0f48a49560c047ccc08,
         type: 3}
@@ -2011,6 +2022,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1081375161, guid: 4f2cb20ae56019a43963c295c2e1d5ca, type: 3}
+      propertyPath: m_Name
+      value: ttt
+      objectReference: {fileID: 0}
+    - target: {fileID: 1081375161, guid: 4f2cb20ae56019a43963c295c2e1d5ca, type: 3}
+      propertyPath: m_TagString
+      value: ttt
+      objectReference: {fileID: 0}
     - target: {fileID: 1374919730, guid: 4f2cb20ae56019a43963c295c2e1d5ca, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

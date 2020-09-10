@@ -10,7 +10,7 @@
 	public class SpawnOnMap : MonoBehaviour
 	{
 		[SerializeField]
-		public AbstractMap _map;
+		AbstractMap _map;
 
 		[SerializeField]
 		[Geocode]

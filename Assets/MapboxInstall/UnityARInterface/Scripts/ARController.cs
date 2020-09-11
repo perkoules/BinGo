@@ -149,6 +149,7 @@ namespace UnityARInterface
                 m_ARInterface.SetupCamera(m_ARCamera);
                 m_ARInterface.BackgroundRendering = BackgroundRendering;
                 Application.onBeforeRender += OnBeforeRender;
+                
             }
             else
             {

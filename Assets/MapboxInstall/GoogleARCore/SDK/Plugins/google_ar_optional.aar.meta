@@ -30,8 +30,9 @@ PluginImporter:
   - first:
       Android: Android
     second:
-      enabled: 0
-      settings: {}
+      enabled: 1
+      settings:
+        CPU: ARMv7
   - first:
       Any: 
     second:
@@ -42,7 +43,60 @@ PluginImporter:
     second:
       enabled: 0
       settings:
+        CPU: AnyCPU
         DefaultValueInitialized: true
+        OS: AnyOS
+  - first:
+      Standalone: Linux64
+    second:
+      enabled: 0
+      settings:
+        CPU: x86_64
+  - first:
+      Standalone: OSXUniversal
+    second:
+      enabled: 0
+      settings:
+        CPU: x86_64
+  - first:
+      Standalone: Win
+    second:
+      enabled: 0
+      settings:
+        CPU: x86
+  - first:
+      Standalone: Win64
+    second:
+      enabled: 0
+      settings:
+        CPU: x86_64
+  - first:
+      Windows Store Apps: WindowsStoreApps
+    second:
+      enabled: 0
+      settings:
+        CPU: AnyCPU
+        DontProcess: false
+        PlaceholderPath: 
+        SDK: AnySDK
+        ScriptingBackend: AnyScriptingBackend
+  - first:
+      iPhone: iOS
+    second:
+      enabled: 0
+      settings:
+        AddToEmbeddedBinaries: false
+        CPU: AnyCPU
+        CompileFlags: 
+        FrameworkDependencies: 
+  - first:
+      tvOS: tvOS
+    second:
+      enabled: 0
+      settings:
+        CPU: AnyCPU
+        CompileFlags: 
+        FrameworkDependencies: 
   userData: 
   assetBundleName: 
   assetBundleVariant: 

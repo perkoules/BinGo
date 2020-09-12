@@ -553,7 +553,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1030234193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -728,35 +728,40 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3904248770750464221, guid: 4927bc54ace5d0f48a49560c047ccc08,
+    - target: {fileID: 3305352708808648459, guid: 4927bc54ace5d0f48a49560c047ccc08,
         type: 3}
-      propertyPath: m_Layer
-      value: 9
+      propertyPath: m_LocalRotation.x
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5175227458446359214, guid: 4927bc54ace5d0f48a49560c047ccc08,
+    - target: {fileID: 3305352708808648459, guid: 4927bc54ace5d0f48a49560c047ccc08,
         type: 3}
-      propertyPath: m_Layer
-      value: 9
+      propertyPath: m_LocalRotation.y
+      value: 0.7069834
+      objectReference: {fileID: 0}
+    - target: {fileID: 3305352708808648459, guid: 4927bc54ace5d0f48a49560c047ccc08,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.7072302
+      objectReference: {fileID: 0}
+    - target: {fileID: 3305352708808648459, guid: 4927bc54ace5d0f48a49560c047ccc08,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3305352708808648459, guid: 4927bc54ace5d0f48a49560c047ccc08,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -89.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 3305352708808648459, guid: 4927bc54ace5d0f48a49560c047ccc08,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 8235333934972721746, guid: 4927bc54ace5d0f48a49560c047ccc08,
         type: 3}
       propertyPath: m_Name
       value: LocationMap
-      objectReference: {fileID: 0}
-    - target: {fileID: 8236352220211372762, guid: 4927bc54ace5d0f48a49560c047ccc08,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 8236667841531260650, guid: 4927bc54ace5d0f48a49560c047ccc08,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 8236713836078068820, guid: 4927bc54ace5d0f48a49560c047ccc08,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8240528871826495852, guid: 4927bc54ace5d0f48a49560c047ccc08,
         type: 3}
@@ -812,97 +817,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8347427328580666710, guid: 4927bc54ace5d0f48a49560c047ccc08,
-        type: 3}
-      propertyPath: _vectorData._layerProperty.locationPrefabList.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8347427328580666710, guid: 4927bc54ace5d0f48a49560c047ccc08,
-        type: 3}
-      propertyPath: _vectorData._layerProperty.locationPrefabList.Array.data[0].coordinates.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8347427328580666710, guid: 4927bc54ace5d0f48a49560c047ccc08,
-        type: 3}
-      propertyPath: _terrain._layerProperty.unityLayerOptions.addToLayer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8347427328580666710, guid: 4927bc54ace5d0f48a49560c047ccc08,
-        type: 3}
-      propertyPath: _terrain._layerProperty.unityLayerOptions.layerId
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 8347427328580666710, guid: 4927bc54ace5d0f48a49560c047ccc08,
-        type: 3}
-      propertyPath: _vectorData._layerProperty._sourceType
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8347427328580666710, guid: 4927bc54ace5d0f48a49560c047ccc08,
-        type: 3}
-      propertyPath: _vectorData._layerProperty.sourceOptions.isActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8347427328580666710, guid: 4927bc54ace5d0f48a49560c047ccc08,
-        type: 3}
-      propertyPath: _vectorData._layerProperty.locationPrefabList.Array.data[0].coreOptions.isActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8347427328580666710, guid: 4927bc54ace5d0f48a49560c047ccc08,
-        type: 3}
-      propertyPath: _vectorData._layerProperty.locationPrefabList.Array.data[0].coreOptions.sublayerName
-      value: PPP
-      objectReference: {fileID: 0}
-    - target: {fileID: 8347427328580666710, guid: 4927bc54ace5d0f48a49560c047ccc08,
-        type: 3}
-      propertyPath: _vectorData._layerProperty.locationPrefabList.Array.data[0].coreOptions.snapToTerrain
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8347427328580666710, guid: 4927bc54ace5d0f48a49560c047ccc08,
-        type: 3}
-      propertyPath: _vectorData._layerProperty.locationPrefabList.Array.data[0].presetFeatureType
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8347427328580666710, guid: 4927bc54ace5d0f48a49560c047ccc08,
-        type: 3}
-      propertyPath: _vectorData._layerProperty.locationPrefabList.Array.data[0].categories
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8347427328580666710, guid: 4927bc54ace5d0f48a49560c047ccc08,
-        type: 3}
-      propertyPath: _vectorData._layerProperty.locationPrefabList.Array.data[0].density
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 8347427328580666710, guid: 4927bc54ace5d0f48a49560c047ccc08,
-        type: 3}
-      propertyPath: _vectorData._layerProperty.locationPrefabList.Array.data[0].spawnPrefabOptions.prefab
-      value: 
-      objectReference: {fileID: 9062803930231522174, guid: 8913cbbb43ecd2448babcf1259e6afbd,
-        type: 3}
-    - target: {fileID: 8347427328580666710, guid: 4927bc54ace5d0f48a49560c047ccc08,
-        type: 3}
-      propertyPath: _vectorData._layerProperty.locationPrefabList.Array.data[0].spawnPrefabOptions.scaleDownWithWorld
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8347427328580666710, guid: 4927bc54ace5d0f48a49560c047ccc08,
-        type: 3}
-      propertyPath: _vectorData._layerProperty.locationPrefabList.Array.data[0].findByType
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8347427328580666710, guid: 4927bc54ace5d0f48a49560c047ccc08,
-        type: 3}
-      propertyPath: _vectorData._layerProperty.locationPrefabList.Array.data[0].coordinates.Array.data[0]
-      value: 54.572529,-1.232589
-      objectReference: {fileID: 0}
-    - target: {fileID: 8347427328580666710, guid: 4927bc54ace5d0f48a49560c047ccc08,
-        type: 3}
-      propertyPath: _vectorData._layerProperty.locationPrefabList.Array.data[0].coordinates.Array.data[1]
-      value: 54.572162,-1.232648
-      objectReference: {fileID: 0}
-    - target: {fileID: 8347427328580666710, guid: 4927bc54ace5d0f48a49560c047ccc08,
-        type: 3}
-      propertyPath: _vectorData._layerProperty.locationPrefabList.Array.data[0].coordinates.Array.data[2]
-      value: 60.19188,24.9685822
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4927bc54ace5d0f48a49560c047ccc08, type: 3}

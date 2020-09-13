@@ -731,7 +731,7 @@ MonoBehaviour:
         rangeAroundTransformOptions:
           targetTransform: {fileID: 8240679656692242874}
           visibleBuffer: 2
-          disposeBuffer: 0
+          disposeBuffer: 1
     placementOptions:
       placementType: 1
       snapMapToZero: 0
@@ -790,12 +790,10 @@ MonoBehaviour:
         - aeroway
         - airport_label
         - barrier_line
+        - Bins
         - building
-        - contour
         - country_label
-        - hillshade
         - housenum_label
-        - landcover
         - landuse
         - landuse_overlay
         - marine_label
@@ -807,17 +805,16 @@ MonoBehaviour:
         - road
         - road_label
         - state_label
-        - traffic
         - water
         - water_label
         - waterway
         - waterway_label
-      _sourceType: 3
+      _sourceType: 2
       sourceOptions:
-        isActive: 0
+        isActive: 1
         layerSource:
           Name: Mapbox Terrain
-          Id: mapbox.3d-buildings,mapbox.mapbox-streets-v7,mapbox.mapbox-traffic-v1,mapbox.mapbox-terrain-v2
+          Id: mapbox.mapbox-streets-v7,perkoules.cke8ggc8g1gf029o6l6c914f8-2at9l
           Modified: 
           UserName: 
       useOptimizedStyle: 0
@@ -830,74 +827,7 @@ MonoBehaviour:
         isEnabled: 1
         entityPerCoroutine: 20
       vectorSubLayers: []
-      locationPrefabList:
-      - coreOptions:
-          sourceId: 
-          isActive: 1
-          sublayerName: PPP
-          geometryType: 0
-          layerName: 
-          snapToTerrain: 1
-          combineMeshes: 0
-        lineGeometryOptions:
-          Width: 0
-          MiterLimit: 0
-          RoundLimit: 0
-          JoinType: 0
-          CapType: 0
-        filterOptions:
-          _selectedLayerName: 
-          filters: []
-          combinerType: 0
-        extrusionOptions:
-          _selectedLayerName: 
-          extrusionType: 0
-          extrusionGeometryType: 0
-          propertyName: height
-          propertyDescription: 
-          minimumHeight: 0
-          maximumHeight: 0
-          extrusionScaleFactor: 1
-        colliderOptions:
-          colliderType: 0
-        materialOptions:
-          style: 0
-          texturingType: 0
-          materials: []
-          atlasInfo: {fileID: 0}
-          lightStyleOpacity: 0
-          darkStyleOpacity: 0
-          colorStyleColor: {r: 0, g: 0, b: 0, a: 0}
-          samplePalettes: 0
-          colorPalette: {fileID: 0}
-          customStyleOptions:
-            texturingType: 0
-            materials: []
-            atlasInfo: {fileID: 0}
-            colorPalette: {fileID: 0}
-        performanceOptions:
-          isEnabled: 1
-          entityPerCoroutine: 20
-        honorBuildingIdSetting: 0
-        buildingsWithUniqueIds: 0
-        moveFeaturePositionTo: 1
-        MeshModifiers: []
-        GoModifiers: []
-        presetFeatureType: 3
-        _maskValue: 0
-        selectedTypes: 
-        spawnPrefabOptions:
-          prefab: {fileID: 9062803930231522174, guid: 8913cbbb43ecd2448babcf1259e6afbd,
-            type: 3}
-          scaleDownWithWorld: 0
-        findByType: 2
-        categories: 0
-        nameString: 
-        coordinates:
-        - 54.572529,-1.232589
-        - 54.572162,-1.232648
-        - 60.19188,24.9685822
-        density: 15
+      locationPrefabList: []
   _tileProvider: {fileID: 0}
   _previewOptions:
     isPreviewEnabled: 0

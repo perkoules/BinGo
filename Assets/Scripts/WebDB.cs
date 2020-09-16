@@ -14,7 +14,7 @@ public class WebDB : MonoBehaviour
     private static string getRegisterUrl = "http://localhost/UnityDatabases/Register.php";
 
     public TMP_InputField userNameInput, passwordInput;
-    public TMP_InputField userNameRegisterInput, passwordRegisterInput;
+    public TMP_InputField userNameRegisterInput, passwordRegisterInput, emailRegisterInput;
     public TMP_Dropdown countryRegisterInput, avatarRegisterInput;
     public GameObject warningLogin, warningRegister;
 
@@ -96,27 +96,30 @@ public class WebDB : MonoBehaviour
     {
         if (registrationValidity.IsValid())
         {
-            StartCoroutine(Register(userNameRegisterInput.text, passwordRegisterInput.text, countryRegisterInput.captionText.text, avatarRegisterInput.captionText.text));
+            StartCoroutine(Register(userNameRegisterInput.text, passwordRegisterInput.text, emailRegisterInput.text,
+                countryRegisterInput.captionText.text, avatarRegisterInput.captionText.text));
         }
         else
         {
             warningRegister.SetActive(true);
             TextMeshProUGUI txt = warningRegister.GetComponentInChildren<TextMeshProUGUI>();
-            txt.text = "Username and Password must be more than 8 characters";
+            txt.text = "Check your credentials again";
         }
     }
 
-    IEnumerator Register(string username, string password, string country, string avatar)
+    IEnumerator Register(string username, string password, string email, string country, string avatar)
     {
         WWWForm form = new WWWForm();
         form.AddField("registerUser", username);
         form.AddField("registerPass", password);
+        form.AddField("registerEmail", email);
         form.AddField("registerCountry", country);
         form.AddField("registerAvatar", avatar);
         form.AddField("registerTeam", "no team");
         form.AddField("registerLevel", 1);
         form.AddField("registerRubbish", 0);
         form.AddField("registerCoins", 0);
+
         using (UnityWebRequest www = UnityWebRequest.Post(getRegisterUrl, form))
         {
             yield return www.SendWebRequest();

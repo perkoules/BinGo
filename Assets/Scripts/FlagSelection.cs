@@ -4,7 +4,7 @@ using System.Net.Http.Headers;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 
 public class FlagSelection : MonoBehaviour
 {
@@ -13,25 +13,36 @@ public class FlagSelection : MonoBehaviour
     public string selectedCountryName;
     public Dictionary<string, Sprite> countries = new Dictionary<string, Sprite>();
 
-    private void Start()
+    public TMP_Dropdown dropdown;
+    public List<Sprite> countryFlag = new List<Sprite>();
+    public List<string> countryName = new List<string>();
+
+    public List<TMP_Dropdown.OptionData> options = new List<TMP_Dropdown.OptionData>();
+    private void Awake()
     {
-        selectedCountryName ="Greece";
+        dropdown = dropdown.GetComponent<TMP_Dropdown>();
+        dropdown.ClearOptions();
         Image[] imagesObj = gameObject.GetComponentsInChildren<Image>();
         foreach (var item in imagesObj)
         {
-            countries.Add(item.sprite.name, item.sprite);
+            countryFlag.Add(item.sprite);
+            countryName.Add(item.sprite.name);
+            options.Add(new TMP_Dropdown.OptionData { image = item.sprite, text = item.sprite.name });
         }
-    }
+        dropdown.AddOptions(options);
 
-    private void Update()
+    }
+    /*private void Start()
     {
-        if (!countries.ContainsKey(selectedCountryName))
+        dropdown.AddOptions(countryName);
+        dropdown.AddOptions(countryFlag);
+    }*/
+    [System.Serializable]
+    public class OptionData
+    {
+        public OptionData(string str, Sprite spr)
         {
-            selectedFlag.sprite = noneSelected;
-        }
-        else
-        {
-            selectedFlag.sprite = countries[selectedCountryName];
+            
         }
     }
 }

@@ -24,10 +24,9 @@ public class RegistrationValidity : MonoBehaviour
         passwordInputField.onValueChanged.AddListener(CheckLength);
         emailInputField.onValueChanged.AddListener(CheckEmail);
     }
-
     private void CheckEmail(string email)
     {
-        if (email.EndsWith("@google.com") || email.EndsWith("@outlook.com") || email.EndsWith("@yahoo.com"))
+        if (email.EndsWith("@gmail.com") || email.EndsWith("@outlook.com") || email.EndsWith("@yahoo.com"))
         {
             emailInputField.image.color = colorDefault;
         }

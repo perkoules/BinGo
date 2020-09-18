@@ -32,17 +32,5 @@ public class FlagSelection : MonoBehaviour
         dropdown.AddOptions(options);
 
     }
-    /*private void Start()
-    {
-        dropdown.AddOptions(countryName);
-        dropdown.AddOptions(countryFlag);
-    }*/
-    [System.Serializable]
-    public class OptionData
-    {
-        public OptionData(string str, Sprite spr)
-        {
-            
-        }
-    }
+    
 }

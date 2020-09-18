@@ -16,7 +16,7 @@ public class SettingsController : MonoBehaviour
         {
             toggles.Add(tog);
         }
-        if (FindObjectOfType<PlayfabManager>().GetWasRegistered() == "YES")
+        if (FindObjectOfType<PlayfabManager>().GetGuestPlayerRegistered() == "YES")
         {
             int index = toggles.FindIndex(t => t.name.Contains("Register") == true);
             toggles[index].image.color = enabledColor;

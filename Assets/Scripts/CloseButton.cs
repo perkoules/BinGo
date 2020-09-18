@@ -19,7 +19,6 @@ public class CloseButton : MonoBehaviour
         if (button.name.Contains("Exit"))
         {
             Application.Quit();
-            Debug.LogError("Cant close device");
         }
         else
         {

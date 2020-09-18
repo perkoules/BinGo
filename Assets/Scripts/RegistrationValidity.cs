@@ -26,18 +26,18 @@ public class RegistrationValidity : MonoBehaviour
     }
     private void CheckEmail(string email)
     {
-        if (email.EndsWith("@gmail.com") || email.EndsWith("@outlook.com") || email.EndsWith("@yahoo.com"))
+        /*if (email.EndsWith("@gmail.com") || email.EndsWith("@outlook.com") || email.EndsWith("@yahoo.com"))
         {
             emailInputField.image.color = colorDefault;
         }
         else
         {
             emailInputField.image.color = Color.red;
-        }
+        }*/
     }
     private void CheckLength(string str)
     {
-        if(usernameInputField.text.Length < 8)
+        if(usernameInputField.text.Length < 5)
         {
             usernameInputField.image.color = Color.red;
         }

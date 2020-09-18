@@ -16,7 +16,7 @@ public class SettingsController : MonoBehaviour
         {
             toggles.Add(tog);
         }
-        if (PlayerPrefs.HasKey("EMAIL"))
+        if (FindObjectOfType<PlayerPrefsManager>().GetWasregistered() == "YES")
         {
             int index = toggles.FindIndex(t => t.name.Contains("Register") == true);
             toggles[index].image.color = enabledColor;

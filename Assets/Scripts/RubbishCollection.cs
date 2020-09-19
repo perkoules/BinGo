@@ -16,7 +16,7 @@ public class RubbishCollection : MonoBehaviour
         button = GetComponent<Button>();
         button.onClick.AddListener(Increase);
     }
-
+    
     private void Increase()
     {
         rubbishCollected += 1;

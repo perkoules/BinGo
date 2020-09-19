@@ -1,11 +1,13 @@
 ﻿using PlayFab;
 using PlayFab.AuthenticationModels;
 using PlayFab.ClientModels;
+using PlayFab.Internal;
 using PlayFab.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -243,20 +245,20 @@ public class PlayfabManager : MonoBehaviour
     private int rubbishCollected = 0;
     private int coinsAvailable = 0;
 
-    public void StartCloudUpdatePlayerStats()
+    public void UpdatePlayerStatisticsOnCloud()
     {
         PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
         {
-            FunctionName = "UpdatePlayerStats", // Arbitrary function name (must exist in your uploaded cloud.js file)
-            FunctionParameter = new { cloudProgressLevel = progressLevel, cloudRubbishCollected =rubbishCollected, cloudCoinsAvailable =coinsAvailable }, // The parameter provided to your function
-            GeneratePlayStreamEvent = true, // Optional - Shows this event in PlayStream
-        }, OnCloudUpdatePlayerStats, OnErrorShared);
+            FunctionName = "UpdatePlayerStats", 
+            FunctionParameter = new { cloudProgressLevel = progressLevel, cloudRubbishCollected =rubbishCollected, cloudCoinsAvailable =coinsAvailable }, 
+            GeneratePlayStreamEvent = true,
+        }, UpdatePlayerStatisticsOnCloudResults, OnErrorShared);
     }
-    private static void OnCloudUpdatePlayerStats(ExecuteCloudScriptResult result)
+    private static void UpdatePlayerStatisticsOnCloudResults(ExecuteCloudScriptResult result)
     {
         Debug.Log(PlayFabSimpleJson.SerializeObject(result.FunctionResult));
         JsonObject jsonResult = (JsonObject)result.FunctionResult;
-        jsonResult.TryGetValue("messageValue", out object messageValue); // note how "messageValue" directly corresponds to the JSON values set in CloudScript
+        jsonResult.TryGetValue("messageValue", out object messageValue);
         Debug.Log((string)messageValue);
     }
     private static void OnErrorShared(PlayFabError error)
@@ -341,8 +343,94 @@ public class PlayfabManager : MonoBehaviour
     {
         rubbishCollected = rubbish;
     }
+    public void GetPlayerStatisticsFromCloud()
+    {
+        PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
+        {
+            FunctionName = "GetPlayerProgressLevel",
+            FunctionParameter = new
+            {
+                cloudProgressLevel = progressLevel
+            },
+            GeneratePlayStreamEvent = true,
+        }, GetPlayerStatisticsResults, GetPlayerStatisticsResultsError);
+        PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
+        {
+            FunctionName = "GetPlayerRubbish",
+            FunctionParameter = new
+            {
+                cloudRubbishCollected = rubbishCollected
+            },
+            GeneratePlayStreamEvent = true,
+        }, GetPlayerStatisticsResults, GetPlayerStatisticsResultsError);
+        PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
+        {
+            FunctionName = "GetPlayerCoins",
+            FunctionParameter = new
+            {
+                cloudCoinsAvailable = coinsAvailable
+            },
+            GeneratePlayStreamEvent = true,
+        }, GetPlayerStatisticsResults, GetPlayerStatisticsResultsError);
+    }
+    private void GetPlayerStatisticsResults(ExecuteCloudScriptResult result)
+    {
+        /*Debug.Log(PlayFabSimpleJson.SerializeObject(result.FunctionResult));
+        int k = Convert.ToInt32(result.FunctionResult);
+        Debug.LogError(k);*/
+        string functionName = result.FunctionName;
+        switch (functionName)
+        {
+            case "GetPlayerProgressLevel":
+                Debug.Log("Progress: " + Convert.ToInt32(result.FunctionResult));
+                break;
+            case "GetPlayerRubbish":
+                Debug.Log("Rubbish: " + Convert.ToInt32(result.FunctionResult));
+                break;
+            case "GetPlayerCoins":
+                Debug.Log("Coins: " + Convert.ToInt32(result.FunctionResult));
+                break;
+            default:
+                break;
+        }
+    }
+    private void GetPlayerStatisticsResultsError(PlayFabError error)
+    {
+        Debug.Log("Cloud Script call failed");
+        Debug.Log(error.GenerateErrorReport());
+    }
 
+    #region Unused Playfab
+    public void SetStats()
+    {
+        PlayFabClientAPI.UpdatePlayerStatistics(new UpdatePlayerStatisticsRequest
+        {
+            // request.Statistics is a list, so multiple StatisticUpdate objects can be defined if required.
+            Statistics = new List<StatisticUpdate> {
+                new StatisticUpdate { StatisticName = "ProgressLevel", Value = progressLevel },
+                new StatisticUpdate { StatisticName = "RubbishCollected", Value = rubbishCollected },
+                new StatisticUpdate { StatisticName = "CoinsAvailable", Value = coinsAvailable },
 
-
-    
+            }
+        },
+        result => { Debug.Log("User statistics updated"); },
+        error => { Debug.LogError(error.GenerateErrorReport()); });
+    }
+    void GetStats()
+    {
+        PlayFabClientAPI.GetPlayerStatistics(
+            new GetPlayerStatisticsRequest(),
+            OnGetStats,
+            error => Debug.LogError(error.GenerateErrorReport())
+        );
+    }
+    void OnGetStats(GetPlayerStatisticsResult result)
+    {
+        Debug.Log("Received the following Statistics:");
+        foreach (var eachStat in result.Statistics)
+        {
+            Debug.Log("Statistic (" + eachStat.StatisticName + "): " + eachStat.Value);
+        }
+    }
+    #endregion
 }

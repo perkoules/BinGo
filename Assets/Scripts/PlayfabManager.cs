@@ -1,11 +1,14 @@
 ﻿using PlayFab;
+using PlayFab.AuthenticationModels;
 using PlayFab.ClientModels;
 using PlayFab.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class PlayfabManager : MonoBehaviour
 {
@@ -14,7 +17,7 @@ public class PlayfabManager : MonoBehaviour
     private string username;
     private MessageController messageController;
     public static PlayfabManager Instance { get; private set; }
-    private void Awake()
+    private void OnEnable()
     {
         if (Instance != null && Instance != this)
         {
@@ -25,7 +28,7 @@ public class PlayfabManager : MonoBehaviour
             Instance = this;
         }
     }
-    public void Start()
+    public void Awake()
     {
         if (string.IsNullOrEmpty(PlayFabSettings.TitleId))
         {
@@ -38,30 +41,32 @@ public class PlayfabManager : MonoBehaviour
         }
     }
 
+    public TextMeshProUGUI rubbishCollectedDisplay;
+    private void Start()
+    {
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            rubbishCollectedDisplay = rubbishCollectedDisplay.GetComponent<TextMeshProUGUI>();
+        }
+    }
+
     #region Login
     private void AutoLogin()
     {
-        if (PlayerPrefs.HasKey("EMAIL"))
+        if (PlayerPrefs.HasKey(EMAIL_GIVEN) && SceneManager.GetActiveScene().buildIndex == 0)
         {
-            userEmail = PlayerPrefs.GetString("EMAIL");
-            userPassword = PlayerPrefs.GetString("PASSWORD");
+            userEmail = GetUserEmail();
+            userPassword = GetUserPassword();
             var request = new LoginWithEmailAddressRequest { Email = userEmail, Password = userPassword };
-            PlayFabClientAPI.LoginWithEmailAddress(request, OnLoginSuccess, OnLoginFailure);
-        }
-        else
-        {
-            /*if (SceneManager.GetActiveScene().buildIndex == 0)
-            {
-                StartCoroutine(LoggingProcessSucceededFailed());
-            }*/
+            PlayFabClientAPI.LoginWithEmailAddress(request, OnLoginSuccess, OnLoginFailure);        
         }
     }
     public void GuestMode()
     {
         var requestAndroid = new LoginWithAndroidDeviceIDRequest { AndroidDeviceId = ReturnAndroidID(), CreateAccount = true };
-        PlayFabClientAPI.LoginWithAndroidDeviceID(requestAndroid, OnLoginAndroidSuccess, OnLoginAndroidFailure);
+        PlayFabClientAPI.LoginWithAndroidDeviceID(requestAndroid, OnLoginSuccess, OnLoginFailure);
     }
-    public void OnClickLogin()
+    public void ClickToLogin()
     {
         var request = new LoginWithEmailAddressRequest { Email = userEmail, Password = userPassword };
         PlayFabClientAPI.LoginWithEmailAddress(request, OnLoginSuccess, OnLoginFailure);
@@ -71,30 +76,10 @@ public class PlayfabManager : MonoBehaviour
         string device = SystemInfo.deviceUniqueIdentifier;
         return device;
     }
-    private void OnLoginAndroidSuccess(LoginResult result)
-    {
-        /*if (SceneManager.GetActiveScene().buildIndex == 0){SceneManager.LoadScene(1);}*/
-        PlayerPrefs.SetString("EMAIL", userEmail);
-        PlayerPrefs.SetString("PASSWORD", userPassword);
-        //SetGuestPlayerRegistered("YES");
-        if (SceneManager.GetActiveScene().buildIndex == 0)
-        {
-            messageController.messages[0].SetActive(true);
-            StartCoroutine(LoggingProcessSucceeded());
-        }
-    }
-    private void OnLoginAndroidFailure(PlayFabError error)
-    {
-        if (SceneManager.GetActiveScene().buildIndex == 0)
-        {
-            messageController.messages[1].SetActive(true);
-            StartCoroutine(LoggingProcessSucceededFailed());
-        }
-    }
     private void OnLoginSuccess(LoginResult result)
     {
-        PlayerPrefs.SetString("EMAIL", userEmail);
-        PlayerPrefs.SetString("PASSWORD", userPassword);
+        GetUserEmail();
+        GetUserPassword();
         SetGuestPlayerRegistered("YES");
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
@@ -107,7 +92,7 @@ public class PlayfabManager : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
             messageController.messages[1].SetActive(true);
-            StartCoroutine(LoggingProcessSucceededFailed());
+            StartCoroutine(LoggingProcessFailed());
         }
     }
 
@@ -121,8 +106,9 @@ public class PlayfabManager : MonoBehaviour
     }
     private void OnRegisterSuccess(RegisterPlayFabUserResult result)
     {
-        PlayerPrefs.SetString("EMAIL", userEmail);
-        PlayerPrefs.SetString("PASSWORD", userPassword);
+        SetUserEmail(userEmail);
+        SetUserPassword(userPassword);
+        PlayFabClientAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest { DisplayName = username }, OnDisplayName, OnRegisterFailure);
         SetCountry();
         SetAvatar();
         if (SceneManager.GetActiveScene().buildIndex == 0)
@@ -130,6 +116,10 @@ public class PlayfabManager : MonoBehaviour
             messageController.messages[0].SetActive(true);
             StartCoroutine(LoggingProcessSucceeded());
         }
+    }
+    private void OnDisplayName(UpdateUserTitleDisplayNameResult obj)
+    {
+        Debug.Log(obj.DisplayName + " is your new display name");
     }
     private void OnRegisterFailure(PlayFabError error)
     {
@@ -146,8 +136,11 @@ public class PlayfabManager : MonoBehaviour
     }
     private void OnRegisterGuestSuccess(AddUsernamePasswordResult result)
     {
-        PlayerPrefs.SetString("EMAIL", userEmail);
-        PlayerPrefs.SetString("PASSWORD", userPassword);
+        SetUserEmail(userEmail);
+        SetUserPassword(userPassword);
+        PlayFabClientAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest { DisplayName = username }, OnDisplayName, OnRegisterFailure);
+        SetCountry();
+        SetAvatar();
         SetGuestPlayerRegistered("YES");
         messageController.messages[0].SetActive(true);
     }
@@ -170,20 +163,19 @@ public class PlayfabManager : MonoBehaviour
             }
         }
     }
-    IEnumerator LoggingProcessSucceededFailed()
+    IEnumerator LoggingProcessFailed()
     {
         yield return new WaitForSeconds(3);
-        if (messageController.messages[0].activeSelf)
+        if (SceneManager.GetActiveScene().buildIndex == 0)
         {
-            messageController.messages[0].SetActive(false);
-        }
-        if (messageController.messages[2].activeSelf)
-        {
-            messageController.messages[2].SetActive(false);
+            
         }
     }
 
-    #region Getter/Setters
+
+
+    #region Global Getters and Setters
+    public TMP_Dropdown countryDropdown, avatarDropdown;
     public void GetUsername(string usernameIn)
     {
         username = usernameIn;
@@ -196,7 +188,6 @@ public class PlayfabManager : MonoBehaviour
     {
         userEmail = emailIn;
     }
-    public TMP_Dropdown countryDropdown, avatarDropdown;
     public void SetCountry()
     {
         country = countryDropdown.captionText.text;
@@ -205,7 +196,11 @@ public class PlayfabManager : MonoBehaviour
     {
         avatar = avatarDropdown.captionText.text;
     }
+    
+    /*-----------------------Player Prefs-----------------------*/
     private const string REGISTER_FROM_GUEST = "RegisterFromGuest";
+    private const string EMAIL_GIVEN = "EmailGiven";
+    private const string PASSWORD_GIVEN = "PasswordGiven";
     public void SetGuestPlayerRegistered(string reg)
     {
         PlayerPrefs.SetString(REGISTER_FROM_GUEST, reg);
@@ -214,50 +209,34 @@ public class PlayfabManager : MonoBehaviour
     {
         return PlayerPrefs.GetString(REGISTER_FROM_GUEST);
     }
+    public void SetUserEmail(string usrEmail)
+    {
+        PlayerPrefs.SetString(EMAIL_GIVEN, usrEmail);
+    }
+    public string GetUserEmail()
+    {
+        return PlayerPrefs.GetString(EMAIL_GIVEN);
+    }
+    public void SetUserPassword(string usrPassword)
+    {
+        PlayerPrefs.SetString(PASSWORD_GIVEN, usrPassword);
+    }
+    public string GetUserPassword()
+    {
+        return PlayerPrefs.GetString(PASSWORD_GIVEN);
+    }
+    
     #endregion
 
 
     /*--------------------------------------------------------------------------------------------------*/
     public void LogOut()
     {
-        PlayFabClientAPI.ForgetAllCredentials();
-        //PlayerPrefs.DeleteAll();
+        PlayFabAuthenticationAPI.ForgetAllCredentials();
+        PlayerPrefs.DeleteKey(EMAIL_GIVEN);
         SceneManager.LoadScene(0, LoadSceneMode.Single);
     }
-
-    #region Unused
-    /*public void SetStats()
-    {
-        PlayFabClientAPI.UpdatePlayerStatistics(new UpdatePlayerStatisticsRequest
-        {
-            // request.Statistics is a list, so multiple StatisticUpdate objects can be defined if required.
-            Statistics = new List<StatisticUpdate> {
-                new StatisticUpdate { StatisticName = "ProgressLevel", Value = progressLevel },
-                new StatisticUpdate { StatisticName = "RubbishCollected", Value = rubbishCollected },
-                new StatisticUpdate { StatisticName = "CoinsAvailable", Value = coinsAvailable },
-
-            }
-        },
-        result => { Debug.Log("User statistics updated"); },
-        error => { Debug.LogError(error.GenerateErrorReport()); });
-    }
-    void GetStats()
-    {
-        PlayFabClientAPI.GetPlayerStatistics(
-            new GetPlayerStatisticsRequest(),
-            OnGetStats,
-            error => Debug.LogError(error.GenerateErrorReport())
-        );
-    }
-    void OnGetStats(GetPlayerStatisticsResult result)
-    {
-        Debug.Log("Received the following Statistics:");
-        foreach (var eachStat in result.Statistics)
-        {
-            Debug.Log("Statistic (" + eachStat.StatisticName + "): " + eachStat.Value);
-        }
-    } */
-    #endregion
+    
 
     #region PlayerStats    
     private int progressLevel = 1;
@@ -285,7 +264,6 @@ public class PlayfabManager : MonoBehaviour
         Debug.Log(error.GenerateErrorReport());
     }
     #endregion
-
 
     #region PlayerData
     private string country = "Australia";
@@ -335,9 +313,30 @@ public class PlayfabManager : MonoBehaviour
     }
     #endregion
 
+    #region PlayerLeaderboard
+
+
+
+    public void GetLeaderboard()
+    {
+        var requestLeaderboard = new GetLeaderboardRequest { StartPosition = 0, StatisticName = "RubbishCollected", MaxResultsCount = 20 };
+        PlayFabClientAPI.GetLeaderboard(requestLeaderboard, OnGetLeaderboard, OnErrorLeaderboard);
+    }
+    private void OnGetLeaderboard(GetLeaderboardResult result)
+    {
+        //Debug.Log(result.Leaderboard[0].StatValue);
+        foreach (PlayerLeaderboardEntry player in result.Leaderboard)
+        {
+            Debug.Log(player.DisplayName + " : " + player.StatValue);
+        }
+    }
+    private void OnErrorLeaderboard(PlayFabError error)
+    {
+        Debug.LogError("Error Loading Leadderboard");
+    }
+    #endregion
+
     
-
-
     public void SetRubbishCollection(int rubbish)
     {
         rubbishCollected = rubbish;

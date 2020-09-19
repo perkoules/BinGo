@@ -157,4 +157,39 @@ public class WebDB : MonoBehaviour
     }
 
     #endregion
+
+    #region Unused Playfab
+    /*public void SetStats()
+    {
+        PlayFabClientAPI.UpdatePlayerStatistics(new UpdatePlayerStatisticsRequest
+        {
+            // request.Statistics is a list, so multiple StatisticUpdate objects can be defined if required.
+            Statistics = new List<StatisticUpdate> {
+                new StatisticUpdate { StatisticName = "ProgressLevel", Value = progressLevel },
+                new StatisticUpdate { StatisticName = "RubbishCollected", Value = rubbishCollected },
+                new StatisticUpdate { StatisticName = "CoinsAvailable", Value = coinsAvailable },
+
+            }
+        },
+        result => { Debug.Log("User statistics updated"); },
+        error => { Debug.LogError(error.GenerateErrorReport()); });
+    }
+    void GetStats()
+    {
+        PlayFabClientAPI.GetPlayerStatistics(
+            new GetPlayerStatisticsRequest(),
+            OnGetStats,
+            error => Debug.LogError(error.GenerateErrorReport())
+        );
+    }
+    void OnGetStats(GetPlayerStatisticsResult result)
+    {
+        Debug.Log("Received the following Statistics:");
+        foreach (var eachStat in result.Statistics)
+        {
+            Debug.Log("Statistic (" + eachStat.StatisticName + "): " + eachStat.Value);
+        }
+    } */
+    #endregion
+
 }

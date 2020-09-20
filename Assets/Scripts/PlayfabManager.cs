@@ -1,19 +1,14 @@
 ﻿using PlayFab;
-using PlayFab.AuthenticationModels;
 using PlayFab.ClientModels;
-using PlayFab.Internal;
 using PlayFab.Json;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class PlayfabManager : MonoBehaviour
 {
+    public PlayerStats stats;
     private string userEmail;
     private string userPassword;
     private string username;
@@ -43,12 +38,11 @@ public class PlayfabManager : MonoBehaviour
         }
     }
 
-    public TextMeshProUGUI rubbishCollectedDisplay;
     private void Start()
     {
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
-            rubbishCollectedDisplay = rubbishCollectedDisplay.GetComponent<TextMeshProUGUI>();
+            GetPlayerStats();            
         }
     }
 
@@ -60,7 +54,7 @@ public class PlayfabManager : MonoBehaviour
             userEmail = GetUserEmail();
             userPassword = GetUserPassword();
             var request = new LoginWithEmailAddressRequest { Email = userEmail, Password = userPassword };
-            PlayFabClientAPI.LoginWithEmailAddress(request, OnLoginSuccess, OnLoginFailure);        
+            PlayFabClientAPI.LoginWithEmailAddress(request, OnLoginSuccess, OnLoginFailure);
         }
     }
     public void GuestMode()
@@ -111,8 +105,8 @@ public class PlayfabManager : MonoBehaviour
         SetUserEmail(userEmail);
         SetUserPassword(userPassword);
         PlayFabClientAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest { DisplayName = username }, OnDisplayName, OnRegisterFailure);
-        SetCountry();
-        SetAvatar();
+        /*SetCountry();
+        SetAvatar();*/
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
             messageController.messages[0].SetActive(true);
@@ -141,8 +135,8 @@ public class PlayfabManager : MonoBehaviour
         SetUserEmail(userEmail);
         SetUserPassword(userPassword);
         PlayFabClientAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest { DisplayName = username }, OnDisplayName, OnRegisterFailure);
-        SetCountry();
-        SetAvatar();
+        /*SetCountry();
+        SetAvatar();*/
         SetGuestPlayerRegistered("YES");
         messageController.messages[0].SetActive(true);
     }
@@ -155,7 +149,6 @@ public class PlayfabManager : MonoBehaviour
     IEnumerator LoggingProcessSucceeded()
     {
         yield return new WaitForSeconds(3);
-        SetPlayerData();
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
             if (messageController.messages[0].activeSelf)
@@ -174,10 +167,8 @@ public class PlayfabManager : MonoBehaviour
         }
     }
 
-
-
     #region Global Getters and Setters
-    public TMP_Dropdown countryDropdown, avatarDropdown;
+    //public TMP_Dropdown countryDropdown, avatarDropdown;
     public void GetUsername(string usernameIn)
     {
         username = usernameIn;
@@ -190,14 +181,14 @@ public class PlayfabManager : MonoBehaviour
     {
         userEmail = emailIn;
     }
-    public void SetCountry()
+    /*public void SetCountry()
     {
         country = countryDropdown.captionText.text;
     }
     public void SetAvatar()
     {
         avatar = avatarDropdown.captionText.text;
-    }
+    }*/
     
     /*-----------------------Player Prefs-----------------------*/
     private const string REGISTER_FROM_GUEST = "RegisterFromGuest";
@@ -230,16 +221,8 @@ public class PlayfabManager : MonoBehaviour
     
     #endregion
 
-
     /*--------------------------------------------------------------------------------------------------*/
-    public void LogOut()
-    {
-        PlayFabAuthenticationAPI.ForgetAllCredentials();
-        PlayerPrefs.DeleteKey(EMAIL_GIVEN);
-        SceneManager.LoadScene(0, LoadSceneMode.Single);
-    }
     
-
     #region PlayerStats    
     private int progressLevel = 1;
     private int rubbishCollected = 0;
@@ -252,23 +235,22 @@ public class PlayfabManager : MonoBehaviour
             FunctionName = "UpdatePlayerStats", 
             FunctionParameter = new { cloudProgressLevel = progressLevel, cloudRubbishCollected =rubbishCollected, cloudCoinsAvailable =coinsAvailable }, 
             GeneratePlayStreamEvent = true,
-        }, UpdatePlayerStatisticsOnCloudResults, OnErrorShared);
+        }, 
+        result => GetPlayerStats(),
+        error => Debug.Log(error.GenerateErrorReport()));
     }
     private static void UpdatePlayerStatisticsOnCloudResults(ExecuteCloudScriptResult result)
     {
-        Debug.Log(PlayFabSimpleJson.SerializeObject(result.FunctionResult));
+        /*Debug.Log(PlayFabSimpleJson.SerializeObject(result.FunctionResult));
         JsonObject jsonResult = (JsonObject)result.FunctionResult;
         jsonResult.TryGetValue("messageValue", out object messageValue);
-        Debug.Log((string)messageValue);
+        Debug.Log((string)messageValue);*/
     }
-    private static void OnErrorShared(PlayFabError error)
-    {
-        Debug.Log(error.GenerateErrorReport());
-    }
+    
     #endregion
 
     #region PlayerData
-    private string country = "Australia";
+    /*private string country = "Australia";
     private string avatar = "Avatar 1";
     private string teamname = "no team";
     void SetPlayerData()
@@ -312,7 +294,7 @@ public class PlayfabManager : MonoBehaviour
         Debug.Log("Congratulations, you made your first successful API call!");
         SetPlayerData();
         GetPlayerData(result.PlayFabId);
-    }
+    }*/
     #endregion
 
     #region PlayerLeaderboard
@@ -337,100 +319,62 @@ public class PlayfabManager : MonoBehaviour
         Debug.LogError("Error Loading Leadderboard");
     }
     #endregion
-
     
-    public void SetRubbishCollection(int rubbish)
+    public void Initialization()
     {
-        rubbishCollected = rubbish;
-    }
-    public void GetPlayerStatisticsFromCloud()
-    {
-        PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
+        foreach (var item in stats.levelTextDisplay)
         {
-            FunctionName = "GetPlayerProgressLevel",
-            FunctionParameter = new
-            {
-                cloudProgressLevel = progressLevel
-            },
-            GeneratePlayStreamEvent = true,
-        }, GetPlayerStatisticsResults, GetPlayerStatisticsResultsError);
-        PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
+            item.text = progressLevel.ToString();
+        }
+        foreach (var item in stats.rubbishTextDisplay)
         {
-            FunctionName = "GetPlayerRubbish",
-            FunctionParameter = new
-            {
-                cloudRubbishCollected = rubbishCollected
-            },
-            GeneratePlayStreamEvent = true,
-        }, GetPlayerStatisticsResults, GetPlayerStatisticsResultsError);
-        PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
-        {
-            FunctionName = "GetPlayerCoins",
-            FunctionParameter = new
-            {
-                cloudCoinsAvailable = coinsAvailable
-            },
-            GeneratePlayStreamEvent = true,
-        }, GetPlayerStatisticsResults, GetPlayerStatisticsResultsError);
-    }
-    private void GetPlayerStatisticsResults(ExecuteCloudScriptResult result)
-    {
-        /*Debug.Log(PlayFabSimpleJson.SerializeObject(result.FunctionResult));
-        int k = Convert.ToInt32(result.FunctionResult);
-        Debug.LogError(k);*/
-        string functionName = result.FunctionName;
-        switch (functionName)
-        {
-            case "GetPlayerProgressLevel":
-                Debug.Log("Progress: " + Convert.ToInt32(result.FunctionResult));
-                break;
-            case "GetPlayerRubbish":
-                Debug.Log("Rubbish: " + Convert.ToInt32(result.FunctionResult));
-                break;
-            case "GetPlayerCoins":
-                Debug.Log("Coins: " + Convert.ToInt32(result.FunctionResult));
-                break;
-            default:
-                break;
+            item.text = rubbishCollected.ToString();
         }
     }
-    private void GetPlayerStatisticsResultsError(PlayFabError error)
+    public void LogOut()
     {
-        Debug.Log("Cloud Script call failed");
-        Debug.Log(error.GenerateErrorReport());
+        PlayFabAuthenticationAPI.ForgetAllCredentials();
+        PlayerPrefs.DeleteKey(EMAIL_GIVEN);
+        SceneManager.LoadScene(0, LoadSceneMode.Single);
+    }
+    public void SetRubbishCollection()
+    {
+        rubbishCollected ++;
+        UpdatePlayerStatisticsOnCloud();
     }
 
-    #region Unused Playfab
-    public void SetStats()
-    {
-        PlayFabClientAPI.UpdatePlayerStatistics(new UpdatePlayerStatisticsRequest
-        {
-            // request.Statistics is a list, so multiple StatisticUpdate objects can be defined if required.
-            Statistics = new List<StatisticUpdate> {
-                new StatisticUpdate { StatisticName = "ProgressLevel", Value = progressLevel },
-                new StatisticUpdate { StatisticName = "RubbishCollected", Value = rubbishCollected },
-                new StatisticUpdate { StatisticName = "CoinsAvailable", Value = coinsAvailable },
-
-            }
-        },
-        result => { Debug.Log("User statistics updated"); },
-        error => { Debug.LogError(error.GenerateErrorReport()); });
-    }
-    void GetStats()
+    #region Get Player Statistics
+    public void GetPlayerStats()
     {
         PlayFabClientAPI.GetPlayerStatistics(
             new GetPlayerStatisticsRequest(),
-            OnGetStats,
+            OnGetPlayerStatsSuccess,
             error => Debug.LogError(error.GenerateErrorReport())
         );
     }
-    void OnGetStats(GetPlayerStatisticsResult result)
+    void OnGetPlayerStatsSuccess(GetPlayerStatisticsResult result)
     {
-        Debug.Log("Received the following Statistics:");
         foreach (var eachStat in result.Statistics)
         {
-            Debug.Log("Statistic (" + eachStat.StatisticName + "): " + eachStat.Value);
+            switch (eachStat.StatisticName)
+            {
+                case "ProgressLevel":
+                    Debug.Log("Statistic (" + eachStat.StatisticName + "): " + eachStat.Value);
+                    progressLevel = eachStat.Value;
+                    break;
+                case "RubbishCollected":
+                    Debug.Log("Statistic (" + eachStat.StatisticName + "): " + eachStat.Value);
+                    rubbishCollected = eachStat.Value;
+                    break;
+                case "CoinsAvailable":
+                    Debug.Log("Statistic (" + eachStat.StatisticName + "): " + eachStat.Value);
+                    coinsAvailable = eachStat.Value;
+                    break;
+                default:
+                    break;
+            }
         }
+        Initialization();
     }
     #endregion
 }

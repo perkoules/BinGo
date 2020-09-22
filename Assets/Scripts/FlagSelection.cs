@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Net.Http.Headers;
-using UnityEditor;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -18,6 +15,7 @@ public class FlagSelection : MonoBehaviour
     public List<string> countryName = new List<string>();
 
     public List<TMP_Dropdown.OptionData> options = new List<TMP_Dropdown.OptionData>();
+
     private void Awake()
     {
         dropdown = dropdown.GetComponent<TMP_Dropdown>();
@@ -30,7 +28,11 @@ public class FlagSelection : MonoBehaviour
             options.Add(new TMP_Dropdown.OptionData { image = item.sprite, text = item.sprite.name });
         }
         dropdown.AddOptions(options);
-
+        
     }
-    
+    public Sprite AssignImage(string countryName)
+    {
+        return countryFlag.Find(spr => spr.name == countryName);        
+    }
+
 }

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class CloseButton : MonoBehaviour
 {
     public GameObject[] panels;
+    public GameObject[] leaderbordHolders;
     private Button button;
 
     private void Awake()
@@ -28,6 +29,13 @@ public class CloseButton : MonoBehaviour
                 if(panel == panels[0])
                 {
                     panel.SetActive(true);
+                }
+            }
+            foreach (var item in leaderbordHolders)
+            {
+                if (item.activeSelf)
+                {
+                    item.GetComponent<GetLeaderboard>().ClearLeaderboard();
                 }
             }
         }

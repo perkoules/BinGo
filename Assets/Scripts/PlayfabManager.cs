@@ -43,11 +43,17 @@ public class PlayfabManager : MonoBehaviour
             }
             else if (SceneManager.GetActiveScene().buildIndex == 1)
             {
-                GetPlayerData();
                 GetPlayerStats();
-                GetInfo();
-                StartCoroutine(Initialization());
+                GetPlayerData();
+                GetDisplayName();
             }
+        }
+    }
+    private void Start()
+    {
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            StartCoroutine(Initialization());
         }
     }
     #region Login
@@ -151,7 +157,6 @@ public class PlayfabManager : MonoBehaviour
     #endregion
     IEnumerator LoggingProcessSucceeded()
     {
-        
         yield return new WaitForSeconds(3);
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
@@ -251,14 +256,17 @@ public class PlayfabManager : MonoBehaviour
     }
     #endregion
 
-    /*--------------------------------------------------------------------------------------------------*/
 
-    #region PlayerStats    
-    public int progressLevel = 1;
+    #region PlayerData    
+    /*--------- Stats and data defaults ---------------------*/
+    private int progressLevel = 1;
     public int rubbishCollected = 0;
-    public int coinsAvailable = 0;
+    private int coinsAvailable = 0;
+    private string country = "Australia";
+    private string avatar = "Avatar 1";
+    private string teamname = "no team";
 
-    public void UpdatePlayerStatisticsOnCloud()
+    public void UpdatePlayerStats()
     {
         PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
         {
@@ -273,37 +281,32 @@ public class PlayfabManager : MonoBehaviour
     {
         PlayFabClientAPI.GetPlayerStatistics(
             new GetPlayerStatisticsRequest(),
-            OnGetPlayerStatsSuccess,
-            error => Debug.LogError(error.GenerateErrorReport())
-        );
-    }
-    void OnGetPlayerStatsSuccess(GetPlayerStatisticsResult result)
-    {
-        foreach (var eachStat in result.Statistics)
-        {
-            switch (eachStat.StatisticName)
+            result =>
             {
-                case "ProgressLevel":
-                    progressLevel = eachStat.Value;
-                    break;
-                case "RubbishCollected":
-                    rubbishCollected = eachStat.Value;
-                    break;
-                case "CoinsAvailable":
-                    coinsAvailable = eachStat.Value;
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-    #endregion
+                foreach (var eachStat in result.Statistics)
+                {
+                    switch (eachStat.StatisticName)
+                    {
+                        case "ProgressLevel":
+                            progressLevel = eachStat.Value;
+                            LevelDisplay();
+                            break;
+                        case "RubbishCollected":
+                            rubbishCollected = eachStat.Value;
+                            RubbishDisplay();
+                            break;
+                        case "CoinsAvailable":
+                            coinsAvailable = eachStat.Value;
+                            CoinsDisplay();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            },error => Debug.LogError(error.GenerateErrorReport()));
 
-    #region PlayerData
-    private string country = "Australia";
-    private string avatar = "Avatar 1";
-    private string teamname = "no team";
-    void SetPlayerData()
+    }
+    private void SetPlayerData()
     {
         PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest()
         {
@@ -320,31 +323,33 @@ public class PlayfabManager : MonoBehaviour
             Debug.Log(error.GenerateErrorReport());
         });
     }
-    void GetPlayerData()
+    private void GetPlayerData()
     {
-        PlayFabClientAPI.GetUserData(new GetUserDataRequest()
-        {
-           
-        }, result =>
+        PlayFabClientAPI.GetUserData(new GetUserDataRequest() { },
+        result =>
         {
             if (result.Data == null) Debug.Log("No Data");
             else
             {
-                /*Debug.Log("Country: " + result.Data["Country"].Value);
-                Debug.Log("Avatar: " + result.Data["Avatar"].Value);
-                Debug.Log("TeamName: " + result.Data["TeamName"].Value);*/
                 if (PlayerPrefs.GetString(COUNTRY_GIVEN) == null || PlayerPrefs.GetString(AVATAR_GIVEN) == null)
                 {
                     SetCountry(result.Data["Country"].Value);
                     SetAvatar(result.Data["Avatar"].Value);
                 }
             }
-        }, (error) =>
-        {
-            Debug.Log("Got error retrieving user data:");
-            Debug.Log(error.GenerateErrorReport());
-        });
+        }, 
+        error =>Debug.Log(error.GenerateErrorReport()));
     }
+    public void GetDisplayName()
+    {
+        if (PlayerPrefs.GetString(USERNAME_GIVEN) == null)
+        {
+            PlayFabClientAPI.GetAccountInfo(new GetAccountInfoRequest(),
+            result => SetUserName(result.AccountInfo.Username),
+            error => Debug.LogError(error.GenerateErrorReport()));
+        }
+    }
+
     #endregion
 
     #region PlayerLeaderboard
@@ -370,7 +375,39 @@ public class PlayfabManager : MonoBehaviour
 
     IEnumerator Initialization()
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(1f);
+        LevelDisplay();
+        RubbishDisplay();
+        CoinsDisplay();
+        UsernameDisplay();
+        FlagDisplay();
+        AvatarDisplay();
+    }
+
+    #region Displayers
+    private void AvatarDisplay()
+    {
+        foreach (var avtr in stats.avatarImageDisplay)
+        {
+            avtr.sprite = stats.avatarSelection.AssignImage(GetAvatar());
+        }
+    }
+    private void FlagDisplay()
+    {
+        foreach (var flg in stats.flagImageDisplay)
+        {
+            flg.sprite = stats.flagSelection.AssignImage(GetCountry());
+        }
+    }
+    private void UsernameDisplay()
+    {
+        foreach (var usrnm in stats.usernameTextDisplay)
+        {
+            usrnm.text = GetUserName();
+        }
+    }
+    private void LevelDisplay()
+    {
         foreach (var lvltxt in stats.levelTextDisplay)
         {
             if (lvltxt.name.EndsWith("Next"))
@@ -383,37 +420,23 @@ public class PlayfabManager : MonoBehaviour
                 lvltxt.text = progressLevel.ToString();
             }
         }
-        foreach (var rubtxt in stats.rubbishTextDisplay)
-        {
-            rubtxt.text = rubbishCollected.ToString();
-        }
+    }
+    private void CoinsDisplay()
+    {
         foreach (var cointxt in stats.coinsTextDisplay)
         {
             cointxt.text = coinsAvailable.ToString();
         }
-        foreach (var usrnm in stats.usernameTextDisplay)
-        {
-            usrnm.text = GetUserName();
-        }
-        foreach (var flg in stats.flagImageDisplay)
-        {
-            flg.sprite = stats.flagSelection.AssignImage(GetCountry());
-        }
-        foreach (var avtr in stats.avatarImageDisplay)
-        {
-            avtr.sprite = stats.avatarSelection.AssignImage(GetAvatar());
-        }
     }
-
-    public void GetInfo()
+    private void RubbishDisplay()
     {
-        if (PlayerPrefs.GetString(USERNAME_GIVEN) == null)
+        foreach (var rubtxt in stats.rubbishTextDisplay)
         {
-            PlayFabClientAPI.GetAccountInfo(new GetAccountInfoRequest(),
-            result => SetUserName(result.AccountInfo.Username),
-            error => Debug.LogError(error.GenerateErrorReport()));
+            rubtxt.text = rubbishCollected.ToString();
         }
     }
+    #endregion
+
     public void LogOut()
     {
         PlayFabAuthenticationAPI.ForgetAllCredentials();
@@ -424,7 +447,6 @@ public class PlayfabManager : MonoBehaviour
     {
         rubbishCollected ++;
         coinsAvailable++;
-        UpdatePlayerStatisticsOnCloud();
-    }
-
+        UpdatePlayerStats();
+    }    
 }

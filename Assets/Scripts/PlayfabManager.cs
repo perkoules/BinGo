@@ -72,6 +72,7 @@ public class PlayfabManager : MonoBehaviour
     {
         var requestAndroid = new LoginWithAndroidDeviceIDRequest { AndroidDeviceId = ReturnAndroidID(), CreateAccount = true };
         PlayFabClientAPI.LoginWithAndroidDeviceID(requestAndroid, OnLoginSuccess, OnLoginFailure);
+        SetUserName("Anonymous");
     }
     public void ClickToLogin()
     {
@@ -145,8 +146,9 @@ public class PlayfabManager : MonoBehaviour
         SetUserEmail(userEmail);
         SetUserPassword(userPassword);
         PlayFabClientAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest { DisplayName = username }, OnDisplayName, OnRegisterFailure);
-        /*SetCountry();
-        SetAvatar();*/
+        SetCountry();
+        SetAvatar();
+        SetPlayerData();
         SetGuestPlayerRegistered("YES");
         messageController.messages[0].SetActive(true);
     }
@@ -349,7 +351,6 @@ public class PlayfabManager : MonoBehaviour
             error => Debug.LogError(error.GenerateErrorReport()));
         }
     }
-
     #endregion
 
     #region PlayerLeaderboard

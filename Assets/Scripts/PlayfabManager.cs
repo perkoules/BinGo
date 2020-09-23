@@ -1,6 +1,7 @@
 ﻿using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -14,9 +15,14 @@ public class PlayfabManager : MonoBehaviour
     private string userEmail;
     private string userPassword;
     private string username;
+    private string myID;
     private bool autologin = false;
     private MessageController messageController;
     public static PlayfabManager Instance { get; private set; }
+
+    public event OnChangedText OnChangedTextEvent;
+    public delegate void OnChangedText(string txt);
+
     private void OnEnable()
     {
         if (Instance != null && Instance != this)
@@ -89,6 +95,7 @@ public class PlayfabManager : MonoBehaviour
         GetUserEmail();
         GetUserPassword();
         SetGuestPlayerRegistered("YES");
+        myID = result.PlayFabId;
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
             messageController.messages[0].SetActive(true);
@@ -118,6 +125,8 @@ public class PlayfabManager : MonoBehaviour
         PlayFabClientAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest { DisplayName = username }, OnDisplayName, OnRegisterFailure);
         SetCountry();
         SetAvatar();
+        SetPlayerData();
+        myID = result.PlayFabId;
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
             messageController.messages[0].SetActive(true);
@@ -178,27 +187,16 @@ public class PlayfabManager : MonoBehaviour
         }
     }
 
-    #region Global Getters and Setters
-    public void GetUsername(string usernameIn)
-    {
-        username = usernameIn;
-    }
-    public void GetUserPassword(string passIn)
-    {
-        userPassword = passIn;
-    }
-    public void GetUserEmail(string emailIn)
-    {
-        userEmail = emailIn;
-    }
-    
-    /*-----------------------Player Prefs-----------------------*/
+    #region PlayerPrefs
     private const string REGISTER_FROM_GUEST = "RegisterFromGuest";
     private const string EMAIL_GIVEN = "EmailGiven";
     private const string PASSWORD_GIVEN = "PasswordGiven";
     private const string USERNAME_GIVEN = "UsernameGiven";
     public const string COUNTRY_GIVEN = "CountryGiven";
     public const string AVATAR_GIVEN = "AvatarGiven";
+    public const string TEAMNAME_GIVEN = "TeamnameGiven";
+    public const string LEVEL_BADGES = "LevelBadges";
+    public const string TASK_BADGES = "TaskBadges";
 
     public void SetGuestPlayerRegistered(string reg)
     {
@@ -212,6 +210,10 @@ public class PlayfabManager : MonoBehaviour
     {
         PlayerPrefs.SetString(EMAIL_GIVEN, usrEmail);
     }
+    public void GetUserEmail(string emailIn)
+    {
+        userEmail = emailIn;
+    }
     public string GetUserEmail()
     {
         return PlayerPrefs.GetString(EMAIL_GIVEN);
@@ -220,6 +222,10 @@ public class PlayfabManager : MonoBehaviour
     {
         PlayerPrefs.SetString(PASSWORD_GIVEN, usrPassword);
     }
+    public void GetUserPassword(string passIn)
+    {
+        userPassword = passIn;
+    }
     public string GetUserPassword()
     {
         return PlayerPrefs.GetString(PASSWORD_GIVEN);
@@ -227,6 +233,10 @@ public class PlayfabManager : MonoBehaviour
     public void SetUserName(string usrnm)
     {
         PlayerPrefs.SetString(USERNAME_GIVEN, usrnm);
+    }
+    public void GetUsername(string usernameIn)
+    {
+        username = usernameIn;
     }
     public string GetUserName()
     {
@@ -256,17 +266,35 @@ public class PlayfabManager : MonoBehaviour
     {
         return PlayerPrefs.GetString(AVATAR_GIVEN);
     }
+    public void SetTeamname(string tmnm)
+    {
+        PlayerPrefs.SetString(TEAMNAME_GIVEN, tmnm);
+    }
+    public string GetTeamname()
+    {
+        return PlayerPrefs.GetString(TEAMNAME_GIVEN);
+    }
+    public void SetLevelBadges(string lvlbg)
+    {
+        PlayerPrefs.SetString(LEVEL_BADGES, lvlbg);
+    }
+    public string GetLevelBadges()
+    {
+        return PlayerPrefs.GetString(LEVEL_BADGES);
+    }
+    
     #endregion
 
 
     #region PlayerData    
     /*--------- Stats and data defaults ---------------------*/
-    private int progressLevel = 1;
+    public int progressLevel = 1;
     public int rubbishCollected = 0;
     private int coinsAvailable = 0;
     private string country = "Australia";
     private string avatar = "Avatar 1";
     private string teamname = "no team";
+    private string lvlbadges = "000000000000000";
 
     public void UpdatePlayerStats()
     {
@@ -308,15 +336,19 @@ public class PlayfabManager : MonoBehaviour
             },error => Debug.LogError(error.GenerateErrorReport()));
 
     }
-    private void SetPlayerData()
+    public void SetPlayerData()
     {
+        country = GetCountry();
+        avatar = GetAvatar();
+        teamname = GetTeamname();
+        lvlbadges = GetLevelBadges();
         PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest()
         {
             Data = new Dictionary<string, string>() {
             {"Country", country},
             {"Avatar", avatar},
-            {"TeamName", teamname}
-        }
+            {"TeamName", teamname},
+            {"LevelBadges", lvlbadges}}
         },
         result => Debug.Log("Successfully updated user data"),
         error =>
@@ -333,11 +365,10 @@ public class PlayfabManager : MonoBehaviour
             if (result.Data == null) Debug.Log("No Data");
             else
             {
-                if (PlayerPrefs.GetString(COUNTRY_GIVEN) == null || PlayerPrefs.GetString(AVATAR_GIVEN) == null)
-                {
-                    SetCountry(result.Data["Country"].Value);
-                    SetAvatar(result.Data["Avatar"].Value);
-                }
+                SetCountry(result.Data["Country"].Value);
+                SetAvatar(result.Data["Avatar"].Value);
+                SetTeamname(result.Data["TeamName"].Value);
+                SetLevelBadges(result.Data["LevelBadges"].Value);
             }
         }, 
         error =>Debug.Log(error.GenerateErrorReport()));
@@ -383,9 +414,16 @@ public class PlayfabManager : MonoBehaviour
         UsernameDisplay();
         FlagDisplay();
         AvatarDisplay();
+        TeamnameDisplay();
+        LevelBadgeDisplay();
     }
 
+
     #region Displayers
+    private void TeamnameDisplay()
+    {
+        stats.teamnameDisplay.text = GetTeamname();
+    }
     private void AvatarDisplay()
     {
         foreach (var avtr in stats.avatarImageDisplay)
@@ -400,12 +438,14 @@ public class PlayfabManager : MonoBehaviour
             flg.sprite = stats.flagSelection.AssignImage(GetCountry());
         }
     }
+    
     private void UsernameDisplay()
     {
-        foreach (var usrnm in stats.usernameTextDisplay)
+        OnChangedTextEvent?.Invoke(GetUserName());
+        /*foreach (var usrnm in stats.usernameTextDisplay)
         {
             usrnm.text = GetUserName();
-        }
+        }*/
     }
     private void LevelDisplay()
     {
@@ -436,6 +476,13 @@ public class PlayfabManager : MonoBehaviour
             rubtxt.text = rubbishCollected.ToString();
         }
     }
+    public void LevelBadgeDisplay()
+    {
+        foreach (var lvlbd in stats.lvlBadgeDisplay)
+        {
+            lvlbd.sprite = stats.badgeController.allBadges[progressLevel - 1].sprite;
+        }
+    } 
     #endregion
 
     public void LogOut()

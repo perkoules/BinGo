@@ -13,10 +13,11 @@ public class PlayerStats : MonoBehaviour
     public List<Image> flagImageDisplay;
     public List<Image> avatarImageDisplay;
     public List<Image> lvlBadgeDisplay;
-    public FlagSelection flagSelection, avatarSelection;
     public TextMeshProUGUI teamnameDisplay;
+    public FlagSelection flagSelection, avatarSelection;
 
-
+    /*-------------  ----------------*/
     public BadgeController badgeController;
-    public PlayfabManager pfm;
+    public AchievementsController achievementsController;
+    public PlayfabManager playfabManager;
 }

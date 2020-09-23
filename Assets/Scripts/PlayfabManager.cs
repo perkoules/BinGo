@@ -16,7 +16,8 @@ public class PlayfabManager : MonoBehaviour
     private string userPassword;
     private string username;
     private string myID;
-    private bool autologin = false;
+    private bool loggedInAutomatically = false;
+    public bool logginInProgress = false;
     private MessageController messageController;
     public static PlayfabManager Instance { get; private set; }
 
@@ -65,9 +66,9 @@ public class PlayfabManager : MonoBehaviour
     #region Login
     private void AutoLogin()
     {
-        if (PlayerPrefs.HasKey(EMAIL_GIVEN) && SceneManager.GetActiveScene().buildIndex == 0)
+        if (PlayerPrefs.HasKey(EMAIL_GIVEN) && PlayerPrefs.GetString(EMAIL_GIVEN) != null)
         {
-            autologin = true;
+            loggedInAutomatically = true;
             userEmail = GetUserEmail();
             userPassword = GetUserPassword();
             var request = new LoginWithEmailAddressRequest { Email = userEmail, Password = userPassword };
@@ -168,15 +169,33 @@ public class PlayfabManager : MonoBehaviour
     #endregion
     IEnumerator LoggingProcessSucceeded()
     {
+        logginInProgress = true;
         yield return new WaitForSeconds(3);
-        if (SceneManager.GetActiveScene().buildIndex == 0)
+        if (logginInProgress)
         {
-            if (messageController.messages[0].activeSelf)
+            if (SceneManager.GetActiveScene().buildIndex == 0)
             {
-                messageController.messages[0].SetActive(false);
-                SceneManager.LoadScene(1);
+                if (messageController.messages[0].activeSelf)
+                {
+                    messageController.messages[0].SetActive(false);
+                    SceneManager.LoadScene(1);
+                }
             }
         }
+        else
+        {
+            if (SceneManager.GetActiveScene().buildIndex == 0)
+            {
+                if (messageController.messages[0].activeSelf)
+                {
+                    messageController.messages[0].SetActive(false);
+                }
+            }
+        }
+    }
+    public void CancelLogin()
+    {
+        logginInProgress = false;
     }
     IEnumerator LoggingProcessFailed()
     {
@@ -359,7 +378,7 @@ public class PlayfabManager : MonoBehaviour
     }
     private void GetPlayerData()
     {
-        PlayFabClientAPI.GetUserData(new GetUserDataRequest() { },
+        PlayFabClientAPI.GetUserData(new GetUserDataRequest() {},
         result =>
         {
             if (result.Data == null) Debug.Log("No Data");
@@ -399,11 +418,21 @@ public class PlayfabManager : MonoBehaviour
             LeaderboardListing leaderboardListing = obj.GetComponent<LeaderboardListing>();
             leaderboardListing.positionText.text = player.Position.ToString();
             leaderboardListing.playerNameText.text = player.DisplayName;
+            GetCountryForLeaderboard(player.PlayFabId, leaderboardListing);
             leaderboardListing.rubbishText.text = player.StatValue.ToString();
-            //Debug.Log(player.DisplayName + " : " + player.StatValue);
         }
     }
+    private void GetCountryForLeaderboard(string playerId, LeaderboardListing ll)
+    {
+        PlayFabClientAPI.GetUserData(new GetUserDataRequest() { PlayFabId = playerId },
+        result =>
+        {
+            ll.countryText.text = result.Data["Country"].Value;
+        },
+        error => Debug.Log(error.GenerateErrorReport()));
+    }
     #endregion
+
 
     IEnumerator Initialization()
     {
@@ -417,7 +446,6 @@ public class PlayfabManager : MonoBehaviour
         TeamnameDisplay();
         LevelBadgeDisplay();
     }
-
 
     #region Displayers
     private void TeamnameDisplay()
@@ -482,7 +510,7 @@ public class PlayfabManager : MonoBehaviour
         {
             lvlbd.sprite = stats.badgeController.allBadges[progressLevel - 1].sprite;
         }
-    } 
+    }
     #endregion
 
     public void LogOut()

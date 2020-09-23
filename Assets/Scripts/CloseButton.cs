@@ -17,16 +17,12 @@ public class CloseButton : MonoBehaviour
 
     public void Clicked()
     {
-        if (button.name.Contains("Exit"))
-        {
-            Application.Quit();
-        }
-        else
+        if (button.name.Contains("Close"))            
         {
             foreach (var panel in panels)
             {
                 panel.SetActive(false);
-                if(panel == panels[0])
+                if (panel == panels[0])
                 {
                     panel.SetActive(true);
                 }
@@ -37,7 +33,12 @@ public class CloseButton : MonoBehaviour
                 {
                     item.GetComponent<GetLeaderboard>().ClearLeaderboard();
                 }
-            }
+            } 
         }
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

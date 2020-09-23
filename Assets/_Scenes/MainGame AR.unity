@@ -655,7 +655,7 @@ MonoBehaviour:
   - {fileID: 692813435}
   - {fileID: 256413750}
   - {fileID: 981559537}
-  pressedColor: {r: 0.011764707, g: 0.44705886, b: 0.4666667, a: 1}
+  pressedColor: {r: 0, g: 0.47450984, b: 0.03137255, a: 1}
   hoverColor: {r: 0.9843138, g: 0.47450984, b: 0.03529412, a: 1}
   disabledColor: {r: 0.03529412, g: 0.14117648, b: 0.4039216, a: 1}
 --- !u!1 &18835773
@@ -842,7 +842,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3019608, g: 0.69803923, b: 0.7176471, a: 1}
+  m_Color: {r: 0.003921569, g: 0.34901962, b: 0.3647059, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1316,7 +1316,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 45910108}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1562538264}
+        m_MethodName: Resetter
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &45910108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4807,7 +4818,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3019608, g: 0.69803923, b: 0.7176471, a: 1}
+  m_Color: {r: 0.003921569, g: 0.34901962, b: 0.3647059, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -7188,7 +7199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3019608, g: 0.69803923, b: 0.7176471, a: 1}
+  m_Color: {r: 0.003921569, g: 0.34901962, b: 0.3647059, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -9341,14 +9352,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_Color: {r: 0.011764707, g: 0.44705886, b: 0.4666667, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: d20c53c8cad21024091aeed0b9bf2a0e, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -16900,7 +16911,6 @@ MonoBehaviour:
   - {fileID: 1384716906}
   - {fileID: 340494520}
   - {fileID: 580988202}
-  toggledBadges: 000000000000000000000000000000
   myBadge: 0
 --- !u!1 &997847022
 GameObject:
@@ -20219,7 +20229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3019608, g: 0.69803923, b: 0.7176471, a: 1}
+  m_Color: {r: 0.003921569, g: 0.34901962, b: 0.3647059, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -23321,14 +23331,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0.011764707, g: 0.44705886, b: 0.4666667, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: d20c53c8cad21024091aeed0b9bf2a0e, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -25275,7 +25285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3019608, g: 0.69803923, b: 0.7176471, a: 1}
+  m_Color: {r: 0.003921569, g: 0.34901962, b: 0.3647059, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -34058,14 +34068,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0.011764707, g: 0.44705886, b: 0.4666667, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: d20c53c8cad21024091aeed0b9bf2a0e, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

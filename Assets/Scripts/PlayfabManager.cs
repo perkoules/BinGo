@@ -4,6 +4,7 @@ using PlayFab.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -454,14 +455,13 @@ public class PlayfabManager : MonoBehaviour
         {
             flg.sprite = stats.flagSelection.AssignImage(GetCountry());
         }
-    }
-    
+    }    
     private void UsernameDisplay()
     {
-        //OnChangedTextEvent?.Invoke(GetUserName());
         foreach (var usrnm in stats.usernameTextDisplay)
         {
-            usrnm.text = GetUserName();
+            usrnm.text = GetUserName().Replace(GetUserName().First(), char.ToUpper(GetUserName().First())); ;
+
         }
     }
     private void LevelDisplay()

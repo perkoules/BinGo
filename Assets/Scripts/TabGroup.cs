@@ -12,7 +12,20 @@ public class TabGroup : MonoBehaviour
     public Color pressedColor;
     public Color hoverColor;
     public Color disabledColor;
-
+    private void OnEnable()
+    {
+        foreach (var item in tabButtons)
+        {
+            if (item.name.Contains("Amazon"))
+            {
+                item.background.color = pressedColor;
+            }
+            else
+            {
+                item.background.color = disabledColor;
+            }
+        }
+    }
     public void Subscribe(TabButton button)
     {
         if(tabButtons == null)
@@ -58,8 +71,19 @@ public class TabGroup : MonoBehaviour
     {
         foreach (TabButton button  in tabButtons)
         {
-            if(selectedTab!=null && button == selectedTab) { continue; }
+            if (selectedTab != null && button == selectedTab)
+            {
+                continue;
+            }
             button.background.color = disabledColor;
         }
+    }
+    public void Resetter()
+    {
+        foreach (var item in gameobjectsToSwap)
+        {
+            item.SetActive(false);
+        }
+        ResetTabs();
     }
 }

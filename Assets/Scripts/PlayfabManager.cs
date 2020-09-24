@@ -208,7 +208,6 @@ public class PlayfabManager : MonoBehaviour
     public const string COUNTRY_GIVEN = "CountryGiven";
     public const string AVATAR_GIVEN = "AvatarGiven";
     public const string TEAMNAME_GIVEN = "TeamnameGiven";
-    public const string LEVEL_BADGES = "LevelBadges";
     public const string TASK_BADGES = "TaskBadges";
 
     public void SetGuestPlayerRegistered(string reg)
@@ -287,15 +286,7 @@ public class PlayfabManager : MonoBehaviour
     {
         return PlayerPrefs.GetString(TEAMNAME_GIVEN);
     }
-    public void SetLevelBadges(string lvlbg)
-    {
-        PlayerPrefs.SetString(LEVEL_BADGES, lvlbg);
-    }
-    public string GetLevelBadges()
-    {
-        return PlayerPrefs.GetString(LEVEL_BADGES);
-    }
-    
+        
     #endregion
 
     #region PlayerData    
@@ -306,7 +297,6 @@ public class PlayfabManager : MonoBehaviour
     private string country = "Australia";
     private string avatar = "Avatar 1";
     private string teamname = "no team";
-    private string lvlbadges = "000000000000000";
 
     public void UpdatePlayerStats()
     {
@@ -353,14 +343,12 @@ public class PlayfabManager : MonoBehaviour
         country = GetCountry();
         avatar = GetAvatar();
         teamname = GetTeamname();
-        lvlbadges = GetLevelBadges();
         PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest()
         {
             Data = new Dictionary<string, string>() {
             {"Country", country},
             {"Avatar", avatar},
-            {"TeamName", teamname},
-            {"LevelBadges", lvlbadges}}
+            {"TeamName", teamname} }
         },
         result => Debug.Log("Successfully updated user data"),
         error =>
@@ -380,7 +368,6 @@ public class PlayfabManager : MonoBehaviour
                 SetCountry(result.Data["Country"].Value);
                 SetAvatar(result.Data["Avatar"].Value);
                 SetTeamname(result.Data["TeamName"].Value);
-                SetLevelBadges(result.Data["LevelBadges"].Value);
             }
         }, 
         error =>Debug.Log(error.GenerateErrorReport()));
@@ -406,7 +393,7 @@ public class PlayfabManager : MonoBehaviour
         {
             GameObject obj = Instantiate(listingPrefab, leaderboardPanel.transform);
             LeaderboardListing leaderboardListing = obj.GetComponent<LeaderboardListing>();
-            leaderboardListing.positionText.text = player.Position.ToString();
+            leaderboardListing.positionText.text = (player.Position + 1).ToString();
             leaderboardListing.playerNameText.text = player.DisplayName;
             GetCountryForLeaderboard(player.PlayFabId, leaderboardListing);
             leaderboardListing.rubbishText.text = player.StatValue.ToString();
@@ -417,9 +404,12 @@ public class PlayfabManager : MonoBehaviour
         PlayFabClientAPI.GetUserData(new GetUserDataRequest() { PlayFabId = playerId },
         result =>
         {
-            ll.countryText.text = result.Data["Country"].Value;
+            if (result.Data.ContainsKey("Country"))
+            {
+                ll.countryText.text = result.Data["Country"].Value;
+            }
         },
-        error => Debug.Log(error.GenerateErrorReport()));
+        error => Debug.LogError(error.GenerateErrorReport()));
     }
     #endregion
 
@@ -502,10 +492,19 @@ public class PlayfabManager : MonoBehaviour
     }
     #endregion
 
-    public void SetRubbishCollection()
+    public void SetRubbishCollection(string option)
     {
-        rubbishCollected ++;
-        coinsAvailable++;
+        
+        if (option == "c")
+        {
+            rubbishCollected++;
+            coinsAvailable++;
+        }
+        else if (option == "r")
+        {
+            rubbishCollected++;
+            coinsAvailable += 2;
+        }
         UpdatePlayerStats();
     }    
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,7 @@ public class TabGroup : MonoBehaviour
     public Color pressedColor;
     public Color hoverColor;
     public Color disabledColor;
+
     private void OnEnable()
     {
         foreach (var item in tabButtons)

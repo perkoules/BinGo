@@ -8,11 +8,13 @@ namespace Mapbox.Geocoding
 {
 	using System;
 	using System.Collections.Generic;
-	using Mapbox.Platform;
+    using System.Security;
+    using Mapbox.Platform;
+    using Mapbox.Unity;
 
-	/// <summary> Base geocode class. </summary>
-	/// <typeparam name="T"> Type of Query field (either string or LatLng). </typeparam>
-	public abstract class GeocodeResource<T> : Resource
+    /// <summary> Base geocode class. </summary>
+    /// <typeparam name="T"> Type of Query field (either string or LatLng). </typeparam>
+    public abstract class GeocodeResource<T> : Resource
 	{
 		/// <summary> A List of all possible geocoding feature types. </summary>
 		public static readonly List<string> FeatureTypes = new List<string>
@@ -22,7 +24,19 @@ namespace Mapbox.Geocoding
 
 		private readonly string apiEndpoint = "geocoding/v5/";
 
-		private readonly string mode = "mapbox.places/";
+        private readonly string mode = "mapbox.places/";
+
+
+		private readonly string myToken = MapboxAccess.Instance._configuration.AccessToken;
+		public string MyToken
+		{
+			get
+			{
+				string prefix = "&access_token=";
+				return string.Concat(prefix, myToken);
+			}
+		}
+
 
 		// Optional
 		private string[] types;
@@ -44,8 +58,8 @@ namespace Mapbox.Geocoding
 			}
 		}
 
-		/// <summary> Gets or sets which feature types to return results for. </summary>
-		public string[] Types {
+        /// <summary> Gets or sets which feature types to return results for. </summary>
+        public string[] Types {
 			get {
 				return this.types;
 			}
@@ -69,5 +83,5 @@ namespace Mapbox.Geocoding
 				this.types = value;
 			}
 		}
-	}
+    }
 }

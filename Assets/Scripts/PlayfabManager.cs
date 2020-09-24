@@ -1,4 +1,6 @@
-﻿using PlayFab;
+﻿using Mapbox.Unity.Location;
+using Microsoft.SqlServer.Server;
+using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.Json;
 using System;
@@ -475,6 +477,11 @@ public class PlayfabManager : MonoBehaviour
         {
             cointxt.text = coinsAvailable.ToString();
         }
+        foreach (var vouch in stats.voucherTextDisplay)
+        {
+            float voucher = (coinsAvailable / 100.0f);
+            vouch.text = voucher.ToString(("F2")) + " £";
+        }
     }
     private void RubbishDisplay()
     {
@@ -491,10 +498,11 @@ public class PlayfabManager : MonoBehaviour
         }
     }
     #endregion
-
+    public DeviceLocationProvider dlv;
     public void SetRubbishCollection(string option)
     {
-        
+        stats.GetLoc();
+
         if (option == "c")
         {
             rubbishCollected++;
@@ -506,5 +514,5 @@ public class PlayfabManager : MonoBehaviour
             coinsAvailable += 2;
         }
         UpdatePlayerStats();
-    }    
+    }
 }

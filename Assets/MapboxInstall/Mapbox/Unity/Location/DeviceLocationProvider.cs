@@ -256,7 +256,7 @@ namespace Mapbox.Unity.Location
 				double longitude = double.Parse(lastData.longitude.ToString("R", invariantCulture), invariantCulture);
 				Vector2d previousLocation = new Vector2d(_currentLocation.LatitudeLongitude.x, _currentLocation.LatitudeLongitude.y);
 				_currentLocation.LatitudeLongitude = new Vector2d(latitude, longitude);
-
+                //Debug.Log(_currentLocation.LatitudeLongitude);
 				_currentLocation.Accuracy = (float)Math.Floor(lastData.horizontalAccuracy);
 				// sometimes Unity's timestamp doesn't seem to get updated, or even jump back in time
 				// do an additional check if location has changed

@@ -47,7 +47,7 @@ namespace Mapbox.Unity
 
 		public static bool Configured;
 		public static string ConfigurationJSON;
-		private MapboxConfiguration _configuration;
+		public MapboxConfiguration _configuration;
 		private string _tokenNotSetErrorMessage = "No configuration file found! Configure your access token from the Mapbox > Setup menu.";
 
 		/// <summary>

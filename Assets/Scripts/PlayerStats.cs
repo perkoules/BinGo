@@ -27,57 +27,42 @@ public class PlayerStats : MonoBehaviour
     public PlayfabManager playfabManager;
 
     public GetRubbishLocation rubLoc;
-    public DeviceLocationProvider dlp;
-    public void GetLoc()
+    public DeviceLocationProvider locationProvider;
+    public LocationResults locationResults;
+
+
+    public void GetLocationData()
     {
-        Vector2d latlon = dlp.CurrentLocation.LatitudeLongitude;
+        Vector2d latlon = locationProvider.CurrentLocation.LatitudeLongitude;
         rubLoc = new GetRubbishLocation(latlon)
         {
-            Types = new string[] { "country" }
+            Types = new string[] { "country", "region", "district", "place" }
         };
 
         string str = rubLoc.GetUrl();
-
         var json = new WebClient().DownloadString(str);
-        Debug.Log(json);
 
         MyResult myResult = JsonUtility.FromJson<MyResult>(json);
-        Debug.Log(myResult.features[0].place_name);
+        /* features.text {type}
+         * [0] = Bishop Auckland {place}
+         * [1] = Durham {district}
+         * [2] = England {region}
+         * [3] = United Kingdom {country}*/
+        locationResults = new LocationResults
+        {
+            place = myResult.features[0].text,
+            district = myResult.features[1].text,
+            region = myResult.features[2].text,
+            country = myResult.features[3].text
+        };
     }
-}
-
-/*---- URL Result ----*/
-[System.Serializable]
-public class MyResult
-{
-    public string type;
-    public List<double> query;
-    public List<Features> features;
-    public string attribution;
+   
 }
 [System.Serializable]
-public class Features
+public class LocationResults
 {
-    public string id;
-    public string type;
-    public List<string> place_type;
-    public int relevance;
-    public List<Properties> properties;
-    public string text;
-    public string place_name;
-    public List<double> bbox;
-    public List<double> center;
-    public List<Geometry> geometry;
-}
-[System.Serializable]
-public class Properties
-{
-    public string wikidata;
-    public string short_code;
-}
-[System.Serializable]
-public class Geometry
-{
-    public string type;
-    public List<double> coordinates;
+    public string place;
+    public string district;
+    public string region;
+    public string country;
 }

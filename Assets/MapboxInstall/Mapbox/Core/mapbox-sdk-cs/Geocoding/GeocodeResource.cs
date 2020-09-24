@@ -19,7 +19,7 @@ namespace Mapbox.Geocoding
 		/// <summary> A List of all possible geocoding feature types. </summary>
 		public static readonly List<string> FeatureTypes = new List<string>
 		{
-			"country", "region", "postcode", "place", "locality", "neighborhood", "address", "poi"
+			"country", "region", "district", "postcode", "place", "locality", "neighborhood", "address", "poi"
 		};
 
 		private readonly string apiEndpoint = "geocoding/v5/";

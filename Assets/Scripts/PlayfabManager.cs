@@ -498,10 +498,10 @@ public class PlayfabManager : MonoBehaviour
         }
     }
     #endregion
-    public DeviceLocationProvider dlv;
+    
     public void SetRubbishCollection(string option)
     {
-        stats.GetLoc();
+        stats.GetLocationData();
 
         if (option == "c")
         {

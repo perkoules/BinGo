@@ -7,6 +7,7 @@
 namespace Mapbox.Geocoding
 {
 	using System.Collections.Generic;
+    using System.Runtime.Remoting.Contexts;
     using Mapbox.Utils;
 
 	/// <summary> A reverse geocode request. </summary>
@@ -54,5 +55,41 @@ namespace Mapbox.Geocoding
 							EncodeQueryString(opts) +
 							this.MyToken;
 		}
+	}
+	/*---- URL Result ----*/
+	[System.Serializable]
+	public class MyResult
+	{
+		public string type;
+		public List<double> query;
+		public List<Features> features;
+		public string attribution;
+	}
+	[System.Serializable]
+	public class Features
+	{
+		public string id;
+		public string type;
+		public List<string> place_type;
+		public int relevance;
+		public List<Properties> properties;
+		public string text;
+		public string place_name;
+		public List<double> bbox;
+		public List<double> center;
+		public List<MyGeometry> geometry;
+		public List<Context> context;
+	}
+	[System.Serializable]
+	public class Properties
+	{
+		public string wikidata;
+		public string short_code;
+	}
+	[System.Serializable]
+	public class MyGeometry
+	{
+		public string type;
+		public List<double> coordinates;
 	}
 }

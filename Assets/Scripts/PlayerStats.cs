@@ -3,6 +3,7 @@ using Mapbox.Geocoding;
 using Mapbox.Unity.Location;
 using Mapbox.Utils;
 using System.Collections.Generic;
+using System.Net;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,25 +28,56 @@ public class PlayerStats : MonoBehaviour
 
     public GetRubbishLocation rubLoc;
     public DeviceLocationProvider dlp;
-    public TextMeshProUGUI myText;
     public void GetLoc()
     {
         Vector2d latlon = dlp.CurrentLocation.LatitudeLongitude;
-        rubLoc = new GetRubbishLocation(latlon);
-        rubLoc.Types = new string[] { "country" };
+        rubLoc = new GetRubbishLocation(latlon)
+        {
+            Types = new string[] { "country" }
+        };
 
         string str = rubLoc.GetUrl();
-        Debug.Log(str);
-        /*MyClass myObject = new MyClass();
-        myObject.level = 1;
-        myObject.timeElapsed = 47.5f;
-        myObject.playerName = "Dr Charles Francis";*/
+
+        var json = new WebClient().DownloadString(str);
+        Debug.Log(json);
+
+        MyResult myResult = JsonUtility.FromJson<MyResult>(json);
+        Debug.Log(myResult.features[0].place_name);
     }
 }
-/*[Serializable]
-public class MyClass
+
+/*---- URL Result ----*/
+[System.Serializable]
+public class MyResult
 {
-    public int level;
-    public float timeElapsed;
-    public string playerName;
-}*/
+    public string type;
+    public List<double> query;
+    public List<Features> features;
+    public string attribution;
+}
+[System.Serializable]
+public class Features
+{
+    public string id;
+    public string type;
+    public List<string> place_type;
+    public int relevance;
+    public List<Properties> properties;
+    public string text;
+    public string place_name;
+    public List<double> bbox;
+    public List<double> center;
+    public List<Geometry> geometry;
+}
+[System.Serializable]
+public class Properties
+{
+    public string wikidata;
+    public string short_code;
+}
+[System.Serializable]
+public class Geometry
+{
+    public string type;
+    public List<double> coordinates;
+}

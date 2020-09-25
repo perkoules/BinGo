@@ -1,9 +1,5 @@
-﻿using Mapbox.Unity.Location;
-using Microsoft.SqlServer.Server;
-using PlayFab;
+﻿using PlayFab;
 using PlayFab.ClientModels;
-using PlayFab.Json;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +21,7 @@ public class PlayfabManager : MonoBehaviour
     public TMP_InputField emailInput, passwordInput;
 
     public event OnChangedText OnChangedTextEvent;
+
     public delegate void OnChangedText(string txt);
 
     private void OnEnable()
@@ -39,6 +36,7 @@ public class PlayfabManager : MonoBehaviour
             Instance = this;
         }
     }
+
     public void Awake()
     {
         if (string.IsNullOrEmpty(PlayFabSettings.TitleId))
@@ -62,6 +60,7 @@ public class PlayfabManager : MonoBehaviour
             }
         }
     }
+
     private void Start()
     {
         if (SceneManager.GetActiveScene().buildIndex == 1)
@@ -69,7 +68,9 @@ public class PlayfabManager : MonoBehaviour
             StartCoroutine(Initialization());
         }
     }
+
     #region Login
+
     private void AutoLogin()
     {
         if (PlayerPrefs.HasKey(EMAIL_GIVEN) && PlayerPrefs.GetString(EMAIL_GIVEN) != null)
@@ -81,22 +82,26 @@ public class PlayfabManager : MonoBehaviour
             PlayFabClientAPI.LoginWithEmailAddress(request, OnLoginSuccess, OnLoginFailure);
         }
     }
+
     public void GuestMode()
     {
         var requestAndroid = new LoginWithAndroidDeviceIDRequest { AndroidDeviceId = ReturnAndroidID(), CreateAccount = true };
         PlayFabClientAPI.LoginWithAndroidDeviceID(requestAndroid, OnLoginSuccess, OnLoginFailure);
         SetUserName("Anonymous");
     }
+
     public void ClickToLogin()
     {
         var request = new LoginWithEmailAddressRequest { Email = GetUserEmail(), Password = GetUserPassword() };
         PlayFabClientAPI.LoginWithEmailAddress(request, OnLoginSuccess, OnLoginFailure);
     }
+
     public static string ReturnAndroidID()
     {
         string device = SystemInfo.deviceUniqueIdentifier;
         return device;
     }
+
     private void OnLoginSuccess(LoginResult result)
     {
         SetGuestPlayerRegistered("YES");
@@ -108,6 +113,7 @@ public class PlayfabManager : MonoBehaviour
             StartCoroutine(LoggingProcessSucceeded());
         }
     }
+
     private void OnLoginFailure(PlayFabError error)
     {
         if (SceneManager.GetActiveScene().buildIndex == 0)
@@ -116,21 +122,24 @@ public class PlayfabManager : MonoBehaviour
             StartCoroutine(LoggingProcessFailed());
         }
     }
-    #endregion
+
+    #endregion Login
 
     #region Register
+
     public void ClickToRegister()
     {
         var registerRequest = new RegisterPlayFabUserRequest { Email = userEmail, Password = userPassword, Username = username };
         PlayFabClientAPI.RegisterPlayFabUser(registerRequest, OnRegisterSuccess, OnRegisterFailure);
     }
+
     private void OnRegisterSuccess(RegisterPlayFabUserResult result)
     {
         SetUserEmail(userEmail);
         SetUserPassword(userPassword);
         PlayFabClientAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest { DisplayName = username }, OnDisplayName, OnRegisterFailure);
         SetCountry();
-        SetAvatar();        
+        SetAvatar();
         SetPlayerData();
         myID = result.PlayFabId;
         if (SceneManager.GetActiveScene().buildIndex == 0)
@@ -139,10 +148,12 @@ public class PlayfabManager : MonoBehaviour
             StartCoroutine(LoggingProcessSucceeded());
         }
     }
+
     private void OnDisplayName(UpdateUserTitleDisplayNameResult result)
     {
         SetUserName(result.DisplayName);
     }
+
     private void OnRegisterFailure(PlayFabError error)
     {
         if (SceneManager.GetActiveScene().buildIndex == 0)
@@ -151,11 +162,13 @@ public class PlayfabManager : MonoBehaviour
             StartCoroutine(LoggingProcessSucceeded());
         }
     }
+
     public void ClickToRegisterGuest()
     {
         var registerGuestRequest = new AddUsernamePasswordRequest { Email = userEmail, Password = userPassword, Username = username };
         PlayFabClientAPI.AddUsernamePassword(registerGuestRequest, OnRegisterGuestSuccess, OnRegisterGuestFailure);
     }
+
     private void OnRegisterGuestSuccess(AddUsernamePasswordResult result)
     {
         SetUserEmail(userEmail);
@@ -167,12 +180,15 @@ public class PlayfabManager : MonoBehaviour
         SetGuestPlayerRegistered("YES");
         messageController.messages[0].SetActive(true);
     }
+
     private void OnRegisterGuestFailure(PlayFabError error)
     {
         messageController.messages[1].SetActive(true);
     }
-    #endregion
-    IEnumerator LoggingProcessSucceeded()
+
+    #endregion Register
+
+    private IEnumerator LoggingProcessSucceeded()
     {
         yield return new WaitForSeconds(3);
 
@@ -185,15 +201,15 @@ public class PlayfabManager : MonoBehaviour
             }
         }
     }
-    IEnumerator LoggingProcessFailed()
+
+    private IEnumerator LoggingProcessFailed()
     {
         yield return new WaitForSeconds(3);
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
-            
         }
     }
-    
+
     public void LogOut()
     {
         PlayFabAuthenticationAPI.ForgetAllCredentials();
@@ -201,8 +217,8 @@ public class PlayfabManager : MonoBehaviour
         SceneManager.LoadScene(0, LoadSceneMode.Single);
     }
 
+    #region Playerprefs
 
-    #region PlayerPrefs
     private const string REGISTER_FROM_GUEST = "RegisterFromGuest";
     private const string EMAIL_GIVEN = "EmailGiven";
     private const string PASSWORD_GIVEN = "PasswordGiven";
@@ -216,85 +232,108 @@ public class PlayfabManager : MonoBehaviour
     {
         PlayerPrefs.SetString(REGISTER_FROM_GUEST, reg);
     }
+
     public string GetGuestPlayerRegistered()
     {
         return PlayerPrefs.GetString(REGISTER_FROM_GUEST);
     }
+
     public void SetUserEmail(string usrEmail)
     {
         PlayerPrefs.SetString(EMAIL_GIVEN, usrEmail);
     }
+
     public void GetUserEmail(string emailIn)
     {
         userEmail = emailIn;
     }
+
     public string GetUserEmail()
     {
         return PlayerPrefs.GetString(EMAIL_GIVEN);
     }
+
     public void SetUserPassword(string usrPassword)
     {
         PlayerPrefs.SetString(PASSWORD_GIVEN, usrPassword);
     }
+
     public void GetUserPassword(string passIn)
     {
         userPassword = passIn;
     }
+
     public string GetUserPassword()
     {
         return PlayerPrefs.GetString(PASSWORD_GIVEN);
     }
+
     public void SetUserName(string usrnm)
     {
         PlayerPrefs.SetString(USERNAME_GIVEN, usrnm);
     }
+
     public void GetUsername(string usernameIn)
     {
         username = usernameIn;
     }
+
     public string GetUserName()
     {
         return PlayerPrefs.GetString(USERNAME_GIVEN);
     }
+
     public void SetCountry()
     {
         PlayerPrefs.SetString(COUNTRY_GIVEN, countryDropdown.captionText.text);
     }
+
     public void SetCountry(string coun)
     {
         PlayerPrefs.SetString(COUNTRY_GIVEN, coun);
     }
+
     public string GetCountry()
     {
         return PlayerPrefs.GetString(COUNTRY_GIVEN);
     }
+
     public void SetAvatar()
     {
         PlayerPrefs.SetString(AVATAR_GIVEN, avatarDropdown.captionText.text);
     }
+
     public void SetAvatar(string avtr)
     {
         PlayerPrefs.SetString(AVATAR_GIVEN, avtr);
     }
+
     public string GetAvatar()
     {
         return PlayerPrefs.GetString(AVATAR_GIVEN);
     }
+
     public void SetTeamname(string tmnm)
     {
         PlayerPrefs.SetString(TEAMNAME_GIVEN, tmnm);
     }
+
     public string GetTeamname()
     {
         return PlayerPrefs.GetString(TEAMNAME_GIVEN);
     }
-        
-    #endregion
 
-    #region PlayerData    
+    #endregion Playerprefs
+
+    #region PlayerData
+
     /*--------- Stats and data defaults ---------------------*/
     public int progressLevel = 1;
     public int rubbishCollected = 0;
+    private int rubbishInPlace = 0;
+    private int rubbishInDistrict = 0;
+    private int rubbishInRegion = 0;
+    private int rubbishInCountry = 0;
     private int coinsAvailable = 0;
     private string country = "Australia";
     private string avatar = "Avatar 1";
@@ -305,12 +344,26 @@ public class PlayfabManager : MonoBehaviour
         PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
         {
             FunctionName = "UpdatePlayerStats",
-            FunctionParameter = new { cloudProgressLevel = progressLevel, cloudRubbishCollected = rubbishCollected, cloudCoinsAvailable = coinsAvailable },
+            FunctionParameter = new
+            {
+                cloudProgressLevel = progressLevel,
+                cloudRubbishCollected = rubbishCollected,
+                cloudStatisticNamePlace = stats.playerInfo.rubbishPlace + "Place",
+                cloudStatisticNameDistrict = stats.playerInfo.rubbishDistrict,
+                cloudStatisticNameRegion = stats.playerInfo.rubbishRegion,
+                cloudStatisticNameCountry = stats.playerInfo.rubbishCountry,
+                cloudRubbishCollectedInPlace = rubbishInPlace,
+                cloudRubbishCollectedInDistrict = rubbishInDistrict,
+                cloudRubbishCollectedInRegion = rubbishInRegion,
+                cloudRubbishCollectedInCountry = rubbishInCountry,
+                cloudCoinsAvailable = coinsAvailable,
+            },
             GeneratePlayStreamEvent = true,
         },
         result => GetPlayerStats(),
         error => Debug.Log(error.GenerateErrorReport()));
     }
+
     public void GetPlayerStats()
     {
         PlayFabClientAPI.GetPlayerStatistics(
@@ -325,21 +378,23 @@ public class PlayfabManager : MonoBehaviour
                             progressLevel = eachStat.Value;
                             LevelDisplay();
                             break;
+
                         case "RubbishCollected":
                             rubbishCollected = eachStat.Value;
                             RubbishDisplay();
                             break;
+
                         case "CoinsAvailable":
                             coinsAvailable = eachStat.Value;
                             CoinsDisplay();
-                            break;
+                            break;                        
                         default:
                             break;
                     }
                 }
-            },error => Debug.LogError(error.GenerateErrorReport()));
-
+            }, error => Debug.LogError(error.GenerateErrorReport()));
     }
+
     public void SetPlayerData()
     {
         country = GetCountry();
@@ -359,9 +414,10 @@ public class PlayfabManager : MonoBehaviour
             Debug.Log(error.GenerateErrorReport());
         });
     }
+
     private void GetPlayerData()
     {
-        PlayFabClientAPI.GetUserData(new GetUserDataRequest() {},
+        PlayFabClientAPI.GetUserData(new GetUserDataRequest() { },
         result =>
         {
             if (result.Data == null) Debug.Log("No Data");
@@ -371,24 +427,29 @@ public class PlayfabManager : MonoBehaviour
                 SetAvatar(result.Data["Avatar"].Value);
                 SetTeamname(result.Data["TeamName"].Value);
             }
-        }, 
-        error =>Debug.Log(error.GenerateErrorReport()));
+        },
+        error => Debug.Log(error.GenerateErrorReport()));
     }
+
     public void GetDisplayName(string playerId)
     {
         PlayFabClientAPI.GetAccountInfo(new GetAccountInfoRequest() { PlayFabId = playerId },
           result => SetUserName(result.AccountInfo.Username),
           error => Debug.LogError(error.GenerateErrorReport()));
     }
-    #endregion
+
+    #endregion PlayerData
 
     #region PlayerLeaderboard
+
     public GameObject leaderboardPanel, listingPrefab;
+
     public void GetLeaderboardRubbishCollected()
     {
         var requestLeaderboard = new GetLeaderboardRequest { StartPosition = 0, StatisticName = "RubbishCollected", MaxResultsCount = 10 };
         PlayFabClientAPI.GetLeaderboard(requestLeaderboard, OnGetLeaderboardResults, error => Debug.LogError(error.GenerateErrorReport()));
     }
+
     private void OnGetLeaderboardResults(GetLeaderboardResult result)
     {
         foreach (PlayerLeaderboardEntry player in result.Leaderboard)
@@ -401,6 +462,7 @@ public class PlayfabManager : MonoBehaviour
             leaderboardListing.rubbishText.text = player.StatValue.ToString();
         }
     }
+
     private void GetCountryForLeaderboard(string playerId, LeaderboardListing ll)
     {
         PlayFabClientAPI.GetUserData(new GetUserDataRequest() { PlayFabId = playerId },
@@ -413,10 +475,10 @@ public class PlayfabManager : MonoBehaviour
         },
         error => Debug.LogError(error.GenerateErrorReport()));
     }
-    #endregion
 
+    #endregion PlayerLeaderboard
 
-    IEnumerator Initialization()
+    private IEnumerator Initialization()
     {
         yield return new WaitForSeconds(1f);
         LevelDisplay();
@@ -430,10 +492,12 @@ public class PlayfabManager : MonoBehaviour
     }
 
     #region Displayers
+
     private void TeamnameDisplay()
     {
         stats.teamnameDisplay.text = GetTeamname();
     }
+
     private void AvatarDisplay()
     {
         foreach (var avtr in stats.avatarImageDisplay)
@@ -441,21 +505,23 @@ public class PlayfabManager : MonoBehaviour
             avtr.sprite = stats.avatarSelection.AssignImage(GetAvatar());
         }
     }
+
     private void FlagDisplay()
     {
         foreach (var flg in stats.flagImageDisplay)
         {
             flg.sprite = stats.flagSelection.AssignImage(GetCountry());
         }
-    }    
+    }
+
     private void UsernameDisplay()
     {
         foreach (var usrnm in stats.usernameTextDisplay)
         {
             usrnm.text = GetUserName().Replace(GetUserName().First(), char.ToUpper(GetUserName().First())); ;
-
         }
     }
+
     private void LevelDisplay()
     {
         foreach (var lvltxt in stats.levelTextDisplay)
@@ -471,6 +537,7 @@ public class PlayfabManager : MonoBehaviour
             }
         }
     }
+
     private void CoinsDisplay()
     {
         foreach (var cointxt in stats.coinsTextDisplay)
@@ -483,6 +550,7 @@ public class PlayfabManager : MonoBehaviour
             vouch.text = voucher.ToString(("F2")) + " £";
         }
     }
+
     private void RubbishDisplay()
     {
         foreach (var rubtxt in stats.rubbishTextDisplay)
@@ -490,6 +558,7 @@ public class PlayfabManager : MonoBehaviour
             rubtxt.text = rubbishCollected.ToString();
         }
     }
+
     public void LevelBadgeDisplay()
     {
         foreach (var lvlbd in stats.lvlBadgeDisplay)
@@ -497,8 +566,9 @@ public class PlayfabManager : MonoBehaviour
             lvlbd.sprite = stats.badgeController.allBadges[progressLevel - 1].sprite;
         }
     }
-    #endregion
-    
+
+    #endregion Displayers
+
     public void SetRubbishCollection(string option)
     {
         stats.GetLocationData();
@@ -506,6 +576,10 @@ public class PlayfabManager : MonoBehaviour
         if (option == "c")
         {
             rubbishCollected++;
+            rubbishInPlace++;
+            rubbishInDistrict++;
+            rubbishInRegion++;
+            rubbishInCountry++;
             coinsAvailable++;
         }
         else if (option == "r")

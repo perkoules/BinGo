@@ -1,5 +1,4 @@
-﻿using Mapbox.Examples;
-using Mapbox.Geocoding;
+﻿using Mapbox.Geocoding;
 using Mapbox.Unity.Location;
 using Mapbox.Utils;
 using System.Collections.Generic;
@@ -10,26 +9,22 @@ using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
-    public List<TextMeshProUGUI> rubbishTextDisplay;
-    public List<TextMeshProUGUI> levelTextDisplay;
-    public List<TextMeshProUGUI> usernameTextDisplay;
-    public List<TextMeshProUGUI> coinsTextDisplay;
-    public List<TextMeshProUGUI> voucherTextDisplay;
-    public List<Image> flagImageDisplay;
-    public List<Image> avatarImageDisplay;
-    public List<Image> lvlBadgeDisplay;
-    public TextMeshProUGUI teamnameDisplay;
-    public FlagSelection flagSelection, avatarSelection;
-
-    /*-------------  ----------------*/
-    public BadgeController badgeController;
     public AchievementsController achievementsController;
-    public PlayfabManager playfabManager;
-
-    public GetRubbishLocation rubLoc;
+    public BadgeController badgeController;
     public DeviceLocationProvider locationProvider;
-    public LocationResults locationResults;
-
+    public FlagSelection flagSelection, avatarSelection;
+    public GetRubbishLocation rubLoc;
+    public List<Image> avatarImageDisplay;
+    public List<Image> flagImageDisplay;
+    public List<Image> lvlBadgeDisplay;
+    public List<TextMeshProUGUI> coinsTextDisplay;
+    public List<TextMeshProUGUI> levelTextDisplay;
+    public List<TextMeshProUGUI> rubbishTextDisplay;
+    public List<TextMeshProUGUI> usernameTextDisplay;
+    public List<TextMeshProUGUI> voucherTextDisplay;
+    public PlayfabManager playfabManager;
+    public TextMeshProUGUI teamnameDisplay;
+    public PlayerInfo playerInfo;
 
     public void GetLocationData()
     {
@@ -48,21 +43,19 @@ public class PlayerStats : MonoBehaviour
          * [1] = Durham {district}
          * [2] = England {region}
          * [3] = United Kingdom {country}*/
-        locationResults = new LocationResults
+        /*locationResults = new LocationResults
         {
             place = myResult.features[0].text,
             district = myResult.features[1].text,
             region = myResult.features[2].text,
             country = myResult.features[3].text
+        };*/
+        playerInfo = new PlayerInfo
+        {
+            rubbishPlace = myResult.features[0].text,
+            rubbishDistrict = myResult.features[1].text,
+            rubbishRegion = myResult.features[2].text,
+            rubbishCountry = myResult.features[3].text
         };
     }
-   
-}
-[System.Serializable]
-public class LocationResults
-{
-    public string place;
-    public string district;
-    public string region;
-    public string country;
 }

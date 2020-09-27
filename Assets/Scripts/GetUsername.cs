@@ -6,17 +6,16 @@ using UnityEngine;
 
 public class GetUsername : MonoBehaviour
 {
-    private TextMeshProUGUI myText;
-    PlayfabManager pfm;
+   /* private TextMeshProUGUI myText;
+    public PlayerInfo playerInfo;
+    private void OnEnable()
+    {
+        myText = GetComponent<TextMeshProUGUI>();
+    }
 
     private void Start()
     {
-        myText = GetComponent<TextMeshProUGUI>();
-        pfm = FindObjectOfType<PlayfabManager>();
-        pfm.OnChangedTextEvent += Pfm_OnChangedTextEvent;
-    }
-    private void Pfm_OnChangedTextEvent(string txt)
-    {
-        myText.text = txt.Replace(txt.First(), char.ToUpper(txt.First()));
-    }
+        myText.text = playerInfo.playerUsername;
+        myText.text.Replace(myText.text.First(), char.ToUpper(myText.text.First())); 
+    }*/
 }

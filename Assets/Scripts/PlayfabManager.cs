@@ -6,10 +6,12 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayfabManager : MonoBehaviour
 {
-    public PlayerStats stats;
+    public PlayerStats playerStats;
+    public PlayerInfo playerInfo;
     public TMP_Dropdown countryDropdown, avatarDropdown;
     private string userEmail;
     private string userPassword;
@@ -18,11 +20,7 @@ public class PlayfabManager : MonoBehaviour
     private MessageController messageController;
     public static PlayfabManager Instance { get; private set; }
 
-    public TMP_InputField emailInput, passwordInput;
-
-    public event OnChangedText OnChangedTextEvent;
-
-    public delegate void OnChangedText(string txt);
+    public TMP_InputField emailInput, passwordInput;    
 
     private void OnEnable()
     {
@@ -54,9 +52,9 @@ public class PlayfabManager : MonoBehaviour
             }
             else if (SceneManager.GetActiveScene().buildIndex == 1)
             {
+                GetDisplayName(myID);
                 GetPlayerStats();
                 GetPlayerData();
-                GetDisplayName(myID);
             }
         }
     }
@@ -65,7 +63,7 @@ public class PlayfabManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
-            StartCoroutine(Initialization());
+            StartCoroutine(InitialDisplay());
         }
     }
 
@@ -107,6 +105,7 @@ public class PlayfabManager : MonoBehaviour
         SetGuestPlayerRegistered("YES");
         myID = result.PlayFabId;
         GetDisplayName(myID);
+
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
             messageController.messages[0].SetActive(true);
@@ -243,11 +242,6 @@ public class PlayfabManager : MonoBehaviour
         PlayerPrefs.SetString(EMAIL_GIVEN, usrEmail);
     }
 
-    public void GetUserEmail(string emailIn)
-    {
-        userEmail = emailIn;
-    }
-
     public string GetUserEmail()
     {
         return PlayerPrefs.GetString(EMAIL_GIVEN);
@@ -257,12 +251,6 @@ public class PlayfabManager : MonoBehaviour
     {
         PlayerPrefs.SetString(PASSWORD_GIVEN, usrPassword);
     }
-
-    public void GetUserPassword(string passIn)
-    {
-        userPassword = passIn;
-    }
-
     public string GetUserPassword()
     {
         return PlayerPrefs.GetString(PASSWORD_GIVEN);
@@ -273,10 +261,6 @@ public class PlayfabManager : MonoBehaviour
         PlayerPrefs.SetString(USERNAME_GIVEN, usrnm);
     }
 
-    public void GetUsername(string usernameIn)
-    {
-        username = usernameIn;
-    }
 
     public string GetUserName()
     {
@@ -348,10 +332,10 @@ public class PlayfabManager : MonoBehaviour
             {
                 cloudProgressLevel = progressLevel,
                 cloudRubbishCollected = rubbishCollected,
-                cloudStatisticNamePlace = stats.playerInfo.rubbishPlace + "Place",
-                cloudStatisticNameDistrict = stats.playerInfo.rubbishDistrict,
-                cloudStatisticNameRegion = stats.playerInfo.rubbishRegion,
-                cloudStatisticNameCountry = stats.playerInfo.rubbishCountry,
+                cloudStatisticNamePlace = playerInfo.rubbishPlace + "Place",
+                cloudStatisticNameDistrict = playerInfo.rubbishDistrict,
+                cloudStatisticNameRegion = playerInfo.rubbishRegion,
+                cloudStatisticNameCountry = playerInfo.rubbishCountry,
                 cloudRubbishCollectedInPlace = rubbishInPlace,
                 cloudRubbishCollectedInDistrict = rubbishInDistrict,
                 cloudRubbishCollectedInRegion = rubbishInRegion,
@@ -376,20 +360,53 @@ public class PlayfabManager : MonoBehaviour
                     {
                         case "ProgressLevel":
                             progressLevel = eachStat.Value;
+                            playerInfo.playerCurrentLevel = eachStat.Value;
                             LevelDisplay();
                             break;
 
                         case "RubbishCollected":
                             rubbishCollected = eachStat.Value;
+                            playerInfo.playerRubbish = eachStat.Value;
                             RubbishDisplay();
                             break;
 
                         case "CoinsAvailable":
                             coinsAvailable = eachStat.Value;
+                            playerInfo.playerCoins = eachStat.Value;
                             CoinsDisplay();
-                            break;                        
+                            break;
+
                         default:
                             break;
+                    }
+                    if (playerInfo.rubbishPlace != null)
+                    {
+
+                        if (eachStat.StatisticName == (playerInfo.rubbishPlace + "Place"))
+                        {
+                            rubbishInPlace = eachStat.Value;
+                            playerInfo.rubbishInPlace = eachStat.Value;
+                        }
+                        else if (eachStat.StatisticName == playerInfo.rubbishDistrict)
+                        {
+                            rubbishInDistrict = eachStat.Value;
+                            playerInfo.rubbishInDistrict = eachStat.Value;
+                        }
+                        else if (eachStat.StatisticName == playerInfo.rubbishRegion)
+                        {
+                            rubbishInRegion = eachStat.Value;
+                            playerInfo.rubbishInRegion = eachStat.Value;
+                        }
+                        else if (eachStat.StatisticName == (playerInfo.rubbishCountry))
+                        {
+                            rubbishInCountry = eachStat.Value;
+                            playerInfo.rubbishInCountry = eachStat.Value;
+                        }
+                    }
+                    else
+                    {
+                        playerStats.GetLocationDataOfRubbish();
+                        GetPlayerStats();
                     }
                 }
             }, error => Debug.LogError(error.GenerateErrorReport()));
@@ -434,7 +451,10 @@ public class PlayfabManager : MonoBehaviour
     public void GetDisplayName(string playerId)
     {
         PlayFabClientAPI.GetAccountInfo(new GetAccountInfoRequest() { PlayFabId = playerId },
-          result => SetUserName(result.AccountInfo.Username),
+          result =>
+          {
+              SetUserName(result.AccountInfo.Username);
+          },
           error => Debug.LogError(error.GenerateErrorReport()));
     }
 
@@ -456,6 +476,15 @@ public class PlayfabManager : MonoBehaviour
         {
             GameObject obj = Instantiate(listingPrefab, leaderboardPanel.transform);
             LeaderboardListing leaderboardListing = obj.GetComponent<LeaderboardListing>();
+
+            if (player.Position % 2 == 0)
+            {
+                obj.GetComponent<Image>().color = leaderboardListing.evenColor;
+            }
+            else if (player.Position % 2 != 0)
+            {
+                obj.GetComponent<Image>().color = leaderboardListing.oddColor;
+            }
             leaderboardListing.positionText.text = (player.Position + 1).ToString();
             leaderboardListing.playerNameText.text = player.DisplayName;
             GetCountryForLeaderboard(player.PlayFabId, leaderboardListing);
@@ -478,7 +507,7 @@ public class PlayfabManager : MonoBehaviour
 
     #endregion PlayerLeaderboard
 
-    private IEnumerator Initialization()
+    private IEnumerator InitialDisplay()
     {
         yield return new WaitForSeconds(1f);
         LevelDisplay();
@@ -495,28 +524,28 @@ public class PlayfabManager : MonoBehaviour
 
     private void TeamnameDisplay()
     {
-        stats.teamnameDisplay.text = GetTeamname();
+        playerStats.teamnameDisplay.text = GetTeamname();
     }
 
     private void AvatarDisplay()
     {
-        foreach (var avtr in stats.avatarImageDisplay)
+        foreach (var avtr in playerStats.avatarImageDisplay)
         {
-            avtr.sprite = stats.avatarSelection.AssignImage(GetAvatar());
+            avtr.sprite = playerStats.avatarSelection.AssignImage(GetAvatar());
         }
     }
 
     private void FlagDisplay()
     {
-        foreach (var flg in stats.flagImageDisplay)
+        foreach (var flg in playerStats.flagImageDisplay)
         {
-            flg.sprite = stats.flagSelection.AssignImage(GetCountry());
+            flg.sprite = playerStats.flagSelection.AssignImage(GetCountry());
         }
     }
 
     private void UsernameDisplay()
     {
-        foreach (var usrnm in stats.usernameTextDisplay)
+        foreach (var usrnm in playerStats.usernameTextDisplay)
         {
             usrnm.text = GetUserName().Replace(GetUserName().First(), char.ToUpper(GetUserName().First())); ;
         }
@@ -524,7 +553,7 @@ public class PlayfabManager : MonoBehaviour
 
     private void LevelDisplay()
     {
-        foreach (var lvltxt in stats.levelTextDisplay)
+        foreach (var lvltxt in playerStats.levelTextDisplay)
         {
             if (lvltxt.name.EndsWith("Next"))
             {
@@ -540,11 +569,11 @@ public class PlayfabManager : MonoBehaviour
 
     private void CoinsDisplay()
     {
-        foreach (var cointxt in stats.coinsTextDisplay)
+        foreach (var cointxt in playerStats.coinsTextDisplay)
         {
             cointxt.text = coinsAvailable.ToString();
         }
-        foreach (var vouch in stats.voucherTextDisplay)
+        foreach (var vouch in playerStats.voucherTextDisplay)
         {
             float voucher = (coinsAvailable / 100.0f);
             vouch.text = voucher.ToString(("F2")) + " £";
@@ -553,7 +582,7 @@ public class PlayfabManager : MonoBehaviour
 
     private void RubbishDisplay()
     {
-        foreach (var rubtxt in stats.rubbishTextDisplay)
+        foreach (var rubtxt in playerStats.rubbishTextDisplay)
         {
             rubtxt.text = rubbishCollected.ToString();
         }
@@ -561,9 +590,9 @@ public class PlayfabManager : MonoBehaviour
 
     public void LevelBadgeDisplay()
     {
-        foreach (var lvlbd in stats.lvlBadgeDisplay)
+        foreach (var lvlbd in playerStats.lvlBadgeDisplay)
         {
-            lvlbd.sprite = stats.badgeController.allBadges[progressLevel - 1].sprite;
+            lvlbd.sprite = playerStats.badgeController.allBadges[progressLevel - 1].sprite;
         }
     }
 
@@ -571,7 +600,7 @@ public class PlayfabManager : MonoBehaviour
 
     public void SetRubbishCollection(string option)
     {
-        stats.GetLocationData();
+        playerStats.GetLocationDataOfRubbish();
 
         if (option == "c")
         {
@@ -585,6 +614,10 @@ public class PlayfabManager : MonoBehaviour
         else if (option == "r")
         {
             rubbishCollected++;
+            rubbishInPlace++;
+            rubbishInDistrict++;
+            rubbishInRegion++;
+            rubbishInCountry++;
             coinsAvailable += 2;
         }
         UpdatePlayerStats();

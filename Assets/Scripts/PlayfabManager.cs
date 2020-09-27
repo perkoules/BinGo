@@ -46,7 +46,6 @@ public class PlayfabManager : MonoBehaviour
         {
             if (SceneManager.GetActiveScene().buildIndex == 0)
             {
-                //AutoLogin();
                 emailInput.text = GetUserEmail();
                 passwordInput.text = GetUserPassword();
             }
@@ -68,18 +67,6 @@ public class PlayfabManager : MonoBehaviour
     }
 
     #region Login
-
-    private void AutoLogin()
-    {
-        if (PlayerPrefs.HasKey(EMAIL_GIVEN) && PlayerPrefs.GetString(EMAIL_GIVEN) != null)
-        {
-            Debug.Log(PlayerPrefs.GetString(EMAIL_GIVEN));
-            userEmail = GetUserEmail();
-            userPassword = GetUserPassword();
-            var request = new LoginWithEmailAddressRequest { Email = userEmail, Password = userPassword };
-            PlayFabClientAPI.LoginWithEmailAddress(request, OnLoginSuccess, OnLoginFailure);
-        }
-    }
 
     public void GuestMode()
     {

@@ -32,7 +32,7 @@ public class PlayerStats : MonoBehaviour
         StartCoroutine(InitializeLocation());
     }
 
-    IEnumerator InitializeLocation()
+    private IEnumerator InitializeLocation()
     {
         yield return new WaitForSeconds(3);
         GetLocationDataOfRubbish();
@@ -50,11 +50,15 @@ public class PlayerStats : MonoBehaviour
         //Mock Location url
         //lat 54.640891
         //lon -1.6793837
-        /*double lat, lon;
-         * string mockLocation = "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
-         * lat +"," +lon +
-         * ".json?types=country%2Cregion%2Cdistrict%2Cplace&access_token=pk.eyJ1Ijoic" +
-         * "GVya291bGVzIiwiYSI6ImNrZTJxcnY3dDBid24ycm1zZHpobmM3bXQifQ.OJPGmxrrojaoLzN_LpjesA";*/
+
+        double lat = 51.2327634;
+        double lon = 22.5168116;
+        string mockLocation = "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
+        lon + "," + lat +
+        ".json?types=country%2Cregion%2Cdistrict%2Cplace&access_token=pk.eyJ1Ijoic" +
+        "GVya291bGVzIiwiYSI6ImNrZTJxcnY3dDBid24ycm1zZHpobmM3bXQifQ.OJPGmxrrojaoLzN_LpjesA";
+        //var jsonLocationData = new WebClient().DownloadString(mockLocation);
+
         string locationUrl = rubLoc.GetUrl();
         var jsonLocationData = new WebClient().DownloadString(locationUrl);
 
@@ -64,12 +68,25 @@ public class PlayerStats : MonoBehaviour
         * [1] = Durham { district}
         * [2] = England { region}
         * [3] = United Kingdom { country}*/
-        playerInfo = new PlayerInfo
+        int p = myResult.features.FindIndex(f => f.id.Contains("place"));
+        int d = myResult.features.FindIndex(f => f.id.Contains("district"));
+        int r = myResult.features.FindIndex(f => f.id.Contains("region"));
+        int c = myResult.features.FindIndex(f => f.id.Contains("country"));
+        if (p >= 0)
         {
-            rubbishPlace = myResult.features[0].text,
-            rubbishDistrict = myResult.features[1].text,
-            rubbishRegion = myResult.features[2].text,
-            rubbishCountry = myResult.features[3].text
-        };
+            playerInfo.RubbishPlace = myResult.features[p].text;
+        }
+        if (d >= 0)
+        {
+            playerInfo.RubbishDistrict = myResult.features[d].text;
+        }
+        if (r >= 0)
+        {
+            playerInfo.RubbishRegion = myResult.features[r].text;
+        }
+        if (c >= 0)
+        {
+            playerInfo.RubbishCountry = myResult.features[c].text;
+        }
     }
 }

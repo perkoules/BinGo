@@ -448,7 +448,7 @@ public class PlayfabManager : MonoBehaviour
     #endregion PlayerData
 
     #region PlayerLeaderboard
-
+/*
     public GameObject leaderboardPanel, listingPrefab;
 
     public void GetLeaderboardRubbishCollected()
@@ -491,7 +491,7 @@ public class PlayfabManager : MonoBehaviour
         },
         error => Debug.LogError(error.GenerateErrorReport()));
     }
-
+*/
     #endregion PlayerLeaderboard
 
     private IEnumerator InitialDisplay()

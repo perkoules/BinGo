@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
 
-public class GetLeaderboard : MonoBehaviour
+public class LeaderboardPlayerProgressInCountry : MonoBehaviour
 {
+    private LeaderboardManager leaderboardManager;
     public GameObject leaderboardHolder;
     private void OnEnable()
     {
         if(leaderboardHolder.transform.childCount == 0)
         {
-            FindObjectOfType<PlayfabManager>().GetLeaderboardRubbishCollected();
+            leaderboardManager = GetComponent<LeaderboardManager>();
+            leaderboardManager.GetCountryLeaderboard();
         }
         else
         {

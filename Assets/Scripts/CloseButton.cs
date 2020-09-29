@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class CloseButton : MonoBehaviour
@@ -16,7 +14,7 @@ public class CloseButton : MonoBehaviour
 
     public void Clicked()
     {
-        if (button.name.Contains("Close"))            
+        if (button.name.Contains("Close"))
         {
             foreach (var panel in panels)
             {

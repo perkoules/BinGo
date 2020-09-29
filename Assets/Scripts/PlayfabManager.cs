@@ -116,6 +116,7 @@ public class PlayfabManager : MonoBehaviour
         var registerRequest = new RegisterPlayFabUserRequest { Email = userEmail, Password = userPassword, Username = username };
         PlayFabClientAPI.RegisterPlayFabUser(registerRequest, OnRegisterSuccess, OnRegisterFailure);
     }
+
     private void OnDisplayName(UpdateUserTitleDisplayNameResult result)
     {
         string capitalFirst = result.DisplayName.Replace(result.DisplayName.First(), char.ToUpper(result.DisplayName.First()));
@@ -137,7 +138,6 @@ public class PlayfabManager : MonoBehaviour
             StartCoroutine(LoggingProcessSucceeded());
         }
     }
-
 
     private void OnRegisterFailure(PlayFabError error)
     {
@@ -229,6 +229,7 @@ public class PlayfabManager : MonoBehaviour
         userEmail = usrEmail;
         PlayerPrefs.SetString(EMAIL_GIVEN, usrEmail);
     }
+
     public string GetEmail()
     {
         return PlayerPrefs.GetString(EMAIL_GIVEN);
@@ -302,9 +303,16 @@ public class PlayfabManager : MonoBehaviour
     private string avatar = "Avatar 1";
     private string teamname = "no team";
 
-    
     public void UpdatePlayerStats()
     {
+        if (playerStats.playerInfo.RubbishDistrict == null)
+        {
+            playerStats.playerInfo.RubbishDistrict = "NullDistricts";
+        }
+        if (playerStats.playerInfo.RubbishRegion == null)
+        {
+            playerStats.playerInfo.RubbishRegion = "NullRegions";
+        }
         PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
         {
             FunctionName = "UpdatePlayerStats",
@@ -320,7 +328,7 @@ public class PlayfabManager : MonoBehaviour
                 cloudRubbishCollectedInDistrict = rubbishInDistrict,
                 cloudRubbishCollectedInRegion = rubbishInRegion,
                 cloudRubbishCollectedInCountry = rubbishInCountry,
-                cloudCoinsAvailable = coinsAvailable,
+                cloudCoinsAvailable = coinsAvailable
             },
             GeneratePlayStreamEvent = true,
         },

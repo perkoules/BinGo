@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class FlagSelection : MonoBehaviour
 {
@@ -28,11 +28,10 @@ public class FlagSelection : MonoBehaviour
             options.Add(new TMP_Dropdown.OptionData { image = item.sprite, text = item.sprite.name });
         }
         dropdown.AddOptions(options);
-        
-    }
-    public Sprite AssignImage(string countryName)
-    {
-        return countryFlag.Find(spr => spr.name == countryName);        
     }
 
+    public Sprite AssignImage(string countryName)
+    {
+        return countryFlag.Find(spr => spr.name == countryName);
+    }
 }

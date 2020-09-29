@@ -4,9 +4,10 @@ public class LeaderboardWorldByPlayer : MonoBehaviour
 {
     private LeaderboardManager leaderboardManager;
     public GameObject leaderboardHolder;
+
     private void OnEnable()
     {
-        if(leaderboardHolder.transform.childCount == 0)
+        if (leaderboardHolder.transform.childCount == 0)
         {
             leaderboardManager = GetComponent<LeaderboardManager>();
             leaderboardManager.GetLeaderboardRubbishCollected();
@@ -17,9 +18,9 @@ public class LeaderboardWorldByPlayer : MonoBehaviour
             {
                 child.gameObject.SetActive(true);
             }
-        }        
+        }
     }
-    
+
     private void OnDisable()
     {
         foreach (Transform child in leaderboardHolder.transform)
@@ -27,6 +28,7 @@ public class LeaderboardWorldByPlayer : MonoBehaviour
             child.gameObject.SetActive(false);
         }
     }
+
     public void ClearLeaderboard()
     {
         foreach (Transform child in leaderboardHolder.transform)

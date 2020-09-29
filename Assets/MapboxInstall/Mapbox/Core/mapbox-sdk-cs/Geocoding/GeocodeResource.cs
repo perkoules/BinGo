@@ -28,7 +28,7 @@ namespace Mapbox.Geocoding
 
 
 		private readonly string myToken = MapboxAccess.Instance._configuration.AccessToken;
-		public string MyToken
+		public string MyTokenReverse
 		{
 			get
 			{
@@ -36,7 +36,14 @@ namespace Mapbox.Geocoding
 				return string.Concat(prefix, myToken);
 			}
 		}
-
+		public string MyTokenForward
+		{
+			get
+			{
+				string prefix = "?access_token=";
+				return string.Concat(prefix, myToken);
+			}
+		}
 
 		// Optional
 		private string[] types;

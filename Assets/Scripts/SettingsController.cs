@@ -1,6 +1,4 @@
-﻿using PlayFab.ClientModels;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -42,6 +40,7 @@ public class SettingsController : MonoBehaviour
             toggles[index].image.color = enabledColor;
         }
     }
+
     public void Mountain()
     {
         //if done
@@ -55,6 +54,7 @@ public class SettingsController : MonoBehaviour
             toggles[index].image.color = enabledColor;
         }
     }
+
     public void Sea()
     {
         //if done
@@ -68,6 +68,7 @@ public class SettingsController : MonoBehaviour
             toggles[index].image.color = enabledColor;
         }
     }
+
     public void RegisterTemporaryAccount()
     {
         //if done
@@ -81,6 +82,7 @@ public class SettingsController : MonoBehaviour
             toggles[index].image.color = enabledColor;
         }
     }
+
     public void GoogleLink()
     {
         //if done
@@ -94,6 +96,7 @@ public class SettingsController : MonoBehaviour
             toggles[index].image.color = enabledColor;
         }
     }
+
     public void FacebookLink()
     {
         //if done
@@ -107,6 +110,7 @@ public class SettingsController : MonoBehaviour
             toggles[index].image.color = enabledColor;
         }
     }
+
     public void Music()
     {
         //if done
@@ -120,6 +124,7 @@ public class SettingsController : MonoBehaviour
             toggles[index].image.color = enabledColor;
         }
     }
+
     public void SFX()
     {
         //if done
@@ -133,6 +138,7 @@ public class SettingsController : MonoBehaviour
             toggles[index].image.color = enabledColor;
         }
     }
+
     public void Vibration()
     {
         //if done
@@ -146,6 +152,7 @@ public class SettingsController : MonoBehaviour
             toggles[index].image.color = enabledColor;
         }
     }
+
     public void Progress()
     {
         //if done

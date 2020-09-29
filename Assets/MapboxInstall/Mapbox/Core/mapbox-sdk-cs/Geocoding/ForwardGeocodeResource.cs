@@ -200,7 +200,8 @@ namespace Mapbox.Geocoding
 				Uri.EscapeDataString(Query) +
 #endif
 				".json" +
-				EncodeQueryString(opts);
+				EncodeQueryString(opts) +
+							this.MyTokenForward;
 		}
 	}
 }

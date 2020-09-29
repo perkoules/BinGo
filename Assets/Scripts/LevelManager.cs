@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
@@ -9,6 +7,7 @@ public class LevelManager : MonoBehaviour
     {
         SceneManager.LoadSceneAsync(0, LoadSceneMode.Single);
     }
+
     public void MainGame()
     {
         SceneManager.LoadSceneAsync(1, LoadSceneMode.Single);

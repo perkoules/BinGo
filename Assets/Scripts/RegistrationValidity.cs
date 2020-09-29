@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Net;
-using System.Net.Mail;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +8,7 @@ public class RegistrationValidity : MonoBehaviour
     public TMP_InputField usernameInputField, passwordInputField, repeatPasswordInputField, emailInputField;
     public Color32 colorDefault;
 
-    void Start()
+    private void Start()
     {
         colorDefault = new Color32(90, 216, 98, 255);
         registerButton = GetComponent<Button>();
@@ -26,6 +21,7 @@ public class RegistrationValidity : MonoBehaviour
         repeatPasswordInputField.onValueChanged.AddListener(CheckPasswordSimilarity);
         emailInputField.onValueChanged.AddListener(CheckEmail);
     }
+
     private void CheckEmail(string email)
     {
         /*if (email.EndsWith("@gmail.com") || email.EndsWith("@outlook.com") || email.EndsWith("@yahoo.com"))
@@ -37,9 +33,10 @@ public class RegistrationValidity : MonoBehaviour
             emailInputField.image.color = Color.red;
         }*/
     }
+
     private void CheckLength(string str)
     {
-        if(usernameInputField.text.Length < 5)
+        if (usernameInputField.text.Length < 5)
         {
             usernameInputField.image.color = Color.red;
         }
@@ -48,6 +45,7 @@ public class RegistrationValidity : MonoBehaviour
             usernameInputField.image.color = colorDefault;
         }
     }
+
     private void CheckPasswordSimilarity(string str)
     {
         if (passwordInputField.text.Length >= 8 && passwordInputField.text.Equals(repeatPasswordInputField.text))
@@ -61,10 +59,11 @@ public class RegistrationValidity : MonoBehaviour
             repeatPasswordInputField.image.color = Color.red;
         }
     }
+
     public bool IsValid()
     {
-        if(passwordInputField.image.color == colorDefault 
-            && usernameInputField.image.color == colorDefault 
+        if (passwordInputField.image.color == colorDefault
+            && usernameInputField.image.color == colorDefault
             && emailInputField.image.color == colorDefault)
         {
             return true;

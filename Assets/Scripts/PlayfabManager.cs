@@ -1,5 +1,6 @@
 ﻿using PlayFab;
 using PlayFab.ClientModels;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -286,7 +287,15 @@ public class PlayfabManager : MonoBehaviour
     {
         return PlayerPrefs.GetString(TEAMNAME_GIVEN);
     }
+    public void SetTasks(string tsk)
+    {
+        PlayerPrefs.SetString(TASK_BADGES, tsk);
+    }
 
+    public string GetTasks()
+    {
+        return PlayerPrefs.GetString(TASK_BADGES);
+    }
     #endregion Playerprefs
 
     #region PlayerData
@@ -294,11 +303,11 @@ public class PlayfabManager : MonoBehaviour
     /*--------- Stats and data defaults ---------------------*/
     public int progressLevel = 1;
     public int rubbishCollected = 0;
-    private int rubbishInPlace = 0;
-    private int rubbishInDistrict = 0;
-    private int rubbishInRegion = 0;
-    private int rubbishInCountry = 0;
-    private int coinsAvailable = 0;
+    public int rubbishInPlace = 0;
+    public int rubbishInDistrict = 0;
+    public int rubbishInRegion = 0;
+    public int rubbishInCountry = 0;
+    public int coinsAvailable = 0;
     private string country = "Australia";
     private string avatar = "Avatar 1";
     private string teamname = "no team";
@@ -335,7 +344,6 @@ public class PlayfabManager : MonoBehaviour
         result => GetPlayerStats(),
         error => Debug.Log(error.GenerateErrorReport()));
     }
-
     public void GetPlayerStats()
     {
         PlayFabClientAPI.GetPlayerStatistics(
@@ -409,12 +417,12 @@ public class PlayfabManager : MonoBehaviour
             Data = new Dictionary<string, string>() {
             {"Country", country},
             {"Avatar", avatar},
+            {"Achievements", "0"},
             {"TeamName", teamname} }
         },
         result => Debug.Log("Successfully updated user data"),
         error =>
         {
-            Debug.Log("Got error setting user data Ancestor to Arthur");
             Debug.Log(error.GenerateErrorReport());
         });
     }
@@ -430,6 +438,7 @@ public class PlayfabManager : MonoBehaviour
                 SetCountry(result.Data["Country"].Value);
                 SetAvatar(result.Data["Avatar"].Value);
                 SetTeamname(result.Data["TeamName"].Value);
+                SetTasks(result.Data["Achievements"].Value);
             }
         },
         error => Debug.Log(error.GenerateErrorReport()));
@@ -548,28 +557,5 @@ public class PlayfabManager : MonoBehaviour
 
     #endregion Displayers
 
-    public void SetRubbishCollection(string option)
-    {
-        playerStats.GetLocationDataOfRubbish();
-
-        if (option == "c")
-        {
-            rubbishCollected++;
-            rubbishInPlace++;
-            rubbishInDistrict++;
-            rubbishInRegion++;
-            rubbishInCountry++;
-            coinsAvailable++;
-        }
-        else if (option == "r")
-        {
-            rubbishCollected++;
-            rubbishInPlace++;
-            rubbishInDistrict++;
-            rubbishInRegion++;
-            rubbishInCountry++;
-            coinsAvailable += 2;
-        }
-        UpdatePlayerStats();
-    }
+    
 }

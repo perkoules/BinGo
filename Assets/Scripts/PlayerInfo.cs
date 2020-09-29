@@ -3,26 +3,25 @@ using UnityEngine.UI;
 
 [System.Serializable]
 public class PlayerInfo
-{
+{ 
+    //Serialized for testing purposes
     [Header("Player Data:")]
     [SerializeField] private string playerUsername;
-
     [SerializeField] private string playerEmail;
     [SerializeField] private string playerPassword;
     [SerializeField] private string playerTeamName;
+    [SerializeField] public string playerTasks;
     [SerializeField] private Image playerCurrentBadge;
     [SerializeField] private Image playerAvatar;
     [SerializeField] private Image playerCountry;
 
     [Header("Player Stats:")]
     [SerializeField] private int playerCurrentLevel;
-
     [SerializeField] private int playerCoins;
     [SerializeField] private int playerRubbish;
 
     [Header("Rubbish Location Data:")]
     [SerializeField] private string rubbishPlace;
-
     [SerializeField] private int rubbishInPlace;
     [SerializeField] private string rubbishDistrict;
     [SerializeField] private int rubbishInDistrict;
@@ -30,6 +29,12 @@ public class PlayerInfo
     [SerializeField] private int rubbishInRegion;
     [SerializeField] private string rubbishCountry;
     [SerializeField] private int rubbishInCountry;
+
+    public string PlayerTasks
+    {
+        get { return playerTasks; }
+        set { playerTasks = value; }
+    }
 
     public string PlayerUsername
     {

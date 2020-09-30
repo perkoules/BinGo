@@ -16,6 +16,7 @@ public class SettingsController : MonoBehaviour
         }
         if (FindObjectOfType<PlayfabManager>().GetGuestPlayerRegistered() == "YES")
         {
+            Debug.Log("ENABLER " + FindObjectOfType<PlayfabManager>().GetGuestPlayerRegistered());
             int index = toggles.FindIndex(t => t.name.Contains("Register") == true);
             toggles[index].image.color = enabledColor;
             toggles[index].interactable = false;

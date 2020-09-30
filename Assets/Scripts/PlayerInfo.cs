@@ -10,7 +10,7 @@ public class PlayerInfo
     [SerializeField] private string playerEmail;
     [SerializeField] private string playerPassword;
     [SerializeField] private string playerTeamName;
-    [SerializeField] public string playerTasks;
+    [SerializeField] private string playerTasks;
     [SerializeField] private Image playerCurrentBadge;
     [SerializeField] private Image playerAvatar;
     [SerializeField] private Image playerCountry;

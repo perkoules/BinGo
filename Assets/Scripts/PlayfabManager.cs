@@ -7,6 +7,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayfabManager : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class PlayfabManager : MonoBehaviour
     public static PlayfabManager Instance { get; private set; }
 
     public TMP_InputField emailInput, passwordInput;
-
+    public Sprite guest;
     private void OnEnable()
     {
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
@@ -45,19 +46,39 @@ public class PlayfabManager : MonoBehaviour
         {
             if (SceneManager.GetActiveScene().buildIndex == 0)
             {
+                PlayerPrefs.DeleteKey(REGISTER_FROM_GUEST);
+                PlayerPrefs.DeleteKey(IS_GUEST);
+                SetGuestPlayerRegistered("NO");
+                SetIsGuest(0);
                 emailInput.text = GetEmail();
                 passwordInput.text = GetPassword();
             }
-            else if (SceneManager.GetActiveScene().buildIndex == 1)
+            if (SceneManager.GetActiveScene().buildIndex == 1 && GetIsGuest() == 0)
             {
+                Debug.Log("Guest mode OFF");
                 GetDisplayName(myID);
                 GetPlayerStats();
                 GetPlayerData();
             }
+            else if (SceneManager.GetActiveScene().buildIndex == 1 && GetIsGuest() == 1)
+            {
+                foreach (var avtr in playerStats.avatarImageDisplay)
+                {
+                    avtr.sprite = guest;
+                }
+                foreach (var flg in playerStats.flagImageDisplay)
+                {
+                    flg.sprite = guest;
+                }
+                foreach (var usrnm in playerStats.usernameTextDisplay)
+                {
+                    usrnm.text = "Guest" + UnityEngine.Random.Range(5000, 50000).ToString();
+                }
+            }
         }
     }
 
-    private void Start()
+    public void Start()
     {
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
@@ -69,9 +90,9 @@ public class PlayfabManager : MonoBehaviour
 
     public void GuestMode()
     {
+        SetIsGuest(1);
         var requestAndroid = new LoginWithAndroidDeviceIDRequest { AndroidDeviceId = ReturnAndroidID(), CreateAccount = true };
         PlayFabClientAPI.LoginWithAndroidDeviceID(requestAndroid, OnLoginSuccess, OnLoginFailure);
-        SetUsername("Anonymous");
     }
 
     public void ClickToLogin()
@@ -88,10 +109,8 @@ public class PlayfabManager : MonoBehaviour
 
     private void OnLoginSuccess(LoginResult result)
     {
-        SetGuestPlayerRegistered("YES");
         myID = result.PlayFabId;
         GetDisplayName(myID);
-
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
             messageController.messages[0].SetActive(true);
@@ -207,13 +226,24 @@ public class PlayfabManager : MonoBehaviour
     #region Playerprefs
 
     private const string REGISTER_FROM_GUEST = "RegisterFromGuest";
+    private const string IS_GUEST = "isGuest";
     private const string EMAIL_GIVEN = "EmailGiven";
     private const string PASSWORD_GIVEN = "PasswordGiven";
     private const string USERNAME_GIVEN = "UsernameGiven";
-    public const string COUNTRY_GIVEN = "CountryGiven";
-    public const string AVATAR_GIVEN = "AvatarGiven";
-    public const string TEAMNAME_GIVEN = "TeamnameGiven";
-    public const string TASK_BADGES = "TaskBadges";
+    private const string COUNTRY_GIVEN = "CountryGiven";
+    private const string AVATAR_GIVEN = "AvatarGiven";
+    private const string TEAMNAME_GIVEN = "TeamnameGiven";
+    private const string TASK_BADGES = "TaskBadges";
+
+    public void SetIsGuest(int guest)
+    {
+        PlayerPrefs.SetInt(IS_GUEST, guest);
+    }
+
+    public int GetIsGuest()
+    {
+        return PlayerPrefs.GetInt(IS_GUEST);
+    }
 
     public void SetGuestPlayerRegistered(string reg)
     {
@@ -329,10 +359,10 @@ public class PlayfabManager : MonoBehaviour
             {
                 cloudProgressLevel = progressLevel,
                 cloudRubbishCollected = rubbishCollected,
-                cloudStatisticNamePlace = playerStats.playerInfo.RubbishPlace + "Place",
-                cloudStatisticNameDistrict = playerStats.playerInfo.RubbishDistrict,
-                cloudStatisticNameRegion = playerStats.playerInfo.RubbishRegion,
-                cloudStatisticNameCountry = playerStats.playerInfo.RubbishCountry,
+                cloudStatisticNamePlace = playerStats.playerInfo.RubbishPlace + " isPlace",
+                cloudStatisticNameDistrict = playerStats.playerInfo.RubbishDistrict + " isDistrict",
+                cloudStatisticNameRegion = playerStats.playerInfo.RubbishRegion + " isRegion",
+                cloudStatisticNameCountry = playerStats.playerInfo.RubbishCountry + " isCountry",
                 cloudRubbishCollectedInPlace = rubbishInPlace,
                 cloudRubbishCollectedInDistrict = rubbishInDistrict,
                 cloudRubbishCollectedInRegion = rubbishInRegion,
@@ -456,7 +486,7 @@ public class PlayfabManager : MonoBehaviour
 
     #endregion PlayerData
 
-    private IEnumerator InitialDisplay()
+    public IEnumerator InitialDisplay()
     {
         yield return new WaitForSeconds(1f);
         LevelDisplay();

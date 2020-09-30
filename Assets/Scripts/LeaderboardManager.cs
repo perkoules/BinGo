@@ -81,7 +81,7 @@ public class LeaderboardManager : MonoBehaviour
         {
             if (result.Data.ContainsKey("Country"))
             {
-                GetLeaderboardInCountry(result.Data["Country"].Value);
+                GetLeaderboardInCountry(result.Data["Country"].Value + " isCountry");
             }
         },
         error => Debug.LogError(error.GenerateErrorReport()));
@@ -98,7 +98,7 @@ public class LeaderboardManager : MonoBehaviour
                 LeaderboardListing leaderboardListing = obj.GetComponent<LeaderboardListing>();
                 leaderboardListing.positionText.text = "1";
                 leaderboardListing.playerNameText.text = playerName;
-                leaderboardListing.countryText.text = playerCountry;
+                leaderboardListing.countryText.text = playerCountry.Replace(" isCountry", "");
                 leaderboardListing.rubbishText.text = playerInfo.PlayerRubbish.ToString();
             }
             foreach (PlayerLeaderboardEntry player in result.Leaderboard)
@@ -115,17 +115,12 @@ public class LeaderboardManager : MonoBehaviour
                 }
                 leaderboardListing.positionText.text = (player.Position + 1).ToString();
                 leaderboardListing.playerNameText.text = player.DisplayName;
-                leaderboardListing.countryText.text = playerCountry;
+                leaderboardListing.countryText.text = playerCountry.Replace(" isCountry", "");
                 leaderboardListing.rubbishText.text = player.StatValue.ToString();
             }
         }, error => Debug.LogError(error.GenerateErrorReport()));
     }
 
-    public List<string> strs;
-    //Place
-    //Position in that place
-    //Country of place
-    //rubbish in that place
 
     public void GetWorldLeaderboard()
     {
@@ -134,9 +129,9 @@ public class LeaderboardManager : MonoBehaviour
         {
             foreach (var stat in result.Statistics)
             {
-                if (stat.StatisticName.Contains("Place"))
+                if (stat.StatisticName.Contains(" isPlace"))
                 {
-                    string place = stat.StatisticName.Replace("Place", "");
+                    string place = stat.StatisticName.Replace(" isPlace", "");
                     StartCoroutine(GetLeaderboardInWorld(stat.StatisticName, place));
                 }
             }
@@ -175,5 +170,10 @@ public class LeaderboardManager : MonoBehaviour
         string[] tt = myResult.features[0].place_name.Split(',');
         country = tt.Last();
         return country;
+    }
+
+    public void GetLeaderboardWorldByCountry()
+    {
+
     }
 }

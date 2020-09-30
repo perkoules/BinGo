@@ -47,6 +47,6 @@ public class AchievementsController : MonoBehaviour
 
     public void CheckAchievementUnlockability()
     {
-        Debug.Log("Checking");
+        //Debug.Log("Checking");
     }
 }

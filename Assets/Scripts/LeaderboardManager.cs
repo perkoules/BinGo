@@ -1,5 +1,6 @@
 ﻿using Mapbox.Geocoding;
 using PlayFab;
+using PlayFab.AdminModels;
 using PlayFab.ClientModels;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,7 +11,6 @@ using UnityEngine.UI;
 
 public class LeaderboardManager : MonoBehaviour
 {
-
     public ForwardGeocodeResource fgr;
     public PlayerInfo playerInfo;
     public GameObject leaderboardPanel, listingPrefab;
@@ -33,13 +33,13 @@ public class LeaderboardManager : MonoBehaviour
         , error => Debug.LogError(error.GenerateErrorReport()));
     }
 
-    public void GetLeaderboardRubbishCollected()
+    public void WorldLeaderboardForRubbish()
     {
         var requestLeaderboard = new GetLeaderboardRequest { StartPosition = 0, StatisticName = "RubbishCollected", MaxResultsCount = 10 };
-        PlayFabClientAPI.GetLeaderboard(requestLeaderboard, OnGetLeaderboardRubbishResults, error => Debug.LogError(error.GenerateErrorReport()));
+        PlayFabClientAPI.GetLeaderboard(requestLeaderboard, WorldLeaderboardForRubbishResults, error => Debug.LogError(error.GenerateErrorReport()));
     }
 
-    private void OnGetLeaderboardRubbishResults(GetLeaderboardResult result)
+    private void WorldLeaderboardForRubbishResults(GetLeaderboardResult result)
     {
         foreach (PlayerLeaderboardEntry player in result.Leaderboard)
         {
@@ -56,14 +56,14 @@ public class LeaderboardManager : MonoBehaviour
             }
             leaderboardListing.positionText.text = (player.Position + 1).ToString();
             leaderboardListing.playerNameText.text = player.DisplayName;
-            GetCountryForLeaderboard(player.PlayFabId, leaderboardListing);
+            GetPlayersCountry(player.PlayFabId, leaderboardListing);
             leaderboardListing.rubbishText.text = player.StatValue.ToString();
         }
     }
 
-    private void GetCountryForLeaderboard(string playerId, LeaderboardListing ll)
+    private void GetPlayersCountry(string playerId, LeaderboardListing ll)
     {
-        PlayFabClientAPI.GetUserData(new GetUserDataRequest() { PlayFabId = playerId },
+        PlayFabClientAPI.GetUserData(new PlayFab.ClientModels.GetUserDataRequest() { PlayFabId = playerId },
         result =>
         {
             if (result.Data.ContainsKey("Country"))
@@ -74,20 +74,20 @@ public class LeaderboardManager : MonoBehaviour
         error => Debug.LogError(error.GenerateErrorReport()));
     }
 
-    public void GetCountryLeaderboard()
+    public void PlayersCountryLeaderboard()
     {
-        PlayFabClientAPI.GetUserData(new GetUserDataRequest() { PlayFabId = playerID },
+        PlayFabClientAPI.GetUserData(new PlayFab.ClientModels.GetUserDataRequest() { PlayFabId = playerID },
         result =>
         {
             if (result.Data.ContainsKey("Country"))
             {
-                GetLeaderboardInCountry(result.Data["Country"].Value + " isCountry");
+                PlayersCountryLeaderboardResults(result.Data["Country"].Value + " isCountry");
             }
         },
         error => Debug.LogError(error.GenerateErrorReport()));
     }
 
-    public void GetLeaderboardInCountry(string playerCountry)
+    public void PlayersCountryLeaderboardResults(string playerCountry)
     {
         var requestLeaderboard = new GetLeaderboardRequest { StartPosition = 0, StatisticName = playerCountry, MaxResultsCount = 10 };
         PlayFabClientAPI.GetLeaderboard(requestLeaderboard, result =>
@@ -121,10 +121,9 @@ public class LeaderboardManager : MonoBehaviour
         }, error => Debug.LogError(error.GenerateErrorReport()));
     }
 
-
-    public void GetWorldLeaderboard()
+    public void PlayersProgressInWorld()
     {
-        var getPlayerStatisticNames = new GetPlayerStatisticsRequest {};
+        var getPlayerStatisticNames = new GetPlayerStatisticsRequest { };
         PlayFabClientAPI.GetPlayerStatistics(getPlayerStatisticNames, result =>
         {
             foreach (var stat in result.Statistics)
@@ -132,17 +131,17 @@ public class LeaderboardManager : MonoBehaviour
                 if (stat.StatisticName.Contains(" isPlace"))
                 {
                     string place = stat.StatisticName.Replace(" isPlace", "");
-                    StartCoroutine(GetLeaderboardInWorld(stat.StatisticName, place));
+                    StartCoroutine(PlayersProgressInWorldResults(stat.StatisticName, place));
                 }
             }
         },
         error => Debug.LogError(error.GenerateErrorReport()));
     }
 
-    private IEnumerator GetLeaderboardInWorld(string statName, string place)
+    private IEnumerator PlayersProgressInWorldResults(string statName, string place)
     {
         yield return new WaitForSeconds(0.1f);
-        var requestLeaderboard = new GetLeaderboardRequest { StatisticName = statName};
+        var requestLeaderboard = new GetLeaderboardRequest { StatisticName = statName };
         PlayFabClientAPI.GetLeaderboard(requestLeaderboard, result =>
         {
             foreach (PlayerLeaderboardEntry player in result.Leaderboard)
@@ -172,8 +171,118 @@ public class LeaderboardManager : MonoBehaviour
         return country;
     }
 
-    public void GetLeaderboardWorldByCountry()
+    //This is THE INCORRECT WAY for security reason
+    //Exposing admin tasks
+    public CountryRub countryRub;
+    public void GetAllPlayers()
     {
-
+        Dictionary<string, int> playersInCountry = new Dictionary<string, int>();
+        Dictionary<string, string> segmentsToSearch = new Dictionary<string, string>()
+        {
+            {"United Kingdom", "F43CFFDFFF02BC40"},
+            {"Portugal", "9AD6F24D907081C5"},
+            {"Poland", "CF6BE4C64641073F"},
+            {"Greece", "675A868507B5483B"},
+            {"Germany", "E773C4A5A9B6FEA1"},
+            {"France", "351DADD6FD249EB2"},
+            {"Spain", "	9FD52454F4613737"},
+            {"Sweden", "78FBE0CB313CE16F"},
+        };
+        StartCoroutine(GetSegment(playersInCountry, segmentsToSearch));
     }
+
+    private IEnumerator GetSegment(Dictionary<string, int> playersInCountry, Dictionary<string, string> segmentsToSearch)
+    {
+        Debug.Log("Getting segments");
+        foreach (var seg in segmentsToSearch)
+        {
+            yield return new WaitForSeconds(1);
+            PlayFabAdminAPI.GetPlayersInSegment(
+                    new GetPlayersInSegmentRequest() { SegmentId = segmentsToSearch[seg.Key] },
+                    result =>
+                    {
+                        playersInCountry.Add(seg.Key, result.ProfilesInSegment); // x country has x players
+                    },
+                    error => Debug.LogError(error.GenerateErrorReport())
+                    );
+        }
+        yield return new WaitForSeconds(3);
+        Debug.Log("Getting Leaderboards");
+        foreach (var seg in segmentsToSearch)
+        {
+            yield return new WaitForSeconds(1);
+            PlayFabClientAPI.GetLeaderboard(
+                new GetLeaderboardRequest() { StatisticName = seg.Key + " isCountry" },
+                result =>
+                {
+                    foreach (var item in result.Leaderboard)
+                    {
+                        if (seg.Key.Contains("Kingdom"))
+                        {
+                            countryRub.unitedKingdom += item.StatValue;
+                        }
+                        else if (seg.Key.Contains("Germany"))
+                        {
+                            countryRub.germany += item.StatValue;
+                        }
+                    }
+                },
+                error => Debug.LogError(error.GenerateErrorReport())
+                );
+        }
+        Debug.Log("Presenting");
+        yield return new WaitForSeconds(3);
+        List<int> allcountries = new List<int>()
+        {
+            countryRub.unitedKingdom,
+            countryRub.portugal,
+            countryRub.poland,
+            countryRub.greece,
+            countryRub.germany,
+            countryRub.france,
+            countryRub.spain,
+            countryRub.sweden
+        };
+
+        for (int i = 0; i < segmentsToSearch.Count; i++)
+        {
+            GameObject obj = Instantiate(listingPrefab, leaderboardPanel.transform);
+            LeaderboardListing leaderboardListing = obj.GetComponent<LeaderboardListing>();
+            leaderboardListing.positionText.text = (i + 1).ToString();
+            leaderboardListing.playerNameText.text = segmentsToSearch.ElementAt(i).Key;
+            leaderboardListing.countryText.text = playersInCountry.ElementAt(i).Value.ToString();
+            leaderboardListing.rubbishText.text = allcountries[i].ToString();
+        }
+    }
+
+
+
+    public void NewApproach()
+    {
+        Dictionary<Dictionary<string, string>, Dictionary<int, int>> segmentData = new Dictionary<Dictionary<string, string>, Dictionary<int, int>>();
+
+        segmentData = new Dictionary<Dictionary<string, string>, Dictionary<int, int>>()
+        {
+            {new Dictionary<string, string>(){{"United Kingdom","F43CFFDFFF02BC40"}}, new Dictionary<int, int>(){{0,0}}},
+            {new Dictionary<string, string>(){{"Portugal", "9AD6F24D907081C5"}}, new Dictionary<int, int>(){{0,0}}},
+            {new Dictionary<string, string>(){{"Poland", "CF6BE4C64641073F"}}, new Dictionary<int, int>(){{0,0}}},
+            {new Dictionary<string, string>(){{"Greece", "675A868507B5483B"}}, new Dictionary<int, int>(){{0,0}}},
+            {new Dictionary<string, string>(){{"Germany", "E773C4A5A9B6FEA1"}}, new Dictionary<int, int>(){{0,0}}},
+            {new Dictionary<string, string>(){{"France", "351DADD6FD249EB2"}}, new Dictionary<int, int>(){{0,0}}},
+            {new Dictionary<string, string>(){{"Spain", "	9FD52454F4613737"}}, new Dictionary<int, int>(){{0,0}}},
+            {new Dictionary<string, string>(){{"Sweden", "78FBE0CB313CE16F"}}, new Dictionary<int, int>(){{0,0}}}
+        };
+    }
+}
+[System.Serializable]
+public class CountryRub
+{
+    public int unitedKingdom;
+    public int portugal;
+    public int poland;
+    public int greece;
+    public int germany;
+    public int france;
+    public int spain;
+    public int sweden;
 }

@@ -1,4 +1,4 @@
-#if ENABLE_PLAYFABADMIN_API
+//#if ENABLE_PLAYFABADMIN_API
 using PlayFab.AdminModels;
 
 namespace PlayFab.Events
@@ -233,4 +233,4 @@ namespace PlayFab.Events
         public event PlayFabResultEvent<UpdateUserTitleDisplayNameResult> OnAdminUpdateUserTitleDisplayNameResultEvent;
     }
 }
-#endif
+//#endif

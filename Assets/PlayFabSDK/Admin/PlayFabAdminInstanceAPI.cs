@@ -1,4 +1,4 @@
-#if ENABLE_PLAYFABADMIN_API
+//#if ENABLE_PLAYFABADMIN_API
 
 using System;
 using System.Collections.Generic;
@@ -1313,4 +1313,4 @@ namespace PlayFab
     }
 }
 
-#endif
+//#endif

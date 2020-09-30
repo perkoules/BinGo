@@ -10,7 +10,7 @@ public class LeaderboardPlayerProgressInWorld : MonoBehaviour
         if (leaderboardHolder.transform.childCount == 0)
         {
             leaderboardManager = GetComponent<LeaderboardManager>();
-            leaderboardManager.GetWorldLeaderboard();
+            leaderboardManager.PlayersProgressInWorld();
         }
         else
         {

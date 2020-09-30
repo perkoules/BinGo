@@ -10,7 +10,7 @@ public class LeaderboardWorldByPlayer : MonoBehaviour
         if (leaderboardHolder.transform.childCount == 0)
         {
             leaderboardManager = GetComponent<LeaderboardManager>();
-            leaderboardManager.GetLeaderboardRubbishCollected();
+            leaderboardManager.WorldLeaderboardForRubbish();
         }
         else
         {

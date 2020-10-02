@@ -121,7 +121,7 @@ public class LeaderboardManager : MonoBehaviour
         }, error => Debug.LogError(error.GenerateErrorReport()));
     }
 
-    public void PlayersProgressInWorld()
+    public void PlayersProgressInWorldAndCities(string whatToLookFor)
     {
         var getPlayerStatisticNames = new GetPlayerStatisticsRequest { };
         PlayFabClientAPI.GetPlayerStatistics(getPlayerStatisticNames, result =>
@@ -131,14 +131,14 @@ public class LeaderboardManager : MonoBehaviour
                 if (stat.StatisticName.Contains(" isPlace"))
                 {
                     string place = stat.StatisticName.Replace(" isPlace", "");
-                    StartCoroutine(PlayersProgressInWorldResults(stat.StatisticName, place));
+                    StartCoroutine(PlayersProgressInWorldAndCitiesResults(stat.StatisticName, place, whatToLookFor));
                 }
             }
         },
         error => Debug.LogError(error.GenerateErrorReport()));
     }
 
-    private IEnumerator PlayersProgressInWorldResults(string statName, string place)
+    private IEnumerator PlayersProgressInWorldAndCitiesResults(string statName, string place, string whatToLookFor)
     {
         yield return new WaitForSeconds(0.1f);
         var requestLeaderboard = new GetLeaderboardRequest { StatisticName = statName };
@@ -148,12 +148,25 @@ public class LeaderboardManager : MonoBehaviour
             {
                 if (player.PlayFabId == playerID)
                 {
-                    GameObject obj = Instantiate(listingPrefab, leaderboardPanel.transform);
-                    LeaderboardListing leaderboardListing = obj.GetComponent<LeaderboardListing>();
-                    leaderboardListing.positionText.text = (player.Position + 1).ToString();
-                    leaderboardListing.playerNameText.text = place;
-                    leaderboardListing.countryText.text = GetCountryFromPlace(place);
-                    leaderboardListing.rubbishText.text = player.StatValue.ToString();
+                    string getCountry = GetCountryFromPlace(place);
+                    if (!getCountry.Contains("United Kingdom") && whatToLookFor.Contains("world"))
+                    {
+                        GameObject obj = Instantiate(listingPrefab, leaderboardPanel.transform);
+                        LeaderboardListing leaderboardListing = obj.GetComponent<LeaderboardListing>();
+                        leaderboardListing.positionText.text = (player.Position + 1).ToString();
+                        leaderboardListing.playerNameText.text = place;
+                        leaderboardListing.countryText.text = getCountry;
+                        leaderboardListing.rubbishText.text = player.StatValue.ToString();
+                    }
+                    else if (getCountry.Contains("United Kingdom") && whatToLookFor.Contains("cities"))
+                    {
+                        GameObject obj = Instantiate(listingPrefab, leaderboardPanel.transform);
+                        LeaderboardListing leaderboardListing = obj.GetComponent<LeaderboardListing>();
+                        leaderboardListing.positionText.text = (player.Position + 1).ToString();
+                        leaderboardListing.playerNameText.text = place;
+                        leaderboardListing.countryText.text = getCountry;
+                        leaderboardListing.rubbishText.text = player.StatValue.ToString();
+                    }
                 }
             }
         }, error => Debug.LogError(error.GenerateErrorReport()));
@@ -171,9 +184,10 @@ public class LeaderboardManager : MonoBehaviour
         return country;
     }
 
-    //This is THE INCORRECT WAY for security reason
+    //This is THE INCORRECT WAY for security reasons
     //Exposing admin tasks
     public CountryRub countryRub;
+
     public void GetAllPlayers()
     {
         Dictionary<string, int> playersInCountry = new Dictionary<string, int>();
@@ -221,9 +235,33 @@ public class LeaderboardManager : MonoBehaviour
                         {
                             countryRub.unitedKingdom += item.StatValue;
                         }
+                        else if (seg.Key.Contains("Portugal"))
+                        {
+                            countryRub.portugal += item.StatValue;
+                        }
+                        else if (seg.Key.Contains("Poland"))
+                        {
+                            countryRub.poland += item.StatValue;
+                        }
+                        else if (seg.Key.Contains("Greece"))
+                        {
+                            countryRub.greece += item.StatValue;
+                        }
                         else if (seg.Key.Contains("Germany"))
                         {
                             countryRub.germany += item.StatValue;
+                        }
+                        else if (seg.Key.Contains("France"))
+                        {
+                            countryRub.france += item.StatValue;
+                        }
+                        else if (seg.Key.Contains("Spain"))
+                        {
+                            countryRub.spain += item.StatValue;
+                        }
+                        else if (seg.Key.Contains("Sweden"))
+                        {
+                            countryRub.sweden += item.StatValue;
                         }
                     }
                 },
@@ -254,27 +292,8 @@ public class LeaderboardManager : MonoBehaviour
             leaderboardListing.rubbishText.text = allcountries[i].ToString();
         }
     }
-
-
-
-    public void NewApproach()
-    {
-        Dictionary<Dictionary<string, string>, Dictionary<int, int>> segmentData = new Dictionary<Dictionary<string, string>, Dictionary<int, int>>();
-
-        segmentData = new Dictionary<Dictionary<string, string>, Dictionary<int, int>>()
-        {
-            {new Dictionary<string, string>(){{"United Kingdom","F43CFFDFFF02BC40"}}, new Dictionary<int, int>(){{0,0}}},
-            {new Dictionary<string, string>(){{"Portugal", "9AD6F24D907081C5"}}, new Dictionary<int, int>(){{0,0}}},
-            {new Dictionary<string, string>(){{"Poland", "CF6BE4C64641073F"}}, new Dictionary<int, int>(){{0,0}}},
-            {new Dictionary<string, string>(){{"Greece", "675A868507B5483B"}}, new Dictionary<int, int>(){{0,0}}},
-            {new Dictionary<string, string>(){{"Germany", "E773C4A5A9B6FEA1"}}, new Dictionary<int, int>(){{0,0}}},
-            {new Dictionary<string, string>(){{"France", "351DADD6FD249EB2"}}, new Dictionary<int, int>(){{0,0}}},
-            {new Dictionary<string, string>(){{"Spain", "	9FD52454F4613737"}}, new Dictionary<int, int>(){{0,0}}},
-            {new Dictionary<string, string>(){{"Sweden", "78FBE0CB313CE16F"}}, new Dictionary<int, int>(){{0,0}}}
-        };
-    }
 }
-[System.Serializable]
+
 public class CountryRub
 {
     public int unitedKingdom;

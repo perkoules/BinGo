@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CollectRubbishForTesting : MonoBehaviour
 {
     public AchievementsController achievementsController;
     public PlayerStats playerStats;
     public PlayfabManager playfabManager;
-    
+
     public void SetRubbishCollection(string option)
     {
         playerStats.GetLocationDataOfRubbish();

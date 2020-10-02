@@ -15,7 +15,7 @@ public class TabGroup : MonoBehaviour
     {
         foreach (var item in tabButtons)
         {
-            if (item.name.Contains("Amazon"))
+            if (item.name.Contains("Amazon") || item.name.Contains("Players") || item.name.Contains("City"))
             {
                 item.background.color = pressedColor;
             }

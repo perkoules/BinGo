@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class LeaderboardPlayerProgressInWorld : MonoBehaviour
+public class LeaderboardPlayerProgressInCities : MonoBehaviour
 {
     private LeaderboardManager leaderboardManager;
     public GameObject leaderboardHolder;
@@ -10,7 +10,7 @@ public class LeaderboardPlayerProgressInWorld : MonoBehaviour
         if (leaderboardHolder.transform.childCount == 0)
         {
             leaderboardManager = GetComponent<LeaderboardManager>();
-            leaderboardManager.PlayersProgressInWorldAndCities("world");
+            leaderboardManager.PlayersProgressInWorldAndCities("cities");
         }
         else
         {

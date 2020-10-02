@@ -400,7 +400,7 @@ public class PlayfabManager : MonoBehaviour
         };
         for (int i = 1; i < progressByRubbish.Count; i++)
         {
-            if(progressByRubbish.ElementAt(i-1).Value <= allRubbish && allRubbish <= progressByRubbish.ElementAt(i).Value)
+            if (progressByRubbish.ElementAt(i - 1).Value <= allRubbish && allRubbish <= progressByRubbish.ElementAt(i).Value)
             {
                 progressLevel = progressByRubbish.ElementAt(i).Key;
             }
@@ -428,11 +428,13 @@ public class PlayfabManager : MonoBehaviour
                             playerStats.playerInfo.PlayerRubbish = wasteCollected;
                             RubbishDisplay();
                             break;
+
                         case "RecycleCollected":
                             recycleCollected = eachStat.Value;
                             playerStats.playerInfo.PlayerRecycle = recycleCollected;
                             RubbishDisplay();
                             break;
+
                         case "CoinsAvailable":
                             coinsAvailable = eachStat.Value;
                             playerStats.playerInfo.PlayerCoins = coinsAvailable;

@@ -1,9 +1,7 @@
 ﻿using PlayFab;
 using PlayFab.ClientModels;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,7 +28,8 @@ public class AchievementsController : MonoBehaviour
         tasks = pfm.GetTasks();
         CheckForLocations();
         GetAchievementsFromData();
-    }    
+    }
+
     public void GetAchievementsFromData()
     {
         for (int i = 0; i < tasks.Length; i++)
@@ -69,7 +68,7 @@ public class AchievementsController : MonoBehaviour
         string unlockedAchievements = "";
         for (int i = 0; i < allBadges.Count; i++)
         {
-            if(allBadges[i].color == Color.white)
+            if (allBadges[i].color == Color.white)
             {
                 unlockedAchievements += "1";
             }
@@ -85,7 +84,7 @@ public class AchievementsController : MonoBehaviour
     {
         Dictionary<string, int> searchTypes = new Dictionary<string, int>()
         {
-            {"recycled", recycleToUnlockCounter }, 
+            {"recycled", recycleToUnlockCounter },
             {"city", cityToUnlockCounter },
             {"rubbish", rubbishToUnlockCounter },
             {"country", countryToUnlockCounter },
@@ -164,5 +163,5 @@ public class AchievementsController : MonoBehaviour
             },
             error => Debug.LogError(error.GenerateErrorReport())
             );
-    } 
+    }
 }

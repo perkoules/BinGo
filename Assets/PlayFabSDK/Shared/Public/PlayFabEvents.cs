@@ -1,16 +1,20 @@
-using PlayFab.SharedModels;
 using PlayFab.Internal;
+using PlayFab.SharedModels;
 
 namespace PlayFab.Events
 {
     public partial class PlayFabEvents
     {
         public delegate void PlayFabErrorEvent(PlayFabRequestCommon request, PlayFabError error);
+
         public delegate void PlayFabResultEvent<in TResult>(TResult result) where TResult : PlayFabResultCommon;
+
         public delegate void PlayFabRequestEvent<in TRequest>(TRequest request) where TRequest : PlayFabRequestCommon;
+
         public event PlayFabErrorEvent OnGlobalErrorEvent;
 
         private static PlayFabEvents _instance;
+
         /// <summary>
         /// Private constructor because we call PlayFabEvents.init();
         /// </summary>
@@ -1675,7 +1679,6 @@ namespace PlayFab.Events
             if (OnProfilesSetProfilePolicyResultEvent != null) { foreach (var each in OnProfilesSetProfilePolicyResultEvent.GetInvocationList()) { if (ReferenceEquals(each.Target, instance)) { OnProfilesSetProfilePolicyResultEvent -= (PlayFabResultEvent<ProfilesModels.SetEntityProfilePolicyResponse>)each; } } }
 
 #endif
-
         }
 
         private void OnProcessingErrorEvent(PlayFabRequestCommon request, PlayFabError error)
@@ -1689,7 +1692,6 @@ namespace PlayFab.Events
 
         private void OnProcessingEvent(ApiProcessingEventArgs e)
         {
-
             if (e.EventType == ApiProcessingEventType.Pre)
             {
                 var type = e.Request.GetType();
@@ -2266,7 +2268,6 @@ namespace PlayFab.Events
                 if (type == typeof(ProfilesModels.SetProfileLanguageRequest)) { if (_instance.OnProfilesSetProfileLanguageRequestEvent != null) { _instance.OnProfilesSetProfileLanguageRequestEvent((ProfilesModels.SetProfileLanguageRequest)e.Request); return; } }
                 if (type == typeof(ProfilesModels.SetEntityProfilePolicyRequest)) { if (_instance.OnProfilesSetProfilePolicyRequestEvent != null) { _instance.OnProfilesSetProfilePolicyRequestEvent((ProfilesModels.SetEntityProfilePolicyRequest)e.Request); return; } }
 #endif
-
             }
             else
             {
@@ -2839,7 +2840,6 @@ namespace PlayFab.Events
                 if (type == typeof(ProfilesModels.SetProfileLanguageResponse)) { if (_instance.OnProfilesSetProfileLanguageResultEvent != null) { _instance.OnProfilesSetProfileLanguageResultEvent((ProfilesModels.SetProfileLanguageResponse)e.Result); return; } }
                 if (type == typeof(ProfilesModels.SetEntityProfilePolicyResponse)) { if (_instance.OnProfilesSetProfilePolicyResultEvent != null) { _instance.OnProfilesSetProfilePolicyResultEvent((ProfilesModels.SetEntityProfilePolicyResponse)e.Result); return; } }
 #endif
-
             }
         }
     }

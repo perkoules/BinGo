@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Mapbox.Unity.MeshGeneration.Data;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Mapbox.Unity.MeshGeneration.Data;
 
 namespace Mapbox.Unity.MeshGeneration.Modifiers
 {
@@ -12,17 +12,17 @@ namespace Mapbox.Unity.MeshGeneration.Modifiers
 
         public int _maxEdgeSectionCount = 40;
         public int _preferredEdgeSectionLength = 10;
-		private int _counter, _counter2;
+        private int _counter, _counter2;
 
-		public override void Run(VectorFeatureUnity feature, MeshData md, UnityTile tile = null)
+        public override void Run(VectorFeatureUnity feature, MeshData md, UnityTile tile = null)
         {
-			_counter = feature.Points.Count;
+            _counter = feature.Points.Count;
 
-			for (int i = 0; i < _counter; i++)
+            for (int i = 0; i < _counter; i++)
             {
                 var nl = new List<Vector3>();
-				_counter2 = feature.Points[i].Count;
-				for (int j = 1; j < _counter2; j++)
+                _counter2 = feature.Points[i].Count;
+                for (int j = 1; j < _counter2; j++)
                 {
                     nl.Add(feature.Points[i][j - 1]);
                     var dist = Vector3.Distance(feature.Points[i][j - 1], feature.Points[i][j]);

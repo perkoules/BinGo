@@ -620,6 +620,7 @@ namespace PlayFab
 
         [ThreadStatic]
         private static StringBuilder _tempSb;
+
         /// <summary>
         /// This converts the PlayFabError into a human readable string describing the error.
         /// If error is not found, it will return the http code, status, and error
@@ -650,6 +651,7 @@ namespace PlayFab
     public class PlayFabException : Exception
     {
         public readonly PlayFabExceptionCode Code;
+
         public PlayFabException(PlayFabExceptionCode code, string message) : base(message)
         {
             Code = code;

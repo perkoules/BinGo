@@ -20,9 +20,6 @@
 
 namespace GoogleARCore
 {
-    using System.Collections;
-    using System.Collections.Generic;
-    using GoogleARCoreInternal;
     using UnityEngine;
     using UnityEngine.XR;
 

@@ -14,17 +14,17 @@ namespace Mapbox.Examples.Playground
     public class ReverseGeocoderExample : MonoBehaviour
     {
         [SerializeField]
-        ReverseGeocodeUserInput _searchLocation;
+        private ReverseGeocodeUserInput _searchLocation;
 
         [SerializeField]
-        Text _resultsText;
+        private Text _resultsText;
 
-        void Awake()
+        private void Awake()
         {
             _searchLocation.OnGeocoderResponse += SearchLocation_OnGeocoderResponse;
         }
 
-        void OnDestroy()
+        private void OnDestroy()
         {
             if (_searchLocation != null)
             {
@@ -32,7 +32,7 @@ namespace Mapbox.Examples.Playground
             }
         }
 
-        void SearchLocation_OnGeocoderResponse(object sender, System.EventArgs e)
+        private void SearchLocation_OnGeocoderResponse(object sender, System.EventArgs e)
         {
             _resultsText.text = JsonConvert.SerializeObject(_searchLocation.Response, Formatting.Indented, JsonConverters.Converters);
         }

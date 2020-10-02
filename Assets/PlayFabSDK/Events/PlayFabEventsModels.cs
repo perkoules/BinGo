@@ -1,7 +1,8 @@
 #if !DISABLE_PLAYFABENTITY_API
+
+using PlayFab.SharedModels;
 using System;
 using System.Collections.Generic;
-using PlayFab.SharedModels;
 
 namespace PlayFab.EventsModels
 {
@@ -15,6 +16,7 @@ namespace PlayFab.EventsModels
         /// Unique ID of the entity.
         /// </summary>
         public string Id;
+
         /// <summary>
         /// Entity type. See https://docs.microsoft.com/gaming/playfab/features/data/entities/available-built-in-entity-types
         /// </summary>
@@ -29,33 +31,40 @@ namespace PlayFab.EventsModels
         /// event is written, this collection and the base request custom tags will be merged, but not overriden. This enables the
         /// caller to specify static tags and per event tags.
         /// </summary>
-        public Dictionary<string,string> CustomTags;
+        public Dictionary<string, string> CustomTags;
+
         /// <summary>
         /// Entity associated with the event. If null, the event will apply to the calling entity.
         /// </summary>
         public EntityKey Entity;
+
         /// <summary>
         /// The namespace in which the event is defined. Allowed namespaces can vary by API.
         /// </summary>
         public string EventNamespace;
+
         /// <summary>
         /// The name of this event.
         /// </summary>
         public string Name;
+
         /// <summary>
         /// The original unique identifier associated with this event before it was posted to PlayFab. The value might differ from
         /// the EventId value, which is assigned when the event is received by the server.
         /// </summary>
         public string OriginalId;
+
         /// <summary>
         /// The time (in UTC) associated with this event when it occurred. If specified, this value is stored in the
         /// OriginalTimestamp property of the PlayStream event.
         /// </summary>
         public DateTime? OriginalTimestamp;
+
         /// <summary>
         /// Arbitrary data associated with the event. Only one of Payload or PayloadJSON is allowed.
         /// </summary>
         public object Payload;
+
         /// <summary>
         /// Arbitrary data associated with the event, represented as a JSON serialized string. Only one of Payload or PayloadJSON is
         /// allowed.
@@ -69,7 +78,8 @@ namespace PlayFab.EventsModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string,string> CustomTags;
+        public Dictionary<string, string> CustomTags;
+
         /// <summary>
         /// Collection of events to write to PlayStream.
         /// </summary>
@@ -86,4 +96,5 @@ namespace PlayFab.EventsModels
         public List<string> AssignedEventIds;
     }
 }
+
 #endif

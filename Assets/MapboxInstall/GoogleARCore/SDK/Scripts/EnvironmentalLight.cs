@@ -21,7 +21,6 @@
 namespace GoogleARCore
 {
     using UnityEngine;
-    using UnityEngine.Rendering;
 
     /// <summary>
     /// A component that automatically adjust lighting settings for the scene

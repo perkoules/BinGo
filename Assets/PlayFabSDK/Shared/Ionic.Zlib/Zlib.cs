@@ -87,14 +87,10 @@
 //
 // -----------------------------------------------------------------------
 
-
-
-using System;
-using Interop=System.Runtime.InteropServices;
+using Interop = System.Runtime.InteropServices;
 
 namespace Ionic.Zlib
 {
-
     /// <summary>
     /// Describes how to flush the current deflate operation.
     /// </summary>
@@ -137,7 +133,6 @@ namespace Ionic.Zlib
         Finish,
     }
 
-
     /// <summary>
     /// The compression level to be used when using a DeflateStream or ZlibStream with CompressionMode.Compress.
     /// </summary>
@@ -148,7 +143,8 @@ namespace Ionic.Zlib
         /// If you are producing ZIPs for use on Mac OSX, be aware that archives produced with CompressionLevel.None
         /// cannot be opened with the default zip reader. Use a different CompressionLevel.
         /// </summary>
-        None= 0,
+        None = 0,
+
         /// <summary>
         /// Same as None.
         /// </summary>
@@ -188,6 +184,7 @@ namespace Ionic.Zlib
         /// The default compression level, with a good balance of speed and compression efficiency.
         /// </summary>
         Default = 6,
+
         /// <summary>
         /// A synonym for Default.
         /// </summary>
@@ -243,7 +240,6 @@ namespace Ionic.Zlib
         HuffmanOnly = 2,
     }
 
-
     /// <summary>
     /// An enum to specify the direction of transcoding - whether to compress or decompress.
     /// </summary>
@@ -252,13 +248,13 @@ namespace Ionic.Zlib
         /// <summary>
         /// Used to specify that the stream should compress the data.
         /// </summary>
-        Compress= 0,
+        Compress = 0,
+
         /// <summary>
         /// Used to specify that the stream should decompress the data.
         /// </summary>
         Decompress = 1,
     }
-
 
     /// <summary>
     /// A general purpose exception class for exceptions in the Zlib library.
@@ -284,7 +280,6 @@ namespace Ionic.Zlib
         {
         }
     }
-
 
     internal class SharedUtils
     {
@@ -344,12 +339,10 @@ namespace Ionic.Zlib
             return bytesRead;
         }
 
-
         internal static byte[] ToByteArray(System.String sourceString)
         {
             return System.Text.UTF8Encoding.UTF8.GetBytes(sourceString);
         }
-
 
         internal static char[] ToCharArray(byte[] byteArray)
         {
@@ -359,25 +352,24 @@ namespace Ionic.Zlib
 
     internal static class InternalConstants
     {
-        internal static readonly int MAX_BITS     = 15;
-        internal static readonly int BL_CODES     = 19;
-        internal static readonly int D_CODES      = 30;
-        internal static readonly int LITERALS     = 256;
+        internal static readonly int MAX_BITS = 15;
+        internal static readonly int BL_CODES = 19;
+        internal static readonly int D_CODES = 30;
+        internal static readonly int LITERALS = 256;
         internal static readonly int LENGTH_CODES = 29;
-        internal static readonly int L_CODES      = (LITERALS + 1 + LENGTH_CODES);
+        internal static readonly int L_CODES = (LITERALS + 1 + LENGTH_CODES);
 
         // Bit length codes must not exceed MAX_BL_BITS bits
-        internal static readonly int MAX_BL_BITS  = 7;
+        internal static readonly int MAX_BL_BITS = 7;
 
         // repeat previous bit length 3-6 times (2 bits of repeat count)
-        internal static readonly int REP_3_6      = 16;
+        internal static readonly int REP_3_6 = 16;
 
         // repeat a zero length 3-10 times  (3 bits of repeat count)
-        internal static readonly int REPZ_3_10    = 17;
+        internal static readonly int REPZ_3_10 = 17;
 
         // repeat a zero length 11-138 times  (7 bits of repeat count)
-        internal static readonly int REPZ_11_138  = 18;
-
+        internal static readonly int REPZ_11_138 = 18;
     }
 
     internal sealed class StaticTree
@@ -445,6 +437,7 @@ namespace Ionic.Zlib
             this.elems = elems;
             this.maxLength = maxLength;
         }
+
         static StaticTree()
         {
             Literals = new StaticTree(lengthAndLiteralsTreeCodes, ZTree.ExtraLengthBits, InternalConstants.LITERALS + 1, InternalConstants.L_CODES, InternalConstants.MAX_BITS);
@@ -452,8 +445,6 @@ namespace Ionic.Zlib
             BitLengths = new StaticTree(null, ZTree.extra_blbits, 0, InternalConstants.BL_CODES, InternalConstants.MAX_BL_BITS);
         }
     }
-
-
 
     /// <summary>
     /// Computes an Adler-32 checksum.
@@ -470,9 +461,9 @@ namespace Ionic.Zlib
     {
         // largest prime smaller than 65536
         private static readonly uint BASE = 65521;
+
         // NMAX is the largest n such that 255n(n+1)/2 + (n+1)(BASE-1) <= 2^32-1
         private static readonly int NMAX = 5552;
-
 
 #pragma warning disable 3001
 #pragma warning disable 3002
@@ -497,8 +488,8 @@ namespace Ionic.Zlib
             if (buf == null)
                 return 1;
 
-            uint s1 = (uint) (adler & 0xffff);
-            uint s2 = (uint) ((adler >> 16) & 0xffff);
+            uint s1 = (uint)(adler & 0xffff);
+            uint s2 = (uint)((adler >> 16) & 0xffff);
 
             while (len > 0)
             {
@@ -539,10 +530,10 @@ namespace Ionic.Zlib
             }
             return (uint)((s2 << 16) | s1);
         }
+
 #pragma warning restore 3001
 #pragma warning restore 3002
-
     }
-
 }
+
 #endif

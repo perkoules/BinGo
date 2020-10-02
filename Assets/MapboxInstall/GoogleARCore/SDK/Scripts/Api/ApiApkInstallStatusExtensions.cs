@@ -20,9 +20,8 @@
 
 namespace GoogleARCoreInternal
 {
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using GoogleARCore;
+    using System.Diagnostics.CodeAnalysis;
 
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented",
     Justification = "Internal")]
@@ -34,18 +33,25 @@ namespace GoogleARCoreInternal
             {
                 case ApiApkInstallationStatus.Uninitialized:
                     return ApkInstallationStatus.Uninitialized;
+
                 case ApiApkInstallationStatus.Requested:
                     return ApkInstallationStatus.Requested;
+
                 case ApiApkInstallationStatus.Success:
                     return ApkInstallationStatus.Success;
+
                 case ApiApkInstallationStatus.Error:
                     return ApkInstallationStatus.Error;
+
                 case ApiApkInstallationStatus.ErrorDeviceNotCompatible:
                     return ApkInstallationStatus.ErrorDeviceNotCompatible;
+
                 case ApiApkInstallationStatus.ErrorAndroidVersionNotSupported:
                     return ApkInstallationStatus.ErrorAndroidVersionNotSupported;
+
                 case ApiApkInstallationStatus.ErrorUserDeclined:
                     return ApkInstallationStatus.ErrorUserDeclined;
+
                 default:
                     UnityEngine.Debug.LogErrorFormat("Unexpected ApiApkInstallStatus status {0}", apiStatus);
                     return ApkInstallationStatus.Error;

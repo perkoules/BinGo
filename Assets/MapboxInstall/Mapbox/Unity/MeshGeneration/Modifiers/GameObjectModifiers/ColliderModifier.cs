@@ -1,175 +1,179 @@
 namespace Mapbox.Unity.MeshGeneration.Modifiers
 {
-	using Mapbox.Unity.MeshGeneration.Data;
-	using UnityEngine;
-	using Mapbox.Unity.MeshGeneration.Components;
-	using System.Collections.Generic;
-	using System;
-	using Mapbox.Unity.Map;
+    using Mapbox.Unity.Map;
+    using Mapbox.Unity.MeshGeneration.Data;
+    using System.Collections.Generic;
+    using UnityEngine;
 
-	[CreateAssetMenu(menuName = "Mapbox/Modifiers/Collider Modifier")]
-	public class ColliderModifier : GameObjectModifier
-	{
-		//[SerializeField]
-		private IColliderStrategy _colliderStrategy;
+    [CreateAssetMenu(menuName = "Mapbox/Modifiers/Collider Modifier")]
+    public class ColliderModifier : GameObjectModifier
+    {
+        //[SerializeField]
+        private IColliderStrategy _colliderStrategy;
 
-		[SerializeField]
-		ColliderOptions _options;
+        [SerializeField]
+        private ColliderOptions _options;
 
+        public override void SetProperties(ModifierProperties properties)
+        {
+            _options = (ColliderOptions)properties;
+            _options.PropertyHasChanged += UpdateModifier;
+        }
 
-		public override void SetProperties(ModifierProperties properties)
-		{
-			_options = (ColliderOptions)properties;
-			_options.PropertyHasChanged += UpdateModifier;
-		}
+        public override void UnbindProperties()
+        {
+            _options.PropertyHasChanged -= UpdateModifier;
+        }
 
-		public override void UnbindProperties()
-		{
-			_options.PropertyHasChanged -= UpdateModifier;
-		}
+        public override void Initialize()
+        {
+            //no need to reset strategy objects on map reinit as we're caching feature game objects as well
+            //creating a new one iff we don't already have one. if you want to reset/recreate you have to clear stuff inside current/old one first.
 
-		public override void Initialize()
-		{
-			//no need to reset strategy objects on map reinit as we're caching feature game objects as well
-			//creating a new one iff we don't already have one. if you want to reset/recreate you have to clear stuff inside current/old one first.
+            switch (_options.colliderType)
+            {
+                case ColliderType.None:
+                    _colliderStrategy = null;
+                    break;
 
-			switch (_options.colliderType)
-			{
-				case ColliderType.None:
-					_colliderStrategy = null;
-					break;
-				case ColliderType.BoxCollider:
-					_colliderStrategy = new BoxColliderStrategy();
-					break;
-				case ColliderType.MeshCollider:
-					_colliderStrategy = new MeshColliderStrategy();
-					break;
-				case ColliderType.SphereCollider:
-					_colliderStrategy = new SphereColliderStrategy();
-					break;
-				default:
-					_colliderStrategy = null;
-					break;
-			}
-		}
+                case ColliderType.BoxCollider:
+                    _colliderStrategy = new BoxColliderStrategy();
+                    break;
 
-		public override void Run(VectorEntity ve, UnityTile tile)
-		{
-			// if collider exists. remove it.
-			RemoveColliderFrom(ve);
-			if (_colliderStrategy != null)
-			{
-				_colliderStrategy.AddColliderTo(ve);
-			}
-		}
+                case ColliderType.MeshCollider:
+                    _colliderStrategy = new MeshColliderStrategy();
+                    break;
 
-		public void RemoveColliderFrom(VectorEntity ve)
-		{
-			var existingCollider = ve.GameObject.GetComponent<Collider>();
-			if (existingCollider != null)
-			{
-				DestroyImmediate(existingCollider);
-				if (_colliderStrategy != null)
-				{
-					_colliderStrategy.Reset();
-				}
-			}
-		}
+                case ColliderType.SphereCollider:
+                    _colliderStrategy = new SphereColliderStrategy();
+                    break;
 
-		public class BoxColliderStrategy : IColliderStrategy
-		{
-			private Dictionary<GameObject, BoxCollider> _colliders;
+                default:
+                    _colliderStrategy = null;
+                    break;
+            }
+        }
 
-			public BoxColliderStrategy()
-			{
-				_colliders = new Dictionary<GameObject, BoxCollider>();
-			}
+        public override void Run(VectorEntity ve, UnityTile tile)
+        {
+            // if collider exists. remove it.
+            RemoveColliderFrom(ve);
+            if (_colliderStrategy != null)
+            {
+                _colliderStrategy.AddColliderTo(ve);
+            }
+        }
 
-			public void AddColliderTo(VectorEntity ve)
-			{
-				if (_colliders.ContainsKey(ve.GameObject))
-				{
-					_colliders[ve.GameObject].center = ve.Mesh.bounds.center;
-					_colliders[ve.GameObject].size = ve.Mesh.bounds.size;
-				}
-				else
-				{
-					_colliders.Add(ve.GameObject, ve.GameObject.AddComponent<BoxCollider>());
-				}
-			}
-			public void Reset()
-			{
-				if (_colliders != null)
-				{
-					_colliders.Clear();
-				}
-			}
-		}
+        public void RemoveColliderFrom(VectorEntity ve)
+        {
+            var existingCollider = ve.GameObject.GetComponent<Collider>();
+            if (existingCollider != null)
+            {
+                DestroyImmediate(existingCollider);
+                if (_colliderStrategy != null)
+                {
+                    _colliderStrategy.Reset();
+                }
+            }
+        }
 
-		public class MeshColliderStrategy : IColliderStrategy
-		{
-			private Dictionary<GameObject, MeshCollider> _colliders;
+        public class BoxColliderStrategy : IColliderStrategy
+        {
+            private Dictionary<GameObject, BoxCollider> _colliders;
 
-			public MeshColliderStrategy()
-			{
-				_colliders = new Dictionary<GameObject, MeshCollider>();
-			}
+            public BoxColliderStrategy()
+            {
+                _colliders = new Dictionary<GameObject, BoxCollider>();
+            }
 
-			public void AddColliderTo(VectorEntity ve)
-			{
-				if (_colliders.ContainsKey(ve.GameObject))
-				{
-					_colliders[ve.GameObject].sharedMesh = ve.Mesh;
-				}
-				else
-				{
-					_colliders.Add(ve.GameObject, ve.GameObject.AddComponent<MeshCollider>());
-				}
-			}
-			public void Reset()
-			{
-				if (_colliders != null)
-				{
-					_colliders.Clear();
-				}
-			}
-		}
+            public void AddColliderTo(VectorEntity ve)
+            {
+                if (_colliders.ContainsKey(ve.GameObject))
+                {
+                    _colliders[ve.GameObject].center = ve.Mesh.bounds.center;
+                    _colliders[ve.GameObject].size = ve.Mesh.bounds.size;
+                }
+                else
+                {
+                    _colliders.Add(ve.GameObject, ve.GameObject.AddComponent<BoxCollider>());
+                }
+            }
 
-		public class SphereColliderStrategy : IColliderStrategy
-		{
-			private Dictionary<GameObject, SphereCollider> _colliders;
+            public void Reset()
+            {
+                if (_colliders != null)
+                {
+                    _colliders.Clear();
+                }
+            }
+        }
 
-			public SphereColliderStrategy()
-			{
-				_colliders = new Dictionary<GameObject, SphereCollider>();
-			}
+        public class MeshColliderStrategy : IColliderStrategy
+        {
+            private Dictionary<GameObject, MeshCollider> _colliders;
 
-			public void AddColliderTo(VectorEntity ve)
-			{
-				if (_colliders.ContainsKey(ve.GameObject))
-				{
-					_colliders[ve.GameObject].center = ve.Mesh.bounds.center;
-					_colliders[ve.GameObject].radius = ve.Mesh.bounds.extents.magnitude;
-				}
-				else
-				{
-					_colliders.Add(ve.GameObject, ve.GameObject.AddComponent<SphereCollider>());
-				}
-			}
+            public MeshColliderStrategy()
+            {
+                _colliders = new Dictionary<GameObject, MeshCollider>();
+            }
 
-			public void Reset()
-			{
-				if (_colliders != null)
-				{
-					_colliders.Clear();
-				}
-			}
-		}
+            public void AddColliderTo(VectorEntity ve)
+            {
+                if (_colliders.ContainsKey(ve.GameObject))
+                {
+                    _colliders[ve.GameObject].sharedMesh = ve.Mesh;
+                }
+                else
+                {
+                    _colliders.Add(ve.GameObject, ve.GameObject.AddComponent<MeshCollider>());
+                }
+            }
 
-		public interface IColliderStrategy
-		{
-			void AddColliderTo(VectorEntity ve);
-			void Reset();
-		}
-	}
+            public void Reset()
+            {
+                if (_colliders != null)
+                {
+                    _colliders.Clear();
+                }
+            }
+        }
+
+        public class SphereColliderStrategy : IColliderStrategy
+        {
+            private Dictionary<GameObject, SphereCollider> _colliders;
+
+            public SphereColliderStrategy()
+            {
+                _colliders = new Dictionary<GameObject, SphereCollider>();
+            }
+
+            public void AddColliderTo(VectorEntity ve)
+            {
+                if (_colliders.ContainsKey(ve.GameObject))
+                {
+                    _colliders[ve.GameObject].center = ve.Mesh.bounds.center;
+                    _colliders[ve.GameObject].radius = ve.Mesh.bounds.extents.magnitude;
+                }
+                else
+                {
+                    _colliders.Add(ve.GameObject, ve.GameObject.AddComponent<SphereCollider>());
+                }
+            }
+
+            public void Reset()
+            {
+                if (_colliders != null)
+                {
+                    _colliders.Clear();
+                }
+            }
+        }
+
+        public interface IColliderStrategy
+        {
+            void AddColliderTo(VectorEntity ve);
+
+            void Reset();
+        }
+    }
 }

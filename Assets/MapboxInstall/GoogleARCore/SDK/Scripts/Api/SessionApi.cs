@@ -20,11 +20,11 @@
 
 namespace GoogleARCoreInternal
 {
+    using GoogleARCore;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Runtime.InteropServices;
-    using GoogleARCore;
     using UnityEngine;
 
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented",
@@ -114,12 +114,15 @@ namespace GoogleARCoreInternal
                 case ScreenOrientation.LandscapeLeft:
                     androidOrientation = androidRotation90;
                     break;
+
                 case ScreenOrientation.LandscapeRight:
                     androidOrientation = androidRotation270;
                     break;
+
                 case ScreenOrientation.Portrait:
                     androidOrientation = androidRotation0;
                     break;
+
                 case ScreenOrientation.PortraitUpsideDown:
                     androidOrientation = androidRotation180;
                     break;

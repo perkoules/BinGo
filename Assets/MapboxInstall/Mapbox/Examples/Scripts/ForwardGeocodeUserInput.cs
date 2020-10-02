@@ -6,73 +6,75 @@
 
 namespace Mapbox.Examples
 {
-	using Mapbox.Unity;
-	using UnityEngine;
-	using UnityEngine.UI;
-	using System;
-	using Mapbox.Geocoding;
-	using Mapbox.Utils;
+    using Mapbox.Geocoding;
+    using Mapbox.Unity;
+    using Mapbox.Utils;
+    using System;
+    using UnityEngine;
+    using UnityEngine.UI;
 
-	[RequireComponent(typeof(InputField))]
-	public class ForwardGeocodeUserInput : MonoBehaviour
-	{
-		InputField _inputField;
+    [RequireComponent(typeof(InputField))]
+    public class ForwardGeocodeUserInput : MonoBehaviour
+    {
+        private InputField _inputField;
 
-		ForwardGeocodeResource _resource;
+        private ForwardGeocodeResource _resource;
 
-		Vector2d _coordinate;
-		public Vector2d Coordinate
-		{
-			get
-			{
-				return _coordinate;
-			}
-		}
+        private Vector2d _coordinate;
 
-		bool _hasResponse;
-		public bool HasResponse
-		{
-			get
-			{
-				return _hasResponse;
-			}
-		}
+        public Vector2d Coordinate
+        {
+            get
+            {
+                return _coordinate;
+            }
+        }
 
-		public ForwardGeocodeResponse Response { get; private set; }
+        private bool _hasResponse;
 
-		public event Action<ForwardGeocodeResponse> OnGeocoderResponse = delegate { };
+        public bool HasResponse
+        {
+            get
+            {
+                return _hasResponse;
+            }
+        }
 
-		void Awake()
-		{
-			_inputField = GetComponent<InputField>();
-			_inputField.onEndEdit.AddListener(HandleUserInput);
-			_resource = new ForwardGeocodeResource("");
-		}
+        public ForwardGeocodeResponse Response { get; private set; }
 
-		void HandleUserInput(string searchString)
-		{
-			_hasResponse = false;
-			if (!string.IsNullOrEmpty(searchString))
-			{
-				_resource.Query = searchString;
-				MapboxAccess.Instance.Geocoder.Geocode(_resource, HandleGeocoderResponse);
-			}
-		}
+        public event Action<ForwardGeocodeResponse> OnGeocoderResponse = delegate { };
 
-		void HandleGeocoderResponse(ForwardGeocodeResponse res)
-		{
-			_hasResponse = true;
-			if (null == res)
-			{
-				_inputField.text = "no geocode response";
-			}
-			else if (null != res.Features && res.Features.Count > 0)
-			{
-				var center = res.Features[0].Center;
-				_coordinate = res.Features[0].Center;
-			}
-			Response = res;
-			OnGeocoderResponse(res);
-		}
-	}
+        private void Awake()
+        {
+            _inputField = GetComponent<InputField>();
+            _inputField.onEndEdit.AddListener(HandleUserInput);
+            _resource = new ForwardGeocodeResource("");
+        }
+
+        private void HandleUserInput(string searchString)
+        {
+            _hasResponse = false;
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                _resource.Query = searchString;
+                MapboxAccess.Instance.Geocoder.Geocode(_resource, HandleGeocoderResponse);
+            }
+        }
+
+        private void HandleGeocoderResponse(ForwardGeocodeResponse res)
+        {
+            _hasResponse = true;
+            if (null == res)
+            {
+                _inputField.text = "no geocode response";
+            }
+            else if (null != res.Features && res.Features.Count > 0)
+            {
+                var center = res.Features[0].Center;
+                _coordinate = res.Features[0].Center;
+            }
+            Response = res;
+            OnGeocoderResponse(res);
+        }
+    }
 }

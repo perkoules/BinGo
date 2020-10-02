@@ -1,10 +1,10 @@
 //#if ENABLE_PLAYFABADMIN_API
 
-using System;
-using System.Collections.Generic;
 using PlayFab.AdminModels;
 using PlayFab.Internal;
 using PlayFab.SharedModels;
+using System;
+using System.Collections.Generic;
 
 namespace PlayFab
 {
@@ -16,7 +16,9 @@ namespace PlayFab
         public readonly PlayFabApiSettings apiSettings = null;
         public readonly PlayFabAuthenticationContext authenticationContext = null;
 
-        public PlayFabAdminInstanceAPI() { }
+        public PlayFabAdminInstanceAPI()
+        {
+        }
 
         public PlayFabAdminInstanceAPI(PlayFabApiSettings settings)
         {

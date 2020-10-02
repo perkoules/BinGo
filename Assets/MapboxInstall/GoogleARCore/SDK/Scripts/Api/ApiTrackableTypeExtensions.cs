@@ -20,9 +20,9 @@
 
 namespace GoogleARCoreInternal
 {
+    using GoogleARCore;
     using System;
     using System.Diagnostics.CodeAnalysis;
-    using GoogleARCore;
 
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented",
     Justification = "Internal")]

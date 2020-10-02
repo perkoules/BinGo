@@ -1,45 +1,43 @@
 ﻿namespace Mapbox.Unity.Map
 {
-	using UnityEngine;
+    using UnityEngine;
 
-	public class SubLayerColorStyle : ISubLayerColorStyle
-	{
-		private GeometryMaterialOptions _materialOptions;
-		public SubLayerColorStyle(GeometryMaterialOptions materialOptions)
-		{
-			_materialOptions = materialOptions;
-		}
+    public class SubLayerColorStyle : ISubLayerColorStyle
+    {
+        private GeometryMaterialOptions _materialOptions;
 
-		public Color FeatureColor
-		{
-			get
-			{
-				return _materialOptions.colorStyleColor;
-			}
+        public SubLayerColorStyle(GeometryMaterialOptions materialOptions)
+        {
+            _materialOptions = materialOptions;
+        }
 
-			set
-			{
-				if (_materialOptions.colorStyleColor != value)
-				{
-					_materialOptions.colorStyleColor = value;
-					_materialOptions.HasChanged = true;
-				}
-			}
-		}
+        public Color FeatureColor
+        {
+            get
+            {
+                return _materialOptions.colorStyleColor;
+            }
 
-		public void SetAsStyle()
-		{
-			SetAsStyle(Color.white);
-		}
+            set
+            {
+                if (_materialOptions.colorStyleColor != value)
+                {
+                    _materialOptions.colorStyleColor = value;
+                    _materialOptions.HasChanged = true;
+                }
+            }
+        }
 
-		public void SetAsStyle(Color featureColor)
-		{
-			_materialOptions.style = StyleTypes.Color;
-			_materialOptions.colorStyleColor = featureColor;
-			_materialOptions.HasChanged = true;
-		}
-	}
+        public void SetAsStyle()
+        {
+            SetAsStyle(Color.white);
+        }
 
+        public void SetAsStyle(Color featureColor)
+        {
+            _materialOptions.style = StyleTypes.Color;
+            _materialOptions.colorStyleColor = featureColor;
+            _materialOptions.HasChanged = true;
+        }
+    }
 }
-
-

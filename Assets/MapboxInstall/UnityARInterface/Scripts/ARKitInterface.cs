@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.XR;
 using UnityEngine.XR.iOS;
 
@@ -12,6 +11,7 @@ namespace UnityARInterface
     public class ARKitInterface : ARInterface
     {
         private Material m_ClearMaterial;
+
         private UnityARSessionNativeInterface nativeInterface
         { get { return UnityARSessionNativeInterface.GetARSessionNativeInterface(); } }
 
@@ -118,7 +118,7 @@ namespace UnityARInterface
             };
         }
 
-        void UpdateFrame(UnityARCamera camera)
+        private void UpdateFrame(UnityARCamera camera)
         {
             if (!m_TexturesInitialized)
             {
@@ -153,24 +153,24 @@ namespace UnityARInterface
             m_DisplayTransform.SetColumn(3, camera.displayTransform.column3);
         }
 
-        IntPtr PinByteArray(ref GCHandle handle, byte[] array)
+        private IntPtr PinByteArray(ref GCHandle handle, byte[] array)
         {
             handle.Free();
             handle = GCHandle.Alloc(array, GCHandleType.Pinned);
             return handle.AddrOfPinnedObject();
         }
 
-        byte[] ByteArrayForFrame(int frame, byte[] array0, byte[] array1)
+        private byte[] ByteArrayForFrame(int frame, byte[] array0, byte[] array1)
         {
             return frame == 1 ? array1 : array0;
         }
 
-        byte[] YByteArrayForFrame(int frame)
+        private byte[] YByteArrayForFrame(int frame)
         {
             return ByteArrayForFrame(frame, m_TextureYBytes, m_TextureYBytes2);
         }
 
-        byte[] UVByteArrayForFrame(int frame)
+        private byte[] UVByteArrayForFrame(int frame)
         {
             return ByteArrayForFrame(frame, m_TextureUVBytes, m_TextureUVBytes2);
         }
@@ -199,7 +199,6 @@ namespace UnityARInterface
                 anchor.transform.rotation = anchorData.transform.rotation;
             }
         }
-
 
         public override void StopService()
         {

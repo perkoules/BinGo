@@ -1,14 +1,14 @@
 #if !UNITY_WSA && !UNITY_WP8
 
+using PlayFab.SharedModels;
 using System;
-using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Threading;
-using PlayFab.SharedModels;
+using UnityEngine;
+
 #if !DISABLE_PLAYFABCLIENT_API
-using PlayFab.ClientModels;
 #endif
 
 namespace PlayFab.Internal
@@ -136,7 +136,6 @@ namespace PlayFab.Internal
             newThread.Start();
         }
 
-
         private void SimpleHttpsWorker(string httpMethod, string fullUrl, byte[] payload, Action<byte[]> successCallback, Action<string> errorCallback)
         {
             // This should also use a pooled HttpWebRequest object, but that too can be improved invisibly later
@@ -254,6 +253,7 @@ namespace PlayFab.Internal
                                 if (localActiveRequests[i].HttpRequest.HaveResponse) // Else we'll try again next tick
                                     ProcessHttpResponse(localActiveRequests[i]);
                                 break;
+
                             case HttpRequestState.Received:
                                 ProcessJsonResponse(localActiveRequests[i]);
                                 localActiveRequests.RemoveAt(i);
@@ -262,6 +262,7 @@ namespace PlayFab.Internal
                     }
 
                     #region Expire Thread.
+
                     // Check if we've been inactive
                     lock (_ThreadLock)
                     {
@@ -279,11 +280,11 @@ namespace PlayFab.Internal
                         }
                         // This thread will be stopped, so null this now, inside lock (_threadLock)
                     }
-                    #endregion
+
+                    #endregion Expire Thread.
 
                     Thread.Sleep(1);
                 } while (active);
-
             }
             catch (Exception e)
             {
@@ -420,7 +421,7 @@ namespace PlayFab.Internal
                 reqContainer.ApiResult.Request = reqContainer.ApiRequest;
                 reqContainer.ApiResult.CustomData = reqContainer.CustomData;
 
-                if(_isApplicationPlaying)
+                if (_isApplicationPlaying)
                 {
                     PlayFabHttp.instance.OnPlayFabApiResult(reqContainer);
                 }

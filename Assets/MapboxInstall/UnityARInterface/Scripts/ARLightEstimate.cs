@@ -7,7 +7,7 @@ namespace UnityARInterface
         private Light m_Light;
 
         // Use this for initialization
-        void Start()
+        private void Start()
         {
             m_Light = GetComponent<Light>();
 
@@ -15,7 +15,7 @@ namespace UnityARInterface
                 enabled = false;
         }
 
-        void Update()
+        private void Update()
         {
             var lightEstimate = ARInterface.GetInterface().GetLightEstimate();
 

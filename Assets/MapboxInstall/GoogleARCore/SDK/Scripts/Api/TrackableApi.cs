@@ -20,11 +20,11 @@
 
 namespace GoogleARCoreInternal
 {
+    using GoogleARCore;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Runtime.InteropServices;
-    using GoogleARCore;
     using UnityEngine;
 
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented",
@@ -65,7 +65,7 @@ namespace GoogleARCoreInternal
 
         public void Release(IntPtr trackableHandle)
         {
-             ExternApi.ArTrackable_release(trackableHandle);
+            ExternApi.ArTrackable_release(trackableHandle);
         }
 
         public void GetAnchors(IntPtr trackableHandle, List<Anchor> anchors)

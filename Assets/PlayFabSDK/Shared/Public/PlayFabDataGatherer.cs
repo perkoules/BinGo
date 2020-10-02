@@ -1,7 +1,7 @@
-using UnityEngine;
 using System.Text;
-using PlayFab.SharedModels;
+using UnityEngine;
 using UnityEngine.Rendering;
+
 #if NETFX_CORE
 using System.Reflection;
 #endif
@@ -11,14 +11,18 @@ namespace PlayFab
     public class PlayFabDataGatherer
     {
 #if UNITY_5 || UNITY_5_3_OR_NEWER
+
         // UNITY_5 Application info
         public string ProductName;
+
         public string ProductBundle;
         public string Version;
         public string Company;
         public RuntimePlatform Platform;
+
         // UNITY_5 Graphics Abilities
         public bool GraphicsMultiThreaded;
+
 #else
         public enum GraphicsDeviceType
         {
@@ -39,6 +43,7 @@ namespace PlayFab
 
         // Application info
         public string DataPath;
+
         public string PersistentDataPath;
         public string StreamingAssetsPath;
         public int TargetFrameRate;
@@ -47,19 +52,23 @@ namespace PlayFab
 
         //DEVICE & OS
         public string DeviceModel;
+
         //public enum DeviceType { Unknown, Handheld, Console, Desktop }
         public DeviceType DeviceType;
+
         public string DeviceUniqueId;
         public string OperatingSystem;
 
         //GRAPHICS ABILITIES
         public int GraphicsDeviceId;
+
         public string GraphicsDeviceName;
         public int GraphicsMemorySize;
         public int GraphicsShaderLevel;
 
         //SYSTEM INFO
         public int SystemMemorySize;
+
         public int ProcessorCount;
         public int ProcessorFrequency;
         public string ProcessorType;

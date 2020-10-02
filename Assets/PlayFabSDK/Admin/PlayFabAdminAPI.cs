@@ -1,9 +1,9 @@
 //#if ENABLE_PLAYFABADMIN_API && !DISABLE_PLAYFAB_STATIC_API
 
-using System;
-using System.Collections.Generic;
 using PlayFab.AdminModels;
 using PlayFab.Internal;
+using System;
+using System.Collections.Generic;
 
 namespace PlayFab
 {
@@ -12,7 +12,9 @@ namespace PlayFab
     /// </summary>
     public static class PlayFabAdminAPI
     {
-        static PlayFabAdminAPI() {}
+        static PlayFabAdminAPI()
+        {
+        }
 
         /// <summary>
         /// Clear the Client SessionToken which allows this Client to call API calls requiring login.

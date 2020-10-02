@@ -1,29 +1,30 @@
 namespace Mapbox.Unity.Telemetry
 {
-	public class TelemetryDummy : ITelemetryLibrary
-	{
-		static ITelemetryLibrary _instance = new TelemetryDummy();
-		public static ITelemetryLibrary Instance
-		{
-			get
-			{
-				return _instance;
-			}
-		}
+    public class TelemetryDummy : ITelemetryLibrary
+    {
+        private static ITelemetryLibrary _instance = new TelemetryDummy();
 
-		public void Initialize(string accessToken)
-		{
-			// empty.
-		}
+        public static ITelemetryLibrary Instance
+        {
+            get
+            {
+                return _instance;
+            }
+        }
 
-		public void SendTurnstile()
-		{
-			// empty.
-		}
+        public void Initialize(string accessToken)
+        {
+            // empty.
+        }
 
-		public void SetLocationCollectionState(bool enable)
-		{
-			// empty.
-		}
-	}
+        public void SendTurnstile()
+        {
+            // empty.
+        }
+
+        public void SetLocationCollectionState(bool enable)
+        {
+            // empty.
+        }
+    }
 }

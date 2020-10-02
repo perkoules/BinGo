@@ -1,20 +1,17 @@
 namespace Mapbox.Unity.Location
 {
+    public interface IMapboxLocationInfo
+    {
+        float latitude { get; }
 
+        float longitude { get; }
 
-	public interface IMapboxLocationInfo
-	{
+        float altitude { get; }
 
-		float latitude { get; }
+        float horizontalAccuracy { get; }
 
-		float longitude { get; }
+        float verticalAccuracy { get; }
 
-		float altitude { get; }
-
-		float horizontalAccuracy { get; }
-
-		float verticalAccuracy { get; }
-
-		double timestamp { get; }
-	}
+        double timestamp { get; }
+    }
 }

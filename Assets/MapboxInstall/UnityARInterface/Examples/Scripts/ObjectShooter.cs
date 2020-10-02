@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using UnityARInterface;
+﻿using UnityARInterface;
+using UnityEngine;
 
 public class ObjectShooter : ARBase
 {
@@ -20,7 +20,7 @@ public class ObjectShooter : ARBase
         m_ScreenPosition = screenPosition;
     }
 
-    void Update()
+    private void Update()
     {
         if (m_WasFireRequested)
         {

@@ -33,32 +33,41 @@ namespace PlayFab
         }
 
 #if !DISABLE_PLAYFABCLIENT_API
+
         /// <summary> Allows access to the ClientAPI </summary>
         public string ClientSessionTicket;
+
         /// <summary> The master player entity Id </summary>
         public string PlayFabId;
+
         public bool IsClientLoggedIn()
         {
             return !string.IsNullOrEmpty(ClientSessionTicket);
         }
+
 #endif
 
 #if !DISABLE_PLAYFABENTITY_API
+
         /// <summary> Allows access to most Entity APIs </summary>
         public string EntityToken;
+
         /// <summary>
         /// Clients: The title player entity Id (unless replaced with a related entity)
         /// Servers: The title id (unless replaced with a related entity)
         /// </summary>
         public string EntityId;
+
         /// <summary>
         /// Describes the type of entity identified by EntityId
         /// </summary>
         public string EntityType;
+
         public bool IsEntityLoggedIn()
         {
             return !string.IsNullOrEmpty(EntityToken);
         }
+
 #endif
 
         public void ForgetAllCredentials()

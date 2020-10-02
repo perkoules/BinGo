@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace KDTree
 {
@@ -136,8 +134,8 @@ namespace KDTree
         private void SiftUp(int iChild)
         {
             // For each parent above the child, if the parent is smaller then bubble it up.
-            for (int iParent = (iChild - 1) / 2; 
-                iChild != 0 && tKeys[iChild] < tKeys[iParent]; 
+            for (int iParent = (iChild - 1) / 2;
+                iChild != 0 && tKeys[iChild] < tKeys[iParent];
                 iChild = iParent, iParent = (iChild - 1) / 2)
             {
                 T kData = tData[iParent];

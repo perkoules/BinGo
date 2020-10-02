@@ -1,10 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace KDTree
+﻿namespace KDTree
 {
     /// <summary>
     /// An interface which enables flexible distance functions.

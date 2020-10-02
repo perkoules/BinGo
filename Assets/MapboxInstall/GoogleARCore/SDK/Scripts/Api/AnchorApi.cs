@@ -20,11 +20,10 @@
 
 namespace GoogleARCoreInternal
 {
+    using GoogleARCore;
     using System;
-    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Runtime.InteropServices;
-    using GoogleARCore;
     using UnityEngine;
 
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented",
@@ -117,7 +116,7 @@ namespace GoogleARCoreInternal
             public static extern void ArAnchorList_getSize(IntPtr sessionHandle, IntPtr anchorListHandle, ref int outputSize);
 
             [DllImport(ApiConstants.ARCoreNativeApi)]
-            public static extern void ArAnchorList_acquireItem(IntPtr sessionHandle, IntPtr anchorListHandle,  int index,
+            public static extern void ArAnchorList_acquireItem(IntPtr sessionHandle, IntPtr anchorListHandle, int index,
                 ref IntPtr outputAnchorHandle);
         }
     }

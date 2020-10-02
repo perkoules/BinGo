@@ -6,26 +6,26 @@
 
 namespace Mapbox.Examples.Playground
 {
-	using UnityEngine;
-	using UnityEngine.UI;
-	using Mapbox.Json;
-	using Mapbox.Utils.JsonConverters;
-	using Mapbox.Geocoding;
+    using Mapbox.Geocoding;
+    using Mapbox.Json;
+    using Mapbox.Utils.JsonConverters;
+    using UnityEngine;
+    using UnityEngine.UI;
 
-	public class ForwardGeocoderExample : MonoBehaviour
+    public class ForwardGeocoderExample : MonoBehaviour
     {
         [SerializeField]
-        ForwardGeocodeUserInput _searchLocation;
+        private ForwardGeocodeUserInput _searchLocation;
 
         [SerializeField]
-        Text _resultsText;
+        private Text _resultsText;
 
-        void Awake()
+        private void Awake()
         {
             _searchLocation.OnGeocoderResponse += SearchLocation_OnGeocoderResponse;
         }
 
-        void OnDestroy()
+        private void OnDestroy()
         {
             if (_searchLocation != null)
             {
@@ -33,7 +33,7 @@ namespace Mapbox.Examples.Playground
             }
         }
 
-        void SearchLocation_OnGeocoderResponse(ForwardGeocodeResponse response)
+        private void SearchLocation_OnGeocoderResponse(ForwardGeocodeResponse response)
         {
             _resultsText.text = JsonConvert.SerializeObject(_searchLocation.Response, Formatting.Indented, JsonConverters.Converters);
         }

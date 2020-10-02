@@ -54,6 +54,7 @@ namespace GoogleARCore
 
         // Start Value Of Each Section.
         ColorCorrectionStart = SectionColorCorrection << 16,
+
         ControlStart = SectionControl << 16,
         EdgeStart = SectionEdge << 16,
         FlashStart = SectionFlash << 16,

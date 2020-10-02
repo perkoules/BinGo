@@ -1,22 +1,17 @@
 namespace Mapbox.Unity.Location
 {
+    using UnityEngine;
 
+    public interface IMapboxLocationService
+    {
+        bool isEnabledByUser { get; }
 
-	using UnityEngine;
+        LocationServiceStatus status { get; }
 
+        IMapboxLocationInfo lastData { get; }
 
-	public interface IMapboxLocationService
-	{
+        void Start(float desiredAccuracyInMeters, float updateDistanceInMeters);
 
-
-		bool isEnabledByUser { get; }
-
-		LocationServiceStatus status { get; }
-
-		IMapboxLocationInfo lastData { get; }
-
-		void Start(float desiredAccuracyInMeters, float updateDistanceInMeters);
-
-		void Stop();
-	}
+        void Stop();
+    }
 }

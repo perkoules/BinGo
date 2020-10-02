@@ -1,7 +1,8 @@
 #if !DISABLE_PLAYFABENTITY_API
+
+using PlayFab.SharedModels;
 using System;
 using System.Collections.Generic;
-using PlayFab.SharedModels;
 
 namespace PlayFab.ExperimentationModels
 {
@@ -25,36 +26,44 @@ namespace PlayFab.ExperimentationModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string,string> CustomTags;
+        public Dictionary<string, string> CustomTags;
+
         /// <summary>
         /// Description of the experiment.
         /// </summary>
         public string Description;
+
         /// <summary>
         /// The duration of the experiment, in days.
         /// </summary>
         public uint Duration;
+
         /// <summary>
         /// Type of experiment.
         /// </summary>
         public ExperimentType? ExperimentType;
+
         /// <summary>
         /// Friendly name of the experiment.
         /// </summary>
         public string Name;
+
         /// <summary>
         /// Id of the segment to which this experiment applies. Defaults to the 'All Players' segment.
         /// </summary>
         public string SegmentId;
+
         /// <summary>
         /// When experiment should start.
         /// </summary>
         public DateTime StartDate;
+
         /// <summary>
         /// List of title player account IDs that automatically receive treatments in the experiment, but are not included when
         /// calculating experiment metrics.
         /// </summary>
         public List<string> TitlePlayerAccountTestIds;
+
         /// <summary>
         /// List of variants for the experiment.
         /// </summary>
@@ -80,7 +89,8 @@ namespace PlayFab.ExperimentationModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string,string> CustomTags;
+        public Dictionary<string, string> CustomTags;
+
         /// <summary>
         /// The ID of the experiment to delete.
         /// </summary>
@@ -102,6 +112,7 @@ namespace PlayFab.ExperimentationModels
         /// Unique ID of the entity.
         /// </summary>
         public string Id;
+
         /// <summary>
         /// Entity type. See https://docs.microsoft.com/gaming/playfab/features/data/entities/available-built-in-entity-types
         /// </summary>
@@ -115,39 +126,48 @@ namespace PlayFab.ExperimentationModels
         /// Description of the experiment.
         /// </summary>
         public string Description;
+
         /// <summary>
         /// The duration of the experiment, in days.
         /// </summary>
         public uint Duration;
+
         /// <summary>
         /// Type of experiment.
         /// </summary>
         public ExperimentType? ExperimentType;
+
         /// <summary>
         /// Id of the experiment.
         /// </summary>
         public string Id;
+
         /// <summary>
         /// Friendly name of the experiment.
         /// </summary>
         public string Name;
+
         /// <summary>
         /// Id of the segment to which this experiment applies. Defaults to the 'All Players' segment.
         /// </summary>
         public string SegmentId;
+
         /// <summary>
         /// When experiment should start/was started.
         /// </summary>
         public DateTime StartDate;
+
         /// <summary>
         /// State experiment is currently in.
         /// </summary>
         public ExperimentState? State;
+
         /// <summary>
         /// List of title player account IDs that automatically receive treatments in the experiment, but are not included when
         /// calculating experiment metrics.
         /// </summary>
         public List<string> TitlePlayerAccountTestIds;
+
         /// <summary>
         /// List of variants for the experiment.
         /// </summary>
@@ -178,7 +198,7 @@ namespace PlayFab.ExperimentationModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string,string> CustomTags;
+        public Dictionary<string, string> CustomTags;
     }
 
     [Serializable]
@@ -199,7 +219,8 @@ namespace PlayFab.ExperimentationModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string,string> CustomTags;
+        public Dictionary<string, string> CustomTags;
+
         /// <summary>
         /// The ID of the experiment.
         /// </summary>
@@ -225,7 +246,8 @@ namespace PlayFab.ExperimentationModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string,string> CustomTags;
+        public Dictionary<string, string> CustomTags;
+
         /// <summary>
         /// The entity to perform this action on.
         /// </summary>
@@ -248,50 +270,62 @@ namespace PlayFab.ExperimentationModels
         /// The upper bound of the confidence interval for the relative delta (Delta.RelativeValue).
         /// </summary>
         public double ConfidenceIntervalEnd;
+
         /// <summary>
         /// The lower bound of the confidence interval for the relative delta (Delta.RelativeValue).
         /// </summary>
         public double ConfidenceIntervalStart;
+
         /// <summary>
         /// The absolute delta between TreatmentStats.Average and ControlStats.Average.
         /// </summary>
         public float DeltaAbsoluteChange;
+
         /// <summary>
         /// The relative delta ratio between TreatmentStats.Average and ControlStats.Average.
         /// </summary>
         public float DeltaRelativeChange;
+
         /// <summary>
         /// The machine name of the metric.
         /// </summary>
         public string InternalName;
+
         /// <summary>
         /// Indicates if a movement was detected on that metric.
         /// </summary>
         public string Movement;
+
         /// <summary>
         /// The readable name of the metric.
         /// </summary>
         public string Name;
+
         /// <summary>
         /// The expectation that a movement is real
         /// </summary>
         public float PMove;
+
         /// <summary>
         /// The p-value resulting from the statistical test run for this metric
         /// </summary>
         public float PValue;
+
         /// <summary>
         /// The threshold for observing sample ratio mismatch.
         /// </summary>
         public float PValueThreshold;
+
         /// <summary>
         /// Indicates if the movement is statistically significant.
         /// </summary>
         public string StatSigLevel;
+
         /// <summary>
         /// Observed standard deviation value of the metric.
         /// </summary>
         public float StdDev;
+
         /// <summary>
         /// Observed average value of the metric.
         /// </summary>
@@ -305,30 +339,37 @@ namespace PlayFab.ExperimentationModels
         /// Represents the date the scorecard was generated.
         /// </summary>
         public string DateGenerated;
+
         /// <summary>
         /// Represents the duration of scorecard analysis.
         /// </summary>
         public string Duration;
+
         /// <summary>
         /// Represents the number of events processed for the generation of this scorecard
         /// </summary>
         public double EventsProcessed;
+
         /// <summary>
         /// Id of the experiment.
         /// </summary>
         public string ExperimentId;
+
         /// <summary>
         /// Friendly name of the experiment.
         /// </summary>
         public string ExperimentName;
+
         /// <summary>
         /// Represents the latest compute job status.
         /// </summary>
         public AnalysisTaskState? LatestJobStatus;
+
         /// <summary>
         /// Represents the presence of a sample ratio mismatch in the scorecard data.
         /// </summary>
         public bool SampleRatioMismatch;
+
         /// <summary>
         /// Scorecard containing list of analysis.
         /// </summary>
@@ -342,14 +383,17 @@ namespace PlayFab.ExperimentationModels
         /// Represents whether the variant is control or not.
         /// </summary>
         public bool IsControl;
+
         /// <summary>
         /// Data of the analysis with the internal name of the metric as the key and an object of metric data as value.
         /// </summary>
-        public Dictionary<string,MetricData> MetricDataRows;
+        public Dictionary<string, MetricData> MetricDataRows;
+
         /// <summary>
         /// Represents the player count in the variant.
         /// </summary>
         public uint PlayerCount;
+
         /// <summary>
         /// Name of the variant of analysis.
         /// </summary>
@@ -365,7 +409,8 @@ namespace PlayFab.ExperimentationModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string,string> CustomTags;
+        public Dictionary<string, string> CustomTags;
+
         /// <summary>
         /// The ID of the experiment to start.
         /// </summary>
@@ -381,7 +426,8 @@ namespace PlayFab.ExperimentationModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string,string> CustomTags;
+        public Dictionary<string, string> CustomTags;
+
         /// <summary>
         /// The ID of the experiment to stop.
         /// </summary>
@@ -395,6 +441,7 @@ namespace PlayFab.ExperimentationModels
         /// List of the experiment variables.
         /// </summary>
         public List<Variable> Variables;
+
         /// <summary>
         /// List of the experiment variants.
         /// </summary>
@@ -411,40 +458,49 @@ namespace PlayFab.ExperimentationModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string,string> CustomTags;
+        public Dictionary<string, string> CustomTags;
+
         /// <summary>
         /// Description of the experiment.
         /// </summary>
         public string Description;
+
         /// <summary>
         /// The duration of the experiment, in days.
         /// </summary>
         public uint Duration;
+
         /// <summary>
         /// Type of experiment.
         /// </summary>
         public ExperimentType? ExperimentType;
+
         /// <summary>
         /// Id of the experiment.
         /// </summary>
         public string Id;
+
         /// <summary>
         /// Friendly name of the experiment.
         /// </summary>
         public string Name;
+
         /// <summary>
         /// Id of the segment to which this experiment applies. Defaults to the 'All Players' segment.
         /// </summary>
         public string SegmentId;
+
         /// <summary>
         /// When experiment should start.
         /// </summary>
         public DateTime StartDate;
+
         /// <summary>
         /// List of title player account IDs that automatically receive treatments in the experiment, but are not included when
         /// calculating experiment metrics.
         /// </summary>
         public List<string> TitlePlayerAccountTestIds;
+
         /// <summary>
         /// List of variants for the experiment.
         /// </summary>
@@ -458,6 +514,7 @@ namespace PlayFab.ExperimentationModels
         /// Name of the variable.
         /// </summary>
         public string Name;
+
         /// <summary>
         /// Value of the variable.
         /// </summary>
@@ -471,30 +528,37 @@ namespace PlayFab.ExperimentationModels
         /// Description of the variant.
         /// </summary>
         public string Description;
+
         /// <summary>
         /// Id of the variant.
         /// </summary>
         public string Id;
+
         /// <summary>
         /// Specifies if variant is control for experiment.
         /// </summary>
         public bool IsControl;
+
         /// <summary>
         /// Name of the variant.
         /// </summary>
         public string Name;
+
         /// <summary>
         /// Id of the TitleDataOverride to use with this variant.
         /// </summary>
         public string TitleDataOverrideLabel;
+
         /// <summary>
         /// Percentage of target audience traffic that will see this variant.
         /// </summary>
         public uint TrafficPercentage;
+
         /// <summary>
         /// Variables returned by this variant.
         /// </summary>
         public List<Variable> Variables;
     }
 }
+
 #endif

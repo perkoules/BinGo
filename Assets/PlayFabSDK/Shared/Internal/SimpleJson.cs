@@ -57,12 +57,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+
 #if SIMPLE_JSON_DYNAMIC
 using System.Dynamic;
 #endif
+
 using System.Globalization;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text;
 
@@ -139,6 +140,7 @@ namespace PlayFab.Json
  IDictionary<string, object>
     {
         private const int DICTIONARY_DEFAULT_SIZE = 16;
+
         /// <summary>
         /// The internal member dictionary.
         /// </summary>
@@ -530,10 +532,12 @@ namespace PlayFab.Json
             FALSE = 10,
             NULL = 11,
         }
+
         private const int BUILDER_INIT = 2000;
 
         private static readonly char[] EscapeTable;
         private static readonly char[] EscapeCharacters = new char[] { '"', '\\', '\b', '\f', '\n', '\r', '\t' };
+
         // private static readonly string EscapeCharactersString = new string(EscapeCharacters);
         internal static readonly List<Type> NumberTypes = new List<Type> {
             typeof(bool), typeof(byte), typeof(ushort), typeof(uint), typeof(ulong), typeof(sbyte), typeof(short), typeof(int), typeof(long), typeof(double), typeof(float), typeof(decimal)
@@ -542,6 +546,7 @@ namespace PlayFab.Json
         // Performance stuff
         [ThreadStatic]
         private static StringBuilder _serializeObjectBuilder;
+
         [ThreadStatic]
         private static StringBuilder _parseStringBuilder;
 
@@ -687,7 +692,7 @@ namespace PlayFab.Json
             return sb.ToString();
         }
 
-        static IDictionary<string, object> ParseObject(string json, ref int index, ref bool success)
+        private static IDictionary<string, object> ParseObject(string json, ref int index, ref bool success)
         {
             IDictionary<string, object> table = new JsonObject();
             TokenType token;
@@ -740,7 +745,7 @@ namespace PlayFab.Json
             return table;
         }
 
-        static JsonArray ParseArray(string json, ref int index, ref bool success)
+        private static JsonArray ParseArray(string json, ref int index, ref bool success)
         {
             JsonArray array = new JsonArray();
 
@@ -774,27 +779,34 @@ namespace PlayFab.Json
             return array;
         }
 
-        static object ParseValue(string json, ref int index, ref bool success)
+        private static object ParseValue(string json, ref int index, ref bool success)
         {
             switch (LookAhead(json, index))
             {
                 case TokenType.STRING:
                     return ParseString(json, ref index, ref success);
+
                 case TokenType.NUMBER:
                     return ParseNumber(json, ref index, ref success);
+
                 case TokenType.CURLY_OPEN:
                     return ParseObject(json, ref index, ref success);
+
                 case TokenType.SQUARED_OPEN:
                     return ParseArray(json, ref index, ref success);
+
                 case TokenType.TRUE:
                     NextToken(json, ref index);
                     return true;
+
                 case TokenType.FALSE:
                     NextToken(json, ref index);
                     return false;
+
                 case TokenType.NULL:
                     NextToken(json, ref index);
                     return null;
+
                 case TokenType.NONE:
                     break;
             }
@@ -802,7 +814,7 @@ namespace PlayFab.Json
             return null;
         }
 
-        static string ParseString(string json, ref int index, ref bool success)
+        private static string ParseString(string json, ref int index, ref bool success)
         {
             if (_parseStringBuilder == null)
                 _parseStringBuilder = new StringBuilder(BUILDER_INIT);
@@ -909,7 +921,7 @@ namespace PlayFab.Json
             return new string(new char[] { (char)((utf32 >> 10) + 0xD800), (char)(utf32 % 0x0400 + 0xDC00) });
         }
 
-        static object ParseNumber(string json, ref int index, ref bool success)
+        private static object ParseNumber(string json, ref int index, ref bool success)
         {
             EatWhitespace(json, ref index);
             int lastIndex = GetLastIndexOfNumber(json, index);
@@ -938,7 +950,7 @@ namespace PlayFab.Json
             return returnNumber;
         }
 
-        static int GetLastIndexOfNumber(string json, int index)
+        private static int GetLastIndexOfNumber(string json, int index)
         {
             int lastIndex;
             for (lastIndex = index; lastIndex < json.Length; lastIndex++)
@@ -946,20 +958,20 @@ namespace PlayFab.Json
             return lastIndex - 1;
         }
 
-        static void EatWhitespace(string json, ref int index)
+        private static void EatWhitespace(string json, ref int index)
         {
             for (; index < json.Length; index++)
                 if (" \t\n\r\b\f".IndexOf(json[index]) == -1) break;
         }
 
-        static TokenType LookAhead(string json, int index)
+        private static TokenType LookAhead(string json, int index)
         {
             int saveIndex = index;
             return NextToken(json, ref saveIndex);
         }
 
         [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
-        static TokenType NextToken(string json, ref int index)
+        private static TokenType NextToken(string json, ref int index)
         {
             EatWhitespace(json, ref index);
             if (index == json.Length)
@@ -970,16 +982,22 @@ namespace PlayFab.Json
             {
                 case '{':
                     return TokenType.CURLY_OPEN;
+
                 case '}':
                     return TokenType.CURLY_CLOSE;
+
                 case '[':
                     return TokenType.SQUARED_OPEN;
+
                 case ']':
                     return TokenType.SQUARED_CLOSE;
+
                 case ',':
                     return TokenType.COMMA;
+
                 case '"':
                     return TokenType.STRING;
+
                 case '0':
                 case '1':
                 case '2':
@@ -992,6 +1010,7 @@ namespace PlayFab.Json
                 case '9':
                 case '-':
                     return TokenType.NUMBER;
+
                 case ':':
                     return TokenType.COLON;
             }
@@ -1027,7 +1046,7 @@ namespace PlayFab.Json
             return TokenType.NONE;
         }
 
-        static bool SerializeValue(IJsonSerializerStrategy jsonSerializerStrategy, object value, StringBuilder builder)
+        private static bool SerializeValue(IJsonSerializerStrategy jsonSerializerStrategy, object value, StringBuilder builder)
         {
             bool success = true;
             string stringValue = value as string;
@@ -1079,7 +1098,7 @@ namespace PlayFab.Json
             return success;
         }
 
-        static bool SerializeObject(IJsonSerializerStrategy jsonSerializerStrategy, IEnumerable keys, IEnumerable values, StringBuilder builder)
+        private static bool SerializeObject(IJsonSerializerStrategy jsonSerializerStrategy, IEnumerable keys, IEnumerable values, StringBuilder builder)
         {
             builder.Append("{");
             IEnumerator ke = keys.GetEnumerator();
@@ -1105,7 +1124,7 @@ namespace PlayFab.Json
             return true;
         }
 
-        static bool SerializeArray(IJsonSerializerStrategy jsonSerializerStrategy, IEnumerable anArray, StringBuilder builder)
+        private static bool SerializeArray(IJsonSerializerStrategy jsonSerializerStrategy, IEnumerable anArray, StringBuilder builder)
         {
             builder.Append("[");
             bool first = true;
@@ -1121,7 +1140,7 @@ namespace PlayFab.Json
             return true;
         }
 
-        static bool SerializeString(string aString, StringBuilder builder)
+        private static bool SerializeString(string aString, StringBuilder builder)
         {
             // Happy path if there's nothing to be escaped. IndexOfAny is highly optimized (and unmanaged)
             if (aString.IndexOfAny(EscapeCharacters) == -1)
@@ -1170,7 +1189,7 @@ namespace PlayFab.Json
             return true;
         }
 
-        static bool SerializeNumber(object number, StringBuilder builder)
+        private static bool SerializeNumber(object number, StringBuilder builder)
         {
             if (number is decimal)
                 builder.Append(((decimal)number).ToString("R", CultureInfo.InvariantCulture));
@@ -1187,7 +1206,7 @@ namespace PlayFab.Json
         /// Determines if a given object is numeric in any way
         /// (can be integer, double, null, etc).
         /// </summary>
-        static bool IsNumeric(object value)
+        private static bool IsNumeric(object value)
         {
             if (value is sbyte) return true;
             if (value is byte) return true;
@@ -1204,6 +1223,7 @@ namespace PlayFab.Json
         }
 
         private static IJsonSerializerStrategy _currentJsonSerializerStrategy;
+
         public static IJsonSerializerStrategy CurrentJsonSerializerStrategy
         {
             get
@@ -1224,6 +1244,7 @@ namespace PlayFab.Json
         }
 
         private static PocoJsonSerializerStrategy _pocoJsonSerializerStrategy;
+
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public static PocoJsonSerializerStrategy PocoJsonSerializerStrategy
         {
@@ -1258,6 +1279,7 @@ namespace PlayFab.Json
     {
         [SuppressMessage("Microsoft.Design", "CA1007:UseGenericsWhereAppropriate", Justification = "Need to support .NET 2")]
         bool TrySerializeNonPrimitiveObject(object input, out object output);
+
         object DeserializeObject(object value, Type type);
     }
 
@@ -1544,6 +1566,7 @@ namespace PlayFab.Json
             }
             return returnValue;
         }
+
         [SuppressMessage("Microsoft.Design", "CA1007:UseGenericsWhereAppropriate", Justification = "Need to support .NET 2")]
         protected virtual bool TrySerializeUnknownTypes(object input, out object output)
         {
@@ -1664,7 +1687,9 @@ namespace PlayFab.Json
         private static readonly object[] EmptyObjects = new object[0];
 
         public delegate object GetDelegate(object source);
+
         public delegate void SetDelegate(object source, object value);
+
         public delegate object ConstructorDelegate(params object[] args);
 
         public delegate TValue ThreadSafeDictionaryValueFactory<TKey, TValue>(TKey key);
@@ -1678,10 +1703,12 @@ namespace PlayFab.Json
             return type.GetTypeInfo();
         }
 #else
+
         public static Type GetTypeInfo(Type type)
         {
             return type;
         }
+
 #endif
 
         public static Attribute GetAttribute(MemberInfo info, Type type)
@@ -1721,7 +1748,6 @@ namespace PlayFab.Json
 
         public static Attribute GetAttribute(Type objectType, Type attributeType)
         {
-
 #if SIMPLE_JSON_TYPEINFO
             if (objectType == null || attributeType == null || !objectType.GetTypeInfo().IsDefined(attributeType))
                 return null;

@@ -19,11 +19,9 @@
 //-----------------------------------------------------------------------
 namespace GoogleARCore.TextureReader
 {
-    using System;
-    using System.Collections.Generic;
     using GoogleARCore;
+    using System;
     using UnityEngine;
-    using UnityEngine.Rendering;
 
     /// <summary>
     /// Component that provides CPU access to ArCore GPU texture.
@@ -39,7 +37,7 @@ namespace GoogleARCore.TextureReader
         /// Output image height, in pixels.
         /// </summary>
         public int ImageHeight = k_ARCoreTextureHeight;
-        
+
         /// <summary>
         /// Output image sampling option.
         /// </summary>
@@ -72,7 +70,7 @@ namespace GoogleARCore.TextureReader
         /// <summary>
         /// Callback function handle for receiving the output images.
         /// </summary>
-        public event OnImageAvailableCallbackFunc OnImageAvailableCallback = null;   
+        public event OnImageAvailableCallbackFunc OnImageAvailableCallback = null;
 
         /// <summary>
         /// Options to sample the output image.
@@ -134,52 +132,52 @@ namespace GoogleARCore.TextureReader
             // Process command.
             switch (m_Command)
             {
-            case CommandType.Create:
-            {
-                m_TextureReaderApi.Create(ImageFormat, ImageWidth, ImageHeight, ImageSampleMode == SampleMode.KeepAspectRatio);
-                break;
-            }
-
-            case CommandType.Reset:
-            {
-                m_TextureReaderApi.ReleaseFrame(m_ImageBufferIndex);
-                m_TextureReaderApi.Destroy();
-                m_TextureReaderApi.Create(ImageFormat, ImageWidth, ImageHeight, ImageSampleMode == SampleMode.KeepAspectRatio);
-                m_ImageBufferIndex = -1;
-                break;
-            }
-
-            case CommandType.ReleasePreviousBuffer:
-            {
-                // Clear previously used buffer, and submits a new request.
-                m_TextureReaderApi.ReleaseFrame(m_ImageBufferIndex);
-                m_ImageBufferIndex = -1;
-                break;
-            }
-
-            case CommandType.ProcessNextFrame:
-            {
-                if (m_ImageBufferIndex >= 0)
-                {
-                    // Get image pixels from previously submitted request.
-                    int bufferSize = 0;
-                    IntPtr pixelBuffer = m_TextureReaderApi.AcquireFrame(m_ImageBufferIndex, ref bufferSize);
-
-                    if (pixelBuffer != IntPtr.Zero && OnImageAvailableCallback != null)
+                case CommandType.Create:
                     {
-                        OnImageAvailableCallback(ImageFormat, ImageWidth, ImageHeight, pixelBuffer, bufferSize);
+                        m_TextureReaderApi.Create(ImageFormat, ImageWidth, ImageHeight, ImageSampleMode == SampleMode.KeepAspectRatio);
+                        break;
                     }
 
-                    // Release the texture reader internal buffer.
-                    m_TextureReaderApi.ReleaseFrame(m_ImageBufferIndex);
-                }
+                case CommandType.Reset:
+                    {
+                        m_TextureReaderApi.ReleaseFrame(m_ImageBufferIndex);
+                        m_TextureReaderApi.Destroy();
+                        m_TextureReaderApi.Create(ImageFormat, ImageWidth, ImageHeight, ImageSampleMode == SampleMode.KeepAspectRatio);
+                        m_ImageBufferIndex = -1;
+                        break;
+                    }
 
-                break;
-            }
+                case CommandType.ReleasePreviousBuffer:
+                    {
+                        // Clear previously used buffer, and submits a new request.
+                        m_TextureReaderApi.ReleaseFrame(m_ImageBufferIndex);
+                        m_ImageBufferIndex = -1;
+                        break;
+                    }
 
-            case CommandType.None:
-            default:
-                break;
+                case CommandType.ProcessNextFrame:
+                    {
+                        if (m_ImageBufferIndex >= 0)
+                        {
+                            // Get image pixels from previously submitted request.
+                            int bufferSize = 0;
+                            IntPtr pixelBuffer = m_TextureReaderApi.AcquireFrame(m_ImageBufferIndex, ref bufferSize);
+
+                            if (pixelBuffer != IntPtr.Zero && OnImageAvailableCallback != null)
+                            {
+                                OnImageAvailableCallback(ImageFormat, ImageWidth, ImageHeight, pixelBuffer, bufferSize);
+                            }
+
+                            // Release the texture reader internal buffer.
+                            m_TextureReaderApi.ReleaseFrame(m_ImageBufferIndex);
+                        }
+
+                        break;
+                    }
+
+                case CommandType.None:
+                default:
+                    break;
             }
 
             // Submit reading request for the next frame.
@@ -201,7 +199,7 @@ namespace GoogleARCore.TextureReader
                 m_TextureReaderApi = null;
             }
         }
-        
+
         /// <summary>
         /// This function is called when the behaviour becomes disabled or inactive.
         /// </summary>

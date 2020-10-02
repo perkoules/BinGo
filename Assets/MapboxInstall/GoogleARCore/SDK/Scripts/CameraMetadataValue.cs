@@ -20,13 +20,11 @@
 
 namespace GoogleARCore
 {
-    using System;
-    using System.Runtime.InteropServices;
     using GoogleARCoreInternal;
-    using UnityEngine;
+    using System.Runtime.InteropServices;
 
     /// <summary>
-    /// Struct to contain camera metadata's value. When querying data from the struct, caller is responsible 
+    /// Struct to contain camera metadata's value. When querying data from the struct, caller is responsible
     /// for making sure the querying data type matches the m_type.
     ///
     /// For example: if m_type is NdkCameraMetadataType.Byte, caller should only use
@@ -37,16 +35,22 @@ namespace GoogleARCore
     {
         [FieldOffset(0)]
         private NdkCameraMetadataType m_Type;
+
         [FieldOffset(4)]
         private sbyte m_ByteValue;
+
         [FieldOffset(4)]
         private int m_IntValue;
+
         [FieldOffset(4)]
         private long m_LongValue;
+
         [FieldOffset(4)]
         private float m_FloatValue;
+
         [FieldOffset(4)]
         private double m_DoubleValue;
+
         [FieldOffset(4)]
         private CameraMetadataRational m_RationalValue;
 

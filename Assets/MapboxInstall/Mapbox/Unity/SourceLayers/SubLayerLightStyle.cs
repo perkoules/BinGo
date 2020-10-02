@@ -1,40 +1,38 @@
 ﻿namespace Mapbox.Unity.Map
 {
-	public class SubLayerLightStyle : ISubLayerLightStyle
-	{
-		private GeometryMaterialOptions _materialOptions;
-		public SubLayerLightStyle(GeometryMaterialOptions materialOptions)
-		{
-			_materialOptions = materialOptions;
-		}
+    public class SubLayerLightStyle : ISubLayerLightStyle
+    {
+        private GeometryMaterialOptions _materialOptions;
 
-		public float Opacity
-		{
-			get
-			{
-				return _materialOptions.lightStyleOpacity;
-			}
+        public SubLayerLightStyle(GeometryMaterialOptions materialOptions)
+        {
+            _materialOptions = materialOptions;
+        }
 
-			set
-			{
-				_materialOptions.lightStyleOpacity = value;
-				_materialOptions.HasChanged = true;
-			}
-		}
+        public float Opacity
+        {
+            get
+            {
+                return _materialOptions.lightStyleOpacity;
+            }
 
-		public void SetAsStyle()
-		{
-			SetAsStyle(1.0f);
-		}
+            set
+            {
+                _materialOptions.lightStyleOpacity = value;
+                _materialOptions.HasChanged = true;
+            }
+        }
 
-		public void SetAsStyle(float opacity)
-		{
-			_materialOptions.style = StyleTypes.Light;
-			_materialOptions.lightStyleOpacity = opacity;
-			_materialOptions.HasChanged = true;
-		}
-	}
+        public void SetAsStyle()
+        {
+            SetAsStyle(1.0f);
+        }
 
+        public void SetAsStyle(float opacity)
+        {
+            _materialOptions.style = StyleTypes.Light;
+            _materialOptions.lightStyleOpacity = opacity;
+            _materialOptions.HasChanged = true;
+        }
+    }
 }
-
-

@@ -1,6 +1,6 @@
+using PlayFab.Internal;
 using System;
 using System.Globalization;
-using PlayFab.Internal;
 
 namespace PlayFab.Json
 {
@@ -12,6 +12,7 @@ namespace PlayFab.Json
         /// Any Serialization of an object in the PlayFab namespace should just use JsonWrapper
         /// </summary>
         public static PlayFabSimpleJsonCuztomization ApiSerializerStrategy = new PlayFabSimpleJsonCuztomization();
+
         public class PlayFabSimpleJsonCuztomization : PocoJsonSerializerStrategy
         {
             /// <summary>

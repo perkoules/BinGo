@@ -1,6 +1,6 @@
+using PlayFab.SharedModels;
 using System;
 using System.Collections.Generic;
-using PlayFab.SharedModels;
 
 namespace PlayFab.Internal
 {
@@ -34,6 +34,7 @@ namespace PlayFab.Internal
 
         // This class stores the state of the request and all associated data
         public string ApiEndpoint = null;
+
         public string FullUrl = null;
         public byte[] Payload = null;
         public string JsonResponse = null;

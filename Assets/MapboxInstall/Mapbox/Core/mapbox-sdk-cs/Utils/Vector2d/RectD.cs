@@ -4,10 +4,12 @@
     {
         public Vector2d Min { get; private set; }
         public Vector2d Max { get; private set; }
+
         //size is absolute width&height so Min+size != max
         public Vector2d Size { get; private set; }
+
         public Vector2d Center { get; private set; }
-        
+
         public RectD(Vector2d min, Vector2d size)
         {
             Min = min;

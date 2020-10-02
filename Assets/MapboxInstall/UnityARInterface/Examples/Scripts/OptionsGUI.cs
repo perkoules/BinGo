@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using UnityARInterface;
+﻿using UnityARInterface;
+using UnityEngine;
 
 public class OptionsGUI : MonoBehaviour
 {

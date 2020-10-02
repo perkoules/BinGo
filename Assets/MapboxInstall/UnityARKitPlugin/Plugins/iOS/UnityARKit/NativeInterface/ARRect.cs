@@ -1,11 +1,8 @@
-﻿using System;
-
-namespace UnityEngine.XR.iOS
+﻿namespace UnityEngine.XR.iOS
 {
-	public struct ARRect
-	{
-		public ARPoint origin;
-		public ARSize  size;
-	}
+    public struct ARRect
+    {
+        public ARPoint origin;
+        public ARSize size;
+    }
 }
-

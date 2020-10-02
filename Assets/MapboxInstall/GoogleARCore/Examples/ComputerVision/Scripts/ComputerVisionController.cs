@@ -20,11 +20,9 @@
 
 namespace GoogleARCore.TextureReader
 {
-    using System;
-    using System.Collections.Generic;
     using GoogleARCore;
+    using System;
     using UnityEngine;
-    using UnityEngine.Rendering;
 
     /// <summary>
     /// Controlls the ComputerVision example.
@@ -50,6 +48,7 @@ namespace GoogleARCore.TextureReader
         /// Texture created from filtered camera image.
         /// </summary>
         private Texture2D m_TextureToRender = null;
+
         private int m_ImageWidth = 0;
         private int m_ImageHeight = 0;
         private byte[] m_EdgeImage = null;
@@ -174,12 +173,16 @@ namespace GoogleARCore.TextureReader
             {
                 case ScreenOrientation.LandscapeLeft:
                     return -Input.GetTouch(0).deltaPosition.x / Screen.width;
+
                 case ScreenOrientation.LandscapeRight:
                     return Input.GetTouch(0).deltaPosition.x / Screen.width;
+
                 case ScreenOrientation.Portrait:
                     return Input.GetTouch(0).deltaPosition.y / Screen.height;
+
                 case ScreenOrientation.PortraitUpsideDown:
                     return -Input.GetTouch(0).deltaPosition.y / Screen.height;
+
                 default:
                     return 0;
             }

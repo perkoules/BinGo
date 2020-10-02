@@ -1,6 +1,6 @@
+using PlayFab.Internal;
 using System;
 using System.Collections.Generic;
-using PlayFab.Internal;
 
 namespace PlayFab
 {
@@ -53,9 +53,11 @@ namespace PlayFab
                     case PluginContract.PlayFab_Serializer:
                         plugin = this.CreatePlugin<PlayFab.Json.SimpleJsonInstance>();
                         break;
+
                     case PluginContract.PlayFab_Transport:
                         plugin = this.CreatePlayFabTransportPlugin();
                         break;
+
                     default:
                         throw new ArgumentException("This contract is not supported", "contract");
                 }

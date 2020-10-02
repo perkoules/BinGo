@@ -20,9 +20,8 @@
 
 namespace GoogleARCoreInternal
 {
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using GoogleARCore;
+    using System.Diagnostics.CodeAnalysis;
 
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented",
     Justification = "Internal")]
@@ -34,8 +33,10 @@ namespace GoogleARCoreInternal
             {
                 case ApiLightEstimateState.NotValid:
                     return LightEstimateState.NotValid;
+
                 case ApiLightEstimateState.Valid:
                     return LightEstimateState.Valid;
+
                 default:
                     return LightEstimateState.NotValid;
             }

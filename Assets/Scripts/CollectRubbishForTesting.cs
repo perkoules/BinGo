@@ -14,23 +14,28 @@ public class CollectRubbishForTesting : MonoBehaviour
 
         if (option == "c")
         {
+            achievementsController.rubbishToUnlockCounter++;
             playfabManager.rubbishCollected++;
             playfabManager.rubbishInPlace++;
             playfabManager.rubbishInDistrict++;
             playfabManager.rubbishInRegion++;
             playfabManager.rubbishInCountry++;
             playfabManager.coinsAvailable++;
+            playfabManager.ProgressLevelCheck();
         }
         else if (option == "r")
         {
+            achievementsController.recycleToUnlockCounter++;
             playfabManager.rubbishCollected++;
             playfabManager.rubbishInPlace++;
             playfabManager.rubbishInDistrict++;
             playfabManager.rubbishInRegion++;
             playfabManager.rubbishInCountry++;
             playfabManager.coinsAvailable += 2;
+            playfabManager.ProgressLevelCheck();
         }
         playfabManager.UpdatePlayerStats();
+        playfabManager.LevelBadgeDisplay();
         achievementsController.CheckAchievementUnlockability();
     }
 }

@@ -1,13 +1,11 @@
 ﻿using PlayFab;
 using PlayFab.ClientModels;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class PlayfabManager : MonoBehaviour
 {
@@ -22,6 +20,7 @@ public class PlayfabManager : MonoBehaviour
 
     public TMP_InputField emailInput, passwordInput;
     public Sprite guest;
+
     private void OnEnable()
     {
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
@@ -317,6 +316,7 @@ public class PlayfabManager : MonoBehaviour
     {
         return PlayerPrefs.GetString(TEAMNAME_GIVEN);
     }
+
     public void SetTasks(string tsk)
     {
         PlayerPrefs.SetString(TASK_BADGES, tsk);
@@ -326,6 +326,7 @@ public class PlayfabManager : MonoBehaviour
     {
         return PlayerPrefs.GetString(TASK_BADGES);
     }
+
     #endregion Playerprefs
 
     #region PlayerData
@@ -374,6 +375,36 @@ public class PlayfabManager : MonoBehaviour
         result => GetPlayerStats(),
         error => Debug.Log(error.GenerateErrorReport()));
     }
+
+    public void ProgressLevelCheck()
+    {
+        Dictionary<int, int> progressByRubbish = new Dictionary<int, int>()
+        {
+            {1, 20},
+            {2, 50},
+            {3, 100},
+            {4, 200},
+            {5, 300},
+            {6, 500},
+            {7, 700},
+            {8, 1000},
+            {9, 1250},
+            {10, 1500},
+            {11, 1750},
+            {12, 2000},
+            {13, 2500},
+            {14, 3000},
+            {15, 5000}
+        };
+        for (int i = 1; i < progressByRubbish.Count; i++)
+        {
+            if(progressByRubbish.ElementAt(i-1).Value <= rubbishCollected && rubbishCollected <= progressByRubbish.ElementAt(i).Value)
+            {
+                progressLevel = progressByRubbish.ElementAt(i).Key;
+            }
+        }
+    }
+
     public void GetPlayerStats()
     {
         PlayFabClientAPI.GetPlayerStatistics(
@@ -586,6 +617,4 @@ public class PlayfabManager : MonoBehaviour
     }
 
     #endregion Displayers
-
-    
 }

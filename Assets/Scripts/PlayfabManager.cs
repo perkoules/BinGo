@@ -345,11 +345,11 @@ public class PlayfabManager : MonoBehaviour
 
     public void UpdatePlayerStats()
     {
-        if (playerStats.playerInfo.RubbishDistrict == null)
+        if (playerStats.playerInfo.RubbishDistrict == null)                     //For places with no districts
         {
             playerStats.playerInfo.RubbishDistrict = "NullDistricts";
         }
-        if (playerStats.playerInfo.RubbishRegion == null)
+        if (playerStats.playerInfo.RubbishRegion == null)                       //For places with no regions
         {
             playerStats.playerInfo.RubbishRegion = "NullRegions";
         }
@@ -596,7 +596,7 @@ public class PlayfabManager : MonoBehaviour
         }
     }
 
-    private void CoinsDisplay()
+    public void CoinsDisplay()
     {
         foreach (var cointxt in playerStats.coinsTextDisplay)
         {

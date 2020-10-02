@@ -54,7 +54,6 @@ public class PlayfabManager : MonoBehaviour
             }
             if (SceneManager.GetActiveScene().buildIndex == 1 && GetIsGuest() == 0)
             {
-                Debug.Log("Guest mode OFF");
                 GetDisplayName(myID);
                 GetPlayerStats();
                 GetPlayerData();
@@ -333,7 +332,8 @@ public class PlayfabManager : MonoBehaviour
 
     /*--------- Stats and data defaults ---------------------*/
     public int progressLevel = 1;
-    public int rubbishCollected = 0;
+    public int wasteCollected = 0;
+    public int recycleCollected = 0;
     public int rubbishInPlace = 0;
     public int rubbishInDistrict = 0;
     public int rubbishInRegion = 0;
@@ -359,7 +359,8 @@ public class PlayfabManager : MonoBehaviour
             FunctionParameter = new
             {
                 cloudProgressLevel = progressLevel,
-                cloudRubbishCollected = rubbishCollected,
+                cloudRubbishCollected = wasteCollected,
+                cloudRecycleCollected = recycleCollected,
                 cloudStatisticNamePlace = playerStats.playerInfo.RubbishPlace + " isPlace",
                 cloudStatisticNameDistrict = playerStats.playerInfo.RubbishDistrict + " isDistrict",
                 cloudStatisticNameRegion = playerStats.playerInfo.RubbishRegion + " isRegion",
@@ -378,6 +379,7 @@ public class PlayfabManager : MonoBehaviour
 
     public void ProgressLevelCheck()
     {
+        int allRubbish = wasteCollected + recycleCollected;
         Dictionary<int, int> progressByRubbish = new Dictionary<int, int>()
         {
             {1, 20},
@@ -398,7 +400,7 @@ public class PlayfabManager : MonoBehaviour
         };
         for (int i = 1; i < progressByRubbish.Count; i++)
         {
-            if(progressByRubbish.ElementAt(i-1).Value <= rubbishCollected && rubbishCollected <= progressByRubbish.ElementAt(i).Value)
+            if(progressByRubbish.ElementAt(i-1).Value <= allRubbish && allRubbish <= progressByRubbish.ElementAt(i).Value)
             {
                 progressLevel = progressByRubbish.ElementAt(i).Key;
             }
@@ -417,19 +419,23 @@ public class PlayfabManager : MonoBehaviour
                     {
                         case "ProgressLevel":
                             progressLevel = eachStat.Value;
-                            playerStats.playerInfo.PlayerCurrentLevel = eachStat.Value;
+                            playerStats.playerInfo.PlayerCurrentLevel = progressLevel;
                             LevelDisplay();
                             break;
 
                         case "RubbishCollected":
-                            rubbishCollected = eachStat.Value;
-                            playerStats.playerInfo.PlayerRubbish = eachStat.Value;
+                            wasteCollected = eachStat.Value;
+                            playerStats.playerInfo.PlayerRubbish = wasteCollected;
                             RubbishDisplay();
                             break;
-
+                        case "RecycleCollected":
+                            recycleCollected = eachStat.Value;
+                            playerStats.playerInfo.PlayerRecycle = recycleCollected;
+                            RubbishDisplay();
+                            break;
                         case "CoinsAvailable":
                             coinsAvailable = eachStat.Value;
-                            playerStats.playerInfo.PlayerCoins = eachStat.Value;
+                            playerStats.playerInfo.PlayerCoins = coinsAvailable;
                             CoinsDisplay();
                             break;
 
@@ -533,7 +539,8 @@ public class PlayfabManager : MonoBehaviour
             PlayerUsername = GetUsername(),
             PlayerPassword = GetPassword(),
             PlayerEmail = GetEmail(),
-            PlayerRubbish = rubbishCollected,
+            PlayerRubbish = wasteCollected,
+            PlayerRecycle = recycleCollected,
             PlayerTeamName = GetTeamname(),
             PlayerCoins = coinsAvailable,
             PlayerCurrentLevel = progressLevel
@@ -602,9 +609,10 @@ public class PlayfabManager : MonoBehaviour
 
     private void RubbishDisplay()
     {
+        int allRubbish = wasteCollected + recycleCollected;
         foreach (var rubtxt in playerStats.rubbishTextDisplay)
         {
-            rubtxt.text = rubbishCollected.ToString();
+            rubtxt.text = allRubbish.ToString();
         }
     }
 

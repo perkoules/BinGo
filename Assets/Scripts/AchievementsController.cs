@@ -25,7 +25,8 @@ public class AchievementsController : MonoBehaviour
     private void OnEnable()
     {
         bc = this;
-        rubbishToUnlockCounter = pfm.rubbishCollected;
+        rubbishToUnlockCounter = pfm.wasteCollected;
+        recycleToUnlockCounter = pfm.recycleCollected;
         tasks = pfm.GetTasks();
         CheckForLocations();
         GetAchievementsFromData();
@@ -55,8 +56,10 @@ public class AchievementsController : MonoBehaviour
         error => Debug.Log(error.GenerateErrorReport()));
     }
 
-    public void CheckAchievementUnlockability()
+    public IEnumerator CheckAchievementUnlockability()
     {
+        CheckForLocations();
+        yield return new WaitForSeconds(2);
         TaskChanger();
         UpdateAchievements(TaskUpdater());
     }
@@ -137,21 +140,27 @@ public class AchievementsController : MonoBehaviour
             new GetPlayerStatisticsRequest() { },
             result =>
             {
+                int city = 0;
+                int country = 0;
+                int state = 0;
                 foreach (var st in result.Statistics)
                 {
                     if (st.StatisticName.Contains(" isPlace"))
                     {
-                        cityToUnlockCounter++;
+                        city++;
                     }
                     else if (st.StatisticName.Contains(" isCountry"))
                     {
-                        countryToUnlockCounter++;
+                        country++;
                     }
                     else if (st.StatisticName.Contains(" isDistrict"))
                     {
-                        statesToUnlockCounter++;
+                        state++;
                     }
                 }
+                cityToUnlockCounter = city;
+                countryToUnlockCounter = country;
+                statesToUnlockCounter = state;
             },
             error => Debug.LogError(error.GenerateErrorReport())
             );

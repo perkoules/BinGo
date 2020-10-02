@@ -19,6 +19,7 @@ public class PlayerInfo
     [SerializeField] private int playerCurrentLevel;
     [SerializeField] private int playerCoins;
     [SerializeField] private int playerRubbish;
+    [SerializeField] private int playerRecycle;
 
     [Header("Rubbish Location Data:")]
     [SerializeField] private string rubbishPlace;
@@ -101,7 +102,11 @@ public class PlayerInfo
         get { return playerRubbish; }
         set { playerRubbish = value; }
     }
-
+    public int PlayerRecycle
+    {
+        get { return playerRecycle; }
+        set { playerRecycle = value; }
+    }
     public int RubbishInPlace
     {
         get { return rubbishInPlace; }

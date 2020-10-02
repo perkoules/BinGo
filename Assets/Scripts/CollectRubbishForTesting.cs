@@ -14,8 +14,7 @@ public class CollectRubbishForTesting : MonoBehaviour
 
         if (option == "c")
         {
-            achievementsController.rubbishToUnlockCounter++;
-            playfabManager.rubbishCollected++;
+            playfabManager.wasteCollected++;
             playfabManager.rubbishInPlace++;
             playfabManager.rubbishInDistrict++;
             playfabManager.rubbishInRegion++;
@@ -25,8 +24,7 @@ public class CollectRubbishForTesting : MonoBehaviour
         }
         else if (option == "r")
         {
-            achievementsController.recycleToUnlockCounter++;
-            playfabManager.rubbishCollected++;
+            playfabManager.recycleCollected++;
             playfabManager.rubbishInPlace++;
             playfabManager.rubbishInDistrict++;
             playfabManager.rubbishInRegion++;
@@ -34,8 +32,10 @@ public class CollectRubbishForTesting : MonoBehaviour
             playfabManager.coinsAvailable += 2;
             playfabManager.ProgressLevelCheck();
         }
+        achievementsController.rubbishToUnlockCounter = playfabManager.wasteCollected;
+        achievementsController.recycleToUnlockCounter = playfabManager.recycleCollected;
         playfabManager.UpdatePlayerStats();
         playfabManager.LevelBadgeDisplay();
-        achievementsController.CheckAchievementUnlockability();
+        StartCoroutine(achievementsController.CheckAchievementUnlockability());
     }
 }

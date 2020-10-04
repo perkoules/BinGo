@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class VoucherRedeemer : MonoBehaviour
 {
+    //codeReaveal and voucherWorth names are swapped 
     public TextMeshProUGUI codeReveal;
     private Button voucher;
     public TextMeshProUGUI voucherWorth;

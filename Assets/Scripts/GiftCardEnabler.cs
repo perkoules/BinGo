@@ -16,10 +16,6 @@ public class GiftCardEnabler : MonoBehaviour
     private void OnEnable()
     {
         playfabManager = FindObjectOfType<PlayfabManager>();
-    }
-
-    private void Start()
-    {
         EnableCards();
     }
 

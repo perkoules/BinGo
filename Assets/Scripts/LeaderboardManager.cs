@@ -184,10 +184,16 @@ public class LeaderboardManager : MonoBehaviour
         return country;
     }
 
+
+    public void GetInfoOfAllCountries()
+    {
+
+    }
+
+
     //This is THE INCORRECT WAY for security reasons
     //Exposing admin tasks
     public CountryRub countryRub;
-
     public void GetAllPlayers()
     {
         Dictionary<string, int> playersInCountry = new Dictionary<string, int>();

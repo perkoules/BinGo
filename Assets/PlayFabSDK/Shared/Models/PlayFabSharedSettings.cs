@@ -9,9 +9,9 @@ public class PlayFabSharedSettings : ScriptableObject
 {
     public string TitleId;
     internal string VerticalName = null;
-#if ENABLE_PLAYFABSERVER_API || ENABLE_PLAYFABADMIN_API || UNITY_EDITOR
+
     public string DeveloperSecretKey;
-#endif
+
     public string ProductionEnvironmentUrl = "";
 
 #if UNITY_2017_2_OR_NEWER

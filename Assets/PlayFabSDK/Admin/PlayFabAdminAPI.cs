@@ -20,7 +20,7 @@ namespace PlayFab
         /// Clear the Client SessionToken which allows this Client to call API calls requiring login.
         /// A new/fresh login will be required after calling this.
         /// </summary>
-        public static void ForgetAllCredentials()
+        /*public static void ForgetAllCredentials()
         {
             PlayFabSettings.staticPlayer.ForgetAllCredentials();
         }
@@ -532,7 +532,7 @@ namespace PlayFab
         /// on each subsequent use of the Continuation Token. Profiles that change during the course of paging will not be reflected
         /// in the results. AB Test segments are currently not supported by this operation. NOTE: This API is limited to being
         /// called 30 times in one minute. You will be returned an error if you exceed this threshold.
-        /// </summary>
+        /// </summary>*/
         public static void GetPlayersInSegment(GetPlayersInSegmentRequest request, Action<GetPlayersInSegmentResult> resultCallback, Action<PlayFabError> errorCallback, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
@@ -541,7 +541,7 @@ namespace PlayFab
 
             PlayFabHttp.MakeApiCall("/Admin/GetPlayersInSegment", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
-
+        /*
         /// <summary>
         /// Retrieves the configuration information for all player statistics defined in the title, regardless of whether they have
         /// a reset interval.
@@ -1402,7 +1402,7 @@ namespace PlayFab
 
             PlayFabHttp.MakeApiCall("/Admin/UpdateUserTitleDisplayName", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
-    }
+    */}
 }
 
 //#endif

@@ -185,12 +185,6 @@ public class LeaderboardManager : MonoBehaviour
     }
 
 
-    public void GetInfoOfAllCountries()
-    {
-
-    }
-
-
     //This is THE INCORRECT WAY for security reasons
     //Exposing admin tasks
     public CountryRub countryRub;

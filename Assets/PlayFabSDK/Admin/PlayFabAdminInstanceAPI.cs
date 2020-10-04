@@ -1,4 +1,4 @@
-//#if ENABLE_PLAYFABADMIN_API
+#if ENABLE_PLAYFABADMIN_API
 
 using PlayFab.AdminModels;
 using PlayFab.Internal;
@@ -1315,4 +1315,4 @@ namespace PlayFab
     }
 }
 
-//#endif
+#endif

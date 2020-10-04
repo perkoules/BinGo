@@ -22,12 +22,11 @@ namespace PlayFab
         /// <summary> The name of a customer vertical. This is only for customers running a private cluster.  Generally you shouldn't touch this </summary>
         internal virtual string VerticalName { get; set; }
 
-#if ENABLE_PLAYFABSERVER_API || ENABLE_PLAYFABADMIN_API || UNITY_EDITOR
+
 
         /// <summary> You must set this value for PlayFabSdk to work properly (Found in the Game Manager for your title, at the PlayFab Website) </summary>
         public virtual string DeveloperSecretKey { get; set; }
 
-#endif
 
         /// <summary> Set this to the appropriate PlayFabSettings.AD_TYPE_X constant </summary>
         public virtual string AdvertisingIdType { get; set; }

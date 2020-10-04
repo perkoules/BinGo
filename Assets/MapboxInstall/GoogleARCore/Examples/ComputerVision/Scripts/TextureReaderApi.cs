@@ -20,10 +20,8 @@
 namespace GoogleARCore.TextureReader
 {
     using System;
-    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Runtime.InteropServices;
-    using GoogleARCore;
     using UnityEngine;
 
     /// <summary>
@@ -42,7 +40,7 @@ namespace GoogleARCore.TextureReader
             /// Color image pixel format. Four bytes per pixel, in the order of R, G, B, and A.
             /// </summary>
             ImageFormatColor = 0,
-           
+
             /// <summary>
             /// Grayscale image pixel format. One byte per pixel.
             /// </summary>
@@ -55,7 +53,7 @@ namespace GoogleARCore.TextureReader
         /// <param name="format">Format of the output image pixel. Can be either eImageFormat_RGBA or eImageFormat_I8.</param>
         /// <param name="width">Width of the output image, in pixels.</param>
         /// <param name="height">Height of the output image, in pixels.</param>
-        /// <param name="keepAspectRatio">Indicate whether or not to keep aspect ratio. If true, the output image may be cropped 
+        /// <param name="keepAspectRatio">Indicate whether or not to keep aspect ratio. If true, the output image may be cropped
         /// if the image aspect ratio is different from the texture aspect ratio. If false, the output image covers the entire
         /// texture scope and no cropping is applied.</param>
         public void Create(ImageFormatType format, int width, int height, bool keepAspectRatio)
@@ -113,7 +111,7 @@ namespace GoogleARCore.TextureReader
 
             [DllImport(ARCoreCameraUtilityAPI)]
             public static extern void TextureReader_create(int format, int width, int height, bool keepAspectRatio);
-            
+
             [DllImport(ARCoreCameraUtilityAPI)]
             public static extern void TextureReader_destroy();
 

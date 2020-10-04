@@ -20,9 +20,8 @@
 
 namespace GoogleARCore
 {
-    using System;
-    using System.Collections.Generic;
     using GoogleARCoreInternal;
+    using System.Collections.Generic;
     using UnityEngine;
 
     /// <summary>
@@ -224,7 +223,7 @@ namespace GoogleARCore
                         return 0;
                     }
 
-                     return nativeSession.PointCloudApi.GetNumberOfPoints(nativeSession.PointCloudHandle);
+                    return nativeSession.PointCloudApi.GetNumberOfPoints(nativeSession.PointCloudHandle);
                 }
             }
 

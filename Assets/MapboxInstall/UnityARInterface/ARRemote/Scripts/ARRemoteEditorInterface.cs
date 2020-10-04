@@ -6,8 +6,8 @@ using System.Collections;
 using UnityEngine.XR;
 
 #if UNITY_EDITOR
+
 using UnityEditor.Networking.PlayerConnection;
-using UnityEngine.XR.iOS;
 
 // Runs on the Editor. Talks to the remote Player.
 namespace UnityARInterface
@@ -15,6 +15,7 @@ namespace UnityARInterface
     public class ARRemoteEditorInterface : ARInterface
     {
         private bool m_SendVideo;
+
         public bool sendVideo
         {
             get { return m_SendVideo; }
@@ -41,9 +42,10 @@ namespace UnityARInterface
         public bool connected { get { return m_CurrentPlayerId != -1; } }
         public int playerId { get { return m_CurrentPlayerId; } }
 
-        public bool IsRemoteServiceRunning { get; protected set; } 
+        public bool IsRemoteServiceRunning { get; protected set; }
 
         private bool m_BackgroundRendering;
+
         public override bool BackgroundRendering
         {
             get
@@ -54,8 +56,9 @@ namespace UnityARInterface
             {
                 m_BackgroundRendering = value;
 
-                if (m_BackgroundRenderer != null){
-                    m_BackgroundRenderer.mode = m_BackgroundRendering ? 
+                if (m_BackgroundRenderer != null)
+                {
+                    m_BackgroundRenderer.mode = m_BackgroundRendering ?
                         ARRenderMode.MaterialAsBackground : ARRenderMode.StandardBackground;
                 }
 
@@ -68,11 +71,11 @@ namespace UnityARInterface
             }
         }
 
-        Texture2D m_RemoteScreenYTexture;
-        Texture2D m_RemoteScreenUVTexture;
+        private Texture2D m_RemoteScreenYTexture;
+        private Texture2D m_RemoteScreenUVTexture;
 
-        List<Vector3> m_PointCloud;
-		private Matrix4x4 m_DisplayTransform;
+        private List<Vector3> m_PointCloud;
+        private Matrix4x4 m_DisplayTransform;
 
         public void ScreenCaptureParamsMessageHandler(MessageEventArgs message)
         {
@@ -109,7 +112,8 @@ namespace UnityARInterface
             YUVMaterial.SetTexture("_textureY", m_RemoteScreenYTexture);
             YUVMaterial.SetTexture("_textureCbCr", m_RemoteScreenUVTexture);
 
-            if(m_BackgroundRenderer != null){
+            if (m_BackgroundRenderer != null)
+            {
                 m_BackgroundRenderer.backgroundMaterial = null;
                 m_BackgroundRenderer.camera = null;
             }
@@ -119,7 +123,7 @@ namespace UnityARInterface
             m_BackgroundRenderer.camera = m_CachedCamera;
             //Set mode and send to player
             BackgroundRendering = m_BackgroundRendering;
-           
+
             m_CameraImage.width = screenCaptureParams.width;
             m_CameraImage.height = screenCaptureParams.height;
         }
@@ -199,7 +203,7 @@ namespace UnityARInterface
             }
         }
 
-        void SendToPlayer(System.Guid msgId, object serializableObject)
+        private void SendToPlayer(System.Guid msgId, object serializableObject)
         {
             var message = new SerializableSubMessage(msgId, serializableObject);
             var bytesToSend = message.SerializeToByteArray();
@@ -286,18 +290,20 @@ namespace UnityARInterface
             return m_LightEstimate;
         }
 
-		public override Matrix4x4 GetDisplayTransform()
-		{
-			if (m_Frame != null) {
-				return m_Frame.displayTransform;
-			} else {
-				return Matrix4x4.identity;
-			}
-		}
+        public override Matrix4x4 GetDisplayTransform()
+        {
+            if (m_Frame != null)
+            {
+                return m_Frame.displayTransform;
+            }
+            else
+            {
+                return Matrix4x4.identity;
+            }
+        }
 
         public override void Update()
         {
-
         }
 
         public override void UpdateCamera(Camera camera)
@@ -307,10 +313,11 @@ namespace UnityARInterface
                 camera.projectionMatrix = m_Frame.projectionMatrix;
                 if (m_BackgroundRenderer != null)
                 {
-                    m_BackgroundRenderer.backgroundMaterial.SetMatrix("_DisplayTransform",GetDisplayTransform());
+                    m_BackgroundRenderer.backgroundMaterial.SetMatrix("_DisplayTransform", GetDisplayTransform());
                 }
             }
         }
     }
 }
+
 #endif

@@ -22,7 +22,6 @@ namespace GoogleARCoreInternal
 {
     using System;
     using System.Diagnostics;
-    using UnityEngine;
 
     /// <summary>
     /// A custom class similar to Unity's Debug.

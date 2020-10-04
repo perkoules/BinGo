@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class UniAndroidPermission : MonoBehaviour
 {
-    const string PackageName = "net.sanukin.PermissionManager";
+    private const string PackageName = "net.sanukin.PermissionManager";
 
-    static Action onAllowCallback;
-    static Action onDenyCallback;
-    static Action onDenyAndNeverAskAgainCallback;
+    private static Action onAllowCallback;
+    private static Action onDenyCallback;
+    private static Action onDenyAndNeverAskAgainCallback;
 
-    void Awake()
+    private void Awake()
     {
         DontDestroyOnLoad(gameObject);
     }
@@ -73,7 +73,8 @@ public class UniAndroidPermission : MonoBehaviour
         ResetAllCallBacks();
     }
 
-    private void ResetAllCallBacks(){
+    private void ResetAllCallBacks()
+    {
         onAllowCallback = null;
         onDenyCallback = null;
         onDenyAndNeverAskAgainCallback = null;

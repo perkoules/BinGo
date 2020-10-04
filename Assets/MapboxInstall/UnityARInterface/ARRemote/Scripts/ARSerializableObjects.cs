@@ -183,6 +183,7 @@ namespace UnityARInterface
     public class SerializableEnableVideo
     {
         public bool enableVideo;
+
         public SerializableEnableVideo(bool enableVideo)
         {
             this.enableVideo = enableVideo;
@@ -193,6 +194,7 @@ namespace UnityARInterface
     public class SerializableBackgroundRendering
     {
         public bool backgroundRendering;
+
         public SerializableBackgroundRendering(bool backgroundRendering)
         {
             this.backgroundRendering = backgroundRendering;
@@ -259,7 +261,6 @@ namespace UnityARInterface
                 matrix.GetColumn(1),
                 matrix.GetColumn(2),
                 matrix.GetColumn(3));
-
         }
 
         public static implicit operator Matrix4x4(SerializableMatrix4x4 serializedMatrix)
@@ -272,25 +273,24 @@ namespace UnityARInterface
         }
     }
 
-
     [Serializable]
     public class SerializableFrame
     {
         public SerializableMatrix4x4 projectionMatrix;
         public SerializableVector3 cameraPosition;
         public SerializableVector4 cameraRotation;
-		public SerializableMatrix4x4 displayTransform;
+        public SerializableMatrix4x4 displayTransform;
 
         public SerializableFrame(
             SerializableMatrix4x4 projectionMatrix,
             SerializableVector3 cameraPosition,
             SerializableVector4 cameraRotation,
-			SerializableMatrix4x4 displayTransform)
+            SerializableMatrix4x4 displayTransform)
         {
             this.projectionMatrix = projectionMatrix;
             this.cameraPosition = cameraPosition;
             this.cameraRotation = cameraRotation;
-			this.displayTransform = displayTransform;
+            this.displayTransform = displayTransform;
         }
     }
 

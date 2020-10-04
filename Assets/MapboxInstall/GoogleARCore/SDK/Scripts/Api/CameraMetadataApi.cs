@@ -20,12 +20,11 @@
 
 namespace GoogleARCoreInternal
 {
+    using GoogleARCore;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Runtime.InteropServices;
-    using GoogleARCore;
-    using UnityEngine;
 
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented",
     Justification = "Internal")]
@@ -70,36 +69,42 @@ namespace GoogleARCoreInternal
                             typeof(sbyte));
                         resultList.Add(new CameraMetadataValue(byteValue));
                         break;
+
                     case NdkCameraMetadataType.Int32:
                         int intValue = (int)Marshal.PtrToStructure(
                             MarshalingHelper.GetPtrToUnmanagedArrayElement<int>(entry.Value, i),
                             typeof(int));
                         resultList.Add(new CameraMetadataValue(intValue));
                         break;
+
                     case NdkCameraMetadataType.Float:
                         float floatValue = (float)Marshal.PtrToStructure(
                             MarshalingHelper.GetPtrToUnmanagedArrayElement<float>(entry.Value, i),
                             typeof(float));
                         resultList.Add(new CameraMetadataValue(floatValue));
                         break;
+
                     case NdkCameraMetadataType.Int64:
                         long longValue = (long)Marshal.PtrToStructure(
                             MarshalingHelper.GetPtrToUnmanagedArrayElement<long>(entry.Value, i),
                             typeof(long));
                         resultList.Add(new CameraMetadataValue(longValue));
                         break;
+
                     case NdkCameraMetadataType.Double:
                         double doubleValue = (double)Marshal.PtrToStructure(
                             MarshalingHelper.GetPtrToUnmanagedArrayElement<double>(entry.Value, i),
                             typeof(double));
                         resultList.Add(new CameraMetadataValue(doubleValue));
                         break;
+
                     case NdkCameraMetadataType.Rational:
                         CameraMetadataRational rationalValue = (CameraMetadataRational)Marshal.PtrToStructure(
                             MarshalingHelper.GetPtrToUnmanagedArrayElement<CameraMetadataRational>(entry.Value, i),
                             typeof(CameraMetadataRational));
                         resultList.Add(new CameraMetadataValue(rationalValue));
                         break;
+
                     default:
                         return false;
                 }

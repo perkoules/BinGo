@@ -21,9 +21,8 @@
 
 namespace GoogleARCoreInternal
 {
-    using System;
-    using System.Diagnostics.CodeAnalysis;
     using GoogleARCore;
+    using System.Diagnostics.CodeAnalysis;
 
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented",
     Justification = "Internal")]
@@ -36,8 +35,10 @@ namespace GoogleARCoreInternal
             {
                 case ApiTrackedPointOrientationMode.Identity:
                     return TrackedPointOrientationMode.Identity;
+
                 case ApiTrackedPointOrientationMode.SurfaceNormal:
                     return TrackedPointOrientationMode.SurfaceNormal;
+
                 default:
                     ARDebug.LogError("Invalid value for ApiTrackedPointOrientationMode.");
                     return TrackedPointOrientationMode.Identity;

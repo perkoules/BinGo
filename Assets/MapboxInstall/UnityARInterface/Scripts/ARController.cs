@@ -1,9 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using UnityEngine;
 
 #if UNITY_EDITOR
-using UnityEngine.Networking.PlayerConnection;
-using UnityEditor.Networking.PlayerConnection;
 #endif
 
 namespace UnityARInterface
@@ -14,6 +12,7 @@ namespace UnityARInterface
 
         [SerializeField]
         protected Camera m_ARCamera;
+
         public Camera arCamera { get { return m_ARCamera; } }
 
         [SerializeField]
@@ -31,11 +30,14 @@ namespace UnityARInterface
         [SerializeField]
         private float m_Scale = 1f;
 
-        public virtual bool BackgroundRendering {
+        public virtual bool BackgroundRendering
+        {
             get { return m_BackgroundRendering; }
 
-            set {
-                if(m_ARInterface != null){
+            set
+            {
+                if (m_ARInterface != null)
+                {
                     m_ARInterface.BackgroundRendering = m_BackgroundRendering = value;
                 }
             }
@@ -61,6 +63,7 @@ namespace UnityARInterface
         public Vector3 pointOfInterest;
         private Quaternion m_Rotation = Quaternion.identity;
         private Quaternion m_InvRotation = Quaternion.identity;
+
         public Quaternion rotation
         {
             get { return m_Rotation; }
@@ -99,7 +102,7 @@ namespace UnityARInterface
             }
         }
 
-        void OnBeforeRender()
+        private void OnBeforeRender()
         {
             m_ARInterface.UpdateCamera(m_ARCamera);
 
@@ -138,10 +141,9 @@ namespace UnityARInterface
 
             StopAllCoroutines();
             StartCoroutine(StartServiceRoutine());
-
         }
 
-        IEnumerator StartServiceRoutine()
+        private IEnumerator StartServiceRoutine()
         {
             yield return m_ARInterface.StartService(GetSettings());
             if (IsRunning)
@@ -149,7 +151,6 @@ namespace UnityARInterface
                 m_ARInterface.SetupCamera(m_ARCamera);
                 m_ARInterface.BackgroundRendering = BackgroundRendering;
                 Application.onBeforeRender += OnBeforeRender;
-                
             }
             else
             {
@@ -157,8 +158,7 @@ namespace UnityARInterface
             }
         }
 
-
-        void OnDisable()
+        private void OnDisable()
         {
             StopAllCoroutines();
             if (IsRunning)
@@ -168,7 +168,7 @@ namespace UnityARInterface
             }
         }
 
-        void Update()
+        private void Update()
         {
             m_ARInterface.Update();
         }

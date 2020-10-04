@@ -1,40 +1,40 @@
 ﻿namespace Mapbox.Examples
 {
-	using UnityEngine;
-	using System.Collections.Generic;
+    using System.Collections.Generic;
+    using UnityEngine;
 
-	public class HighlightFeature : MonoBehaviour
-	{
-		static Material _highlightMaterial;
+    public class HighlightFeature : MonoBehaviour
+    {
+        private static Material _highlightMaterial;
 
-		private List<Material> _materials = new List<Material>();
+        private List<Material> _materials = new List<Material>();
 
-		MeshRenderer _meshRenderer;
+        private MeshRenderer _meshRenderer;
 
-		void Start()
-		{
-			if (_highlightMaterial == null)
-			{
-				_highlightMaterial = Instantiate(GetComponent<MeshRenderer>().material);
-				_highlightMaterial.color = Color.red;
-			}
+        private void Start()
+        {
+            if (_highlightMaterial == null)
+            {
+                _highlightMaterial = Instantiate(GetComponent<MeshRenderer>().material);
+                _highlightMaterial.color = Color.red;
+            }
 
-			_meshRenderer = GetComponent<MeshRenderer>();
-			
-			foreach (var item in _meshRenderer.sharedMaterials)
-			{
-				_materials.Add(item);
-			}
-		}
+            _meshRenderer = GetComponent<MeshRenderer>();
 
-		public void OnMouseEnter()
-		{
-			_meshRenderer.sharedMaterial = _highlightMaterial;
-		}
+            foreach (var item in _meshRenderer.sharedMaterials)
+            {
+                _materials.Add(item);
+            }
+        }
 
-		public void OnMouseExit()
-		{
-			_meshRenderer.materials = _materials.ToArray();
-		}
-	}
+        public void OnMouseEnter()
+        {
+            _meshRenderer.sharedMaterial = _highlightMaterial;
+        }
+
+        public void OnMouseExit()
+        {
+            _meshRenderer.materials = _materials.ToArray();
+        }
+    }
 }

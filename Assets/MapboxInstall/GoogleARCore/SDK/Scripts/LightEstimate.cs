@@ -20,8 +20,6 @@
 
 namespace GoogleARCore
 {
-    using UnityEngine;
-
     /// <summary>
     /// An estimate of lighting conditions in the environment corresponding to
     /// an AR frame.

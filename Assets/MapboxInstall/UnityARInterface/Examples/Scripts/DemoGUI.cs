@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UnityARInterface;
 using UnityEngine;
-using UnityARInterface;
 
 public class DemoGUI : ARBase
 {
@@ -17,13 +15,13 @@ public class DemoGUI : ARBase
     private ARController m_ARController;
     private float m_RotationAngle;
 
-    void OnEnable()
+    private void OnEnable()
     {
         m_ObjectShooter = GetComponent<ObjectShooter>();
         m_ARController = GetFirstEnabledControllerInChildren();
     }
 
-    void OnGUI()
+    private void OnGUI()
     {
         if (m_ARController == null || !m_ARController.enabled)
             return;
@@ -58,7 +56,7 @@ public class DemoGUI : ARBase
             m_ARController.scale = scale;
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyUp(KeyCode.Space))
             m_ObjectShooter.RequestFire(Input.mousePosition);

@@ -17,7 +17,7 @@ namespace UnityARInterface
                 Destroy(this);
         }
 
-        void Start()
+        private void Start()
         {
             UpdateAnchor();
             started = true;
@@ -44,6 +44,5 @@ namespace UnityARInterface
             m_ARInterface.DestroyAnchor(this);
             m_ARInterface.ApplyAnchor(this);
         }
-
     }
 }

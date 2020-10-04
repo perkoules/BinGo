@@ -1,15 +1,9 @@
 namespace Mapbox.Unity.Location
 {
+    public interface IAngleSmoothing
+    {
+        void Add(double angle);
 
-	using System.Collections;
-	using System.Collections.Generic;
-	using UnityEngine;
-
-	public interface IAngleSmoothing
-	{
-
-		void Add(double angle);
-		double Calculate();
-
-	}
+        double Calculate();
+    }
 }

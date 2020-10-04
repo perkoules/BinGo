@@ -20,9 +20,6 @@
 
 namespace GoogleARCore
 {
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-
     /// <summary>
     /// Extension methods for the SessionStatus enumeration.
     /// </summary>

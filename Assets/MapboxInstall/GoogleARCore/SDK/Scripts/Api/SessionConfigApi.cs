@@ -20,11 +20,10 @@
 
 namespace GoogleARCoreInternal
 {
+    using GoogleARCore;
     using System;
-    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Runtime.InteropServices;
-    using GoogleARCore;
     using UnityEngine;
 
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented",
@@ -71,10 +70,10 @@ namespace GoogleARCoreInternal
             var updateMode = ApiUpdateMode.LatestCameraImage;
             if (arCoreSessionConfig.MatchCameraFramerate)
             {
-               updateMode = ApiUpdateMode.Blocking;
+                updateMode = ApiUpdateMode.Blocking;
 
-               // Set vSyncCount to 0 so frame in rendered only when we have a new background texture.
-               QualitySettings.vSyncCount = 0;
+                // Set vSyncCount to 0 so frame in rendered only when we have a new background texture.
+                QualitySettings.vSyncCount = 0;
             }
 
             ExternApi.ArConfig_setUpdateMode(m_NativeSession.SessionHandle, configHandle, updateMode);

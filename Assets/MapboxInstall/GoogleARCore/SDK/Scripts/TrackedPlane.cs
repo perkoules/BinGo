@@ -20,10 +20,9 @@
 
 namespace GoogleARCore
 {
+    using GoogleARCoreInternal;
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using GoogleARCoreInternal;
     using UnityEngine;
 
     /// <summary>
@@ -55,7 +54,7 @@ namespace GoogleARCore
         {
             get
             {
-               return m_NativeSession.PlaneApi.GetSubsumedBy(m_TrackableNativeHandle);
+                return m_NativeSession.PlaneApi.GetSubsumedBy(m_TrackableNativeHandle);
             }
         }
 

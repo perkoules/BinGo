@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace KDTree
 {
@@ -14,24 +12,31 @@ namespace KDTree
     {
         /// <summary>The point from which are searching in n-dimensional space.</summary>
         private double[] tSearchPoint;
+
         /// <summary>A distance function which is used to compare nodes and value positions.</summary>
         private DistanceFunctions kDistanceFunction;
+
         /// <summary>The tree nodes which have yet to be evaluated.</summary>
         private MinHeap<KDNode<T>> pPending;
+
         /// <summary>The values which have been evaluated and selected.</summary>
         private IntervalHeap<T> pEvaluated;
+
         /// <summary>The root of the kd tree to begin searching from.</summary>
         private KDNode<T> pRoot = null;
 
         /// <summary>The max number of points we can return through this iterator.</summary>
         private int iMaxPointsReturned = 0;
+
         /// <summary>The number of points we can still test before conclusion.</summary>
         private int iPointsRemaining;
+
         /// <summary>Threshold to apply to tree iteration.  Negative numbers mean no threshold applied.</summary>
         private double fThreshold;
 
         /// <summary>Current value distance.</summary>
         private double _CurrentDistance = -1;
+
         /// <summary>Current value reference.</summary>
         private T _Current = default(T);
 
@@ -201,10 +206,10 @@ namespace KDTree
             this.pPending.Insert(0, pRoot);
         }
 
-		public T Current
-		{
-			get { return _Current; }
-		}
+        public T Current
+        {
+            get { return _Current; }
+        }
 
         /// <summary>
         /// Return the distance of the current value to the search point.
@@ -221,7 +226,7 @@ namespace KDTree
         {
             get { return _Current; }
         }
-  
+
         /// <summary>
         /// Return the current value referenced by the iterator.
         /// </summary>

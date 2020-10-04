@@ -20,8 +20,8 @@
 
 namespace GoogleARCoreInternal
 {
-    using System.Diagnostics.CodeAnalysis;
     using GoogleARCore;
+    using System.Diagnostics.CodeAnalysis;
 
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented",
     Justification = "Internal")]
@@ -33,23 +33,32 @@ namespace GoogleARCoreInternal
             {
                 case ApiPrestoStatus.Uninitialized:
                     return SessionStatus.None;
+
                 case ApiPrestoStatus.RequestingApkInstall:
                 case ApiPrestoStatus.RequestingPermission:
                     return SessionStatus.Initializing;
+
                 case ApiPrestoStatus.Resumed:
                     return SessionStatus.Tracking;
+
                 case ApiPrestoStatus.ResumedNotTracking:
                     return SessionStatus.LostTracking;
+
                 case ApiPrestoStatus.Paused:
                     return SessionStatus.NotTracking;
+
                 case ApiPrestoStatus.ErrorFatal:
                     return SessionStatus.FatalError;
+
                 case ApiPrestoStatus.ErrorApkNotAvailable:
                     return SessionStatus.ErrorApkNotAvailable;
+
                 case ApiPrestoStatus.ErrorPermissionNotGranted:
                     return SessionStatus.ErrorPermissionNotGranted;
+
                 case ApiPrestoStatus.ErrorSessionConfigurationNotSupported:
                     return SessionStatus.ErrorSessionConfigurationNotSupported;
+
                 default:
                     UnityEngine.Debug.LogErrorFormat("Unexpected presto status {0}", prestoStatus);
                     return SessionStatus.FatalError;

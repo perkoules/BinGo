@@ -2,11 +2,11 @@ Shader "AREdgeDetectionBackground"
 {
 	Properties
 	{
-        _OverlayPercentage ("Overlay Percentage", Range (0.0, 1.0)) = 0.5
+		_OverlayPercentage("Overlay Percentage", Range(0.0, 1.0)) = 0.5
 	}
 
-	// For GLES3
-	SubShader
+		// For GLES3
+		SubShader
 	{
 		Pass
 		{
@@ -49,7 +49,7 @@ Shader "AREdgeDetectionBackground"
 			varying vec2 textureCoord;
 			uniform samplerExternalOES _MainTex;
 			uniform sampler2D _ImageTex;
-            uniform float _OverlayPercentage;
+			uniform float _OverlayPercentage;
 
 			void main()
 			{
@@ -70,5 +70,5 @@ Shader "AREdgeDetectionBackground"
 		}
 	}
 
-	FallBack Off
+		FallBack Off
 }

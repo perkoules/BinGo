@@ -1,114 +1,114 @@
 namespace Mapbox.Unity.MeshGeneration.Modifiers
 {
-	using UnityEngine;
-	using Mapbox.Unity.MeshGeneration.Data;
-	using Mapbox.Unity.MeshGeneration.Components;
-	using Mapbox.Unity.MeshGeneration.Interfaces;
-	using System.Collections.Generic;
-	using Mapbox.Unity.Map;
-	using System;
+    using Mapbox.Unity.Map;
+    using Mapbox.Unity.MeshGeneration.Data;
+    using Mapbox.Unity.MeshGeneration.Interfaces;
+    using System.Collections.Generic;
+    using UnityEngine;
 
-	[CreateAssetMenu(menuName = "Mapbox/Modifiers/Prefab Modifier")]
-	public class PrefabModifier : GameObjectModifier
-	{
-		private Dictionary<GameObject, GameObject> _objects;
-		[SerializeField]
-		private SpawnPrefabOptions _options;
-		private List<GameObject> _prefabList = new List<GameObject>();
+    [CreateAssetMenu(menuName = "Mapbox/Modifiers/Prefab Modifier")]
+    public class PrefabModifier : GameObjectModifier
+    {
+        private Dictionary<GameObject, GameObject> _objects;
 
-		public override void Initialize()
-		{
-			if (_objects == null)
-			{
-				_objects = new Dictionary<GameObject, GameObject>();
-			}
-		}
+        [SerializeField]
+        private SpawnPrefabOptions _options;
 
-		public override void SetProperties(ModifierProperties properties)
-		{
-			_options = (SpawnPrefabOptions)properties;
-			_options.PropertyHasChanged += UpdateModifier;
-		}
+        private List<GameObject> _prefabList = new List<GameObject>();
 
-		public override void Run(VectorEntity ve, UnityTile tile)
-		{
-			if (_options.prefab == null)
-			{
-				return;
-			}
+        public override void Initialize()
+        {
+            if (_objects == null)
+            {
+                _objects = new Dictionary<GameObject, GameObject>();
+            }
+        }
 
-			GameObject go = null;
+        public override void SetProperties(ModifierProperties properties)
+        {
+            _options = (SpawnPrefabOptions)properties;
+            _options.PropertyHasChanged += UpdateModifier;
+        }
 
-			if (_objects.ContainsKey(ve.GameObject))
-			{
-				go = _objects[ve.GameObject];
-			}
-			else
-			{
-				go = Instantiate(_options.prefab);
-				_prefabList.Add(go);
-				_objects.Add(ve.GameObject, go);
-				go.transform.SetParent(ve.GameObject.transform, false);
-			}
+        public override void Run(VectorEntity ve, UnityTile tile)
+        {
+            if (_options.prefab == null)
+            {
+                return;
+            }
 
-			PositionScaleRectTransform(ve, tile, go);
+            GameObject go = null;
 
-			if (_options.AllPrefabsInstatiated != null)
-			{
-				_options.AllPrefabsInstatiated(_prefabList);
-			}
-		}
+            if (_objects.ContainsKey(ve.GameObject))
+            {
+                go = _objects[ve.GameObject];
+            }
+            else
+            {
+                go = Instantiate(_options.prefab);
+                _prefabList.Add(go);
+                _objects.Add(ve.GameObject, go);
+                go.transform.SetParent(ve.GameObject.transform, false);
+            }
 
-		public void PositionScaleRectTransform(VectorEntity ve, UnityTile tile, GameObject go)
-		{
-			RectTransform goRectTransform;
-			IFeaturePropertySettable settable = null;
-			var centroidVector = new Vector3();
-			foreach (var point in ve.Feature.Points[0])
-			{
-				centroidVector += point;
-			}
-			centroidVector = centroidVector / ve.Feature.Points[0].Count;
+            PositionScaleRectTransform(ve, tile, go);
 
-			go.name = ve.Feature.Data.Id.ToString();
+            if (_options.AllPrefabsInstatiated != null)
+            {
+                _options.AllPrefabsInstatiated(_prefabList);
+            }
+        }
 
-			goRectTransform = go.GetComponent<RectTransform>();
-			if (goRectTransform == null)
-			{
-				go.transform.localPosition = centroidVector;
-				if (_options.scaleDownWithWorld)
-				{
-					go.transform.localScale = _options.prefab.transform.localScale * (tile.TileScale);
-				}
-			}
-			else
-			{
-				goRectTransform.anchoredPosition3D = centroidVector;
-				if (_options.scaleDownWithWorld)
-				{
-					goRectTransform.localScale = _options.prefab.transform.localScale * (tile.TileScale);
-				}
-			}
+        public void PositionScaleRectTransform(VectorEntity ve, UnityTile tile, GameObject go)
+        {
+            RectTransform goRectTransform;
+            IFeaturePropertySettable settable = null;
+            var centroidVector = new Vector3();
+            foreach (var point in ve.Feature.Points[0])
+            {
+                centroidVector += point;
+            }
+            centroidVector = centroidVector / ve.Feature.Points[0].Count;
 
-			settable = go.GetComponent<IFeaturePropertySettable>();
-			if (settable != null)
-			{
-				settable.Set(ve.Feature.Properties);
-			}
-		}
+            go.name = ve.Feature.Data.Id.ToString();
 
-		public override void Clear()
-		{
-			base.Clear();
-			foreach (var gameObject in _objects.Values)
-			{
-				gameObject.Destroy();
-			}
+            goRectTransform = go.GetComponent<RectTransform>();
+            if (goRectTransform == null)
+            {
+                go.transform.localPosition = centroidVector;
+                if (_options.scaleDownWithWorld)
+                {
+                    go.transform.localScale = _options.prefab.transform.localScale * (tile.TileScale);
+                }
+            }
+            else
+            {
+                goRectTransform.anchoredPosition3D = centroidVector;
+                if (_options.scaleDownWithWorld)
+                {
+                    goRectTransform.localScale = _options.prefab.transform.localScale * (tile.TileScale);
+                }
+            }
 
-			foreach (var gameObject in _prefabList)
-			{
-				gameObject.Destroy();
-			}
-		}
-	}
+            settable = go.GetComponent<IFeaturePropertySettable>();
+            if (settable != null)
+            {
+                settable.Set(ve.Feature.Properties);
+            }
+        }
+
+        public override void Clear()
+        {
+            base.Clear();
+            foreach (var gameObject in _objects.Values)
+            {
+                gameObject.Destroy();
+            }
+
+            foreach (var gameObject in _prefabList)
+            {
+                gameObject.Destroy();
+            }
+        }
+    }
 }

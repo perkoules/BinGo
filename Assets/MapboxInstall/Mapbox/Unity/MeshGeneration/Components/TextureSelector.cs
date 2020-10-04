@@ -1,8 +1,8 @@
 namespace Mapbox.Unity.MeshGeneration.Components
 {
+    using Mapbox.Unity.MeshGeneration.Data;
     using UnityEngine;
     using Random = UnityEngine.Random;
-    using Mapbox.Unity.MeshGeneration.Data;
 
     [RequireComponent(typeof(MeshRenderer))]
     public class TextureSelector : MonoBehaviour
@@ -51,10 +51,9 @@ namespace Mapbox.Unity.MeshGeneration.Components
 
             if (_useSatelliteRoof)
             {
-				_meshRenderer.materials[0].mainTexture = _tile.GetRasterData();
+                _meshRenderer.materials[0].mainTexture = _tile.GetRasterData();
                 _meshRenderer.materials[0].mainTextureScale = new Vector2(1f, 1f);
             }
         }
     }
-
 }

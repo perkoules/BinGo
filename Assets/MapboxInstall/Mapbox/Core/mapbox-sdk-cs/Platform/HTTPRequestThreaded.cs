@@ -12,8 +12,6 @@
 #if !UNITY
 
 namespace Mapbox.Platform {
-
-
 	using System;
 	using System.Net;
 #if !UNITY && !NETFX_CORE
@@ -32,10 +30,7 @@ namespace Mapbox.Platform {
 	//using System.Windows.Threading;
 
 	internal sealed class HTTPRequestThreaded : IAsyncRequest {
-
-
 		public bool IsCompleted { get; private set; }
-
 
 		private Action<Response> _callback;
 #if !NETFX_CORE
@@ -51,15 +46,13 @@ namespace Mapbox.Platform {
 		private string _requestUrl;
 		private readonly string _userAgent = "mapbox-sdk-cs";
 
-
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="url"></param>
 		/// <param name="callback"></param>
 		/// <param name="timeOut">seconds</param>
 		public HTTPRequestThreaded(string url, Action<Response> callback, int timeOut = 10) {
-
 			IsCompleted = false;
 			_callback = callback;
 			_timeOut = timeOut;
@@ -69,9 +62,7 @@ namespace Mapbox.Platform {
 			getResponseAsync(_request, EvaluateResponse);
 		}
 
-
 		private void setupRequest() {
-
 #if !NETFX_CORE
 			_request = WebRequest.Create(_requestUrl) as HttpWebRequest;
 			_request.UserAgent = _userAgent;
@@ -81,7 +72,7 @@ namespace Mapbox.Platform {
 			_request.KeepAlive = true;
 			_request.ProtocolVersion = HttpVersion.Version11; // improved performance
 
-			// improved performance. 
+			// improved performance.
 			// ServicePointManager.DefaultConnectionLimit doesn't seem to change anything
 			// set ConnectionLimit per request
 			// https://msdn.microsoft.com/en-us/library/system.net.httpwebrequest(v=vs.90).aspx#Remarks
@@ -101,7 +92,6 @@ namespace Mapbox.Platform {
 				AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate,
 				AllowAutoRedirect = true,
 				UseDefaultCredentials = true
-
 			};
 			_request = new HttpClient(handler);
 			_request.DefaultRequestHeaders.Add("User-Agent", _userAgent);
@@ -117,12 +107,9 @@ namespace Mapbox.Platform {
 #endif
 		}
 
-
-
 #if NETFX_CORE
 
 		private async void getResponseAsync(HttpClient request, Action<HttpResponseMessage, Exception> gotResponse) {
-
 			// TODO: implement a strategy similar to the full .Net one to avoid blocking of 'GetAsync()'
 			// see 'Remarks' https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpclient.timeout?view=netcore-1.1#System_Net_Http_HttpClient_Timeout
 			// "A Domain Name System (DNS) query may take up to 15 seconds to return or time out."
@@ -135,12 +122,9 @@ namespace Mapbox.Platform {
 			catch (Exception ex) {
 				gotResponse(response, ex);
 			}
-
 		}
 
-
 		private async void EvaluateResponse(HttpResponseMessage apiResponse, Exception apiEx) {
-
 			var response = await Response.FromWebResponse(this, apiResponse, apiEx);
 
 			// post (async) callback back to the main/UI thread
@@ -175,10 +159,8 @@ namespace Mapbox.Platform {
 
 #endif
 
-
 #if !NETFX_CORE
 		private void getResponseAsync(HttpWebRequest request, Action<HttpWebResponse, Exception> gotResponse) {
-
 			// create an additional action wrapper, because of:
 			// https://msdn.microsoft.com/en-us/library/system.net.httpwebrequest.begingetresponse.aspx
 			// The BeginGetResponse method requires some synchronous setup tasks to complete (DNS resolution,
@@ -190,7 +172,7 @@ namespace Mapbox.Platform {
 			Action actionWrapper = () => {
 				try {
 					// BeginInvoke runs on a thread of the thread pool (!= main/UI thread)
-					// that's why we need SynchronizationContext when 
+					// that's why we need SynchronizationContext when
 					// TODO: how to influence threadpool: nr of threads etc.
 					long startTicks = DateTime.Now.Ticks;
 					request.BeginGetResponse((asycnResult) => {
@@ -242,10 +224,7 @@ namespace Mapbox.Platform {
 			}
 		}
 
-
-
 		private void EvaluateResponse(HttpWebResponse apiResponse, Exception apiEx) {
-
 			var response = Response.FromWebResponse(this, apiResponse,apiEx);
 
 			// post (async) callback back to the main/UI thread
@@ -291,16 +270,12 @@ namespace Mapbox.Platform {
 #endif
 				});
 #endif
-
 			}
 #endif
 		}
 #endif
 
-
-
 		public void Cancel() {
-
 #if !NETFX_CORE
 			if (null != _request) {
 				_request.Abort();
@@ -309,10 +284,7 @@ namespace Mapbox.Platform {
 			_cancellationTokenSource.Cancel();
 #endif
 		}
-
-
 	}
 }
-
 
 #endif

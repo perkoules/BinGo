@@ -20,10 +20,10 @@
 
 namespace GoogleARCore
 {
+    using GoogleARCoreInternal;
     using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Runtime.InteropServices;
-    using GoogleARCoreInternal;
     using UnityEngine;
 
     /// <summary>

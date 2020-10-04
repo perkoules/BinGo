@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,8 +6,9 @@ namespace UnityARInterface
 {
     public class AREditorInterface : ARInterface
     {
-        float m_LastTime;
-        enum State
+        private float m_LastTime;
+
+        private enum State
         {
             Uninitialized,
             Initialized,
@@ -17,13 +17,13 @@ namespace UnityARInterface
             Finished
         }
 
-        State m_State;
-        BoundedPlane[] m_FakePlanes;
-        Pose m_CameraPose;
-        bool m_WasMouseDownLastFrame;
-        Vector3 m_LastMousePosition;
-        Vector3 m_EulerAngles;
-        Vector3[] m_PointCloud;
+        private State m_State;
+        private BoundedPlane[] m_FakePlanes;
+        private Pose m_CameraPose;
+        private bool m_WasMouseDownLastFrame;
+        private Vector3 m_LastMousePosition;
+        private Vector3 m_EulerAngles;
+        private Vector3[] m_PointCloud;
 
         public override IEnumerator StartService(Settings settings)
         {
@@ -81,7 +81,6 @@ namespace UnityARInterface
 
         public override void SetupCamera(Camera camera)
         {
-
         }
 
         public override bool TryGetPointCloud(ref PointCloud pointCloud)
@@ -102,10 +101,10 @@ namespace UnityARInterface
             };
         }
 
-		public override Matrix4x4 GetDisplayTransform()
-		{
-			return Matrix4x4.identity;
-		}
+        public override Matrix4x4 GetDisplayTransform()
+        {
+            return Matrix4x4.identity;
+        }
 
         public override void UpdateCamera(Camera camera)
         {

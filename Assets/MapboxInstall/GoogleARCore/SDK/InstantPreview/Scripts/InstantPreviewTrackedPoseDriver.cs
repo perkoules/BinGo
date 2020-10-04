@@ -29,7 +29,7 @@ namespace GoogleARCore
     public class InstantPreviewTrackedPoseDriver : MonoBehaviour
     {
         /// <summary>
-        /// Updates the game object's transform to that of the latest pose 
+        /// Updates the game object's transform to that of the latest pose
         /// received by Instant Preview.
         /// </summary>
         public void Update()

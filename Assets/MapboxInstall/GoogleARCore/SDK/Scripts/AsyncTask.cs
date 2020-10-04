@@ -20,10 +20,9 @@
 
 namespace GoogleARCore
 {
+    using GoogleARCoreInternal;
     using System;
     using System.Collections.Generic;
-    using System.Threading;
-    using GoogleARCoreInternal;
     using UnityEngine;
 
     /// <summary>
@@ -46,7 +45,7 @@ namespace GoogleARCore
         public AsyncTask(out Action<T> asyncOperationComplete)
         {
             IsComplete = false;
-            asyncOperationComplete = delegate(T result)
+            asyncOperationComplete = delegate (T result)
             {
                 this.Result = result;
                 IsComplete = true;

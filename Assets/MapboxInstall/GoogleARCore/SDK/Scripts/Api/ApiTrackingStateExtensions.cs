@@ -20,9 +20,8 @@
 
 namespace GoogleARCoreInternal
 {
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using GoogleARCore;
+    using System.Diagnostics.CodeAnalysis;
 
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented",
     Justification = "Internal")]
@@ -34,10 +33,13 @@ namespace GoogleARCoreInternal
             {
                 case ApiTrackingState.Tracking:
                     return TrackingState.Tracking;
+
                 case ApiTrackingState.Paused:
                     return TrackingState.Paused;
+
                 case ApiTrackingState.Stopped:
                     return TrackingState.Stopped;
+
                 default:
                     return TrackingState.Stopped;
             }

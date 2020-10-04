@@ -1,70 +1,70 @@
 namespace Mapbox.Unity.MeshGeneration.Modifiers
 {
-	using UnityEngine;
-	using System;
-	using Mapbox.Unity.MeshGeneration.Data;
-	using Mapbox.Unity.Map;
-	using Mapbox.Unity.MeshGeneration.Interfaces;
+    using Mapbox.Unity.Map;
+    using Mapbox.Unity.MeshGeneration.Data;
+    using Mapbox.Unity.MeshGeneration.Interfaces;
+    using System;
+    using UnityEngine;
 
-	[Serializable]
-	public abstract class ModifierProperties : MapboxDataProperty
-	{
-		public abstract Type ModifierType
-		{
-			get;
-		}
-		public virtual void UpdateProperty(LayerVisualizerBase layerVisualizer)
-		{
+    [Serializable]
+    public abstract class ModifierProperties : MapboxDataProperty
+    {
+        public abstract Type ModifierType
+        {
+            get;
+        }
 
-		}
-		public override bool HasChanged
-		{
-			set
-			{
-				if (value == true)
-				{
-					OnPropertyHasChanged(new VectorLayerUpdateArgs { property = this });
-				}
-			}
-		}
-	}
+        public virtual void UpdateProperty(LayerVisualizerBase layerVisualizer)
+        {
+        }
 
-	public class ModifierBase : ScriptableObject
-	{
-		[SerializeField]
-		public bool Active = true;
+        public override bool HasChanged
+        {
+            set
+            {
+                if (value == true)
+                {
+                    OnPropertyHasChanged(new VectorLayerUpdateArgs { property = this });
+                }
+            }
+        }
+    }
 
-		public virtual void SetProperties(ModifierProperties properties)
-		{
+    public class ModifierBase : ScriptableObject
+    {
+        [SerializeField]
+        public bool Active = true;
 
-		}
-		public virtual void Initialize()
-		{
+        public virtual void SetProperties(ModifierProperties properties)
+        {
+        }
 
-		}
+        public virtual void Initialize()
+        {
+        }
 
-		public virtual void FeaturePreProcess(VectorFeatureUnity feature)
-		{
+        public virtual void FeaturePreProcess(VectorFeatureUnity feature)
+        {
+        }
 
-		}
+        public virtual void UnbindProperties()
+        {
+        }
 
-		public virtual void UnbindProperties()
-		{
+        public virtual void UpdateModifier(object sender, System.EventArgs layerArgs)
+        {
+            NotifyUpdateModifier(new VectorLayerUpdateArgs { property = sender as MapboxDataProperty, modifier = this });
+        }
 
-		}
-		public virtual void UpdateModifier(object sender, System.EventArgs layerArgs)
-		{
-			NotifyUpdateModifier(new VectorLayerUpdateArgs { property = sender as MapboxDataProperty, modifier = this });
-		}
+        public event System.EventHandler ModifierHasChanged;
 
-		public event System.EventHandler ModifierHasChanged;
-		protected virtual void NotifyUpdateModifier(VectorLayerUpdateArgs layerUpdateArgs)
-		{
-			System.EventHandler handler = ModifierHasChanged;
-			if (handler != null)
-			{
-				handler(this, layerUpdateArgs);
-			}
-		}
-	}
+        protected virtual void NotifyUpdateModifier(VectorLayerUpdateArgs layerUpdateArgs)
+        {
+            System.EventHandler handler = ModifierHasChanged;
+            if (handler != null)
+            {
+                handler(this, layerUpdateArgs);
+            }
+        }
+    }
 }

@@ -20,8 +20,8 @@
 
 namespace GoogleARCore
 {
-    using System;
     using GoogleARCoreInternal;
+    using System;
     using UnityEngine;
 
     /// <summary>

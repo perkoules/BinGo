@@ -12,7 +12,7 @@ using UnityEngine.UI;
 public class LeaderboardManager : MonoBehaviour
 {
     public ForwardGeocodeResource fgr;
-    public PlayerInfo playerInfo;
+    private PlayerInfo playerInfo;
     public GameObject leaderboardPanel, listingPrefab;
     private string playerID, playerName;
 
@@ -35,33 +35,32 @@ public class LeaderboardManager : MonoBehaviour
 
     public void WorldLeaderboardForRubbish()
     {
-        var requestLeaderboard = new GetLeaderboardRequest { StartPosition = 0, StatisticName = "RubbishCollected", MaxResultsCount = 10 };
-        PlayFabClientAPI.GetLeaderboard(requestLeaderboard, WorldLeaderboardForRubbishResults, error => Debug.LogError(error.GenerateErrorReport()));
+        PlayFabClientAPI.GetLeaderboard(new GetLeaderboardRequest { StartPosition = 0, StatisticName = "RubbishCollected", MaxResultsCount = 10 },
+            result =>
+            {
+                foreach (PlayerLeaderboardEntry player in result.Leaderboard)
+                {
+                    GameObject obj = Instantiate(listingPrefab, leaderboardPanel.transform);
+                    LeaderboardListing leaderboardListing = obj.GetComponent<LeaderboardListing>();
+
+                    if (player.Position % 2 == 0)
+                    {
+                        obj.GetComponent<Image>().color = leaderboardListing.evenColor;
+                    }
+                    else if (player.Position % 2 != 0)
+                    {
+                        obj.GetComponent<Image>().color = leaderboardListing.oddColor;
+                    }
+                    leaderboardListing.positionText.text = (player.Position + 1).ToString();
+                    leaderboardListing.playerNameText.text = player.DisplayName;
+                    GetPlayersCountry(player.PlayFabId, leaderboardListing);
+                    leaderboardListing.rubbishText.text = player.StatValue.ToString();
+                }
+            }
+            , error => Debug.LogError(error.GenerateErrorReport()));
     }
 
-    private void WorldLeaderboardForRubbishResults(GetLeaderboardResult result)
-    {
-        foreach (PlayerLeaderboardEntry player in result.Leaderboard)
-        {
-            GameObject obj = Instantiate(listingPrefab, leaderboardPanel.transform);
-            LeaderboardListing leaderboardListing = obj.GetComponent<LeaderboardListing>();
-
-            if (player.Position % 2 == 0)
-            {
-                obj.GetComponent<Image>().color = leaderboardListing.evenColor;
-            }
-            else if (player.Position % 2 != 0)
-            {
-                obj.GetComponent<Image>().color = leaderboardListing.oddColor;
-            }
-            leaderboardListing.positionText.text = (player.Position + 1).ToString();
-            leaderboardListing.playerNameText.text = player.DisplayName;
-            GetPlayersCountry(player.PlayFabId, leaderboardListing);
-            leaderboardListing.rubbishText.text = player.StatValue.ToString();
-        }
-    }
-
-    private void GetPlayersCountry(string playerId, LeaderboardListing ll)
+    public void GetPlayersCountry(string playerId, LeaderboardListing ll)
     {
         PlayFabClientAPI.GetUserData(new PlayFab.ClientModels.GetUserDataRequest() { PlayFabId = playerId },
         result =>
@@ -184,10 +183,10 @@ public class LeaderboardManager : MonoBehaviour
         return country;
     }
 
-
     //This is THE INCORRECT WAY for security reasons
     //Exposing admin tasks
     public CountryRub countryRub;
+
     public void GetAllPlayers()
     {
         Dictionary<string, int> playersInCountry = new Dictionary<string, int>();
@@ -207,10 +206,9 @@ public class LeaderboardManager : MonoBehaviour
 
     private IEnumerator GetSegment(Dictionary<string, int> playersInCountry, Dictionary<string, string> segmentsToSearch)
     {
-        Debug.Log("Getting segments");
         foreach (var seg in segmentsToSearch)
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.5f);
             PlayFabAdminAPI.GetPlayersInSegment(
                     new GetPlayersInSegmentRequest() { SegmentId = segmentsToSearch[seg.Key] },
                     result =>
@@ -220,11 +218,10 @@ public class LeaderboardManager : MonoBehaviour
                     error => Debug.LogError(error.GenerateErrorReport())
                     );
         }
-        yield return new WaitForSeconds(3);
-        Debug.Log("Getting Leaderboards");
+        yield return new WaitForSeconds(1);
         foreach (var seg in segmentsToSearch)
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.5f);
             PlayFabClientAPI.GetLeaderboard(
                 new GetLeaderboardRequest() { StatisticName = seg.Key + " isCountry" },
                 result =>
@@ -233,35 +230,59 @@ public class LeaderboardManager : MonoBehaviour
                     {
                         if (seg.Key.Contains("Kingdom"))
                         {
-                            countryRub.unitedKingdom += item.StatValue;
+                            if (item.StatValue != 0)
+                            {
+                                countryRub.unitedKingdom += item.StatValue;
+                            }
                         }
                         else if (seg.Key.Contains("Portugal"))
                         {
-                            countryRub.portugal += item.StatValue;
+                            if (item.StatValue != 0)
+                            {
+                                countryRub.portugal += item.StatValue;
+                            }
                         }
                         else if (seg.Key.Contains("Poland"))
                         {
-                            countryRub.poland += item.StatValue;
+                            if (item.StatValue != 0)
+                            {
+                                countryRub.poland += item.StatValue;
+                            }
                         }
                         else if (seg.Key.Contains("Greece"))
                         {
-                            countryRub.greece += item.StatValue;
+                            if (item.StatValue != 0)
+                            {
+                                countryRub.greece += item.StatValue;
+                            }
                         }
                         else if (seg.Key.Contains("Germany"))
                         {
-                            countryRub.germany += item.StatValue;
+                            if (item.StatValue != 0)
+                            {
+                                countryRub.germany += item.StatValue;
+                            }
                         }
                         else if (seg.Key.Contains("France"))
                         {
-                            countryRub.france += item.StatValue;
+                            if (item.StatValue != 0)
+                            {
+                                countryRub.france += item.StatValue;
+                            }
                         }
                         else if (seg.Key.Contains("Spain"))
                         {
-                            countryRub.spain += item.StatValue;
+                            if (item.StatValue != 0)
+                            {
+                                countryRub.spain += item.StatValue;
+                            }
                         }
                         else if (seg.Key.Contains("Sweden"))
                         {
-                            countryRub.sweden += item.StatValue;
+                            if (item.StatValue != 0)
+                            {
+                                countryRub.sweden += item.StatValue;
+                            }
                         }
                     }
                 },
@@ -269,7 +290,6 @@ public class LeaderboardManager : MonoBehaviour
                 );
         }
         Debug.Log("Presenting");
-        yield return new WaitForSeconds(3);
         List<int> allcountries = new List<int>()
         {
             countryRub.unitedKingdom,
@@ -294,6 +314,7 @@ public class LeaderboardManager : MonoBehaviour
     }
 }
 
+[System.Serializable]
 public class CountryRub
 {
     public int unitedKingdom;

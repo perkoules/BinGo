@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class LeaderboardWorldByCountry : MonoBehaviour
 {
     private LeaderboardManager leaderboardManager;
-    public GameObject leaderboardHolder;
+    public GameObject leaderboardHolder, gettingDataMessage;
 
     private void OnEnable()
     {
@@ -11,6 +12,7 @@ public class LeaderboardWorldByCountry : MonoBehaviour
         {
             leaderboardManager = GetComponent<LeaderboardManager>();
             leaderboardManager.GetAllPlayers();
+            StartCoroutine(GettingDataMessage());
         }
         else
         {
@@ -35,5 +37,12 @@ public class LeaderboardWorldByCountry : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+    }
+
+    IEnumerator GettingDataMessage()
+    {
+        gettingDataMessage.SetActive(true);
+        yield return new WaitForSeconds(10);
+        gettingDataMessage.SetActive(false);
     }
 }

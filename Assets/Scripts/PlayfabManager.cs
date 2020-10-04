@@ -484,6 +484,7 @@ public class PlayfabManager : MonoBehaviour
         teamname = GetTeamname();
         PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest()
         {
+            Permission = UserDataPermission.Public,
             Data = new Dictionary<string, string>() {
             {"Country", country},
             {"Avatar", avatar},

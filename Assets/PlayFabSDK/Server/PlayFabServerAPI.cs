@@ -1,4 +1,4 @@
-#if ENABLE_PLAYFABSERVER_API && !DISABLE_PLAYFAB_STATIC_API
+//#if ENABLE_PLAYFABSERVER_API && !DISABLE_PLAYFAB_STATIC_API
 
 using System;
 using System.Collections.Generic;
@@ -1686,4 +1686,4 @@ namespace PlayFab
     }
 }
 
-#endif
+//#endif

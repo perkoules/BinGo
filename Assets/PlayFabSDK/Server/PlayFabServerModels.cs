@@ -1,4 +1,4 @@
-#if ENABLE_PLAYFABSERVER_API
+//#if ENABLE_PLAYFABSERVER_API
 using System;
 using System.Collections.Generic;
 using PlayFab.SharedModels;
@@ -6914,4 +6914,4 @@ namespace PlayFab.ServerModels
         public string XboxLiveAccountId;
     }
 }
-#endif
+//#endif

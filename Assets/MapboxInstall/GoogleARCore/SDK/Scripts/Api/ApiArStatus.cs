@@ -20,9 +20,7 @@
 
 namespace GoogleARCoreInternal
 {
-    using System.Collections;
     using System.Diagnostics.CodeAnalysis;
-    using UnityEngine;
 
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented",
     Justification = "Internal")]
@@ -34,6 +32,7 @@ namespace GoogleARCoreInternal
         // functions are handled by logging and returning best-effort value.
         // Non-void functions additionally return AR_ERROR_INVALID_ARGUMENT.
         ErrorInvalidArgument = -1,
+
         ErrorFatal = -2,
         ErrorSessionPaused = -3,
         ErrorSessionNotPaused = -4,

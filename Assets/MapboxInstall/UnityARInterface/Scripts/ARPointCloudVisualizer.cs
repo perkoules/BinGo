@@ -14,7 +14,7 @@ namespace UnityARInterface
         private float m_ParticleSize = 1.0f;
 
         private ParticleSystem m_ParticleSystem;
-        private ParticleSystem.Particle [] m_Particles;
+        private ParticleSystem.Particle[] m_Particles;
         private ParticleSystem.Particle[] m_NoParticles;
         private ARInterface.PointCloud m_PointCloud;
 
@@ -24,7 +24,7 @@ namespace UnityARInterface
         }
 
         // Use this for initialization
-        void Start()
+        private void Start()
         {
             m_ParticleSystem = Instantiate(m_PointCloudParticlePrefab, GetRoot());
             m_NoParticles = new ParticleSystem.Particle[1];
@@ -32,7 +32,7 @@ namespace UnityARInterface
         }
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
             if (ARInterface.GetInterface().TryGetPointCloud(ref m_PointCloud))
             {

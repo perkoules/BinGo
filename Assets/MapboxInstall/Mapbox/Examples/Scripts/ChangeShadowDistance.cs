@@ -1,14 +1,14 @@
 namespace Mapbox.Examples
 {
-	using UnityEngine;
+    using UnityEngine;
 
-	public class ChangeShadowDistance : MonoBehaviour
-	{
-		public int ShadowDistance;
+    public class ChangeShadowDistance : MonoBehaviour
+    {
+        public int ShadowDistance;
 
-		void Start()
-		{
-			QualitySettings.shadowDistance = ShadowDistance;
-		}
-	}
+        private void Start()
+        {
+            QualitySettings.shadowDistance = ShadowDistance;
+        }
+    }
 }

@@ -20,8 +20,8 @@
 
 namespace GoogleARCoreInternal
 {
-    using System.Diagnostics.CodeAnalysis;
     using GoogleARCore;
+    using System.Diagnostics.CodeAnalysis;
     using UnityEngine;
 
     /// <summary>

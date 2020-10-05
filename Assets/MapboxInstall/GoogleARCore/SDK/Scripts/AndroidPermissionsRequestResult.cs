@@ -20,9 +20,6 @@
 
 namespace GoogleARCore
 {
-    using GoogleARCoreInternal;
-    using UnityEngine;
-
     /// <summary>
     /// Structure holding data summarizing the result of an Android permissions request.
     /// </summary>
@@ -33,7 +30,7 @@ namespace GoogleARCore
         /// </summary>
         /// <param name="permissionNames">The value for PermissionNames.</param>
         /// <param name="grantResults">The value for GrantResults.</param>
-        public AndroidPermissionsRequestResult(string[] permissionNames,  bool[] grantResults)
+        public AndroidPermissionsRequestResult(string[] permissionNames, bool[] grantResults)
         {
             PermissionNames = permissionNames;
             GrantResults = grantResults;

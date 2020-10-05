@@ -1,7 +1,7 @@
 namespace Mapbox.Unity.Map.Interfaces
 {
-	public interface IMapScalingStrategy
-	{
-		void SetUpScaling(AbstractMap map);
-	}
+    public interface IMapScalingStrategy
+    {
+        void SetUpScaling(AbstractMap map);
+    }
 }

@@ -20,11 +20,6 @@
 
 namespace GoogleARCore
 {
-    using System;
-    using System.Collections.Generic;
-    using GoogleARCoreInternal;
-    using UnityEngine;
-
     /// <summary>
     /// A filter for trackable queries.
     /// </summary>

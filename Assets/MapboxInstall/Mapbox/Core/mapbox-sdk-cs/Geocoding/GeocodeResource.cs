@@ -6,68 +6,96 @@
 
 namespace Mapbox.Geocoding
 {
-	using System;
-	using System.Collections.Generic;
-	using Mapbox.Platform;
+    using Mapbox.Platform;
+    using Mapbox.Unity;
+    using System;
+    using System.Collections.Generic;
 
-	/// <summary> Base geocode class. </summary>
-	/// <typeparam name="T"> Type of Query field (either string or LatLng). </typeparam>
-	public abstract class GeocodeResource<T> : Resource
-	{
-		/// <summary> A List of all possible geocoding feature types. </summary>
-		public static readonly List<string> FeatureTypes = new List<string>
-		{
-			"country", "region", "postcode", "place", "locality", "neighborhood", "address", "poi"
-		};
+    /// <summary> Base geocode class. </summary>
+    /// <typeparam name="T"> Type of Query field (either string or LatLng). </typeparam>
+    public abstract class GeocodeResource<T> : Resource
+    {
+        /// <summary> A List of all possible geocoding feature types. </summary>
+        public static readonly List<string> FeatureTypes = new List<string>
+        {
+            "country", "region", "district", "postcode", "place", "locality", "neighborhood", "address", "poi"
+        };
 
-		private readonly string apiEndpoint = "geocoding/v5/";
+        private readonly string apiEndpoint = "geocoding/v5/";
 
-		private readonly string mode = "mapbox.places/";
+        private readonly string mode = "mapbox.places/";
 
-		// Optional
-		private string[] types;
+        private readonly string myToken = MapboxAccess.Instance._configuration.AccessToken;
 
-		/// <summary> Gets or sets the query. </summary>
-		public abstract T Query { get; set; }
+        public string MyTokenReverse
+        {
+            get
+            {
+                string prefix = "&access_token=";
+                return string.Concat(prefix, myToken);
+            }
+        }
 
-		/// <summary> Gets the API endpoint as a partial URL path. </summary>
-		public override string ApiEndpoint {
-			get {
-				return this.apiEndpoint;
-			}
-		}
+        public string MyTokenForward
+        {
+            get
+            {
+                string prefix = "?access_token=";
+                return string.Concat(prefix, myToken);
+            }
+        }
 
-		/// <summary> Gets the mode. </summary>
-		public string Mode {
-			get {
-				return this.mode;
-			}
-		}
+        // Optional
+        private string[] types;
 
-		/// <summary> Gets or sets which feature types to return results for. </summary>
-		public string[] Types {
-			get {
-				return this.types;
-			}
+        /// <summary> Gets or sets the query. </summary>
+        public abstract T Query { get; set; }
 
-			set {
-				if (value == null)
-				{
-					this.types = value;
-					return;
-				}
+        /// <summary> Gets the API endpoint as a partial URL path. </summary>
+        public override string ApiEndpoint
+        {
+            get
+            {
+                return this.apiEndpoint;
+            }
+        }
 
-				for (int i = 0; i < value.Length; i++)
-				{
-					// Validate provided types
-					if (!FeatureTypes.Contains(value[i]))
-					{
-						throw new Exception("Invalid type. Must be \"country\", \"region\", \"postcode\",  \"place\",  \"locality\",  \"neighborhood\",  \"address\", or  \"poi\".");
-					}
-				}
+        /// <summary> Gets the mode. </summary>
+        public string Mode
+        {
+            get
+            {
+                return this.mode;
+            }
+        }
 
-				this.types = value;
-			}
-		}
-	}
+        /// <summary> Gets or sets which feature types to return results for. </summary>
+        public string[] Types
+        {
+            get
+            {
+                return this.types;
+            }
+
+            set
+            {
+                if (value == null)
+                {
+                    this.types = value;
+                    return;
+                }
+
+                for (int i = 0; i < value.Length; i++)
+                {
+                    // Validate provided types
+                    if (!FeatureTypes.Contains(value[i]))
+                    {
+                        throw new Exception("Invalid type. Must be \"country\", \"region\", \"postcode\",  \"place\",  \"locality\",  \"neighborhood\",  \"address\", or  \"poi\".");
+                    }
+                }
+
+                this.types = value;
+            }
+        }
+    }
 }

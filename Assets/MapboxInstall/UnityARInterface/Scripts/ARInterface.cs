@@ -46,11 +46,11 @@ namespace UnityARInterface
         public static Action<BoundedPlane> planeUpdated;
         public static Action<BoundedPlane> planeRemoved;
 
-        public virtual bool IsRunning { get; protected set; } 
+        public virtual bool IsRunning { get; protected set; }
 
         public virtual bool IsSupported { get { return true; } }
 
-        public virtual bool BackgroundRendering { get { return false; } set{ } } 
+        public virtual bool BackgroundRendering { get { return false; } set { } }
 
         public abstract IEnumerator StartService(Settings settings);
 
@@ -77,7 +77,7 @@ namespace UnityARInterface
 
         public abstract LightEstimate GetLightEstimate();
 
-		public abstract Matrix4x4 GetDisplayTransform ();
+        public abstract Matrix4x4 GetDisplayTransform();
 
         protected void OnPlaneAdded(BoundedPlane plane)
         {

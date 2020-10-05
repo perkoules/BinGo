@@ -5,84 +5,85 @@
 //-----------------------------------------------------------------------
 namespace Mapbox.Examples
 {
+    using Mapbox.Geocoding;
     using Mapbox.Unity;
+    using Mapbox.Unity.Utilities;
+    using Mapbox.Utils;
     using System;
     using UnityEngine;
     using UnityEngine.UI;
-    using Mapbox.Geocoding;
-    using Mapbox.Utils;
-	using Mapbox.Unity.Utilities;
 
     /// <summary>
     /// Peforms a reverse geocoder request (search by latitude, longitude) whenever the InputField on *this*
-    /// gameObject is finished with an edit. 
+    /// gameObject is finished with an edit.
     /// Expects input in the form of "latitude, longitude"
     /// </summary>
     [RequireComponent(typeof(InputField))]
-	public class ReverseGeocodeUserInput : MonoBehaviour
-	{
-		InputField _inputField;
+    public class ReverseGeocodeUserInput : MonoBehaviour
+    {
+        private InputField _inputField;
 
-		ReverseGeocodeResource _resource;
+        private ReverseGeocodeResource _resource;
 
-		Geocoder _geocoder;
+        private Geocoder _geocoder;
 
-		Vector2d _coordinate;
+        private Vector2d _coordinate;
 
-		bool _hasResponse;
-		public bool HasResponse
-		{
-			get
-			{
-				return _hasResponse;
-			}
-		}
+        private bool _hasResponse;
 
-		public ReverseGeocodeResponse Response { get; private set;}
+        public bool HasResponse
+        {
+            get
+            {
+                return _hasResponse;
+            }
+        }
 
-		public event EventHandler<EventArgs> OnGeocoderResponse;
+        public ReverseGeocodeResponse Response { get; private set; }
 
-		void Awake()
-		{
-			_inputField = GetComponent<InputField>();
-			_inputField.onEndEdit.AddListener(HandleUserInput);
-			_resource = new ReverseGeocodeResource(_coordinate);
-		}
+        public event EventHandler<EventArgs> OnGeocoderResponse;
 
-		void Start()
-		{
+        private void Awake()
+        {
+            _inputField = GetComponent<InputField>();
+            _inputField.onEndEdit.AddListener(HandleUserInput);
+            _resource = new ReverseGeocodeResource(_coordinate);
+        }
+
+        private void Start()
+        {
             _geocoder = MapboxAccess.Instance.Geocoder;
-		}
+        }
 
-		/// <summary>
-		/// An edit was made to the InputField.
-		/// Unity will send the string from _inputField.
-		/// Make geocoder query.
-		/// </summary>
-		/// <param name="searchString">Search string.</param>
-		void HandleUserInput(string searchString)
-		{
-			_hasResponse = false;
-			if (!string.IsNullOrEmpty(searchString))
-			{
-				_coordinate = Conversions.StringToLatLon(searchString);
-				_resource.Query = _coordinate;
-				_geocoder.Geocode(_resource, HandleGeocoderResponse);
-			}
-		}
+        /// <summary>
+        /// An edit was made to the InputField.
+        /// Unity will send the string from _inputField.
+        /// Make geocoder query.
+        /// </summary>
+        /// <param name="searchString">Search string.</param>
+        private void HandleUserInput(string searchString)
+        {
+            _hasResponse = false;
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                _coordinate = Conversions.StringToLatLon(searchString);
+                _resource.Query = _coordinate;
+                _geocoder.Geocode(_resource, HandleGeocoderResponse);
+            }
+        }
 
-		/// <summary>
-		/// Handles the geocoder response by updating coordinates and notifying observers.
-		/// </summary>
-		/// <param name="res">Res.</param>
-		void HandleGeocoderResponse(ReverseGeocodeResponse res)
-		{
-			_hasResponse = true;
-			Response = res;
-			if (OnGeocoderResponse != null)
-			{
-				OnGeocoderResponse(this, EventArgs.Empty);
-			}
-		}
-	}
+        /// <summary>
+        /// Handles the geocoder response by updating coordinates and notifying observers.
+        /// </summary>
+        /// <param name="res">Res.</param>
+        private void HandleGeocoderResponse(ReverseGeocodeResponse res)
+        {
+            _hasResponse = true;
+            Response = res;
+            if (OnGeocoderResponse != null)
+            {
+                OnGeocoderResponse(this, EventArgs.Empty);
+            }
+        }
+    }
 }

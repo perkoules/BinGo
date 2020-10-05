@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace KDTree
 {
@@ -15,6 +12,7 @@ namespace KDTree
     public class KDNode<T>
     {
         #region Internal properties and constructor
+
         // All types
         /// <summary>
         /// The number of dimensions for this node.
@@ -42,10 +40,12 @@ namespace KDTree
         /// The left and right children.
         /// </summary>
         protected internal KDNode<T> pLeft, pRight;
+
         /// <summary>
         /// The split dimension.
         /// </summary>
         protected internal int iSplitDimension;
+
         /// <summary>
         /// The split value (larger go into the right, smaller go into left)
         /// </summary>
@@ -76,12 +76,14 @@ namespace KDTree
             this.bSinglePoint = true;
 
             // Setup leaf elements.
-            this.tPoints = new double[iBucketCapacity+1][];
-            this.tData = new T[iBucketCapacity+1];
+            this.tPoints = new double[iBucketCapacity + 1][];
+            this.tData = new T[iBucketCapacity + 1];
         }
-        #endregion
+
+        #endregion Internal properties and constructor
 
         #region External Operations
+
         /// <summary>
         /// The number of items in this leaf node and all children.
         /// </summary>
@@ -121,9 +123,11 @@ namespace KDTree
             // Insert it into the leaf.
             pCursor.AddLeafPoint(tPoint, kValue);
         }
-        #endregion
+
+        #endregion External Operations
 
         #region Internal Operations
+
         /// <summary>
         /// Insert the point into the leaf.
         /// </summary>
@@ -176,7 +180,7 @@ namespace KDTree
         private void ExtendBounds(double[] tPoint)
         {
             // If we don't have bounds, create them using the new point then bail.
-            if (tMinBound == null) 
+            if (tMinBound == null)
             {
                 tMinBound = new double[iDimensions];
                 tMaxBound = new double[iDimensions];
@@ -192,7 +196,7 @@ namespace KDTree
                 {
                     if (!Double.IsNaN(tMinBound[i]) || !Double.IsNaN(tMaxBound[i]))
                         bSinglePoint = false;
-                    
+
                     tMinBound[i] = Double.NaN;
                     tMaxBound[i] = Double.NaN;
                 }
@@ -213,7 +217,7 @@ namespace KDTree
         /// Double the capacity of this leaf.
         /// </summary>
         private void IncreaseLeafCapacity()
-        {   
+        {
             Array.Resize<double[]>(ref tPoints, tPoints.Length * 2);
             Array.Resize<T>(ref tData, tData.Length * 2);
         }
@@ -256,7 +260,7 @@ namespace KDTree
                 fSplitValue = Double.MaxValue;
             else if (fSplitValue == Double.NegativeInfinity)
                 fSplitValue = Double.MinValue;
-            
+
             // Don't let the split value be the same as the upper value as
             // can happen due to rounding errors!
             if (fSplitValue == tMaxBound[iSplitDimension])
@@ -274,7 +278,7 @@ namespace KDTree
         {
             // Create the new children.
             pRight = new KDNode<T>(iDimensions, iBucketCapacity);
-            pLeft  = new KDNode<T>(iDimensions, iBucketCapacity);
+            pLeft = new KDNode<T>(iDimensions, iBucketCapacity);
 
             // Move each item in this leaf into the children.
             for (int i = 0; i < Size; ++i)
@@ -296,6 +300,7 @@ namespace KDTree
             tPoints = null;
             tData = null;
         }
-        #endregion
+
+        #endregion Internal Operations
     }
 }

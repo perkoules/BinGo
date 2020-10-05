@@ -1,8 +1,7 @@
 ﻿namespace Mapbox.Unity.MeshGeneration.Modifiers
 {
-    using UnityEngine;
-    using Mapbox.Unity.MeshGeneration.Components;
     using Mapbox.Unity.MeshGeneration.Data;
+    using UnityEngine;
 
     [CreateAssetMenu(menuName = "Mapbox/Modifiers/Tag Modifier")]
     public class TagModifier : GameObjectModifier

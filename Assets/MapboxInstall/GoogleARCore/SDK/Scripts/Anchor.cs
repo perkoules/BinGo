@@ -20,10 +20,10 @@
 
 namespace GoogleARCore
 {
+    using GoogleARCoreInternal;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
-    using GoogleARCoreInternal;
     using UnityEngine;
 
     /// <summary>
@@ -86,14 +86,14 @@ namespace GoogleARCore
 
             if (isCreate)
             {
-               Anchor anchor = (new GameObject()).AddComponent<Anchor>();
-               anchor.gameObject.name = "Anchor";
-               anchor.m_AnchorNativeHandle = anchorNativeHandle;
-               anchor.m_NativeSession = nativeApi;
-               anchor.Update();
+                Anchor anchor = (new GameObject()).AddComponent<Anchor>();
+                anchor.gameObject.name = "Anchor";
+                anchor.m_AnchorNativeHandle = anchorNativeHandle;
+                anchor.m_NativeSession = nativeApi;
+                anchor.Update();
 
-               s_AnchorDict.Add(anchorNativeHandle, anchor);
-               return anchor;
+                s_AnchorDict.Add(anchorNativeHandle, anchor);
+                return anchor;
             }
 
             return null;

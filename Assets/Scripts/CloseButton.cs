@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class CloseButton : MonoBehaviour
@@ -16,21 +14,21 @@ public class CloseButton : MonoBehaviour
 
     public void Clicked()
     {
-        if (button.name.Contains("Exit"))
-        {
-            Application.Quit();
-            Debug.LogError("Cant close device");
-        }
-        else
+        if (button.name.Contains("Close"))
         {
             foreach (var panel in panels)
             {
                 panel.SetActive(false);
-                if(panel == panels[0])
+                if (panel == panels[0])
                 {
                     panel.SetActive(true);
                 }
             }
         }
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

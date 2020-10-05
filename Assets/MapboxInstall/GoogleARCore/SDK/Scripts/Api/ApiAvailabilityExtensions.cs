@@ -20,9 +20,8 @@
 
 namespace GoogleARCoreInternal
 {
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using GoogleARCore;
+    using System.Diagnostics.CodeAnalysis;
 
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented",
     Justification = "Internal")]
@@ -34,18 +33,25 @@ namespace GoogleARCoreInternal
             {
                 case ApiAvailability.UnknownError:
                     return ApkAvailabilityStatus.UnknownError;
+
                 case ApiAvailability.UnknownChecking:
                     return ApkAvailabilityStatus.UnknownChecking;
+
                 case ApiAvailability.UnknownTimedOut:
                     return ApkAvailabilityStatus.UnknownTimedOut;
+
                 case ApiAvailability.UnsupportedDeviceNotCapable:
                     return ApkAvailabilityStatus.UnsupportedDeviceNotCapable;
+
                 case ApiAvailability.SupportedNotInstalled:
                     return ApkAvailabilityStatus.SupportedNotInstalled;
+
                 case ApiAvailability.SupportedApkTooOld:
                     return ApkAvailabilityStatus.SupportedApkTooOld;
+
                 case ApiAvailability.SupportedInstalled:
                     return ApkAvailabilityStatus.SupportedInstalled;
+
                 default:
                     UnityEngine.Debug.LogErrorFormat("Unexpected ApiAvailability status {0}", apiStatus);
                     return ApkAvailabilityStatus.UnknownError;

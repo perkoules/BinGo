@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(menuName = "Mapbox/ScriptablePalette")]
-public class ScriptablePalette : ScriptableObject 
+public class ScriptablePalette : ScriptableObject
 {
     public int m_numColors = 3;
 
@@ -25,9 +23,8 @@ public class ScriptablePalette : ScriptableObject
 
     public void GeneratePalette()
     {
-
         float hue = 0.0f;
-        float sat = 0.0f;;
+        float sat = 0.0f; ;
         float val = 0.0f;
 
         Color.RGBToHSV(m_keyColor, out hue, out sat, out val);

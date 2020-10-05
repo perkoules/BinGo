@@ -20,19 +20,19 @@
 
 namespace GoogleARCoreInternal
 {
+    using GoogleARCore;
     using System;
     using System.Collections;
     using System.IO;
     using System.Runtime.InteropServices;
     using System.Text;
     using System.Threading;
-    using GoogleARCore;
     using UnityEngine;
     using UnityEngine.Rendering;
     using UnityEngine.SpatialTracking;
 
     /// <summary>
-    /// Contains methods for managing communication to the Instant Preview 
+    /// Contains methods for managing communication to the Instant Preview
     /// plugin.
     /// </summary>
     public static class InstantPreviewManager
@@ -44,8 +44,10 @@ namespace GoogleARCoreInternal
 
         // Guid is taken from meta file and should never change.
         private const string k_ApkGuid = "cf7b10762fe921e40a18151a6c92a8a6";
+
         private const string k_NoDevicesFoundAdbResult = "error: no devices/emulators found";
         private const float k_MaxTolerableAspectRatioDifference = 0.1f;
+
         private const string k_MismatchedAspectRatioWarningFormatString =
             "The aspect ratio of your game window is different from the aspect ratio of your Instant Preview camera " +
             "texture. Please resize your game window's aspect ratio to match, or your preview will be distorted. The " +
@@ -54,9 +56,9 @@ namespace GoogleARCoreInternal
         private static readonly WaitForEndOfFrame k_WaitForEndOfFrame = new WaitForEndOfFrame();
 
         /// <summary>
-        /// Coroutine method that communicates to the Instant Preview plugin 
+        /// Coroutine method that communicates to the Instant Preview plugin
         /// every frame.
-        /// 
+        ///
         /// If not running in the editor, this does nothing.
         /// </summary>
         /// <returns>Enumerator for a coroutine that updates Instant Preview
@@ -70,7 +72,7 @@ namespace GoogleARCoreInternal
             }
 
             // User may have explicitly disabled Instant Preview.
-            if (ARCoreProjectSettings.Instance != null && 
+            if (ARCoreProjectSettings.Instance != null &&
                 !ARCoreProjectSettings.Instance.IsInstantPreviewEnabled)
             {
                 yield break;
@@ -107,7 +109,7 @@ namespace GoogleARCoreInternal
         /// </summary>
         /// <param name="backgroundTexture">Texture variable to store the latest
         /// Instant Preview video frame.</param>
-        /// <returns>True if InstantPreview updated the background texture, 
+        /// <returns>True if InstantPreview updated the background texture,
         /// false if it did not and the texture still needs updating.</returns>
         public static bool UpdateBackgroundTextureIfNeeded(ref Texture2D backgroundTexture)
         {
@@ -156,9 +158,9 @@ namespace GoogleARCoreInternal
 
             var loggedAspectRatioWarning = false;
 
-            // Begins update loop. The coroutine will cease when the 
+            // Begins update loop. The coroutine will cease when the
             // ARCoreSession component it's called from is destroyed.
-            for (;;)
+            for (; ; )
             {
                 yield return k_WaitForEndOfFrame;
                 NativeApi.Update();

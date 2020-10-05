@@ -7,7 +7,7 @@ public class RemoveRigidbody : MonoBehaviour
 {
     public float minYPosition;
 
-    void Update ()
+    private void Update()
     {
         if (transform.position.y < minYPosition)
         {

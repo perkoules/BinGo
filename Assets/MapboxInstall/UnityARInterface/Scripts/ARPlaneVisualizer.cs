@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace UnityARInterface
@@ -16,15 +15,15 @@ namespace UnityARInterface
 
         private Dictionary<string, GameObject> m_Planes = new Dictionary<string, GameObject>();
 
-        void OnEnable()
+        private void OnEnable()
         {
-            m_PlaneLayer = LayerMask.NameToLayer ("ARGameObject");
+            m_PlaneLayer = LayerMask.NameToLayer("ARGameObject");
             ARInterface.planeAdded += PlaneAddedHandler;
             ARInterface.planeUpdated += PlaneUpdatedHandler;
             ARInterface.planeRemoved += PlaneRemovedHandler;
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             ARInterface.planeAdded -= PlaneAddedHandler;
             ARInterface.planeUpdated -= PlaneUpdatedHandler;

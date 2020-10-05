@@ -1,37 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    //public Camera cameraMap, cameraAR;
-
-    /*private void Awake()
+    public void LoginScene()
     {
-        cameraAR.enabled = false;
-        cameraAR.gameObject.SetActive(false);
-        cameraMap.enabled = true;
+        SceneManager.LoadSceneAsync(0, LoadSceneMode.Single);
     }
-    public void SwitchCameraMode()
+
+    public void MainGame()
     {
-        if (cameraMap.enabled)
-        {
-            cameraMap.gameObject.SetActive(false);
-            cameraMap.enabled = false;
-            cameraAR.gameObject.SetActive(true);
-            cameraAR.enabled = true;
-        }
-        else if (cameraAR.enabled)
-        {
-            cameraAR.gameObject.SetActive(false);
-            cameraAR.enabled = false;
-            cameraMap.gameObject.SetActive(true);
-            cameraMap.enabled = true;
-        }
-    }*/
-    public void LoadLevelWithIndex(int levelIndex)
-    {
-        SceneManager.LoadSceneAsync(levelIndex, LoadSceneMode.Single);
+        SceneManager.LoadSceneAsync(1, LoadSceneMode.Single);
     }
 }

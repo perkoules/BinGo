@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 
 #if UNITY_EDITOR
+
 using UnityEngine.Networking.PlayerConnection;
 using UnityEditor.Networking.PlayerConnection;
+
 #endif
 
 namespace UnityARInterface
@@ -13,6 +15,7 @@ namespace UnityARInterface
         private bool m_SendVideo;
 
 #if UNITY_EDITOR
+
         public bool sendVideo
         {
             get { return m_SendVideo; }
@@ -38,11 +41,10 @@ namespace UnityARInterface
             }
         }
 
+        private ARRemoteEditorInterface m_RemoteInterface;
+        private EditorConnection m_EditorConnection;
 
-        ARRemoteEditorInterface m_RemoteInterface;
-        EditorConnection m_EditorConnection;
-
-        void SetConnection(EditorConnection editorConnection)
+        private void SetConnection(EditorConnection editorConnection)
         {
             m_EditorConnection = editorConnection;
             if (m_RemoteInterface != null)
@@ -93,62 +95,62 @@ namespace UnityARInterface
             SetupConnection();
         }
 
-        void ScreenCaptureParamsMessageHandler(MessageEventArgs message)
+        private void ScreenCaptureParamsMessageHandler(MessageEventArgs message)
         {
             m_RemoteInterface.ScreenCaptureParamsMessageHandler(message);
         }
 
-        void ScreenCaptureUVMessageHandler(MessageEventArgs message)
+        private void ScreenCaptureUVMessageHandler(MessageEventArgs message)
         {
             m_RemoteInterface.ScreenCaptureUVMessageHandler(message);
         }
 
-        void ScreenCaptureYMessageHandler(MessageEventArgs message)
+        private void ScreenCaptureYMessageHandler(MessageEventArgs message)
         {
             m_RemoteInterface.ScreenCaptureYMessageHandler(message);
         }
 
-        void PlaneAddedMessageHandler(MessageEventArgs message)
+        private void PlaneAddedMessageHandler(MessageEventArgs message)
         {
             m_RemoteInterface.PlaneAddedMessageHandler(message);
         }
 
-        void PlaneUpdatedMessageHandler(MessageEventArgs message)
+        private void PlaneUpdatedMessageHandler(MessageEventArgs message)
         {
             m_RemoteInterface.PlaneUpdatedMessageHandler(message);
         }
 
-        void PlaneRemovedMessageHandler(MessageEventArgs message)
+        private void PlaneRemovedMessageHandler(MessageEventArgs message)
         {
             m_RemoteInterface.PlaneRemovedMessageHandler(message);
         }
 
-        void FrameMessageHandler(MessageEventArgs message)
+        private void FrameMessageHandler(MessageEventArgs message)
         {
             m_RemoteInterface.FrameMessageHandler(message);
         }
 
-        void PointCloudMessageHandler(MessageEventArgs message)
+        private void PointCloudMessageHandler(MessageEventArgs message)
         {
             m_RemoteInterface.PointCloudMessageHandler(message);
         }
 
-        void LightEstimateMessageHandler(MessageEventArgs message)
+        private void LightEstimateMessageHandler(MessageEventArgs message)
         {
             m_RemoteInterface.LightEstimateMessageHandler(message);
         }
 
-        void PlayerConnectedEventHandler(int playerId)
+        private void PlayerConnectedEventHandler(int playerId)
         {
             m_RemoteInterface.PlayerConnectedMessageHandler(m_EditorConnection, playerId);
         }
 
-        void PlayerDisconnectedEventHandler(int playerId)
+        private void PlayerDisconnectedEventHandler(int playerId)
         {
             m_RemoteInterface.PlayerDisconnectedMessageHandler(playerId);
         }
 
-        void OnGUI()
+        private void OnGUI()
         {
             string message;
             if (m_RemoteInterface.connected)
@@ -196,6 +198,7 @@ namespace UnityARInterface
         {
             m_EditorConnection.DisconnectAll();
         }
+
 #endif
     }
 }

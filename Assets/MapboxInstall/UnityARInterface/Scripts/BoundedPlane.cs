@@ -11,11 +11,13 @@ namespace UnityARInterface
 
         public Vector3 normal { get { return rotation * Vector3.up; } }
         public Plane plane { get { return new Plane(normal, center); } }
+
         public float width
         {
             get { return extents.x; }
             set { extents.x = value; }
         }
+
         public float height
         {
             get { return extents.y; }

@@ -21,7 +21,6 @@
 namespace GoogleARCore
 {
     using System;
-    using UnityEngine;
 
     /// <summary>
     /// Flags representing categories of raycast hits.

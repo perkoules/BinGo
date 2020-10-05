@@ -1,25 +1,26 @@
-using System;
-using System.Collections.Generic;
-using UnityEngine;
 using GoogleARCore;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using UnityEngine;
 using UnityEngine.XR;
 
 namespace UnityARInterface
 {
     public class ARCoreInterface : ARInterface
     {
-       
-#region ARCoreCameraAPI
+        #region ARCoreCameraAPI
+
         public const string ARCoreCameraUtilityAPI = "arcore_camera_utility";
 
         //Texture size. Larger values are slower.
         private const int k_ARCoreTextureWidth = 640;
+
         private const int k_ARCoreTextureHeight = 480;
 
         //If imageFormatType is set to ImageFormatColor, the buffer is converted to YUV2.
-        //If imageFormatType is set to ImageFormatGrayscale, the buffer is set to Y as is, 
+        //If imageFormatType is set to ImageFormatGrayscale, the buffer is set to Y as is,
         //while the UV components remain null. Will appear pink using the remote
         private const ImageFormatType k_ImageFormatType = ImageFormatType.ImageFormatColor;
 
@@ -41,7 +42,7 @@ namespace UnityARInterface
 
         private byte[] pixelBuffer;
 
-#endregion
+        #endregion ARCoreCameraAPI
 
         private List<TrackedPlane> m_TrackedPlaneBuffer = new List<TrackedPlane>();
         private ScreenOrientation m_CachedScreenOrientation;
@@ -76,7 +77,7 @@ namespace UnityARInterface
                     return;
 
                 m_BackgroundRendering = value;
-                m_BackgroundRenderer.mode = m_BackgroundRendering ? 
+                m_BackgroundRenderer.mode = m_BackgroundRendering ?
                     ARRenderMode.MaterialAsBackground : ARRenderMode.StandardBackground;
             }
         }
@@ -149,7 +150,6 @@ namespace UnityARInterface
 
             if (IsRunning)
                 TextureReader_create((int)k_ImageFormatType, k_ARCoreTextureWidth, k_ARCoreTextureHeight, true);
-
         }
 
         public override void StopService()
@@ -190,7 +190,7 @@ namespace UnityARInterface
             //This is a GL texture ID
             int textureId = Frame.CameraImage.Texture.GetNativeTexturePtr().ToInt32();
             int bufferSize = 0;
-            //Ask the native plugin to start reading the image of the current frame, 
+            //Ask the native plugin to start reading the image of the current frame,
             //and return the image read from the privous frame
             IntPtr bufferPtr = TextureReader_submitAndAcquire(textureId, k_ARCoreTextureWidth, k_ARCoreTextureHeight, ref bufferSize);
 
@@ -208,7 +208,7 @@ namespace UnityARInterface
             Marshal.Copy(bufferPtr, pixelBuffer, 0, bufferSize);
 
             //Convert to YUV data
-            PixelBuffertoYUV2(pixelBuffer ,k_ARCoreTextureWidth, k_ARCoreTextureHeight, 
+            PixelBuffertoYUV2(pixelBuffer, k_ARCoreTextureWidth, k_ARCoreTextureHeight,
                               k_ImageFormatType, ref cameraImage.y, ref cameraImage.uv);
 
             cameraImage.width = k_ARCoreTextureWidth;
@@ -217,8 +217,7 @@ namespace UnityARInterface
             return true;
         }
 
-
-        private void PixelBuffertoYUV2(byte[] rgba, int width, int height,ImageFormatType imageFormatType ,ref byte[] y, ref byte[] uv)
+        private void PixelBuffertoYUV2(byte[] rgba, int width, int height, ImageFormatType imageFormatType, ref byte[] y, ref byte[] uv)
         {
             //in grayscale, it's a byte per pixel, which we can just assign to Y, and leave uv null
             //Probably not the most accurate conversion, would save some performance
@@ -299,10 +298,10 @@ namespace UnityARInterface
             }
         }
 
-		public override Matrix4x4 GetDisplayTransform()
-		{
-			return m_DisplayTransform;
-		}
+        public override Matrix4x4 GetDisplayTransform()
+        {
+            return m_DisplayTransform;
+        }
 
         private void CalculateDisplayTransform()
         {
@@ -315,14 +314,17 @@ namespace UnityARInterface
                     cosTheta = 0f;
                     sinTheta = -1f;
                     break;
+
                 case ScreenOrientation.PortraitUpsideDown:
                     cosTheta = 0f;
                     sinTheta = 1f;
                     break;
+
                 case ScreenOrientation.LandscapeLeft:
                     cosTheta = 1f;
                     sinTheta = 0f;
                     break;
+
                 case ScreenOrientation.LandscapeRight:
                     cosTheta = -1f;
                     sinTheta = 0f;
@@ -373,7 +375,7 @@ namespace UnityARInterface
             if (Session.Status != SessionStatus.Tracking)
                 return;
 
-            if(m_ARCoreSessionConfig.EnablePlaneFinding)
+            if (m_ARCoreSessionConfig.EnablePlaneFinding)
             {
                 Session.GetTrackables<TrackedPlane>(m_TrackedPlaneBuffer, TrackableQueryFilter.All);
                 foreach (var trackedPlane in m_TrackedPlaneBuffer)
@@ -428,11 +430,11 @@ namespace UnityARInterface
 
                 foreach (var plane in planesToRemove)
                     m_TrackedPlanes.Remove(plane);
-
             }
 
             //Update Anchors
-            foreach(var anchor in m_Anchors){
+            foreach (var anchor in m_Anchors)
+            {
                 anchor.Key.transform.position = anchor.Value.transform.position;
                 anchor.Key.transform.rotation = anchor.Value.transform.rotation;
             }
@@ -454,13 +456,13 @@ namespace UnityARInterface
             if (!string.IsNullOrEmpty(arAnchor.anchorID))
             {
                 Anchor arCoreAnchor;
-                if(m_Anchors.TryGetValue(arAnchor, out arCoreAnchor)){
+                if (m_Anchors.TryGetValue(arAnchor, out arCoreAnchor))
+                {
                     UnityEngine.Object.Destroy(arCoreAnchor);
                     m_Anchors.Remove(arAnchor);
                 }
 
                 arAnchor.anchorID = null;
-
             }
         }
     }

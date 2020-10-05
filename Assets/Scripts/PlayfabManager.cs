@@ -342,7 +342,7 @@ public class PlayfabManager : MonoBehaviour
     public int coinsAvailable = 0;
     private string country = "Australia";
     private string avatar = "Avatar 1";
-    private string teamname = "no team";
+    private string teamname = "-";
 
     public void UpdatePlayerStats()
     {
@@ -537,7 +537,6 @@ public class PlayfabManager : MonoBehaviour
         FlagDisplay();
         AvatarDisplay();
         TeamnameDisplay();
-        TeammatesDisplay();
         LevelBadgeDisplay();
         playerStats.playerInfo = new PlayerInfo
         {
@@ -556,11 +555,16 @@ public class PlayfabManager : MonoBehaviour
 
     private void TeamnameDisplay()
     {
-        playerStats.teamnameDisplay.text = GetTeamname();
-    }
-    private void TeammatesDisplay()
-    {
-        
+        string teamname = GetTeamname();
+        playerStats.teamnameDisplay.text = teamname;
+        if(teamname == "-")
+        {
+            playerStats.teamnameSetterButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            playerStats.teamnameSetterButton.gameObject.SetActive(false);
+        }
     }
 
     private void AvatarDisplay()

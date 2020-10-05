@@ -26,6 +26,7 @@ public class PlayerStats : MonoBehaviour
     public List<string> friendList, friendIdList;
     public PlayfabManager playfabManager;
     public TextMeshProUGUI teamnameDisplay;
+    public Button teamnameSetterButton;
     public PlayerInfo playerInfo;
 
     private void Start()

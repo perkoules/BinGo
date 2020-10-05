@@ -1321,7 +1321,7 @@ namespace PlayFab
 
         /// <summary>
         /// Updates the title-specific custom data for the user which is readable and writable by the client
-        /// </summary>
+        /// </summary>*/
         public static void UpdateUserData(UpdateUserDataRequest request, Action<UpdateUserDataResult> resultCallback, Action<PlayFabError> errorCallback, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
@@ -1330,7 +1330,7 @@ namespace PlayFab
 
             PlayFabHttp.MakeApiCall("/Admin/UpdateUserData", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
-
+        /*
         /// <summary>
         /// Updates the title-specific custom data for the user which cannot be accessed by the client
         /// </summary>

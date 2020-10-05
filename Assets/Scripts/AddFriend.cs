@@ -1,35 +1,35 @@
 ﻿using PlayFab;
 using PlayFab.ClientModels;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class AddFriend : MonoBehaviour
 {
-    public TeammateInfo teammateInfo;
-    public List<GetTeammateInfo> getTeammate;
+    public TextMeshProUGUI username, level;
+    public Image countryImage, avatarImage, levelBadge;
     public TMP_InputField friendToFind;
-    public GameObject friendFinderWindow;
+    public Container flagSelection, avatarSelection, levelBadgeSelection;
+    public GameObject objectToHide;
     private Button button;
-    public List<Button> addTeammateButtons;
-    public List<Button> teammates;
-    public int whereToAdd;
-    private int level = -1;
-    private void Start()
+
+    private void OnEnable()
     {
         button = GetComponent<Button>();
-        button.onClick.AddListener(SearchAndAddFriend);
     }
 
-    private void SearchAndAddFriend()
+    public void SearchForFriend()
     {
         PlayFabClientAPI.AddFriend(
-            new AddFriendRequest() { FriendUsername = friendToFind.text },
-            result => Debug.Log(friendToFind.text + " added as a friend"),
-            error => Debug.LogError(error.GenerateErrorReport()));
-        StartCoroutine(GetFriendsID());
+             new AddFriendRequest() { FriendUsername = friendToFind.text },
+             result =>
+             {
+                 Debug.Log(friendToFind.text + " added as a friend");
+                 button.interactable = false;
+             },
+             error => Debug.LogError(error.GenerateErrorReport()));
+        StartCoroutine(GetFriendsID());        
     }
 
     private IEnumerator GetFriendsID()
@@ -37,18 +37,18 @@ public class AddFriend : MonoBehaviour
         string friendsID = "";
         yield return new WaitForSeconds(1);
         PlayFabClientAPI.GetFriendsList(
-                    new GetFriendsListRequest() { },
-                    result =>
+            new GetFriendList() { },
+            result =>
+            {
+                foreach (var item in result.Friends)
+                {
+                    if (item.Username == friendToFind.text)
                     {
-                        foreach (var item in result.Friends)
-                        {
-                            if (item.Username == friendToFind.text)
-                            {
-                                friendsID = item.FriendPlayFabId;
-                            }
-                        }
-                    },
-                    error => Debug.LogError(error.GenerateErrorReport()));
+                        friendsID = item.FriendPlayFabId;
+                    }
+                }
+            },
+            error => Debug.LogError(error.GenerateErrorReport()));
         yield return new WaitForSeconds(1);
         PlayFabClientAPI.GetUserData(new GetUserDataRequest() { PlayFabId = friendsID },
         result =>
@@ -56,60 +56,60 @@ public class AddFriend : MonoBehaviour
             if (result.Data == null) Debug.Log("No Data");
             else
             {
-                teammateInfo.Username = friendToFind.text;
-                teammateInfo.Avatar = result.Data["Avatar"].Value;
-                teammateInfo.Country = result.Data["Country"].Value;
-                Debug.Log(friendToFind.text);
-                Debug.Log(result.Data["Avatar"].Value);
-                Debug.Log(result.Data["Country"].Value);
+                username.text = friendToFind.text;
+                avatarImage.sprite = FindImage(result.Data["Avatar"].Value);
+                countryImage.sprite = FindImage(result.Data["Country"].Value);
             }
         },
         error => Debug.Log(error.GenerateErrorReport()));
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1f);
         GetTeammatesLevel(friendsID);
-        yield return new WaitForSeconds(1);
-        teammateInfo.Level = level;
-        Debug.Log(level);
-        if (whereToAdd == 1)
-        {
-            Destroy(addTeammateButtons[0].gameObject);
-            friendFinderWindow.SetActive(false);
-            teammates[0].gameObject.SetActive(true);
-        }
-        else if (whereToAdd == 2)
-        {
-            Destroy(addTeammateButtons[1].gameObject);
-            friendFinderWindow.SetActive(false);
-            teammates[1].gameObject.SetActive(true);
-        }
-        else if (whereToAdd == 3)
-        {
-            Destroy(addTeammateButtons[2].gameObject);
-            friendFinderWindow.SetActive(false);
-            teammates[2].gameObject.SetActive(true);
-        }
-    }
-
-    public void SetWhereToAdd(int where)
-    {
-        whereToAdd = where;
+        yield return new WaitForSeconds(1f);
+        levelBadge.sprite = FindImage(level.text);
+        objectToHide.SetActive(false);
     }
 
     private void GetTeammatesLevel(string teammateID)
     {
         PlayFabClientAPI.GetFriendLeaderboard(
-            new GetFriendLeaderboardRequest() {StatisticName = "ProgressLevel" },
+            new GetFriendLeaderboardRequest() { StatisticName = "ProgressLevel" },
             result =>
             {
                 foreach (var item in result.Leaderboard)
                 {
                     if (item.PlayFabId == teammateID)
                     {
-                        Debug.Log(" The Stat Value is: " + item.StatValue);
-                        level = item.StatValue;
+                        level.text = item.StatValue.ToString();
                     }
                 }
             },
             error => Debug.LogError(error.GenerateErrorReport()));
+    }
+
+    private Sprite FindImage(string imageToSearch)
+    {
+        foreach (var img in flagSelection.imageContainer)
+        {
+            if (img.sprite.name == imageToSearch)
+            {
+                return img.sprite;
+            }
+        }
+        foreach (var img in avatarSelection.imageContainer)
+        {
+            if (img.sprite.name == imageToSearch)
+            {
+                return img.sprite;
+            }
+        }
+        foreach (var img in levelBadgeSelection.imageContainer)
+        {
+            string imgObj = img.name.Remove(0, 10);
+            if (imgObj == imageToSearch)
+            {
+                return img.sprite;
+            }
+        }
+        return null;
     }
 }

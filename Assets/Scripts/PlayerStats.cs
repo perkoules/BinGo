@@ -23,6 +23,7 @@ public class PlayerStats : MonoBehaviour
     public List<TextMeshProUGUI> rubbishTextDisplay;
     public List<TextMeshProUGUI> usernameTextDisplay;
     public List<TextMeshProUGUI> voucherTextDisplay;
+    public List<string> friendList, friendIdList;
     public PlayfabManager playfabManager;
     public TextMeshProUGUI teamnameDisplay;
     public PlayerInfo playerInfo;

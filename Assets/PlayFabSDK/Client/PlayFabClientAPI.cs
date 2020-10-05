@@ -432,7 +432,7 @@ namespace PlayFab
         /// Retrieves the current friend list for the local user, constrained to users who have PlayFab accounts. Friends from
         /// linked accounts (Facebook, Steam) are also included. You may optionally exclude some linked services' friends.
         /// </summary>
-        public static void GetFriendsList(GetFriendsListRequest request, Action<GetFriendsListResult> resultCallback, Action<PlayFabError> errorCallback, object customData = null, Dictionary<string, string> extraHeaders = null)
+        public static void GetFriendsList(GetFriendList request, Action<GetFriendsListResult> resultCallback, Action<PlayFabError> errorCallback, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;

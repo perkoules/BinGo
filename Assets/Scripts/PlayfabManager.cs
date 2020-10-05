@@ -537,6 +537,7 @@ public class PlayfabManager : MonoBehaviour
         FlagDisplay();
         AvatarDisplay();
         TeamnameDisplay();
+        TeammatesDisplay();
         LevelBadgeDisplay();
         playerStats.playerInfo = new PlayerInfo
         {
@@ -556,6 +557,10 @@ public class PlayfabManager : MonoBehaviour
     private void TeamnameDisplay()
     {
         playerStats.teamnameDisplay.text = GetTeamname();
+    }
+    private void TeammatesDisplay()
+    {
+        
     }
 
     private void AvatarDisplay()

@@ -2004,7 +2004,7 @@ namespace PlayFab.ClientModels
     }
 
     [Serializable]
-    public class GetFriendsListRequest : PlayFabRequestCommon
+    public class GetFriendList : PlayFabRequestCommon
     {
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).

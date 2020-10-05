@@ -124,7 +124,7 @@ namespace PlayFab.Events
 
         public event PlayFabResultEvent<GetFriendLeaderboardAroundPlayerResult> OnGetFriendLeaderboardAroundPlayerResultEvent;
 
-        public event PlayFabRequestEvent<GetFriendsListRequest> OnGetFriendsListRequestEvent;
+        public event PlayFabRequestEvent<GetFriendList> OnGetFriendsListRequestEvent;
 
         public event PlayFabResultEvent<GetFriendsListResult> OnGetFriendsListResultEvent;
 

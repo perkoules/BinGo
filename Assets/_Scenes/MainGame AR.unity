@@ -22392,6 +22392,7 @@ GameObject:
   - component: {fileID: 892681212}
   - component: {fileID: 892681211}
   - component: {fileID: 8639890379985711654}
+  - component: {fileID: 892681213}
   m_Layer: 5
   m_Name: WorldRankingWindow
   m_TagString: Untagged
@@ -22465,6 +22466,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 892681209}
   m_CullTransparentMesh: 0
+--- !u!114 &892681213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 892681209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b8c84aeca842ed44acab00c9e187f1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttons:
+  - {fileID: 7420948820599193498}
+  - {fileID: 1696020177}
+  - {fileID: 1117190445}
+  friendList:
+    friend1: 
+    friend2: 
+    friend3: 
 --- !u!1 &893520566
 GameObject:
   m_ObjectHideFlags: 0
@@ -28975,6 +28996,7 @@ MonoBehaviour:
   avatarSelection: {fileID: 23712719}
   levelBadgeSelection: {fileID: 949558036}
   objectToHide: {fileID: 1627978072}
+  friendListController: {fileID: 892681213}
 --- !u!114 &1117190444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44902,6 +44924,7 @@ MonoBehaviour:
   avatarSelection: {fileID: 23712719}
   levelBadgeSelection: {fileID: 949558036}
   objectToHide: {fileID: 1557528098}
+  friendListController: {fileID: 892681213}
 --- !u!114 &1696020176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61271,6 +61294,7 @@ MonoBehaviour:
   avatarSelection: {fileID: 23712719}
   levelBadgeSelection: {fileID: 949558036}
   objectToHide: {fileID: 1998744706}
+  friendListController: {fileID: 892681213}
 --- !u!1 &5578635831905130800
 GameObject:
   m_ObjectHideFlags: 0

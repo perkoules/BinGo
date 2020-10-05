@@ -1,6 +1,7 @@
 ﻿using PlayFab;
 using PlayFab.ClientModels;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,10 +14,41 @@ public class AddFriend : MonoBehaviour
     public Container flagSelection, avatarSelection, levelBadgeSelection;
     public GameObject objectToHide;
     private Button button;
+    public FriendListController friendListController;
 
     private void OnEnable()
     {
         button = GetComponent<Button>();
+        if (button.interactable)
+        {
+            StartCoroutine(ShowFriends());
+        }
+    }
+
+    IEnumerator ShowFriends()
+    {
+        
+        yield return new WaitForSeconds(1);
+        if (button.name.Contains("1"))
+        {
+            friendToFind.text = friendListController.friendList.friend1;
+            button.interactable = false;
+            SearchForFriend();
+        }
+        else if (button.name.Contains("2"))
+        {
+            yield return new WaitForSeconds(1);
+            friendToFind.text = friendListController.friendList.friend2;
+            button.interactable = false;
+            SearchForFriend();
+        }
+        else if (button.name.Contains("3"))
+        {
+            yield return new WaitForSeconds(1);
+            friendToFind.text = friendListController.friendList.friend3;
+            button.interactable = false;
+            SearchForFriend();
+        }
     }
 
     public void SearchForFriend()

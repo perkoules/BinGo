@@ -22718,6 +22718,87 @@ MonoBehaviour:
     friend2Id: 
     friend3: 
     friend3Id: 
+--- !u!1001 &893174725
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7318420597910034098, guid: a7fa21dceaf9d8d4db0636bee3e0ee08,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318420597910034098, guid: a7fa21dceaf9d8d4db0636bee3e0ee08,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318420597910034098, guid: a7fa21dceaf9d8d4db0636bee3e0ee08,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318420597910034098, guid: a7fa21dceaf9d8d4db0636bee3e0ee08,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318420597910034098, guid: a7fa21dceaf9d8d4db0636bee3e0ee08,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318420597910034098, guid: a7fa21dceaf9d8d4db0636bee3e0ee08,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318420597910034098, guid: a7fa21dceaf9d8d4db0636bee3e0ee08,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318420597910034098, guid: a7fa21dceaf9d8d4db0636bee3e0ee08,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318420597910034098, guid: a7fa21dceaf9d8d4db0636bee3e0ee08,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318420597910034098, guid: a7fa21dceaf9d8d4db0636bee3e0ee08,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318420597910034098, guid: a7fa21dceaf9d8d4db0636bee3e0ee08,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318420597910034100, guid: a7fa21dceaf9d8d4db0636bee3e0ee08,
+        type: 3}
+      propertyPath: m_Name
+      value: LevelManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a7fa21dceaf9d8d4db0636bee3e0ee08, type: 3}
+--- !u!114 &893174726 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7318420597910034101, guid: a7fa21dceaf9d8d4db0636bee3e0ee08,
+    type: 3}
+  m_PrefabInstance: {fileID: 893174725}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9db20552849019a48a352bcb5a667923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &893520566
 GameObject:
   m_ObjectHideFlags: 0
@@ -32884,8 +32965,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dea56a9eaadd1c439095de4f9a371cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SerializedLibrary: {fileID: 11400000, guid: 86d37d756b30ee14d850346289cf6d92,
-    type: 2}
+  m_SerializedLibrary: {fileID: 0}
   m_MaxNumberOfMovingImages: 10
   m_TrackedImagePrefab: {fileID: 5671645415187557968, guid: c509bb77d2bd453489bd8dbfed8fecaa,
     type: 3}
@@ -49442,34 +49522,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 406965491}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 997847022}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_MethodName: 
+      - m_Target: {fileID: 893174726}
+        m_MethodName: CameraScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

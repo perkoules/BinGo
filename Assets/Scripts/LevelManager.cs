@@ -8,8 +8,12 @@ public class LevelManager : MonoBehaviour
         SceneManager.LoadSceneAsync(0, LoadSceneMode.Single);
     }
 
-    public void MainGame()
+    public void MainScene()
     {
         SceneManager.LoadSceneAsync(1, LoadSceneMode.Single);
+    }
+    public void CameraScene()
+    {
+        SceneManager.LoadSceneAsync(2, LoadSceneMode.Single);
     }
 }

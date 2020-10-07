@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class LeaderboardPlayerProgressInWorld : MonoBehaviour
 {
     private LeaderboardManager leaderboardManager;
-    public GameObject leaderboardHolder;
+    public GameObject leaderboardHolder, gettingDataMessage;
 
     private void OnEnable()
     {
@@ -11,6 +12,7 @@ public class LeaderboardPlayerProgressInWorld : MonoBehaviour
         {
             leaderboardManager = GetComponent<LeaderboardManager>();
             leaderboardManager.PlayersProgressInWorldAndCities("world");
+            StartCoroutine(GettingDataMessage());
         }
         else
         {
@@ -35,5 +37,12 @@ public class LeaderboardPlayerProgressInWorld : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+    }
+
+    private IEnumerator GettingDataMessage()
+    {
+        gettingDataMessage.SetActive(true);
+        yield return new WaitForSeconds(3);
+        gettingDataMessage.SetActive(false);
     }
 }

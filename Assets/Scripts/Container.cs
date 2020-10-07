@@ -7,6 +7,7 @@ public class Container : MonoBehaviour
     public static Container container;
     public List<Image> imageContainer;
     public Sprite anonymous;
+
     private void OnEnable()
     {
         container = this;

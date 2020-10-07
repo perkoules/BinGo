@@ -8,14 +8,10 @@ public class InitializeText : MonoBehaviour
     private PlayerDataSaver playerDataSaver;
     private TextMeshProUGUI myText;
 
-    private void Awake()
+    private void OnEnable()
     {
         playerDataSaver = GetComponent<PlayerDataSaver>();
         myText = GetComponent<TextMeshProUGUI>();
-    }
-
-    private void Start()
-    {
         Displayer(gameObject.name);
     }
 

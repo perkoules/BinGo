@@ -11,14 +11,14 @@ namespace Mapbox.Geocoding
     using System.Runtime.Remoting.Contexts;
 
     /// <summary> A reverse geocode request. </summary>
-    public sealed class GetRubbishLocation : GeocodeResource<Vector2d>
+    public sealed class GetCurrentLocation : GeocodeResource<Vector2d>
     {
         // Required
         private Vector2d query;
 
         /// <summary> Initializes a new instance of the <see cref="ReverseGeocodeResource" /> class.</summary>
         /// <param name="query"> Location to reverse geocode. </param>
-        public GetRubbishLocation(Vector2d query)
+        public GetCurrentLocation(Vector2d query)
         {
             this.Query = query;
         }

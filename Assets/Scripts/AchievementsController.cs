@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(PlayerDataSaver))]
 public class AchievementsController : MonoBehaviour
 {
     public int rubbishToUnlockCounter = 0;
@@ -15,17 +16,16 @@ public class AchievementsController : MonoBehaviour
     public int mountainToUnlockCounter = 0;
     public int seaToUnlockCounter = 0;
     public int continentsToUnlockCounter = 0;
-    public PlayfabManager pfm;
     public List<Image> allBadges;
-    public static AchievementsController bc;
     private string tasks;
+    private PlayerDataSaver playerDataSaver;
 
-    private void OnEnable()
+    private void Awake()
     {
-        bc = this;
-        rubbishToUnlockCounter = pfm.wasteCollected;
-        recycleToUnlockCounter = pfm.recycleCollected;
-        //tasks = pfm.GetTasks();
+        playerDataSaver = GetComponent<PlayerDataSaver>();
+        rubbishToUnlockCounter = playerDataSaver.GetWasteCollected();
+        recycleToUnlockCounter = playerDataSaver.GetRecycleCollected();
+        tasks = playerDataSaver.GetTasks();
         CheckForLocations();
         GetAchievementsFromData();
     }

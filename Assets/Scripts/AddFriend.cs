@@ -15,6 +15,7 @@ public class AddFriend : MonoBehaviour
     private Button button;
     public FriendListController friendListController;
     public GameObject userNotfound;
+
     private void OnEnable()
     {
         button = GetComponent<Button>();
@@ -65,6 +66,7 @@ public class AddFriend : MonoBehaviour
                  if (error.ErrorMessage == "These users are already friends.")
                  {
                      StartCoroutine(GetFriendsID());
+                     button.interactable = false;
                  }
                  else if (error.ErrorMessage == "User not found")
                  {

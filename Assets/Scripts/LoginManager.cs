@@ -11,6 +11,7 @@ public class LoginManager : MonoBehaviour
     private PlayerDataSaver playerDataSaver;
     private string myID = "";
     public TMP_InputField email, password;
+
     private void Awake()
     {
         playerDataSaver = GetComponent<PlayerDataSaver>();

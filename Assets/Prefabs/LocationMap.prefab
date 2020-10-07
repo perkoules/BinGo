@@ -264,7 +264,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8233202655685473540}
-  - {fileID: 8236352220211372774}
   - {fileID: 8240679656692242874}
   - {fileID: 8240838089093730976}
   m_Father: {fileID: 0}
@@ -485,7 +484,7 @@ Transform:
   - {fileID: 8240927728842376812}
   - {fileID: 8240957251359799658}
   m_Father: {fileID: 8240528871826495852}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8348491986237228264
 MonoBehaviour:
@@ -502,7 +501,7 @@ MonoBehaviour:
   mapManager: {fileID: 8347427328580666710}
   _deviceLocationProviderUnity: {fileID: 8348128036727510446}
   _deviceLocationProviderAndroid: {fileID: 8348306010066214366}
-  _editorLocationProvider: {fileID: 8347593321058621462}
+  _editorLocationProvider: {fileID: 8348128036727510446}
   _transformLocationProvider: {fileID: 8347538670702266066}
   _dontDestroyOnLoad: 0
 --- !u!1 &8235905356017372864
@@ -560,7 +559,7 @@ MonoBehaviour:
   _userHeadingSmoothing: {fileID: 8347528753508364026}
   _deviceOrientationSmoothing: {fileID: 8348355263141652840}
   _editorDebuggingOnly:
-    _mockUnityInputLocation: 1
+    _mockUnityInputLocation: 0
     _locationLogFile: {fileID: 4900000, guid: 5e6bb7224cef35c4788a4817b1c9778d, type: 3}
 --- !u!1 &8236352220211372762
 GameObject:
@@ -593,7 +592,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 125, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 8240528871826495852}
+  m_Father: {fileID: 8240679656692242874}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!20 &8236352220211372761
@@ -627,7 +626,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 3895
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -693,7 +692,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236667841531260650}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -714,13 +713,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _options:
     locationOptions:
-      latitudeLongitude: 37.784179, -122.401583
-      zoom: 16
+      latitudeLongitude: 54.5718113, -1.2322553
+      zoom: 17
     extentOptions:
-      extentType: 2
+      extentType: 0
       defaultExtents:
         cameraBoundsOptions:
-          camera: {fileID: 0}
+          camera: {fileID: 8236352220211372761}
           visibleBuffer: 0
           disposeBuffer: 0
         rangeAroundCenterOptions:
@@ -731,7 +730,7 @@ MonoBehaviour:
         rangeAroundTransformOptions:
           targetTransform: {fileID: 8240679656692242874}
           visibleBuffer: 2
-          disposeBuffer: 0
+          disposeBuffer: 1
     placementOptions:
       placementType: 1
       snapMapToZero: 0
@@ -747,8 +746,8 @@ MonoBehaviour:
       sourceOptions:
         isActive: 1
         layerSource:
-          Name: Streets
-          Id: mapbox://styles/perkoules/cke4ilt5217k51ast9ktidbu8
+          Name: Dark
+          Id: mapbox://styles/perkoules/cke4ilt5217k51ast9ktidbu8/
           Modified: 
           UserName: 
       rasterOptions:
@@ -790,12 +789,10 @@ MonoBehaviour:
         - aeroway
         - airport_label
         - barrier_line
+        - Bins
         - building
-        - contour
         - country_label
-        - hillshade
         - housenum_label
-        - landcover
         - landuse
         - landuse_overlay
         - marine_label
@@ -807,7 +804,6 @@ MonoBehaviour:
         - road
         - road_label
         - state_label
-        - traffic
         - water
         - water_label
         - waterway
@@ -817,7 +813,7 @@ MonoBehaviour:
         isActive: 1
         layerSource:
           Name: Mapbox Terrain
-          Id: mapbox.3d-buildings,mapbox.mapbox-streets-v7,mapbox.mapbox-traffic-v1,mapbox.mapbox-terrain-v2
+          Id: mapbox.mapbox-streets-v7,perkoules.cke8ggc8g1gf029o6l6c914f8-2at9l
           Modified: 
           UserName: 
       useOptimizedStyle: 0
@@ -830,74 +826,7 @@ MonoBehaviour:
         isEnabled: 1
         entityPerCoroutine: 20
       vectorSubLayers: []
-      locationPrefabList:
-      - coreOptions:
-          sourceId: 
-          isActive: 1
-          sublayerName: PPP
-          geometryType: 0
-          layerName: 
-          snapToTerrain: 1
-          combineMeshes: 0
-        lineGeometryOptions:
-          Width: 0
-          MiterLimit: 0
-          RoundLimit: 0
-          JoinType: 0
-          CapType: 0
-        filterOptions:
-          _selectedLayerName: 
-          filters: []
-          combinerType: 0
-        extrusionOptions:
-          _selectedLayerName: 
-          extrusionType: 0
-          extrusionGeometryType: 0
-          propertyName: 
-          propertyDescription: 
-          minimumHeight: 0
-          maximumHeight: 0
-          extrusionScaleFactor: 0
-        colliderOptions:
-          colliderType: 0
-        materialOptions:
-          style: 0
-          texturingType: 0
-          materials: []
-          atlasInfo: {fileID: 0}
-          lightStyleOpacity: 0
-          darkStyleOpacity: 0
-          colorStyleColor: {r: 0, g: 0, b: 0, a: 0}
-          samplePalettes: 0
-          colorPalette: {fileID: 0}
-          customStyleOptions:
-            texturingType: 0
-            materials: []
-            atlasInfo: {fileID: 0}
-            colorPalette: {fileID: 0}
-        performanceOptions:
-          isEnabled: 0
-          entityPerCoroutine: 0
-        honorBuildingIdSetting: 0
-        buildingsWithUniqueIds: 0
-        moveFeaturePositionTo: 0
-        MeshModifiers: []
-        GoModifiers: []
-        presetFeatureType: 3
-        _maskValue: 0
-        selectedTypes: 
-        spawnPrefabOptions:
-          prefab: {fileID: 9062803930231522174, guid: 8913cbbb43ecd2448babcf1259e6afbd,
-            type: 3}
-          scaleDownWithWorld: 0
-        findByType: 2
-        categories: 0
-        nameString: 
-        coordinates:
-        - 54.572529,-1.232589
-        - 54.572162,-1.232648
-        - 60.19188,24.9685822
-        density: 15
+      locationPrefabList: []
   _tileProvider: {fileID: 0}
   _previewOptions:
     isPreviewEnabled: 0
@@ -944,8 +873,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3305352708808648459}
+  - {fileID: 8236352220211372774}
   m_Father: {fileID: 8240528871826495852}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8347673460719661938
 MonoBehaviour:
@@ -1051,22 +981,22 @@ PrefabInstance:
     - target: {fileID: 2079006382547572688, guid: 7b95a2d25e3694540acc95a230faceb4,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 2079006382547572688, guid: 7b95a2d25e3694540acc95a230faceb4,
-        type: 3}
-      propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2079006382547572688, guid: 7b95a2d25e3694540acc95a230faceb4,
         type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7069834
+      objectReference: {fileID: 0}
+    - target: {fileID: 2079006382547572688, guid: 7b95a2d25e3694540acc95a230faceb4,
+        type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0.7072302
       objectReference: {fileID: 0}
     - target: {fileID: 2079006382547572688, guid: 7b95a2d25e3694540acc95a230faceb4,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071067
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2079006382547572688, guid: 7b95a2d25e3694540acc95a230faceb4,
         type: 3}
@@ -1076,7 +1006,7 @@ PrefabInstance:
     - target: {fileID: 2079006382547572688, guid: 7b95a2d25e3694540acc95a230faceb4,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: -89.98
       objectReference: {fileID: 0}
     - target: {fileID: 2079006382547572688, guid: 7b95a2d25e3694540acc95a230faceb4,
         type: 3}
@@ -1086,7 +1016,22 @@ PrefabInstance:
     - target: {fileID: 2079006382547572688, guid: 7b95a2d25e3694540acc95a230faceb4,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 2079006382547572688, guid: 7b95a2d25e3694540acc95a230faceb4,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2079006382547572688, guid: 7b95a2d25e3694540acc95a230faceb4,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2079006382547572688, guid: 7b95a2d25e3694540acc95a230faceb4,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b95a2d25e3694540acc95a230faceb4, type: 3}

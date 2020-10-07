@@ -2,11 +2,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(PlayerDataSaver))]
 public class BadgeController : MonoBehaviour
 {
     public PlayfabManager pfm;
     public List<Image> allBadges;
-
+    private PlayerDataSaver playerDataSaver;
     public int myBadge;
 
     public static BadgeController bc;
@@ -18,7 +19,8 @@ public class BadgeController : MonoBehaviour
 
     private void Start()
     {
-        myBadge = pfm.progressLevel;
+        playerDataSaver = GetComponent<PlayerDataSaver>();
+        myBadge = playerDataSaver.GetProgressLevel();
         BadgeToData();
     }
 

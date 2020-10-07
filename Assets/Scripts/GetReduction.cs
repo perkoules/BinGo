@@ -5,21 +5,22 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(PlayerDataSaver))]
 public class GetReduction : MonoBehaviour
 {
+    public SliderController sliderController;
     public TextMeshProUGUI coinsAvailable;
     public TextMeshProUGUI codeText;
-    private PlayfabManager playfabManager;
+    private PlayerDataSaver playerDataSaver;
     private Button voucher;
-    public SliderController sliderController;
     private int coins = 0;
     private const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-    private void OnEnable()
+    private void Awake()
     {
-        playfabManager = FindObjectOfType<PlayfabManager>();
-        coins = playfabManager.coinsAvailable;
+        playerDataSaver = GetComponent<PlayerDataSaver>();
         voucher = GetComponent<Button>();
+        coins = playerDataSaver.GetCoinsAvailable();
     }
 
     private void Start()
@@ -42,6 +43,7 @@ public class GetReduction : MonoBehaviour
         }
         ReductionUsed(sliderController.coinsUsed);
     }
+
     public void CopyText(TextMeshProUGUI textToCopy)
     {
         TextEditor editor = new TextEditor
@@ -54,18 +56,29 @@ public class GetReduction : MonoBehaviour
 
     public void ReductionUsed(int coinsUsed)
     {
-        playfabManager.coinsAvailable -= coinsUsed;
+        int newCoins = playerDataSaver.GetCoinsAvailable() - coinsUsed;
+        playerDataSaver.SetCoinsAvailable(newCoins);
         PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
         {
             FunctionName = "UpdatePlayerCoins",
             FunctionParameter = new
             {
-                cloudCoinsAvailable = playfabManager.coinsAvailable
+                cloudCoinsAvailable = newCoins
             },
             GeneratePlayStreamEvent = true,
         },
-        result => Debug.Log("Sent " + playfabManager.coinsAvailable + " coins to cloudscript"),
+        result => Debug.Log("Sent " + newCoins + " coins to cloudscript"),
         error => Debug.Log(error.GenerateErrorReport()));
-        playfabManager.CoinsDisplay();
+        foreach (var item in FindObjectsOfType<InitializeText>())
+        {
+            if (item.gameObject.name == "CoinsCollectedNumber")
+            {
+                item.Displayer("CoinsCollectedNumber");
+            }
+            if (item.gameObject.name == "VoucherText")
+            {
+                item.Displayer("VoucherText");
+            }
+        }
     }
 }

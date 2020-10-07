@@ -26,9 +26,4 @@ public class CloseButton : MonoBehaviour
             }
         }
     }
-
-    public void QuitGame()
-    {
-        Application.Quit();
-    }
 }

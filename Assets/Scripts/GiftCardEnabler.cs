@@ -6,22 +6,23 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(PlayerDataSaver))]
 public class GiftCardEnabler : MonoBehaviour
 {
     public TextMeshProUGUI coinsAvailable;
     public List<TextMeshProUGUI> cards;
-    private PlayfabManager playfabManager;
+    private PlayerDataSaver playerDataSaver;
     private int coins = 0;
 
-    private void OnEnable()
+    private void Awake()
     {
-        playfabManager = FindObjectOfType<PlayfabManager>();
+        playerDataSaver = GetComponent<PlayerDataSaver>();
         EnableCards();
     }
 
     public void EnableCards()
     {
-        coins = playfabManager.coinsAvailable;
+        coins = playerDataSaver.GetCoinsAvailable();
         foreach (var crd in cards)
         {
             if (coins >= Convert.ToInt32(crd.text))
@@ -37,19 +38,20 @@ public class GiftCardEnabler : MonoBehaviour
 
     public void CardUsed(int coinsUsed)
     {
-        playfabManager.coinsAvailable -= coinsUsed;
+        int newCoins = playerDataSaver.GetCoinsAvailable() - coinsUsed;
+        playerDataSaver.SetCoinsAvailable(newCoins);
         EnableCards();
         PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
         {
             FunctionName = "UpdatePlayerCoins",
             FunctionParameter = new
             {
-                cloudCoinsAvailable = playfabManager.coinsAvailable
+                cloudCoinsAvailable = newCoins
             },
             GeneratePlayStreamEvent = true,
         },
-        result => Debug.Log("Sent " + playfabManager.coinsAvailable + " coins to cloudscript"),
+        result => Debug.Log("Sent " + playerDataSaver.GetCoinsAvailable() + " coins to cloudscript"),
         error => Debug.Log(error.GenerateErrorReport()));
-        playfabManager.CoinsDisplay();
+        //playfabManager.CoinsDisplay();
     }
 }

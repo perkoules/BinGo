@@ -8,6 +8,7 @@ public class PlayerInfo
     [Header("Player Data:")]
     [SerializeField] private string playerUsername;
 
+    [SerializeField] private string playerId;
     [SerializeField] private string playerEmail;
     [SerializeField] private string playerPassword;
     [SerializeField] private string playerTeamName;
@@ -33,6 +34,12 @@ public class PlayerInfo
     [SerializeField] private int rubbishInRegion;
     [SerializeField] private string rubbishCountry;
     [SerializeField] private int rubbishInCountry;
+
+    public string PlayerId
+    {
+        get { return playerId; }
+        set { playerId = value; }
+    }
 
     public string PlayerTasks
     {

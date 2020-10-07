@@ -266,7 +266,6 @@ GameObject:
   - component: {fileID: 32149838}
   - component: {fileID: 32149837}
   - component: {fileID: 32149836}
-  - component: {fileID: 32149839}
   m_Layer: 5
   m_Name: RegisterButton
   m_TagString: Untagged
@@ -337,7 +336,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 437228206}
+      - m_Target: {fileID: 1774949268}
         m_MethodName: ClickToRegister
         m_Mode: 1
         m_Arguments:
@@ -385,25 +384,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 32149834}
   m_CullTransparentMesh: 0
---- !u!114 &32149839
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 32149834}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fcab472aed544c499231d2d9b184096, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  usernameInputField: {fileID: 1944080467}
-  passwordInputField: {fileID: 1278093047}
-  repeatPasswordInputField: {fileID: 1900131009}
-  emailInputField: {fileID: 394080968}
-  colorDefault:
-    serializedVersion: 2
-    rgba: 0
 --- !u!1 &36263924
 GameObject:
   m_ObjectHideFlags: 0
@@ -3577,6 +3557,102 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 445800710}
   m_CullTransparentMesh: 0
+--- !u!1001 &456342604
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7318420597910034098, guid: a7fa21dceaf9d8d4db0636bee3e0ee08,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318420597910034098, guid: a7fa21dceaf9d8d4db0636bee3e0ee08,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318420597910034098, guid: a7fa21dceaf9d8d4db0636bee3e0ee08,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318420597910034098, guid: a7fa21dceaf9d8d4db0636bee3e0ee08,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318420597910034098, guid: a7fa21dceaf9d8d4db0636bee3e0ee08,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318420597910034098, guid: a7fa21dceaf9d8d4db0636bee3e0ee08,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318420597910034098, guid: a7fa21dceaf9d8d4db0636bee3e0ee08,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318420597910034098, guid: a7fa21dceaf9d8d4db0636bee3e0ee08,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318420597910034098, guid: a7fa21dceaf9d8d4db0636bee3e0ee08,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318420597910034098, guid: a7fa21dceaf9d8d4db0636bee3e0ee08,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318420597910034098, guid: a7fa21dceaf9d8d4db0636bee3e0ee08,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318420597910034098, guid: a7fa21dceaf9d8d4db0636bee3e0ee08,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318420597910034098, guid: a7fa21dceaf9d8d4db0636bee3e0ee08,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318420597910034098, guid: a7fa21dceaf9d8d4db0636bee3e0ee08,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318420597910034100, guid: a7fa21dceaf9d8d4db0636bee3e0ee08,
+        type: 3}
+      propertyPath: m_Name
+      value: LevelManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a7fa21dceaf9d8d4db0636bee3e0ee08, type: 3}
+--- !u!114 &456342605 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7318420597910034101, guid: a7fa21dceaf9d8d4db0636bee3e0ee08,
+    type: 3}
+  m_PrefabInstance: {fileID: 456342604}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9db20552849019a48a352bcb5a667923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &457628136
 GameObject:
   m_ObjectHideFlags: 0
@@ -4872,7 +4948,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 437228206}
+      - m_Target: {fileID: 1967199786}
         m_MethodName: ClickToLogin
         m_Mode: 1
         m_Arguments:
@@ -6543,7 +6619,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 437228206}
+      - m_Target: {fileID: 1967199786}
         m_MethodName: GuestMode
         m_Mode: 1
         m_Arguments:
@@ -11838,6 +11914,8 @@ GameObject:
   - component: {fileID: 1774949265}
   - component: {fileID: 1774949267}
   - component: {fileID: 1774949266}
+  - component: {fileID: 1774949268}
+  - component: {fileID: 1774949269}
   m_Layer: 5
   m_Name: RegisterWindow
   m_TagString: Untagged
@@ -11910,6 +11988,40 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1774949264}
   m_CullTransparentMesh: 0
+--- !u!114 &1774949268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774949264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d92380b5a1f561d468de5a247d98d354, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  countryDropdown: {fileID: 1080567037}
+  avatarDropdown: {fileID: 769617190}
+  usernameInputField: {fileID: 1944080467}
+  passwordInputField: {fileID: 1278093047}
+  repeatPasswordInputField: {fileID: 1900131009}
+  emailInputField: {fileID: 394080968}
+  colorDefault:
+    serializedVersion: 2
+    rgba: 0
+  messageController: {fileID: 1128793559}
+--- !u!114 &1774949269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774949264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba1204eb2f950114fb2b42a51d02db64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1779964657
 GameObject:
   m_ObjectHideFlags: 0
@@ -13662,6 +13774,8 @@ GameObject:
   - component: {fileID: 1967199783}
   - component: {fileID: 1967199785}
   - component: {fileID: 1967199784}
+  - component: {fileID: 1967199786}
+  - component: {fileID: 1967199787}
   m_Layer: 5
   m_Name: LogInWindow
   m_TagString: Untagged
@@ -13734,6 +13848,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1967199782}
   m_CullTransparentMesh: 0
+--- !u!114 &1967199786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1967199782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5952e62a8d06a2447998ca3d23abdccb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  messageController: {fileID: 1128793559}
+  email: {fileID: 1188659071}
+  password: {fileID: 1975289995}
+--- !u!114 &1967199787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1967199782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba1204eb2f950114fb2b42a51d02db64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1970754977
 GameObject:
   m_ObjectHideFlags: 0
@@ -14267,7 +14408,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2010431560}
-  - component: {fileID: 2010431564}
   - component: {fileID: 2010431563}
   - component: {fileID: 2010431562}
   - component: {fileID: 2010431561}
@@ -14340,7 +14480,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1774949264}
         m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
@@ -14351,7 +14491,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1967199782}
         m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
@@ -14399,21 +14539,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2010431559}
   m_CullTransparentMesh: 0
---- !u!114 &2010431564
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2010431559}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d41025b13a2e5c043a01a1fce8144ec6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panels:
-  - {fileID: 1967199782}
-  - {fileID: 1774949264}
 --- !u!1 &2020989926
 GameObject:
   m_ObjectHideFlags: 0
@@ -14773,7 +14898,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2113745870}
-  - component: {fileID: 2113745874}
   - component: {fileID: 2113745873}
   - component: {fileID: 2113745872}
   - component: {fileID: 2113745871}
@@ -14845,7 +14969,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2113745872}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 456342605}
+        m_MethodName: QuitGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2113745872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14883,19 +15018,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2113745869}
   m_CullTransparentMesh: 0
---- !u!114 &2113745874
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2113745869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d41025b13a2e5c043a01a1fce8144ec6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panels: []
 --- !u!1 &2116251955
 GameObject:
   m_ObjectHideFlags: 0
@@ -15085,16 +15207,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5027281242236645538, guid: 61731be0163f3c64fb505596a111941e,
         type: 3}
-      propertyPath: countryDropdown
-      value: 
-      objectReference: {fileID: 1080567037}
-    - target: {fileID: 5027281242236645538, guid: 61731be0163f3c64fb505596a111941e,
-        type: 3}
-      propertyPath: avatarDropdown
-      value: 
-      objectReference: {fileID: 769617190}
-    - target: {fileID: 5027281242236645538, guid: 61731be0163f3c64fb505596a111941e,
-        type: 3}
       propertyPath: emailInput
       value: 
       objectReference: {fileID: 1188659071}
@@ -15158,6 +15270,5 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3767177388782560161, guid: 61731be0163f3c64fb505596a111941e, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61731be0163f3c64fb505596a111941e, type: 3}

@@ -1,17 +1,14 @@
 ﻿using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class RegistrationValidity : MonoBehaviour
 {
-    private Button registerButton;
     public TMP_InputField usernameInputField, passwordInputField, repeatPasswordInputField, emailInputField;
     public Color32 colorDefault;
 
     private void Start()
     {
         colorDefault = new Color32(90, 216, 98, 255);
-        registerButton = GetComponent<Button>();
         usernameInputField = usernameInputField.GetComponent<TMP_InputField>();
         passwordInputField = passwordInputField.GetComponent<TMP_InputField>();
         repeatPasswordInputField = repeatPasswordInputField.GetComponent<TMP_InputField>();

@@ -39,7 +39,7 @@ public class LeaderboardWorldByCountry : MonoBehaviour
         }
     }
 
-    IEnumerator GettingDataMessage()
+    private IEnumerator GettingDataMessage()
     {
         gettingDataMessage.SetActive(true);
         yield return new WaitForSeconds(10);

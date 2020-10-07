@@ -17,9 +17,6 @@ public class PlayerStats : MonoBehaviour
     public GetRubbishLocation rubLoc;
     public List<Image> lvlBadgeDisplay;
 
-    
-
-
     public List<string> friendList, friendIdList;
     public PlayfabManager playfabManager;
     public TextMeshProUGUI teamnameDisplay;

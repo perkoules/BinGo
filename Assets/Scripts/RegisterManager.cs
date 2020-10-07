@@ -33,9 +33,8 @@ public class RegisterManager : MonoBehaviour
         usernameInputField.onValueChanged.AddListener(CheckLength);
         passwordInputField.onValueChanged.AddListener(CheckLength);
         repeatPasswordInputField.onValueChanged.AddListener(CheckPasswordSimilarity);
-        
     }
-        
+
     #region Validity
 
     private void CheckLength(string str)

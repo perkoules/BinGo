@@ -7,6 +7,7 @@ public class PlayerInfo
     //Serialized for testing purposes
     [Header("Player Data:")]
     [SerializeField] private string playerUsername;
+
     [SerializeField] private string playerId;
     [SerializeField] private string playerEmail;
     [SerializeField] private string playerPassword;
@@ -39,6 +40,7 @@ public class PlayerInfo
         get { return playerId; }
         set { playerId = value; }
     }
+
     public string PlayerTasks
     {
         get { return playerTasks; }

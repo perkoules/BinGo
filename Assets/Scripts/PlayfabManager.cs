@@ -170,44 +170,24 @@ public class PlayfabManager : MonoBehaviour
                             progressLevel = eachStat.Value;
                             playerStats.playerInfo.PlayerCurrentLevel = progressLevel;
                             playerDataSaver.SetProgressLevel(progressLevel);
-                            foreach (var txt in FindObjectsOfType<InitializeText>())
-                            {
-                                //StartCoroutine(txt.Displayer("LvlNumber"));
-                                //txt.DisplayManager();
-                            }
                             break;
 
                         case "RubbishCollected":
                             wasteCollected = eachStat.Value;
                             playerStats.playerInfo.PlayerRubbish = wasteCollected;
                             playerDataSaver.SetWasteCollected(wasteCollected);
-                            foreach (var txt in FindObjectsOfType<InitializeText>())
-                            {
-                                //StartCoroutine(txt.Displayer("RubbishCollectedText"));
-                                //txt.DisplayManager();
-                            }
                             break;
 
                         case "RecycleCollected":
                             recycleCollected = eachStat.Value;
                             playerStats.playerInfo.PlayerRecycle = recycleCollected;
                             playerDataSaver.SetRecycleCollected(recycleCollected);
-                            foreach (var txt in FindObjectsOfType<InitializeText>())
-                            {
-                                //StartCoroutine(txt.Displayer("RubbishCollectedText"));
-                                //txt.DisplayManager();
-                            }
                             break;
 
                         case "CoinsAvailable":
                             coinsAvailable = eachStat.Value;
                             playerStats.playerInfo.PlayerCoins = coinsAvailable;
                             playerDataSaver.SetCoinsAvailable(coinsAvailable);
-                            foreach (var txt in FindObjectsOfType<InitializeText>())
-                            {
-                                //StartCoroutine(txt.Displayer("CoinsCollectedNumber"));
-                                //txt.DisplayManager();
-                            }
                             break;
 
                         default:

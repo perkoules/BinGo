@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(PlayerDataSaver))]
+[RequireComponent(typeof(PlayerDataSaver), typeof(Image))]
 public class InitializeImage : MonoBehaviour
 {
     public Container flagSelection, avatarSelection, levelBadgeSelection;
@@ -23,41 +23,48 @@ public class InitializeImage : MonoBehaviour
     private IEnumerator DisplayMyImage(string imageToSearch)
     {
         yield return new WaitForSeconds(0.5f);
-        switch (imageToSearch)
+        if (playerDataSaver.GetIsGuest() == 1)
         {
-            case "PlayerAvatar":
-                foreach (var img in avatarSelection.imageContainer)
-                {
-                    if (img.sprite.name == playerDataSaver.GetAvatar())
+            myImage.sprite = flagSelection.anonymous;
+        }
+        else
+        {
+            switch (imageToSearch)
+            {
+                case "PlayerAvatar":
+                    foreach (var img in avatarSelection.imageContainer)
                     {
-                        myImage.sprite = img.sprite;
+                        if (img.sprite.name == playerDataSaver.GetAvatar())
+                        {
+                            myImage.sprite = img.sprite;
+                        }
                     }
-                }
-                break;
+                    break;
 
-            case "Flag":
-                foreach (var img in flagSelection.imageContainer)
-                {
-                    if (img.sprite.name == playerDataSaver.GetCountry())
+                case "Flag":
+                    foreach (var img in flagSelection.imageContainer)
                     {
-                        myImage.sprite = img.sprite;
+                        if (img.sprite.name == playerDataSaver.GetCountry())
+                        {
+                            myImage.sprite = img.sprite;
+                        }
                     }
-                }
-                break;
+                    break;
 
-            case "Badge":
-                foreach (var img in levelBadgeSelection.imageContainer)
-                {
-                    string imgObj = img.name.Remove(0, 10);
-                    if (imgObj == playerDataSaver.GetProgressLevel().ToString())
+                case "Badge":
+                    foreach (var img in levelBadgeSelection.imageContainer)
                     {
-                        myImage.sprite = img.sprite;
+                        string imgObj = img.name.Remove(0, 10);
+                        if (imgObj == playerDataSaver.GetProgressLevel().ToString())
+                        {
+                            myImage.sprite = img.sprite;
+                        }
                     }
-                }
-                break;
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
+            }
         }
         StopCoroutine("DisplayMyImage");
     }

@@ -1,6 +1,8 @@
 ﻿using Mapbox.Geocoding;
 using Mapbox.Unity.Location;
 using Mapbox.Utils;
+using PlayFab;
+using PlayFab.ClientModels;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
@@ -10,17 +12,14 @@ using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
-    public AchievementsController achievementsController;
-    public BadgeController badgeController;
-    public DeviceLocationProvider locationProvider;
-    public FlagSelection flagSelection, avatarSelection;
-    public GetRubbishLocation rubLoc;
-    public List<Image> lvlBadgeDisplay;
+    //public AchievementsController achievementsController;
+    //public BadgeController badgeController;
+    //public FlagSelection flagSelection, avatarSelection;
 
+
+    public DeviceLocationProvider locationProvider;
+    public GetRubbishLocation rubLoc;
     public List<string> friendList, friendIdList;
-    public PlayfabManager playfabManager;
-    public TextMeshProUGUI teamnameDisplay;
-    public Button teamnameSetterButton;
     public PlayerInfo playerInfo;
 
     private void Start()
@@ -32,7 +31,7 @@ public class PlayerStats : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         GetLocationDataOfRubbish();
-        playfabManager.GetPlayerStats();
+        //playfabManager.GetPlayerStats();
     }
 
     public void GetLocationDataOfRubbish()
@@ -73,4 +72,6 @@ public class PlayerStats : MonoBehaviour
             playerInfo.RubbishCountry = myResult.features[c].text;
         }
     }
+
+
 }

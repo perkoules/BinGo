@@ -9,27 +9,33 @@ using UnityEngine.SceneManagement;
 
 public class RegisterManager : MonoBehaviour
 {
-    public PlayfabManager playfabManager;
     public TMP_Dropdown countryDropdown, avatarDropdown;
     public TMP_InputField usernameInputField, passwordInputField, repeatPasswordInputField, emailInputField;
     public Color32 colorDefault;
     public MessageController messageController;
     private PlayerDataSaver playerDataSaver;
-    private string userEmail = "";
-    private string userPassword = "";
+    private string email = "";
+    private string password = "";
     private string username = "";
     private string country = "Australia";
     private string avatar = "Avatar 1";
     private string teamname = "-";
     private string myID = "";
+    private int currentBuildLevel = -1;
 
-    private void Start()
+    private void Awake()
     {
+        currentBuildLevel = SceneManager.GetActiveScene().buildIndex;
         colorDefault = new Color32(90, 216, 98, 255);
         usernameInputField = usernameInputField.GetComponent<TMP_InputField>();
         passwordInputField = passwordInputField.GetComponent<TMP_InputField>();
         repeatPasswordInputField = repeatPasswordInputField.GetComponent<TMP_InputField>();
         emailInputField = emailInputField.GetComponent<TMP_InputField>();
+        playerDataSaver = GetComponent<PlayerDataSaver>();
+    }
+
+    private void Start()
+    {
         usernameInputField.onValueChanged.AddListener(CheckLength);
         passwordInputField.onValueChanged.AddListener(CheckLength);
         repeatPasswordInputField.onValueChanged.AddListener(CheckPasswordSimilarity);
@@ -67,32 +73,36 @@ public class RegisterManager : MonoBehaviour
 
     public void ClickToRegister()
     {
-        userEmail = usernameInputField.text;
-        userPassword = repeatPasswordInputField.text;
+        email = emailInputField.text;
+        password = repeatPasswordInputField.text;
         username = usernameInputField.text;
         PlayFabClientAPI.RegisterPlayFabUser(
             new RegisterPlayFabUserRequest
             {
-                Email = userEmail,
-                Password = userPassword,
+                Email = email,
+                Password = password,
                 Username = username
             },
             OnRegisterSuccess,
             error =>
             {
                 Debug.LogError(error.GenerateErrorReport());
-                if (SceneManager.GetActiveScene().buildIndex == 0)
+                if (currentBuildLevel == 0)
                 {
                     messageController.messages[2].SetActive(true);
-                    StartCoroutine(LoggingProcessFailed());
+                }
+                else
+                {
+                    messageController.messages[1].SetActive(true);
                 }
             });
     }
 
     private void OnRegisterSuccess(RegisterPlayFabUserResult result)
     {
-        playerDataSaver.SetEmail(userEmail);
-        playerDataSaver.SetPassword(userPassword);
+        playerDataSaver.SetUsername(username);
+        playerDataSaver.SetEmail(email);
+        playerDataSaver.SetPassword(password);
         PlayFabClientAPI.UpdateUserTitleDisplayName(
             new UpdateUserTitleDisplayNameRequest
             {
@@ -108,50 +118,64 @@ public class RegisterManager : MonoBehaviour
             error =>
             {
                 Debug.LogError(error.GenerateErrorReport());
-                if (SceneManager.GetActiveScene().buildIndex == 0)
+                if (currentBuildLevel == 0)
                 {
                     messageController.messages[2].SetActive(true);
-                    StartCoroutine(LoggingProcessFailed());
+                }
+                else
+                {
+                    messageController.messages[0].SetActive(true);
                 }
             });
 
         SetPlayerData();
         myID = result.PlayFabId;
-        if (SceneManager.GetActiveScene().buildIndex == 0)
+        if (currentBuildLevel == 0)
         {
             messageController.messages[0].SetActive(true);
             StartCoroutine(LoggingProcessSucceeded());
         }
     }
 
-    /*
     public void ClickToRegisterGuest()
     {
+        playerDataSaver.SetTeamname(teamname);
+        email = emailInputField.text;
+        password = repeatPasswordInputField.text;
+        username = usernameInputField.text;
         PlayFabClientAPI.AddUsernamePassword(
             new AddUsernamePasswordRequest
             {
-                Email = userEmail,
-                Password = userPassword,
+                Email = email,
+                Password = password,
                 Username = username
             },
             OnRegisterGuestSuccess,
-            OnRegisterGuestFailure);
+            error =>
+            {
+                messageController.messages[1].SetActive(true);
+                Debug.LogError(error.GenerateErrorReport());
+            });
     }
 
     private void OnRegisterGuestSuccess(AddUsernamePasswordResult result)
     {
-        playerDataSaver.SetEmail(userEmail);
-        playerDataSaver.SetPassword(userPassword);
+        playerDataSaver.SetUsername(username);
+        playerDataSaver.SetEmail(email);
+        playerDataSaver.SetPassword(password);
         PlayFabClientAPI.UpdateUserTitleDisplayName(
             new UpdateUserTitleDisplayNameRequest
             {
                 DisplayName = username
             },
-            OnDisplayName,
+            resultSuccess =>
+            {
+                Debug.Log(username + " is the Display Name");
+            },
             error =>
             {
                 Debug.LogError(error.GenerateErrorReport());
-                if (SceneManager.GetActiveScene().buildIndex == 0)
+                if (currentBuildLevel == 0)
                 {
                     messageController.messages[2].SetActive(true);
                     StartCoroutine(LoggingProcessSucceeded());
@@ -159,16 +183,10 @@ public class RegisterManager : MonoBehaviour
             });
         playerDataSaver.SetCountry(countryDropdown.captionText.text);
         playerDataSaver.SetAvatar(avatarDropdown.captionText.text);
-        PlayfabManager.Instance.SetPlayerData();
+        SetPlayerData();
         playerDataSaver.SetGuestPlayerRegistered("YES");
         messageController.messages[0].SetActive(true);
     }
-
-    private void OnRegisterGuestFailure(PlayFabError error)
-    {
-        messageController.messages[1].SetActive(true);
-    }
-    */
 
     public void SetPlayerData()
     {
@@ -195,21 +213,13 @@ public class RegisterManager : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
 
-        if (SceneManager.GetActiveScene().buildIndex == 0)
+        if (currentBuildLevel == 0)
         {
             if (messageController.messages[0].activeSelf)
             {
                 messageController.messages[0].SetActive(false);
                 SceneManager.LoadScene(1);
             }
-        }
-    }
-
-    private IEnumerator LoggingProcessFailed()
-    {
-        yield return new WaitForSeconds(3);
-        if (SceneManager.GetActiveScene().buildIndex == 0)
-        {
         }
     }
 }

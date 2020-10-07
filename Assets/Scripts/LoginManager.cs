@@ -1,6 +1,7 @@
 ﻿using PlayFab;
 using PlayFab.ClientModels;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,7 +10,7 @@ public class LoginManager : MonoBehaviour
     public MessageController messageController;
     private PlayerDataSaver playerDataSaver;
     private string myID = "";
-
+    public TMP_InputField email, password;
     private void Awake()
     {
         playerDataSaver = GetComponent<PlayerDataSaver>();
@@ -27,7 +28,7 @@ public class LoginManager : MonoBehaviour
     public void ClickToLogin()
     {
         PlayFabClientAPI.LoginWithEmailAddress(
-            new LoginWithEmailAddressRequest { Email = playerDataSaver.GetEmail(), Password = playerDataSaver.GetPassword() },
+            new LoginWithEmailAddressRequest { Email = email.text, Password = password.text },
             OnLoginSuccess,
             OnLoginFailure);
     }
@@ -42,6 +43,8 @@ public class LoginManager : MonoBehaviour
     {
         myID = result.PlayFabId;
         GetDisplayName(myID);
+        playerDataSaver.SetEmail(email.text);
+        playerDataSaver.SetPassword(password.text);
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
             messageController.messages[0].SetActive(true);

@@ -14,7 +14,7 @@ public class AddFriend : MonoBehaviour
     public GameObject objectToHide;
     private Button button;
     public FriendListController friendListController;
-
+    public GameObject userNotfound;
     private void OnEnable()
     {
         button = GetComponent<Button>();
@@ -27,20 +27,20 @@ public class AddFriend : MonoBehaviour
     private IEnumerator ShowFriends()
     {
         yield return new WaitForSeconds(1);
-        if (button.name.Contains("1"))
+        if (button.name.Contains("1") && friendListController.friendList.friend1 != "")
         {
             friendToFind.text = friendListController.friendList.friend1;
             button.interactable = false;
             SearchForFriend();
         }
-        else if (button.name.Contains("2"))
+        else if (button.name.Contains("2") && friendListController.friendList.friend2 != "")
         {
             yield return new WaitForSeconds(1);
             friendToFind.text = friendListController.friendList.friend2;
             button.interactable = false;
             SearchForFriend();
         }
-        else if (button.name.Contains("3"))
+        else if (button.name.Contains("3") && friendListController.friendList.friend3 != "")
         {
             yield return new WaitForSeconds(1);
             friendToFind.text = friendListController.friendList.friend3;
@@ -56,10 +56,27 @@ public class AddFriend : MonoBehaviour
              result =>
              {
                  Debug.Log(friendToFind.text + " added as a friend");
+                 StartCoroutine(GetFriendsID());
                  button.interactable = false;
              },
-             error => Debug.LogError(error.GenerateErrorReport()));
-        StartCoroutine(GetFriendsID());
+             error =>
+             {
+                 Debug.LogError(error.GenerateErrorReport());
+                 if (error.ErrorMessage == "These users are already friends.")
+                 {
+                     StartCoroutine(GetFriendsID());
+                 }
+                 else if (error.ErrorMessage == "User not found")
+                 {
+                     StartCoroutine(UserNotFound());
+                 }
+             });
+    }
+
+    private IEnumerator UserNotFound()
+    {
+        yield return new WaitForSeconds(2);
+        userNotfound.SetActive(true);
     }
 
     private IEnumerator GetFriendsID()

@@ -11915,6 +11915,7 @@ GameObject:
   - component: {fileID: 1774949267}
   - component: {fileID: 1774949266}
   - component: {fileID: 1774949268}
+  - component: {fileID: 1774949269}
   m_Layer: 5
   m_Name: RegisterWindow
   m_TagString: Untagged
@@ -11999,7 +12000,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d92380b5a1f561d468de5a247d98d354, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playfabManager: {fileID: 437228206}
   countryDropdown: {fileID: 1080567037}
   avatarDropdown: {fileID: 769617190}
   usernameInputField: {fileID: 1944080467}
@@ -12010,6 +12010,18 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 0
   messageController: {fileID: 1128793559}
+--- !u!114 &1774949269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774949264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba1204eb2f950114fb2b42a51d02db64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1779964657
 GameObject:
   m_ObjectHideFlags: 0
@@ -13849,6 +13861,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   messageController: {fileID: 1128793559}
+  email: {fileID: 1188659071}
+  password: {fileID: 1975289995}
 --- !u!114 &1967199787
 MonoBehaviour:
   m_ObjectHideFlags: 0

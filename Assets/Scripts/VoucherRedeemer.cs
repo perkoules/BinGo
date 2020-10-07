@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Text;
 using TMPro;
 using UnityEngine;
@@ -7,15 +6,18 @@ using UnityEngine.UI;
 
 public class VoucherRedeemer : MonoBehaviour
 {
-    //codeReaveal and voucherWorth names are swapped 
+    //codeReaveal and voucherWorth names are swapped
     public TextMeshProUGUI codeReveal;
+
     private Button voucher;
     public TextMeshProUGUI voucherWorth;
     private const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
     private void OnEnable()
     {
         voucher = GetComponent<Button>();
     }
+
     private void Start()
     {
         voucher.onClick.AddListener(GenerateCode);

@@ -38,7 +38,8 @@ public class LeaderboardWorldByPlayer : MonoBehaviour
             Destroy(child.gameObject);
         }
     }
-    IEnumerator GettingDataMessage()
+
+    private IEnumerator GettingDataMessage()
     {
         gettingDataMessage.SetActive(true);
         yield return new WaitForSeconds(3);

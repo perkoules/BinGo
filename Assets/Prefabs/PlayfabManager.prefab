@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5027281242236645539}
   - component: {fileID: 5027281242236645538}
-  - component: {fileID: 3767177388782560161}
+  - component: {fileID: 906942816}
   m_Layer: 0
   m_Name: PlayfabManager
   m_TagString: Untagged
@@ -45,19 +45,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStats: {fileID: 0}
-  countryDropdown: {fileID: 0}
-  avatarDropdown: {fileID: 0}
   emailInput: {fileID: 0}
   passwordInput: {fileID: 0}
   guest: {fileID: 0}
   progressLevel: 1
-  rubbishCollected: 0
+  wasteCollected: 0
+  recycleCollected: 0
   rubbishInPlace: 0
   rubbishInDistrict: 0
   rubbishInRegion: 0
   rubbishInCountry: 0
   coinsAvailable: 0
---- !u!114 &3767177388782560161
+--- !u!114 &906942816
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -66,61 +65,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 5027281242236645537}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a655410413cafb34d9603605343e1251, type: 3}
+  m_Script: {fileID: 11500000, guid: ba1204eb2f950114fb2b42a51d02db64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlockables:
-    unlockRubbish_1: 0
-    unlockRubbish_10: 0
-    unlockRubbish_50: 0
-    unlockRubbish_100: 0
-    unlockRubbish_500: 0
-    unlockRubbish_1000: 0
-    unlockRubbish_5000: 0
-    unlockRecycle_1: 0
-    unlockRecycle_10: 0
-    unlockRecycle_50: 0
-    unlockRecycle_100: 0
-    unlockRecycle_500: 0
-    unlockRecycle_1000: 0
-    unlockRecycle_5000: 0
-    unlockCity_1: 0
-    unlockCity_10: 0
-    unlockCity_50: 0
-    unlockCity_100: 0
-    unlockCity_500: 0
-    unlockCity_1000: 0
-    unlockCity_5000: 0
-    unlockCountry_1: 0
-    unlockCountry_5: 0
-    unlockCountry_10: 0
-    unlockCountry_50: 0
-    unlockCountry_100: 0
-    unlockMountain_1: 0
-    unlockMountain_5: 0
-    unlockMountain_10: 0
-    unlockMountain_50: 0
-    unlockMountain_100: 0
-    unlockMountain_500: 0
-    unlockSea_1: 0
-    unlockSea_5: 0
-    unlockSea_10: 0
-    unlockSea_50: 0
-    unlockSea_100: 0
-    unlockSea_500: 0
-    unlockContinents_africa: 0
-    unlockContinents_asia: 0
-    unlockContinents_australia: 0
-    unlockContinents_europe: 0
-    unlockContinents_northAmerica: 0
-    unlockContinents_southAmerica: 0
-    unlockStates_1: 0
-    unlockStates_5: 0
-    unlockStates_10: 0
-    unlockChampion_firstLocal: 0
-    unlockChampion_firstTeam: 0
-    unlockChampion_firstWorld: 0
-  rubbishToUnlockCounter: 0
-  recycleToUnlockCounter: 0
-  cityToUnlockCounter: 0
-  countryToUnlockCounter: 0

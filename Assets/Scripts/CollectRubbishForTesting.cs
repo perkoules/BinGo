@@ -33,7 +33,7 @@ public class CollectRubbishForTesting : MonoBehaviour
         achievementsController.rubbishToUnlockCounter = playfabManager.wasteCollected;
         achievementsController.recycleToUnlockCounter = playfabManager.recycleCollected;
         playfabManager.UpdatePlayerStats();
-        playfabManager.LevelBadgeDisplay();
+        //playfabManager.LevelBadgeDisplay();
         StartCoroutine(achievementsController.CheckAchievementUnlockability());
     }
 }

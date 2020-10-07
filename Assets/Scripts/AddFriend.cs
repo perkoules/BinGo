@@ -1,7 +1,6 @@
 ﻿using PlayFab;
 using PlayFab.ClientModels;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,9 +24,8 @@ public class AddFriend : MonoBehaviour
         }
     }
 
-    IEnumerator ShowFriends()
+    private IEnumerator ShowFriends()
     {
-        
         yield return new WaitForSeconds(1);
         if (button.name.Contains("1"))
         {
@@ -61,7 +59,7 @@ public class AddFriend : MonoBehaviour
                  button.interactable = false;
              },
              error => Debug.LogError(error.GenerateErrorReport()));
-        StartCoroutine(GetFriendsID());        
+        StartCoroutine(GetFriendsID());
     }
 
     private IEnumerator GetFriendsID()

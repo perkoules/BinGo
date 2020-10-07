@@ -15,14 +15,11 @@ public class PlayerStats : MonoBehaviour
     public DeviceLocationProvider locationProvider;
     public FlagSelection flagSelection, avatarSelection;
     public GetRubbishLocation rubLoc;
-    public List<Image> avatarImageDisplay;
-    public List<Image> flagImageDisplay;
     public List<Image> lvlBadgeDisplay;
-    public List<TextMeshProUGUI> coinsTextDisplay;
-    public List<TextMeshProUGUI> levelTextDisplay;
-    public List<TextMeshProUGUI> rubbishTextDisplay;
-    public List<TextMeshProUGUI> usernameTextDisplay;
-    public List<TextMeshProUGUI> voucherTextDisplay;
+
+    
+
+
     public List<string> friendList, friendIdList;
     public PlayfabManager playfabManager;
     public TextMeshProUGUI teamnameDisplay;

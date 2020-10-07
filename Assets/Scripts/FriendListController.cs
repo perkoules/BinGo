@@ -1,6 +1,5 @@
 ﻿using PlayFab;
 using PlayFab.ClientModels;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +8,7 @@ public class FriendListController : MonoBehaviour
 {
     public List<Button> buttons;
     public FriendList friendList;
+
     public void OnEnable()
     {
         if (buttons[0].interactable || buttons[1].interactable || buttons[2].interactable)
@@ -26,7 +26,7 @@ public class FriendListController : MonoBehaviour
                 },
                 error => Debug.LogError(error.GenerateErrorReport()));
         }
-    }    
+    }
 }
 
 [System.Serializable]

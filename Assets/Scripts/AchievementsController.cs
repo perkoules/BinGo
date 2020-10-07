@@ -25,7 +25,7 @@ public class AchievementsController : MonoBehaviour
         bc = this;
         rubbishToUnlockCounter = pfm.wasteCollected;
         recycleToUnlockCounter = pfm.recycleCollected;
-        tasks = pfm.GetTasks();
+        //tasks = pfm.GetTasks();
         CheckForLocations();
         GetAchievementsFromData();
     }

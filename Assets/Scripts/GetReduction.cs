@@ -42,6 +42,7 @@ public class GetReduction : MonoBehaviour
         }
         ReductionUsed(sliderController.coinsUsed);
     }
+
     public void CopyText(TextMeshProUGUI textToCopy)
     {
         TextEditor editor = new TextEditor
@@ -66,6 +67,6 @@ public class GetReduction : MonoBehaviour
         },
         result => Debug.Log("Sent " + playfabManager.coinsAvailable + " coins to cloudscript"),
         error => Debug.Log(error.GenerateErrorReport()));
-        playfabManager.CoinsDisplay();
+        //playfabManager.CoinsDisplay();
     }
 }

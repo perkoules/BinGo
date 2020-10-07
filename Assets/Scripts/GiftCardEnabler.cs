@@ -50,6 +50,6 @@ public class GiftCardEnabler : MonoBehaviour
         },
         result => Debug.Log("Sent " + playfabManager.coinsAvailable + " coins to cloudscript"),
         error => Debug.Log(error.GenerateErrorReport()));
-        playfabManager.CoinsDisplay();
+        //playfabManager.CoinsDisplay();
     }
 }

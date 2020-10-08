@@ -44,18 +44,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b21c30a76956cfa4c897bd464a637662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStats: {fileID: 0}
+  playerInfo:
+    playerUsername: 
+    playerId: 
+    playerEmail: 
+    playerPassword: 
+    playerTeamName: 
+    playerTasks: 
+    playerCurrentBadge: {fileID: 0}
+    playerAvatar: {fileID: 0}
+    playerCountry: {fileID: 0}
+    playerCurrentLevel: 0
+    playerCoins: 0
+    playerRubbish: 0
+    playerRecycle: 0
+    rubbishPlace: 
+    rubbishInPlace: 0
+    rubbishDistrict: 
+    rubbishInDistrict: 0
+    rubbishRegion: 
+    rubbishInRegion: 0
+    rubbishCountry: 
+    rubbishInCountry: 0
+  locationProvider: {fileID: 0}
   emailInput: {fileID: 0}
   passwordInput: {fileID: 0}
-  guest: {fileID: 0}
-  progressLevel: 1
-  wasteCollected: 0
-  recycleCollected: 0
-  rubbishInPlace: 0
-  rubbishInDistrict: 0
-  rubbishInRegion: 0
-  rubbishInCountry: 0
-  coinsAvailable: 0
 --- !u!114 &906942816
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -30,7 +30,7 @@ public class LoginManager : MonoBehaviour
     }
 
     private void Awake()
-    {        
+    {
         playerDataSaver = GetComponent<PlayerDataSaver>();
     }
 

@@ -4596,6 +4596,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 189188629}
   m_CullTransparentMesh: 0
+--- !u!1 &205680896 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8236713836078068820, guid: 4927bc54ace5d0f48a49560c047ccc08,
+    type: 3}
+  m_PrefabInstance: {fileID: 8236352219644363552}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &205680899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 205680896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46e65f368b858bd448876175bc586d0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locationProvider: {fileID: 1705373964}
+  spawnBins: {fileID: 1090059364}
+  binToLookFor: 0
+  distance: 0
 --- !u!1 &206036111
 GameObject:
   m_ObjectHideFlags: 0
@@ -6804,6 +6826,9 @@ MonoBehaviour:
     rubbishInRegion: 0
     rubbishCountry: 
     rubbishInCountry: 0
+    playerLocation:
+      x: 0
+      y: 0
   locationProvider: {fileID: 0}
 --- !u!1 &293383980
 GameObject:
@@ -10981,6 +11006,9 @@ MonoBehaviour:
     rubbishInRegion: 0
     rubbishCountry: 
     rubbishInCountry: 0
+    playerLocation:
+      x: 0
+      y: 0
   locationProvider: {fileID: 0}
 --- !u!1 &465628716
 GameObject:
@@ -26327,7 +26355,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1090059363}
-  - component: {fileID: 1090059362}
   - component: {fileID: 1090059364}
   m_Layer: 0
   m_Name: MapSpawning
@@ -26336,25 +26363,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1090059362
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1090059361}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dcf32ea2cc0514b569329f6b6b68f9b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _map: {fileID: 670377590}
-  _locationStrings:
-  - 
-  _locations: []
-  _spawnScale: 1
-  _markerPrefab: {fileID: 4025360933818874039, guid: fd07b50082688474cb3622f9c47c4eef,
-    type: 3}
 --- !u!4 &1090059363
 Transform:
   m_ObjectHideFlags: 0
@@ -26381,10 +26389,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caa761f5084608f45b87a49f01c1483e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _map: {fileID: 670377590}
+  _locationStrings: []
+  _locations: []
+  _spawnScale: 1
   wasteBinPrefab: {fileID: 4025360933818874039, guid: fd07b50082688474cb3622f9c47c4eef,
     type: 3}
   recycleBinPrefab: {fileID: 8675164268233877346, guid: 636841b0846fa1b46aba038d39330fe0,
     type: 3}
+  binNames: []
 --- !u!1 &1091454222
 GameObject:
   m_ObjectHideFlags: 0
@@ -37986,7 +37999,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 400, y: -224.99979}
+  m_AnchoredPosition: {x: 400, y: -225}
   m_SizeDelta: {x: 400, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1542675357
@@ -50751,7 +50764,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 820, y: -224.99979}
+  m_AnchoredPosition: {x: 820, y: -225}
   m_SizeDelta: {x: 400, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1979084172

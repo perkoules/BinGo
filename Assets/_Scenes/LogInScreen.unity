@@ -5211,7 +5211,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1967199786}
+      - m_Target: {fileID: 861654023}
         m_MethodName: ClickToLogin
         m_Mode: 1
         m_Arguments:
@@ -6330,6 +6330,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 843050712}
   m_CullTransparentMesh: 0
+--- !u!114 &861654023 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7058510111322272103, guid: 8accfbabb07fab04b9f0973b436cff98,
+    type: 3}
+  m_PrefabInstance: {fileID: 7058510110561549664}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5952e62a8d06a2447998ca3d23abdccb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &864977845
 GameObject:
   m_ObjectHideFlags: 0
@@ -6882,7 +6894,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1967199786}
+      - m_Target: {fileID: 0}
         m_MethodName: GuestMode
         m_Mode: 1
         m_Arguments:
@@ -14279,8 +14291,6 @@ GameObject:
   - component: {fileID: 1967199783}
   - component: {fileID: 1967199785}
   - component: {fileID: 1967199784}
-  - component: {fileID: 1967199786}
-  - component: {fileID: 1967199787}
   m_Layer: 5
   m_Name: LogInWindow
   m_TagString: Untagged
@@ -14353,33 +14363,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1967199782}
   m_CullTransparentMesh: 0
---- !u!114 &1967199786
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1967199782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5952e62a8d06a2447998ca3d23abdccb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  messageController: {fileID: 1128793559}
-  email: {fileID: 1188659071}
-  password: {fileID: 1975289995}
---- !u!114 &1967199787
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1967199782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba1204eb2f950114fb2b42a51d02db64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1970754977
 GameObject:
   m_ObjectHideFlags: 0
@@ -15777,3 +15760,87 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61731be0163f3c64fb505596a111941e, type: 3}
+--- !u!1001 &7058510110561549664
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7058510111322272102, guid: 8accfbabb07fab04b9f0973b436cff98,
+        type: 3}
+      propertyPath: m_Name
+      value: LoginManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7058510111322272103, guid: 8accfbabb07fab04b9f0973b436cff98,
+        type: 3}
+      propertyPath: messageController
+      value: 
+      objectReference: {fileID: 1128793559}
+    - target: {fileID: 7058510111322272103, guid: 8accfbabb07fab04b9f0973b436cff98,
+        type: 3}
+      propertyPath: email
+      value: 
+      objectReference: {fileID: 1188659071}
+    - target: {fileID: 7058510111322272103, guid: 8accfbabb07fab04b9f0973b436cff98,
+        type: 3}
+      propertyPath: password
+      value: 
+      objectReference: {fileID: 1975289995}
+    - target: {fileID: 7058510111322272105, guid: 8accfbabb07fab04b9f0973b436cff98,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7058510111322272105, guid: 8accfbabb07fab04b9f0973b436cff98,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7058510111322272105, guid: 8accfbabb07fab04b9f0973b436cff98,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7058510111322272105, guid: 8accfbabb07fab04b9f0973b436cff98,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7058510111322272105, guid: 8accfbabb07fab04b9f0973b436cff98,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7058510111322272105, guid: 8accfbabb07fab04b9f0973b436cff98,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7058510111322272105, guid: 8accfbabb07fab04b9f0973b436cff98,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7058510111322272105, guid: 8accfbabb07fab04b9f0973b436cff98,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7058510111322272105, guid: 8accfbabb07fab04b9f0973b436cff98,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7058510111322272105, guid: 8accfbabb07fab04b9f0973b436cff98,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7058510111322272105, guid: 8accfbabb07fab04b9f0973b436cff98,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8accfbabb07fab04b9f0973b436cff98, type: 3}

@@ -5,15 +5,32 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(PlayerDataSaver))]
 public class LoginManager : MonoBehaviour
 {
     public MessageController messageController;
-    private PlayerDataSaver playerDataSaver;
-    private string myID = "";
     public TMP_InputField email, password;
 
-    private void Awake()
+    private PlayerDataSaver playerDataSaver;
+    private string myID = "";
+
+    public static LoginManager LM;
+
+    private void OnEnable()
     {
+        if (LM == null)
+        {
+            LM = this;
+        }
+        else
+        {
+            Destroy(LM);
+        }
+        DontDestroyOnLoad(this.gameObject);
+    }
+
+    private void Awake()
+    {        
         playerDataSaver = GetComponent<PlayerDataSaver>();
     }
 

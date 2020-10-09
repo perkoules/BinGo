@@ -19,12 +19,12 @@ public class SpawnBinsOnMap : MonoBehaviour
     [SerializeField]
     private float _spawnScale = 100f;
 
-    private List<GameObject> _spawnedObjects;
+    public List<GameObject> _spawnedObjects;
 
     public GameObject wasteBinPrefab, recycleBinPrefab;
     private GameObject _markerPrefab;
     public Dictionary<string, string> binLocations;
-    public string[] binNames;
+    private string[] binNames;
     private const string recycle = "recycle";
     private const string waste = "waste";
 
@@ -59,18 +59,6 @@ public class SpawnBinsOnMap : MonoBehaviour
             "Athena Building - General Waste"
         };
         _locationStrings = new string[binLocations.Count];
-        for (int i = 0; i < binLocations.Count; i++)
-        {
-            if (binLocations.ElementAt(i).Value == waste)
-            {
-                _markerPrefab = wasteBinPrefab;
-            }
-            else
-            {
-                _markerPrefab = recycleBinPrefab;
-            }
-            _locationStrings[i] = binLocations.ElementAt(i).Key;
-        }
     }
 
     private void Start()
@@ -79,8 +67,17 @@ public class SpawnBinsOnMap : MonoBehaviour
         _spawnedObjects = new List<GameObject>();
         for (int i = 0; i < _locationStrings.Length; i++)
         {
+            _locationStrings[i] = binLocations.ElementAt(i).Key;
             var locationString = _locationStrings[i];
             _locations[i] = Conversions.StringToLatLon(locationString);
+            if (binLocations.ElementAt(i).Value == waste)
+            {
+                _markerPrefab = wasteBinPrefab;
+            }
+            else
+            {
+                _markerPrefab = recycleBinPrefab;
+            }
             var instance = Instantiate(_markerPrefab);
             instance.transform.localPosition = _map.GeoToWorldPosition(_locations[i], true);
             instance.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);

@@ -1,6 +1,9 @@
-﻿using Mapbox.CheapRulerCs;
+﻿using Boo.Lang;
+using Mapbox.CheapRulerCs;
 using Mapbox.Unity.Location;
 using Mapbox.Utils;
+using System;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 
@@ -10,6 +13,7 @@ public class MeasureDistance : MonoBehaviour
     public SpawnBinsOnMap spawnBins;
     private double[] from, to;
     public double[] distances;
+    public int minIndex = -1;
     private Vector2d playerCurrentLocation, toBinLocation;
 
     private void Start()
@@ -17,6 +21,7 @@ public class MeasureDistance : MonoBehaviour
         distances = new double[11];
         InvokeRepeating("GetDistanceToBin", 4.0f, 3.0f);
     }
+
     private void GetDistanceToBin()
     {
         playerCurrentLocation = locationProvider.CurrentLocation.LatitudeLongitude;
@@ -24,9 +29,32 @@ public class MeasureDistance : MonoBehaviour
         CheapRuler cr = new CheapRuler(from[0], CheapRulerUnits.Meters);
         for (int i = 0; i < spawnBins._locations.Length; i++)
         {
+            spawnBins._spawnedObjects[i].GetComponentInChildren<MeshRenderer>().material.color = Color.black;
             toBinLocation = spawnBins._locations[i];
             to = toBinLocation.ToArray();
             distances[i] = cr.Distance(from, to);
         }
+        minIndex = Array.IndexOf(distances, distances.Min());
+        
+                spawnBins._spawnedObjects[minIndex].GetComponentInChildren<MeshRenderer>().material.color = Color.green;
+        
+        //minIndex = GetIndexOfArray(distances, distances.Min());
+    }
+
+    public int GetIndexOfArray(double[] distArray, double whatToSearch)
+    {
+        if (distArray == null)
+        {
+            throw new ArgumentNullException("Cannot be null");
+        }
+
+        for (int i = 0; i < distArray.Length; i++)
+        {
+            if (whatToSearch == distArray[i])
+            {
+                return i;
+            }
+        }
+        return -1;
     }
 }

@@ -36,14 +36,6 @@ public class PlayerInfo
     [SerializeField] private string rubbishCountry;
     [SerializeField] private int rubbishInCountry;
 
-    [SerializeField] private Vector2d playerLocation;
-
-    public Vector2d PlayerLocation
-    {
-        get { return playerLocation; }
-        set { playerLocation = value; }
-    }
-
     public string PlayerId
     {
         get { return playerId; }

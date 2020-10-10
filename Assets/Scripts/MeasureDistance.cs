@@ -27,16 +27,16 @@ public class MeasureDistance : MonoBehaviour
         playerCurrentLocation = locationProvider.CurrentLocation.LatitudeLongitude;
         from = playerCurrentLocation.ToArray();
         CheapRuler cr = new CheapRuler(from[0], CheapRulerUnits.Meters);
-        for (int i = 0; i < spawnBins._locations.Length; i++)
+        for (int i = 0; i < spawnBins.locations.Length; i++)
         {
-            spawnBins._spawnedObjects[i].GetComponentInChildren<MeshRenderer>().material.color = Color.black;
-            toBinLocation = spawnBins._locations[i];
+            spawnBins.spawnedObjects[i].GetComponentInChildren<MeshRenderer>().material.color = Color.black;
+            toBinLocation = spawnBins.locations[i];
             to = toBinLocation.ToArray();
             distances[i] = cr.Distance(from, to);
         }
         minIndex = Array.IndexOf(distances, distances.Min());
         
-                spawnBins._spawnedObjects[minIndex].GetComponentInChildren<MeshRenderer>().material.color = Color.green;
+                spawnBins.spawnedObjects[minIndex].GetComponentInChildren<MeshRenderer>().material.color = Color.green;
         
         //minIndex = GetIndexOfArray(distances, distances.Min());
     }

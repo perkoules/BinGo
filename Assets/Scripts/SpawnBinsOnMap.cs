@@ -8,21 +8,21 @@ using UnityEngine;
 public class SpawnBinsOnMap : MonoBehaviour
 {
     [SerializeField]
-    private AbstractMap _map;
+    private AbstractMap map;
 
     [SerializeField]
     [Geocode]
-    private string[] _locationStrings;
+    private string[] locationStrings;
 
-    public Vector2d[] _locations;
+    public Vector2d[] locations;
 
     [SerializeField]
-    private float _spawnScale = 100f;
+    private float spawnScale = 100f;
 
-    public List<GameObject> _spawnedObjects;
+    public List<GameObject> spawnedObjects;
 
     public GameObject wasteBinPrefab, recycleBinPrefab;
-    private GameObject _markerPrefab;
+    private GameObject markerPrefab;
     public Dictionary<string, string> binLocations;
     private string[] binNames;
     private const string recycle = "recycle";
@@ -58,43 +58,47 @@ public class SpawnBinsOnMap : MonoBehaviour
             "Printworks Corner - General Waste",
             "Athena Building - General Waste"
         };
-        _locationStrings = new string[binLocations.Count];
+        locationStrings = new string[binLocations.Count];
     }
 
     private void Start()
     {
-        _locations = new Vector2d[_locationStrings.Length];
-        _spawnedObjects = new List<GameObject>();
-        for (int i = 0; i < _locationStrings.Length; i++)
+        locations = new Vector2d[locationStrings.Length];
+        spawnedObjects = new List<GameObject>();
+        for (int i = 0; i < locationStrings.Length; i++)
         {
-            _locationStrings[i] = binLocations.ElementAt(i).Key;
-            var locationString = _locationStrings[i];
-            _locations[i] = Conversions.StringToLatLon(locationString);
+            locationStrings[i] = binLocations.ElementAt(i).Key;
+            var locationString = locationStrings[i];
+            locations[i] = Conversions.StringToLatLon(locationString);
             if (binLocations.ElementAt(i).Value == waste)
             {
-                _markerPrefab = wasteBinPrefab;
+                markerPrefab = wasteBinPrefab;
             }
             else
             {
-                _markerPrefab = recycleBinPrefab;
+                markerPrefab = recycleBinPrefab;
             }
-            var instance = Instantiate(_markerPrefab);
-            instance.transform.localPosition = _map.GeoToWorldPosition(_locations[i], true);
-            instance.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
+            var instance = Instantiate(markerPrefab);
+            instance.transform.localPosition = map.GeoToWorldPosition(locations[i], true);
+            instance.transform.localScale = new Vector3(spawnScale, spawnScale, spawnScale);
             instance.gameObject.name = i + " : " + binNames[i];
-            _spawnedObjects.Add(instance);
+            spawnedObjects.Add(instance);
         }
     }
 
     private void Update()
     {
-        int count = _spawnedObjects.Count;
+        if (map == null)
+        {
+            map = FindObjectOfType<AbstractMap>();
+        }
+        int count = spawnedObjects.Count;
         for (int i = 0; i < count; i++)
         {
-            var spawnedObject = _spawnedObjects[i];
-            var location = _locations[i];
-            spawnedObject.transform.localPosition = _map.GeoToWorldPosition(location, true);
-            spawnedObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
+            var spawnedObject = spawnedObjects[i];
+            var location = locations[i];
+            spawnedObject.transform.localPosition = map.GeoToWorldPosition(location, true);
+            spawnedObject.transform.localScale = new Vector3(spawnScale, spawnScale, spawnScale);
         }
     }
 }

@@ -26383,11 +26383,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caa761f5084608f45b87a49f01c1483e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _map: {fileID: 670377590}
-  _locationStrings: []
-  _locations: []
-  _spawnScale: 1
-  _spawnedObjects: []
+  map: {fileID: 670377590}
+  locationStrings: []
+  locations: []
+  spawnScale: 1
+  spawnedObjects: []
   wasteBinPrefab: {fileID: 4025360933818874039, guid: fd07b50082688474cb3622f9c47c4eef,
     type: 3}
   recycleBinPrefab: {fileID: 8675164268233877346, guid: 636841b0846fa1b46aba038d39330fe0,
@@ -62299,8 +62299,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8347427328580666710, guid: 4927bc54ace5d0f48a49560c047ccc08,
+        type: 3}
+      propertyPath: _previewOptions.isPreviewEnabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8347427328580666710, guid: 4927bc54ace5d0f48a49560c047ccc08,
+        type: 3}
+      propertyPath: _tileProvider
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8347427328580666710, guid: 4927bc54ace5d0f48a49560c047ccc08,
+        type: 3}
+      propertyPath: _options.extentOptions.defaultExtents.cameraBoundsOptions.camera
+      value: 
+      objectReference: {fileID: 8236352219644363553}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4927bc54ace5d0f48a49560c047ccc08, type: 3}
+--- !u!20 &8236352219644363553 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 8236352220211372761, guid: 4927bc54ace5d0f48a49560c047ccc08,
+    type: 3}
+  m_PrefabInstance: {fileID: 8236352219644363552}
+  m_PrefabAsset: {fileID: 0}
 --- !u!222 &8239058821525114010
 CanvasRenderer:
   m_ObjectHideFlags: 0

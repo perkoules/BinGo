@@ -1,24 +1,27 @@
-﻿using System.Runtime.InteropServices;
-using System;
+﻿using System;
+using System.Runtime.InteropServices;
+using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace UnityEngine.XR.iOS
 {
-    public class UnityRemoteVideo : MonoBehaviour
-    {
-        public ConnectToEditor connectToEditor;
 
-        private UnityARSessionNativeInterface m_Session;
-        private bool bTexturesInitialized;
+	public class UnityRemoteVideo : MonoBehaviour
+	{
+		public ConnectToEditor connectToEditor;
 
-        private int currentFrameIndex;
-        private byte[] m_textureYBytes;
-        private byte[] m_textureUVBytes;
-        private byte[] m_textureYBytes2;
-        private byte[] m_textureUVBytes2;
-        private GCHandle m_pinnedYArray;
-        private GCHandle m_pinnedUVArray;
+		private UnityARSessionNativeInterface m_Session;
+		private bool bTexturesInitialized;
 
-#if !UNITY_EDITOR
+		private int currentFrameIndex;
+		private byte[] m_textureYBytes;
+		private byte[] m_textureUVBytes;
+		private byte[] m_textureYBytes2;
+		private byte[] m_textureUVBytes2;
+		private GCHandle m_pinnedYArray;
+		private GCHandle m_pinnedUVArray;
+
+		#if !UNITY_EDITOR
 
 		public void Start()
 		{
@@ -34,13 +37,14 @@ namespace UnityEngine.XR.iOS
 				InitializeTextures (camera);
 			}
 			UnityARSessionNativeInterface.ARFrameUpdatedEvent -= UpdateCamera;
+
 		}
 
 		void InitializeTextures(UnityARCamera camera)
 		{
 			int numYBytes = camera.videoParams.yWidth * camera.videoParams.yHeight;
 			int numUVBytes = camera.videoParams.yWidth * camera.videoParams.yHeight / 2; //quarter resolution, but two bytes per pixel
-
+			
 			m_textureYBytes = new byte[numYBytes];
 			m_textureUVBytes = new byte[numUVBytes];
 			m_textureYBytes2 = new byte[numYBytes];
@@ -78,6 +82,7 @@ namespace UnityEngine.XR.iOS
 
 			m_pinnedYArray.Free ();
 			m_pinnedUVArray.Free ();
+
 		}
 
 		public void OnPreRender()
@@ -90,16 +95,18 @@ namespace UnityEngine.XR.iOS
 
 			if (!bTexturesInitialized)
 				return;
-
+			
 			currentFrameIndex = (currentFrameIndex + 1) % 2;
 
 			Resolution currentResolution = Screen.currentResolution;
+
 
 			m_Session.SetCapturePixelData (true, PinByteArray(ref m_pinnedYArray,YByteArrayForFrame(currentFrameIndex)), PinByteArray(ref m_pinnedUVArray,UVByteArrayForFrame(currentFrameIndex)));
 
 			connectToEditor.SendToEditor (ConnectionMessageIds.screenCaptureYMsgId, YByteArrayForFrame(1-currentFrameIndex));
 			connectToEditor.SendToEditor (ConnectionMessageIds.screenCaptureUVMsgId, UVByteArrayForFrame(1-currentFrameIndex));
+			
 		}
-#endif
-    }
+		#endif
+	}
 }

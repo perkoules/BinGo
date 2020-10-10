@@ -1,15 +1,16 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class DontDestroyOnLoad : MonoBehaviour
-{
-    // Use this for initialization
-    private void Start()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
+public class DontDestroyOnLoad : MonoBehaviour {
 
-    // Update is called once per frame
-    private void Update()
-    {
-    }
+	// Use this for initialization
+	void Start () {
+        DontDestroyOnLoad (gameObject);
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
 }

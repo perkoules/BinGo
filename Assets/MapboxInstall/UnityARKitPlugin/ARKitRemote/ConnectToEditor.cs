@@ -1,48 +1,50 @@
-﻿using UnityEngine.Networking.PlayerConnection;
+﻿using UnityEngine;
+using UnityEngine.Networking.PlayerConnection;
+using System.Text;
 using Utils;
 
 namespace UnityEngine.XR.iOS
 {
-    public class ConnectToEditor : MonoBehaviour
-    {
-        private PlayerConnection playerConnection;
-        private UnityARSessionNativeInterface m_session;
-        private int editorID;
+	
+	public class ConnectToEditor : MonoBehaviour
+	{
+		PlayerConnection playerConnection;
+		UnityARSessionNativeInterface m_session;
+		int editorID;
 
-        private Texture2D frameBufferTex;
+		Texture2D frameBufferTex;
 
-        // Use this for initialization
-        private void Start()
-        {
-            Debug.Log("STARTING ConnectToEditor");
-            editorID = -1;
-            playerConnection = PlayerConnection.instance;
-            playerConnection.RegisterConnection(EditorConnected);
-            playerConnection.RegisterDisconnection(EditorDisconnected);
-            playerConnection.Register(ConnectionMessageIds.fromEditorARKitSessionMsgId, HandleEditorMessage);
-            m_session = null;
-        }
+		// Use this for initialization
+		void Start()
+		{
+			Debug.Log("STARTING ConnectToEditor");
+			editorID = -1;
+			playerConnection = PlayerConnection.instance;
+			playerConnection.RegisterConnection(EditorConnected);
+			playerConnection.RegisterDisconnection(EditorDisconnected);
+			playerConnection.Register(ConnectionMessageIds.fromEditorARKitSessionMsgId, HandleEditorMessage);
+			m_session = null;
 
-        private void OnGUI()
-        {
-            if (m_session == null)
-            {
-                GUI.Box(new Rect((Screen.width / 2) - 200, (Screen.height / 2), 400, 50), "Waiting for editor connection...");
-            }
-        }
+		}
 
-        private void HandleEditorMessage(MessageEventArgs mea)
-        {
-            serializableFromEditorMessage sfem = mea.data.Deserialize<serializableFromEditorMessage>();
-            if (sfem != null && sfem.subMessageId == SubMessageIds.editorInitARKit)
-            {
-                InitializeARKit(sfem.arkitConfigMsg);
-            }
-        }
+		void OnGUI()
+		{
+			if (m_session == null) {	
+				GUI.Box (new Rect ((Screen.width / 2) - 200, (Screen.height / 2), 400, 50), "Waiting for editor connection...");
+			}
+		}
 
-        private void InitializeARKit(serializableARKitInit sai)
-        {
-#if !UNITY_EDITOR
+		void HandleEditorMessage(MessageEventArgs mea)
+		{
+			serializableFromEditorMessage sfem = mea.data.Deserialize<serializableFromEditorMessage>();
+			if (sfem != null && sfem.subMessageId == SubMessageIds.editorInitARKit) {
+				InitializeARKit ( sfem.arkitConfigMsg );
+			}
+		}
+
+		void InitializeARKit(serializableARKitInit sai)
+		{
+			#if !UNITY_EDITOR
 
 			//get the config and runoption from editor and use them to initialize arkit on device
 			Application.targetFrameRate = 60;
@@ -56,76 +58,84 @@ namespace UnityEngine.XR.iOS
 			UnityARSessionNativeInterface.ARAnchorUpdatedEvent += ARAnchorUpdated;
 			UnityARSessionNativeInterface.ARAnchorRemovedEvent += ARAnchorRemoved;
 
-#endif
-        }
+			#endif
+		}
 
-        public void ARFrameUpdated(UnityARCamera camera)
-        {
-            serializableUnityARCamera serARCamera = camera;
-            SendToEditor(ConnectionMessageIds.updateCameraFrameMsgId, serARCamera);
-        }
+		public void ARFrameUpdated(UnityARCamera camera)
+		{
+			serializableUnityARCamera serARCamera = camera;
+			SendToEditor(ConnectionMessageIds.updateCameraFrameMsgId, serARCamera);
 
-        public void ARAnchorAdded(ARPlaneAnchor planeAnchor)
-        {
-            serializableUnityARPlaneAnchor serPlaneAnchor = planeAnchor;
-            SendToEditor(ConnectionMessageIds.addPlaneAnchorMsgeId, serPlaneAnchor);
-        }
+		}
 
-        public void ARAnchorUpdated(ARPlaneAnchor planeAnchor)
-        {
-            serializableUnityARPlaneAnchor serPlaneAnchor = planeAnchor;
-            SendToEditor(ConnectionMessageIds.updatePlaneAnchorMsgeId, serPlaneAnchor);
-        }
+		public void ARAnchorAdded(ARPlaneAnchor planeAnchor)
+		{
+			serializableUnityARPlaneAnchor serPlaneAnchor = planeAnchor;
+			SendToEditor (ConnectionMessageIds.addPlaneAnchorMsgeId, serPlaneAnchor);
+		}
 
-        public void ARAnchorRemoved(ARPlaneAnchor planeAnchor)
-        {
-            serializableUnityARPlaneAnchor serPlaneAnchor = planeAnchor;
-            SendToEditor(ConnectionMessageIds.removePlaneAnchorMsgeId, serPlaneAnchor);
-        }
+		public void ARAnchorUpdated(ARPlaneAnchor planeAnchor)
+		{
+			serializableUnityARPlaneAnchor serPlaneAnchor = planeAnchor;
+			SendToEditor (ConnectionMessageIds.updatePlaneAnchorMsgeId, serPlaneAnchor);
+		}
 
-        private void EditorConnected(int playerID)
-        {
-            Debug.Log("connected");
+		public void ARAnchorRemoved(ARPlaneAnchor planeAnchor)
+		{
+			serializableUnityARPlaneAnchor serPlaneAnchor = planeAnchor;
+			SendToEditor (ConnectionMessageIds.removePlaneAnchorMsgeId, serPlaneAnchor);
+		}
 
-            editorID = playerID;
-        }
+		void EditorConnected(int playerID)
+		{
+			Debug.Log("connected");
 
-        private void EditorDisconnected(int playerID)
-        {
-            if (editorID == playerID)
-            {
-                editorID = -1;
-            }
+			editorID = playerID;
 
-            DisconnectFromEditor();
-#if !UNITY_EDITOR
+		}
+
+		void EditorDisconnected(int playerID)
+		{
+			if (editorID == playerID)
+			{
+				editorID = -1;
+			}
+
+			DisconnectFromEditor ();
+			#if !UNITY_EDITOR
 			if (m_session != null)
 			{
 				m_session.Pause();
 				m_session = null;
 			}
-#endif
-        }
+			#endif
+		}
 
-        public void SendToEditor(System.Guid msgId, object serializableObject)
-        {
-            byte[] arrayToSend = serializableObject.SerializeToByteArray();
-            SendToEditor(msgId, arrayToSend);
-        }
 
-        public void SendToEditor(System.Guid msgId, byte[] data)
-        {
-            if (playerConnection.isConnected)
-            {
-                playerConnection.Send(msgId, data);
-            }
-        }
+		public void SendToEditor(System.Guid msgId, object serializableObject)
+		{
+			byte[] arrayToSend = serializableObject.SerializeToByteArray ();
+			SendToEditor (msgId, arrayToSend);
+		}
 
-        public void DisconnectFromEditor()
-        {
-#if UNITY_2017_1_OR_NEWER
-            playerConnection.DisconnectAll();
-#endif
-        }
-    }
+		public void SendToEditor(System.Guid msgId, byte[] data)
+		{
+			if (playerConnection.isConnected)
+			{
+				playerConnection.Send(msgId, data);
+			}
+
+
+		}
+
+		public void DisconnectFromEditor()
+		{
+			#if UNITY_2017_1_OR_NEWER		
+			playerConnection.DisconnectAll();
+			#endif
+		}
+
+
+	}
+
 }

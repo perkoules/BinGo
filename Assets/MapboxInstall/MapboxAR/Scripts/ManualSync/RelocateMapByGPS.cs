@@ -1,32 +1,33 @@
 ﻿namespace Mapbox.Examples
 {
-    using Mapbox.Unity.Location;
-    using Mapbox.Unity.Map;
-    using UnityEngine;
-    using UnityEngine.UI;
+	using UnityEngine;
+	using Mapbox.Unity.Location;
+	using Mapbox.Unity.Map;
+	using UnityEngine.UI;
 
-    public class RelocateMapByGPS : MonoBehaviour
-    {
-        [SerializeField]
-        private AbstractMap _map;
+	public class RelocateMapByGPS : MonoBehaviour
+	{
 
-        [SerializeField]
-        private Button _button;
+		[SerializeField]
+		AbstractMap _map;
 
-        [SerializeField]
-        private Transform _mapTransform;
+		[SerializeField]
+		Button _button;
 
-        private void Start()
-        {
-            _button.onClick.AddListener(UpdateMapLocation);
-        }
+		[SerializeField]
+		Transform _mapTransform;
 
-        private void UpdateMapLocation()
-        {
-            var location = LocationProviderFactory.Instance.DefaultLocationProvider.CurrentLocation;
-            _map.UpdateMap(location.LatitudeLongitude, _map.AbsoluteZoom);
-            var playerPos = Camera.main.transform.position;
-            _mapTransform.position = new Vector3(playerPos.x, _mapTransform.position.y, playerPos.z);
-        }
-    }
+		private void Start()
+		{
+			_button.onClick.AddListener(UpdateMapLocation);
+		}
+
+		private void UpdateMapLocation()
+		{
+			var location = LocationProviderFactory.Instance.DefaultLocationProvider.CurrentLocation;
+			_map.UpdateMap(location.LatitudeLongitude,_map.AbsoluteZoom);
+			var playerPos = Camera.main.transform.position;
+			_mapTransform.position = new Vector3(playerPos.x, _mapTransform.position.y, playerPos.z);
+		}
+	}
 }

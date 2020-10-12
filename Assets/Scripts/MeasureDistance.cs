@@ -1,9 +1,7 @@
-﻿using Boo.Lang;
-using Mapbox.CheapRulerCs;
+﻿using Mapbox.CheapRulerCs;
 using Mapbox.Unity.Location;
 using Mapbox.Utils;
 using System;
-using System.Collections;
 using System.Linq;
 using UnityEngine;
 
@@ -35,9 +33,9 @@ public class MeasureDistance : MonoBehaviour
             distances[i] = cr.Distance(from, to);
         }
         minIndex = Array.IndexOf(distances, distances.Min());
-        
-                spawnBins.spawnedObjects[minIndex].GetComponentInChildren<MeshRenderer>().material.color = Color.green;
-        
+
+        spawnBins.spawnedObjects[minIndex].GetComponentInChildren<MeshRenderer>().material.color = Color.green;
+
         //minIndex = GetIndexOfArray(distances, distances.Min());
     }
 

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.PlayerLoop;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class CameraChanger : MonoBehaviour
@@ -16,7 +10,7 @@ public class CameraChanger : MonoBehaviour
 
     private Button cameraChangerButton;
 
-    void Start()
+    private void Start()
     {
         cameraChangerButton = GetComponent<Button>();
         cameraChangerButton.onClick.AddListener(ChangeFocusedCamera);

@@ -1,5 +1,4 @@
-﻿using Mapbox.Utils;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 [System.Serializable]

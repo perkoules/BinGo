@@ -52,6 +52,16 @@ public class GiftCardEnabler : MonoBehaviour
         },
         result => Debug.Log("Sent " + playerDataSaver.GetCoinsAvailable() + " coins to cloudscript"),
         error => Debug.Log(error.GenerateErrorReport()));
-        //playfabManager.CoinsDisplay();
+        foreach (var item in FindObjectsOfType<InitializeText>())
+        {
+            if (item.gameObject.name == "CoinsCollectedNumber")
+            {
+                item.Displayer("CoinsCollectedNumber");
+            }
+            if (item.gameObject.name == "VoucherText")
+            {
+                item.Displayer("VoucherText");
+            }
+        }
     }
 }

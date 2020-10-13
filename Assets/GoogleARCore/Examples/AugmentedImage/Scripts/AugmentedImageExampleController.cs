@@ -117,12 +117,14 @@ namespace GoogleARCore.Examples.AugmentedImage
             {
                 if (visualizer.Image.TrackingState == TrackingState.Tracking)
                 {
-                    FitToScanOverlay.SetActive(false);
+                    //FitToScanOverlay.SetActive(false);
+                    FitToScanOverlay.GetComponent<Image>().color = Color.green;
                     return;
                 }
             }
 
-            FitToScanOverlay.SetActive(true);
+            FitToScanOverlay.GetComponent<Image>().color = Color.white;
+            //FitToScanOverlay.SetActive(true);
         }
     }
 }

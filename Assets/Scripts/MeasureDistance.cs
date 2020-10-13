@@ -17,7 +17,7 @@ public class MeasureDistance : MonoBehaviour
     private void Start()
     {
         distances = new double[11];
-        InvokeRepeating("GetDistanceToBin", 4.0f, 3.0f);
+        InvokeRepeating("GetDistanceToBin", 5.0f, 3.0f);
     }
 
     private void GetDistanceToBin()
@@ -33,7 +33,14 @@ public class MeasureDistance : MonoBehaviour
             distances[i] = cr.Distance(from, to);
         }
         minIndex = Array.IndexOf(distances, distances.Min());
-
+        if (distances[minIndex] <= 10.0)
+        {
+            spawnBins.spawnedObjects[minIndex].SetActive(false);
+        }
+        else
+        {
+            spawnBins.spawnedObjects[minIndex].SetActive(true);
+        }
         spawnBins.spawnedObjects[minIndex].GetComponentInChildren<MeshRenderer>().material.color = Color.green;
 
         //minIndex = GetIndexOfArray(distances, distances.Min());

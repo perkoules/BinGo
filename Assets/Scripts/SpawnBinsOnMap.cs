@@ -32,31 +32,33 @@ public class SpawnBinsOnMap : MonoBehaviour
     {
         binLocations = new Dictionary<string, string>()
         {
-            { "54.57059 , -1.235456", recycle},
-            { "54.57049 , -1.233695", recycle },
-            { "54.570567 , -1.23321 ", waste },
-            { "54.572564 , -1.232988", waste },
-            { "54.570534 , -1.234636", recycle },
-            { "54.570839 , -1.23558 ", recycle },
-            { "54.571996 , -1.235373", waste },
-            { "54.571404 , -1.235802", waste },
-            { "54.572271 , -1.235357", waste },
-            { "54.572527 , -1.232599", waste },
-            { "54.570549 , -1.233324", waste }
+            { "54.570546 , -1.233163 ", waste   },         // Athena Building - General Waste
+            { "54.570518 , -1.233336 ", waste   },         // Athena Building - General Waste
+            { "54.570477 , -1.233729 ", recycle },         // Campus Southfield - Recycle Bin
+            { "54.570545 , -1.234701 ", recycle },         // Campus Southfield - Recycle Bin
+            { "54.570593 , -1.235453 ", recycle },         // Campus Student Life - Recycle Bin
+            { "54.570816 , -1.235594 ", recycle },         // Campus Business School - Recycle Bin
+            { "54.571404 , -1.235956 ", waste   },         // Claredon Building -  General Waste
+            { "54.571990 , -1.235441 ", waste   },         // Middlesbrough Tower - General Waste
+            { "54.572263 , -1.235384 ", waste   },         // Middlesbrough Tower - General Waste
+            { "54.572538 , -1.233023 ", waste   },         // PrintWorks - General Waste
+            { "54.572527 , -1.232632 ", waste   },         // Printworks Corner - General Waste
+            { "54.57226  , -1.23245  ", recycle }          // Outside House - Recycle Bin
         };
         binNames = new string[]
         {
-            "Campus Southfield - Recycle Bin",
-            "Campus Southfield - Recycle Bin",
             "Athena Building - General Waste",
-            "PrintWorks - General Waste",
+            "Athena Building - General Waste",
+            "Campus Southfield - Recycle Bin",
+            "Campus Southfield - Recycle Bin",
             "Campus Student Life - Recycle Bin",
-            "Campus Business - Recycle Bin",
-            "Middlesbrough Tower - General Waste",
+            "Campus Business School - Recycle Bin",
             "Claredon Building -  General Waste",
             "Middlesbrough Tower - General Waste",
+            "Middlesbrough Tower - General Waste",
+            "PrintWorks - General Waste",
             "Printworks Corner - General Waste",
-            "Athena Building - General Waste"
+            "Outside House - Recycle Bin"
         };
         locationStrings = new string[binLocations.Count];
     }

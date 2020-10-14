@@ -18,7 +18,7 @@ public class MeasureDistance : MonoBehaviour
 
     private void Start()
     {
-        distances = new double[11];
+        distances = new double[12];
         InvokeRepeating("GetDistanceToBin", 5.0f, 3.0f);
     }
 

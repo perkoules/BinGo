@@ -3,6 +3,7 @@ using Mapbox.Unity.Location;
 using Mapbox.Utils;
 using System;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class MeasureDistance : MonoBehaviour
@@ -13,6 +14,7 @@ public class MeasureDistance : MonoBehaviour
     public double[] distances;
     public int minIndex = -1;
     private Vector2d playerCurrentLocation, toBinLocation;
+    public TextMeshProUGUI mytext;
 
     private void Start()
     {
@@ -33,6 +35,7 @@ public class MeasureDistance : MonoBehaviour
             distances[i] = cr.Distance(from, to);
         }
         minIndex = Array.IndexOf(distances, distances.Min());
+        mytext.text = distances[minIndex].ToString();
         if (distances[minIndex] <= 10.0)
         {
             spawnBins.spawnedObjects[minIndex].SetActive(false);

@@ -11,7 +11,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(PlayerDataSaver))]
+[RequireComponent(typeof(PlayerDataSaver),typeof(Image))]
 public class CollectRubbishForTesting : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public AchievementsController achievementsController;

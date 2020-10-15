@@ -20,9 +20,8 @@
 
 namespace GoogleARCore.Examples.AugmentedImage
 {
-    using System.Collections.Generic;
-    using System.Runtime.InteropServices;
     using GoogleARCore;
+    using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.UI;
 
@@ -73,7 +72,7 @@ namespace GoogleARCore.Examples.AugmentedImage
             // Exit the app when the 'back' button is pressed.
             if (Input.GetKey(KeyCode.Escape))
             {
-                Application.Quit();
+                //Application.Quit();
             }
 
             // Only allow the screen to sleep when not tracking.
@@ -94,6 +93,7 @@ namespace GoogleARCore.Examples.AugmentedImage
             // not previously have a visualizer. Remove visualizers for stopped images.
             foreach (var image in m_TempAugmentedImages)
             {
+                Debug.Log("Temp " + image.Name);
                 AugmentedImageVisualizer visualizer = null;
                 m_Visualizers.TryGetValue(image.DatabaseIndex, out visualizer);
                 if (image.TrackingState == TrackingState.Tracking && visualizer == null)
@@ -117,14 +117,15 @@ namespace GoogleARCore.Examples.AugmentedImage
             {
                 if (visualizer.Image.TrackingState == TrackingState.Tracking)
                 {
-                    //FitToScanOverlay.SetActive(false);
                     FitToScanOverlay.GetComponent<Image>().color = Color.green;
-                    return;
+                    Debug.Log("Tracking");
+                }
+                else if (visualizer.Image.TrackingMethod != AugmentedImageTrackingMethod.LastKnownPose)
+                {
+                    FitToScanOverlay.GetComponent<Image>().color = Color.white;
+                    Debug.Log("Not Found");
                 }
             }
-
-            FitToScanOverlay.GetComponent<Image>().color = Color.white;
-            //FitToScanOverlay.SetActive(true);
         }
     }
 }

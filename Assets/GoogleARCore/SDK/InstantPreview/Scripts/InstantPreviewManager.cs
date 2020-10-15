@@ -413,7 +413,7 @@ namespace GoogleARCoreInternal
 
                 if (NativeApi.AppShowedTouchWarning())
                 {
-                    Debug.LogWarning(k_InstantPreviewInputWarning);
+                    //Debug.LogWarning(k_InstantPreviewInputWarning);
                     NativeApi.UnityLoggedTouchWarning();
                 }
 

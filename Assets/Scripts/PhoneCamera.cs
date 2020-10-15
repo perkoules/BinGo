@@ -32,10 +32,9 @@ public class PhoneCamera : MonoBehaviour
 
     private bool isWorking = false;
     public Classifier classifier;
-    public Detector detector;
+    private Detector detector;
 
     private IList<BoundingBox> boxOutlines;
-
 
     public Mode mode;
     public RawImage background;

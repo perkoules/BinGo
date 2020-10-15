@@ -161,6 +161,11 @@ namespace TFClassify
             return result;
         }
 
+        internal static IEnumerator CropSquare(RenderTexture backCamera, RectOptions center, Action<Texture2D> p)
+        {
+            throw new NotImplementedException();
+        }
+
 
         /// <summary>
         ///     Returns a scaled copy of given texture.

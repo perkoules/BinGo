@@ -8,6 +8,7 @@ using UnityEngine.XR;
 
 namespace UnityARInterface
 {
+    [Obsolete]
     public class ARCoreInterface : ARInterface
     {
        

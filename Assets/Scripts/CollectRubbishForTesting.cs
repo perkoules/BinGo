@@ -3,13 +3,16 @@ using Mapbox.Unity.Location;
 using Mapbox.Utils;
 using PlayFab;
 using PlayFab.ClientModels;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(PlayerDataSaver))]
-public class CollectRubbishForTesting : MonoBehaviour
+public class CollectRubbishForTesting : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public AchievementsController achievementsController;
     public PlayfabManager playfabManager;
@@ -27,11 +30,35 @@ public class CollectRubbishForTesting : MonoBehaviour
     private int rubbishInCountry = 0;
     private int coinsAvailable = 0;
 
+    private Image fillerImage;
+    private bool pointerDown = false;
     private void Awake()
     {
+        fillerImage = GetComponent<Image>();
         playerDataSaver = GetComponent<PlayerDataSaver>();
     }
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        pointerDown = true;
+    }
 
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        pointerDown = false;
+        if (fillerImage.fillAmount >= 1)
+        {
+            Debug.Log("Congrats you helped the environment!!!");
+        }
+        fillerImage.fillAmount = 0;
+    }
+
+    private void Update()
+    {
+        if (pointerDown)
+        {
+            fillerImage.fillAmount += Time.deltaTime;
+        }        
+    }
     public void SetRubbishCollection(string option)
     {
         playfabManager.GetLocationDataOfRubbish();
@@ -229,4 +256,6 @@ public class CollectRubbishForTesting : MonoBehaviour
             playerInfo.RubbishCountry = myResult.features[c].text;
         }
     }
+
+    
 }

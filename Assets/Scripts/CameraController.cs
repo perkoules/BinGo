@@ -15,6 +15,7 @@ public class CameraController : MonoBehaviour
     {
         aR_MapCameraSelection.onClick.AddListener(ChangeFocusedCamera);
         rubbishCameraButton.onClick.AddListener(OpenRubbishCamera);
+        CameraResetter();
     }
 
     private void OpenRubbishCamera()

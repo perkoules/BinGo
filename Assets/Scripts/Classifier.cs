@@ -31,6 +31,8 @@ public class Classifier : MonoBehaviour
 
 
     private int i = 0;
+
+    [Obsolete]
     public IEnumerator Classify(Color32[] picture, System.Action<List<KeyValuePair<string, float>>> callback)
     {
         var map = new List<KeyValuePair<string, float>>();

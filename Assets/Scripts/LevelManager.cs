@@ -33,6 +33,11 @@ public class LevelManager : MonoBehaviour
         SceneManager.LoadSceneAsync(name, LoadSceneMode.Single);
     }
 
+    public void UnloadScene(int index)
+    {
+        SceneManager.UnloadSceneAsync(index);
+    }
+
     public void QuitGame()
     {
         Debug.Log("Closing...");

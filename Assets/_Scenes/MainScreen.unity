@@ -49570,6 +49570,10 @@ MonoBehaviour:
   locationProvider: {fileID: 1692264166}
   measureDistance: {fileID: 6024298241842564617}
   trackImages: {fileID: 1098045431}
+  rubbishInPlace: 0
+  rubbishInDistrict: 0
+  rubbishInRegion: 0
+  rubbishInCountry: 0
 --- !u!114 &1919310511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60933,6 +60937,11 @@ PrefabInstance:
       propertyPath: _vectorData._layerProperty.vectorSubLayers.Array.data[1].materialOptions.customStyleOptions.materials.Array.data[1].Materials.Array.data[0]
       value: 
       objectReference: {fileID: 705632671}
+    - target: {fileID: 8347989783426374682, guid: 4927bc54ace5d0f48a49560c047ccc08,
+        type: 3}
+      propertyPath: _rotationFollowFactor
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4927bc54ace5d0f48a49560c047ccc08, type: 3}
 --- !u!114 &6024298241842564617 stripped
@@ -63135,6 +63144,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8512641267485111627, guid: 09d0d633affcd054cac69aa3df7bb830,
+        type: 3}
+      propertyPath: far clip plane
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 8530708690199184511, guid: 09d0d633affcd054cac69aa3df7bb830,
         type: 3}
       propertyPath: m_Name
@@ -63148,7 +63162,7 @@ PrefabInstance:
     - target: {fileID: 8532818623662810295, guid: 09d0d633affcd054cac69aa3df7bb830,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8532818623662810295, guid: 09d0d633affcd054cac69aa3df7bb830,
         type: 3}

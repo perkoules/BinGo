@@ -134,7 +134,7 @@ namespace Mapbox.Unity.Ar
 				// * and update distance in meters
 				if (location.Accuracy > _minimumDesiredAccuracy)
 				{
-					Unity.Utilities.Console.Instance.Log(
+                    Unity.Utilities.Console.Instance.Log(
 						string.Format(
 							"Gps update ignored due to bad accuracy: {0:0.0} > {1:0.0}"
 							, location.Accuracy

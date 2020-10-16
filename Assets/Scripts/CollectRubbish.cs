@@ -3,7 +3,6 @@ using Mapbox.Unity.Location;
 using Mapbox.Utils;
 using PlayFab;
 using PlayFab.ClientModels;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -11,32 +10,78 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(PlayerDataSaver),typeof(Image))]
-public class CollectRubbishForTesting : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+[RequireComponent(typeof(PlayerDataSaver), typeof(Image))]
+public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public AchievementsController achievementsController;
     public PlayfabManager playfabManager;
-    private PlayerDataSaver playerDataSaver;
     public PlayerInfo playerInfo;
-    private GetCurrentLocation currentLocation;
     public DeviceLocationProvider locationProvider;
+    public MeasureDistance measureDistance;
+    public TrackImages trackImages;
+
+    private PlayerDataSaver playerDataSaver;
+    private GetCurrentLocation currentLocation;
 
     private int progressLevel = 1;
     private int wasteCollected = 0;
     private int recycleCollected = 0;
-    private int rubbishInPlace = 0;
-    private int rubbishInDistrict = 0;
-    private int rubbishInRegion = 0;
-    private int rubbishInCountry = 0;
     private int coinsAvailable = 0;
+    public int rubbishInPlace = 0;
+    public int rubbishInDistrict = 0;
+    public int rubbishInRegion = 0;
+    public int rubbishInCountry = 0;
+    private string place, district, region, country;
 
     private Image fillerImage;
     private bool pointerDown = false;
+
+    private void OnEnable()
+    {
+        playerInfo = playfabManager.playerInfo;
+        rubbishInPlace = playerInfo.RubbishInPlace;
+        rubbishInDistrict = playerInfo.RubbishInDistrict;
+        rubbishInRegion = playerInfo.RubbishInRegion;
+        rubbishInCountry = playerInfo.RubbishInCountry;
+    }
+
     private void Awake()
     {
         fillerImage = GetComponent<Image>();
         playerDataSaver = GetComponent<PlayerDataSaver>();
     }
+
+    private void Start()
+    {
+        wasteCollected = playerDataSaver.GetWasteCollected();
+        recycleCollected = playerDataSaver.GetRecycleCollected();
+        coinsAvailable = playerDataSaver.GetCoinsAvailable();
+        progressLevel = playerDataSaver.GetProgressLevel();
+    }
+
+    private void UpdatePlayerInfo()
+    {
+        playerInfo = new PlayerInfo
+        {
+            PlayerUsername = playerDataSaver.GetUsername(),
+            PlayerPassword = playerDataSaver.GetPassword(),
+            PlayerEmail = playerDataSaver.GetEmail(),
+            PlayerTeamName = playerDataSaver.GetTeamname(),
+            PlayerRubbish = playerDataSaver.GetWasteCollected(),
+            PlayerRecycle = playerDataSaver.GetRecycleCollected(),
+            PlayerCoins = playerDataSaver.GetCoinsAvailable(),
+            PlayerCurrentLevel = playerDataSaver.GetProgressLevel(),
+            RubbishInPlace = rubbishInPlace,
+            RubbishInDistrict = rubbishInDistrict,
+            RubbishInRegion = rubbishInRegion,
+            RubbishInCountry = rubbishInCountry,
+            RubbishPlace = place,
+            RubbishDistrict = district,
+            RubbishRegion = region,
+            RubbishCountry = country
+        };
+    }
+
     public void OnPointerDown(PointerEventData eventData)
     {
         pointerDown = true;
@@ -45,9 +90,12 @@ public class CollectRubbishForTesting : MonoBehaviour, IPointerDownHandler, IPoi
     public void OnPointerUp(PointerEventData eventData)
     {
         pointerDown = false;
-        if (fillerImage.fillAmount >= 1)
+        if (fillerImage.fillAmount >= 1 && trackImages.frames.color == Color.green 
+                        && measureDistance.distances[measureDistance.minIndex] <= 5)
         {
             Debug.Log("Congrats you helped the environment!!!");
+            string typeOfRubbish = measureDistance.spawnBins.binLocations.ElementAt(measureDistance.minIndex).Value;
+            SetRubbishCollection(typeOfRubbish);
         }
         fillerImage.fillAmount = 0;
     }
@@ -57,13 +105,14 @@ public class CollectRubbishForTesting : MonoBehaviour, IPointerDownHandler, IPoi
         if (pointerDown)
         {
             fillerImage.fillAmount += Time.deltaTime;
-        }        
+        }
     }
-    public void SetRubbishCollection(string option)
-    {
-        playfabManager.GetLocationDataOfRubbish();
 
-        if (option == "c")
+    public void SetRubbishCollection(string typeOfRubbish)
+    {
+        GetLocationDataOfRubbish();
+
+        if (typeOfRubbish == "waste")
         {
             wasteCollected++;
             rubbishInPlace++;
@@ -73,7 +122,7 @@ public class CollectRubbishForTesting : MonoBehaviour, IPointerDownHandler, IPoi
             coinsAvailable++;
             ProgressLevelCheck();
         }
-        else if (option == "r")
+        else if (typeOfRubbish == "recycle")
         {
             recycleCollected++;
             rubbishInPlace++;
@@ -88,6 +137,7 @@ public class CollectRubbishForTesting : MonoBehaviour, IPointerDownHandler, IPoi
         UpdatePlayerStats();
         //playfabManager.LevelBadgeDisplay();
         StartCoroutine(achievementsController.CheckAchievementUnlockability());
+        UpdatePlayerInfo();
     }
 
     public void ProgressLevelCheck()
@@ -193,22 +243,22 @@ public class CollectRubbishForTesting : MonoBehaviour, IPointerDownHandler, IPoi
                     }
                     if (playerInfo.RubbishPlace != null)
                     {
-                        if (eachStat.StatisticName == (playerInfo.RubbishPlace + "Place"))
+                        if (eachStat.StatisticName == (playerInfo.RubbishPlace + " isPlace"))
                         {
                             rubbishInPlace = eachStat.Value;
                             playerInfo.RubbishInPlace = eachStat.Value;
                         }
-                        else if (eachStat.StatisticName == playerInfo.RubbishDistrict)
+                        else if (eachStat.StatisticName == playerInfo.RubbishDistrict + " isDistrict")
                         {
                             rubbishInDistrict = eachStat.Value;
                             playerInfo.RubbishInDistrict = eachStat.Value;
                         }
-                        else if (eachStat.StatisticName == playerInfo.RubbishRegion)
+                        else if (eachStat.StatisticName == playerInfo.RubbishRegion + " isRegion")
                         {
                             rubbishInRegion = eachStat.Value;
                             playerInfo.RubbishInRegion = eachStat.Value;
                         }
-                        else if (eachStat.StatisticName == (playerInfo.RubbishCountry))
+                        else if (eachStat.StatisticName == (playerInfo.RubbishCountry) + " isCountry")
                         {
                             rubbishInCountry = eachStat.Value;
                             playerInfo.RubbishInCountry = eachStat.Value;
@@ -241,21 +291,19 @@ public class CollectRubbishForTesting : MonoBehaviour, IPointerDownHandler, IPoi
         int c = myResult.features.FindIndex(f => f.id.Contains("country"));         //[3] = United Kingdom
         if (p >= 0)
         {
-            playerInfo.RubbishPlace = myResult.features[p].text;
+            place = myResult.features[p].text;
         }
         if (d >= 0)
         {
-            playerInfo.RubbishDistrict = myResult.features[d].text;
+            district = myResult.features[d].text;
         }
         if (r >= 0)
         {
-            playerInfo.RubbishRegion = myResult.features[r].text;
+            region = myResult.features[r].text;
         }
         if (c >= 0)
         {
-            playerInfo.RubbishCountry = myResult.features[c].text;
+            country = myResult.features[c].text;
         }
     }
-
-    
 }

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class TrackImages : MonoBehaviour
 {
     public AugmentedImageVisualizer AugmentedImageVisualizerPrefab;
-    public GameObject FitToScanOverlay;
+    public Image frames;
 
     private Dictionary<int, AugmentedImageVisualizer> m_Visualizers = new Dictionary<int, AugmentedImageVisualizer>();
     private List<AugmentedImage> m_TempAugmentedImages = new List<AugmentedImage>();
@@ -43,13 +43,11 @@ public class TrackImages : MonoBehaviour
         {
             if (visualizer.Image.TrackingMethod == AugmentedImageTrackingMethod.FullTracking)
             {
-                Debug.Log("Tracking");
-                FitToScanOverlay.GetComponent<Image>().color = Color.green;
+                frames.color = Color.green;
             }
             else
             {
-                Debug.Log("Not Found");
-                FitToScanOverlay.GetComponent<Image>().color = Color.white;
+                frames.color = Color.white;
             }
         }
         

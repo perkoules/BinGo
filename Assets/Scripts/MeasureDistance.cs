@@ -37,7 +37,7 @@ public class MeasureDistance : MonoBehaviour
         }
         minIndex = Array.IndexOf(distances, distances.Min());
 
-        myText.text = distances[minIndex].ToString();
+        myText.text = distances[minIndex].ToString(); // Show dist of the closest on ui [for testing]
 
 
         spawnBins.spawnedObjects[minIndex].GetComponentInChildren<MeshRenderer>().material.color = Color.green;

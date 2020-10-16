@@ -971,56 +971,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1002213147}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1030234192
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1030234194}
-  - component: {fileID: 1030234193}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1030234193
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030234192}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b74254bc7e35834b98f5fb7ec9f3dd3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  map: {fileID: 1565800148}
-  locationStrings: []
-  locations: []
-  spawnScale: 0.5
-  spawnedObjects: []
-  markerPrefab: {fileID: 1064074361305596, guid: 748e2c1db1257594bb438fbb7bd185f0,
-    type: 3}
---- !u!4 &1030234194
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030234192}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!21 &1049333026
 Material:
   serializedVersion: 6
@@ -1236,24 +1186,6 @@ MonoBehaviour:
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b2eda2450a5a8844abf3ca376e076b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  matgreen: {fileID: 2100000, guid: 0ba8c7c71865d0a4287b16cb72206f21, type: 2}
-  matred: {fileID: 2100000, guid: f44dfd3f1f13c314da2f909590b1a8f9, type: 2}
-  locationProvider: {fileID: 668256226}
-  spawnBins: {fileID: 1030234193}
-  distances: []
-  minIndex: -1
---- !u!114 &1565800148 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114793276287641354, guid: 35e76f6e52f5c4252a0b703cc2019a37,
-    type: 3}
-  m_PrefabInstance: {fileID: 1002213147}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd961b1c9541a4cee99686069ecce852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1680096571

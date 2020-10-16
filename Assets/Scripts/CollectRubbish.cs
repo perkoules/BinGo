@@ -90,7 +90,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public void OnPointerUp(PointerEventData eventData)
     {
         pointerDown = false;
-        if (fillerImage.fillAmount >= 1 && trackImages.frames.color == Color.green 
+        if (fillerImage.fillAmount >= 1 /*&& trackImages.frames.color == Color.green */
                         && measureDistance.distances[measureDistance.minIndex] <= 5)
         {
             Debug.Log("Congrats you helped the environment!!!");

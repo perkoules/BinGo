@@ -33,9 +33,9 @@ public class PlayfabManager : MonoBehaviour
     private string place, district, region, country;
 
     private void OnEnable()
-    {/*
+    {
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
-        if (Instance != null && Instance != this)
+        /*if (Instance != null && Instance != this)
         {
             Destroy(this.gameObject);
         }
@@ -53,6 +53,10 @@ public class PlayfabManager : MonoBehaviour
         if (string.IsNullOrEmpty(PlayFabSettings.TitleId))
         {
             PlayFabSettings.TitleId = "F86EF";
+        }
+        if (locationProvider == null)
+        {
+            locationProvider = FindObjectOfType<DeviceLocationProvider>();
         }
     }
 

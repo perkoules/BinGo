@@ -225,7 +225,7 @@ namespace Mapbox.Unity.Location
                 // Input.location.status != LocationServiceStatus.Running
                 // nevertheless new location is available
                 //////////////////////////////
-                Debug.LogFormat("Input.location.status: {0}", Input.location.status);
+                //Debug.LogFormat("Input.location.status: {0}", Input.location.status);
                 _currentLocation.IsLocationServiceEnabled =
                     _locationService.status == LocationServiceStatus.Running
                     || timestamp > _lastLocationTimestamp;

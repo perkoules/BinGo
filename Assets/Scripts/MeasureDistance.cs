@@ -17,6 +17,18 @@ public class MeasureDistance : MonoBehaviour
 
     public TextMeshProUGUI myText;
 
+    private void Awake()
+    {
+        if (locationProvider == null)
+        {
+            locationProvider = FindObjectOfType<DeviceLocationProvider>();
+        }
+        if (spawnBins == null)
+        {
+            spawnBins = FindObjectOfType<SpawnBinsOnMap>();
+        }
+    }
+
     private void Start()
     {
         distances = new double[12];

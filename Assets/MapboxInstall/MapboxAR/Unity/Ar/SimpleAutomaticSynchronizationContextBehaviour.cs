@@ -1,11 +1,10 @@
 namespace Mapbox.Unity.Ar
 {
 	using Mapbox.Unity.Map;
-	using Mapbox.Unity.Location;
+	using Unity.Location;
 	using Mapbox.Utils;
 	using UnityARInterface;
 	using UnityEngine;
-	using Mapbox.Unity.Utilities;
 	using System;
 
 	public class SimpleAutomaticSynchronizationContextBehaviour : MonoBehaviour, ISynchronizationContext
@@ -54,7 +53,7 @@ namespace Mapbox.Unity.Ar
 				if (_locationProvider == null)
 				{
 #if UNITY_EDITOR
-					Debug.LogWarningFormat("SimpleAutomaticSynchronizationContextBehaviour, isRemoteConnected:{0}", UnityEditor.EditorApplication.isRemoteConnected);
+					//Debug.LogWarningFormat("SimpleAutomaticSynchronizationContextBehaviour, isRemoteConnected:{0}", UnityEditor.EditorApplication.isRemoteConnected);
 					if (!UnityEditor.EditorApplication.isRemoteConnected)
 					{
 						_locationProvider = LocationProviderFactory.Instance.EditorLocationProvider;
@@ -133,20 +132,20 @@ namespace Mapbox.Unity.Ar
 				// * desired accuarracy in meters
 				// * and update distance in meters
 				if (location.Accuracy > _minimumDesiredAccuracy)
-				{
-                    Unity.Utilities.Console.Instance.Log(
+                {
+                    /*Unity.Utilities.Console.Instance.Log(
 						string.Format(
 							"Gps update ignored due to bad accuracy: {0:0.0} > {1:0.0}"
 							, location.Accuracy
 							, _minimumDesiredAccuracy
 						)
 						, "red"
-					);
+					);*/
 				}
 				else
 				{
 					var latitudeLongitude = location.LatitudeLongitude;
-					Unity.Utilities.Console.Instance.Log(
+					/*Unity.Utilities.Console.Instance.Log(
 						string.Format(
 							"Location[{0:yyyyMMdd-HHmmss}]: {1},{2}\tAccuracy: {3}\tHeading: {4}"
 							, UnixTimestampUtils.From(location.Timestamp)
@@ -156,7 +155,7 @@ namespace Mapbox.Unity.Ar
 							, location.UserHeading
 						)
 						, "lightblue"
-					);
+					);*/
 
 					var position = _map.GeoToWorldPosition(latitudeLongitude, false);
 					position.y = _map.Root.position.y;

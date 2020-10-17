@@ -174,9 +174,9 @@ namespace GoogleARCoreInternal
         /// Otherwise, repeats logging after waring throttle time.</param>
         public static void LogLimitedSupportMessage(string featureName, bool logOnce = false)
         {
-            Debug.LogErrorFormat(
+            /*Debug.LogErrorFormat(
                 "Attempted to {0} which is not yet supported by Instant Preview.\n" +
-                "Please build and run on device to use this feature.", featureName);
+                "Please build and run on device to use this feature.", featureName);*/
 
             if (logOnce && !s_OneTimeWarnings.Contains(featureName))
             {

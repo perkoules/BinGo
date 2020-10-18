@@ -1,20 +1,18 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class CameraController : MonoBehaviour
 {
     public Camera mapCamera;
     public Camera arCamera;
-    public Camera rubbihsCamera;
-
-    public GameObject mapImage, arImage, rubbishCameraPlane;
-
+    public Camera rubbishCamera;
+    public GameObject mapImage, arImage, arSession;
     public Button aR_MapCameraSelection, rubbishCameraButton;
+
 
     private void Start()
     {
-        aR_MapCameraSelection.onClick.AddListener(ChangeFocusedCamera);
+        aR_MapCameraSelection.onClick.AddListener(ChangeCameraMode);
         rubbishCameraButton.onClick.AddListener(OpenRubbishCamera);
     }
 
@@ -22,50 +20,49 @@ public class CameraController : MonoBehaviour
     {
         arImage.SetActive(false);
         mapImage.SetActive(false);
-        ChangeFocusedCamera();
+        ChangeCameraMode();
     }
 
-    private void ChangeFocusedCamera()
+    private void ChangeCameraMode()
     {
         if (mapImage.activeSelf)
         {
             arImage.SetActive(true);
             mapImage.SetActive(false);
-            arCamera.enabled = false;
             mapCamera.enabled = true;
-            rubbihsCamera.enabled = false;
-            rubbishCameraPlane.SetActive(false);
+            arCamera.enabled = false;
+
+            arSession.SetActive(false);
+            rubbishCamera.enabled = false;
+            rubbishCamera.GetComponent<SimpleDemo>().enabled = false;
         }
         else if (arImage.activeSelf)           //AR Image is active so disable it and open AR Camera
         {
             arImage.SetActive(false);          //Disable AR Image
             mapImage.SetActive(true);          //Enable Map Image
-            arCamera.enabled = true;         //AR Canera enabled
+            arCamera.enabled = true;           //AR Camera enabled
             mapCamera.enabled = false;         //Map camera disabled
-            rubbihsCamera.enabled = false;
-            rubbishCameraPlane.SetActive(false);
+
+            arSession.SetActive(true);
+            rubbishCamera.enabled = false;
+            rubbishCamera.GetComponent<SimpleDemo>().enabled = false;
         }
         else if (!mapImage.activeSelf && !arImage.activeSelf)
         {
-            arCamera.enabled = true;         //AR Canera enabled
+            arCamera.enabled = false;         //AR Canera enabled
             mapCamera.enabled = false;         //Map camera disabled
-            rubbihsCamera.enabled = true;
-            rubbishCameraPlane.SetActive(true);
+
+            arSession.SetActive(false);
+            rubbishCamera.enabled = true;
+            rubbishCamera.GetComponent<SimpleDemo>().enabled = true;
+            rubbishCamera.GetComponent<SimpleDemo>().ClickStart();
         }
     }
-
 
     public void CameraResetter()
     {
         mapImage.SetActive(true);
         arImage.SetActive(false);
-        ChangeFocusedCamera();
-    }
-
-    public void RubbishCamera()
-    {
-        mapImage.SetActive(false);
-        arImage.SetActive(false);
-        ChangeFocusedCamera();
+        ChangeCameraMode();
     }
 }

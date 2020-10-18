@@ -33,6 +33,11 @@ public class LevelManager : MonoBehaviour
         SceneManager.LoadSceneAsync(name, LoadSceneMode.Single);
     }
 
+    public void LoadAdditive(int index)
+    {
+        SceneManager.LoadScene(index, LoadSceneMode.Additive);
+    }
+
     public void QuitGame()
     {
         Debug.Log("Closing...");

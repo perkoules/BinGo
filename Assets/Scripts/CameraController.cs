@@ -6,8 +6,9 @@ public class CameraController : MonoBehaviour
 {
     public Camera mapCamera;
     public Camera arCamera;
+    public Camera rubbihsCamera;
 
-    public GameObject mapImage, arImage;
+    public GameObject mapImage, arImage, rubbishCameraPlane;
 
     public Button aR_MapCameraSelection, rubbishCameraButton;
 
@@ -32,6 +33,8 @@ public class CameraController : MonoBehaviour
             mapImage.SetActive(false);
             arCamera.enabled = false;
             mapCamera.enabled = true;
+            rubbihsCamera.enabled = false;
+            rubbishCameraPlane.SetActive(false);
         }
         else if (arImage.activeSelf)           //AR Image is active so disable it and open AR Camera
         {
@@ -39,17 +42,29 @@ public class CameraController : MonoBehaviour
             mapImage.SetActive(true);          //Enable Map Image
             arCamera.enabled = true;         //AR Canera enabled
             mapCamera.enabled = false;         //Map camera disabled
+            rubbihsCamera.enabled = false;
+            rubbishCameraPlane.SetActive(false);
         }
         else if (!mapImage.activeSelf && !arImage.activeSelf)
         {
             arCamera.enabled = true;         //AR Canera enabled
             mapCamera.enabled = false;         //Map camera disabled
+            rubbihsCamera.enabled = true;
+            rubbishCameraPlane.SetActive(true);
         }
     }
+
 
     public void CameraResetter()
     {
         mapImage.SetActive(true);
+        arImage.SetActive(false);
+        ChangeFocusedCamera();
+    }
+
+    public void RubbishCamera()
+    {
+        mapImage.SetActive(false);
         arImage.SetActive(false);
         ChangeFocusedCamera();
     }

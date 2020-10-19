@@ -2521,6 +2521,7 @@ MonoBehaviour:
   codeFoundText: {fileID: 1622764447}
   imageToProject: {fileID: 570292425}
   frames: {fileID: 1880779234}
+  line: {fileID: 1848653972}
   audioSource: {fileID: 103870422}
   arSession: {fileID: 50384661}
 --- !u!20 &103870419
@@ -48104,6 +48105,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1843773047}
   m_CullTransparentMesh: 0
+--- !u!114 &1848653972 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7781894599060661200, guid: 2329f085085895f42acd80355d38cbd4,
+    type: 3}
+  m_PrefabInstance: {fileID: 2037571423}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1849891047
 GameObject:
   m_ObjectHideFlags: 0
@@ -53314,6 +53327,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7781894599060661202, guid: 2329f085085895f42acd80355d38cbd4,
+        type: 3}
+      propertyPath: m_Name
+      value: Line
       objectReference: {fileID: 0}
     - target: {fileID: 7781894599060661203, guid: 2329f085085895f42acd80355d38cbd4,
         type: 3}

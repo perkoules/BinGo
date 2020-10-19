@@ -6,7 +6,7 @@ public class CameraController : MonoBehaviour
     public Camera mapCamera;
     public Camera arCamera;
     public Camera rubbishCamera;
-    public GameObject mapImage, arImage, arSession;
+    public GameObject mapImage, arImage, arSession, rubbishCamObj;
     public Button aR_MapCameraSelection, rubbishCameraButton;
 
 
@@ -33,8 +33,9 @@ public class CameraController : MonoBehaviour
             arCamera.enabled = false;
 
             arSession.SetActive(false);
-            rubbishCamera.enabled = false;
-            rubbishCamera.GetComponent<SimpleDemo>().enabled = false;
+            rubbishCamObj.SetActive(false);
+            //rubbishCamera.enabled = false;
+            //rubbishCamera.GetComponent<SimpleDemo>().enabled = false;
         }
         else if (arImage.activeSelf)           //AR Image is active so disable it and open AR Camera
         {
@@ -44,8 +45,9 @@ public class CameraController : MonoBehaviour
             mapCamera.enabled = false;         //Map camera disabled
 
             arSession.SetActive(true);
-            rubbishCamera.enabled = false;
-            rubbishCamera.GetComponent<SimpleDemo>().enabled = false;
+            rubbishCamObj.SetActive(false);
+            //rubbishCamera.enabled = false;
+            //rubbishCamera.GetComponent<SimpleDemo>().enabled = false;
         }
         else if (!mapImage.activeSelf && !arImage.activeSelf)
         {
@@ -53,9 +55,12 @@ public class CameraController : MonoBehaviour
             mapCamera.enabled = false;         //Map camera disabled
 
             arSession.SetActive(false);
-            rubbishCamera.enabled = true;
-            rubbishCamera.GetComponent<SimpleDemo>().enabled = true;
-            rubbishCamera.GetComponent<SimpleDemo>().ClickStart();
+            rubbishCamObj.SetActive(true);
+            rubbishCamObj.GetComponent<SimpleDemo>().ClickStart();
+            
+            //rubbishCamera.enabled = true;
+            //rubbishCamera.GetComponent<SimpleDemo>().enabled = true;
+            //rubbishCamera.GetComponent<SimpleDemo>().ClickStart();
         }
     }
 

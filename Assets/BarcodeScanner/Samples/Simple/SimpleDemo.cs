@@ -11,7 +11,8 @@ public class SimpleDemo : MonoBehaviour
 {
     private IScanner BarcodeScanner;
     public TextMeshProUGUI TextHeader;
-    public RawImage Image, frames;
+    public RawImage Image;
+    public Image frames;
     public AudioSource Audio;
 
     // Disable Screen Rotation on that screen

@@ -18,7 +18,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public PlayerInfo playerInfo;
     public DeviceLocationProvider locationProvider;
     public MeasureDistance measureDistance;
-    public TrackImages trackImages;
+    public Image frames;
 
     private PlayerDataSaver playerDataSaver;
     private GetCurrentLocation currentLocation;
@@ -90,9 +90,10 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public void OnPointerUp(PointerEventData eventData)
     {
         pointerDown = false;
-        if (fillerImage.fillAmount >= 1 /*&& trackImages.frames.color == Color.green */
+        if (fillerImage.fillAmount >= 1 && frames.color == Color.green 
                         && measureDistance.distances[measureDistance.minIndex] <= 5)
         {
+            frames.color = Color.white;
             Debug.Log("Congrats you helped the environment!!!");
             string typeOfRubbish = measureDistance.spawnBins.binLocations.ElementAt(measureDistance.minIndex).Value;
             SetRubbishCollection(typeOfRubbish);

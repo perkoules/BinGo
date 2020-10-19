@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Wizcorp.Utils.Logger;
 
-public class SimpleDemo : MonoBehaviour
+public class ScanRubbish : MonoBehaviour
 {
     private IScanner barcodeScanner;
     public TextMeshProUGUI codeFoundText;
@@ -15,12 +15,10 @@ public class SimpleDemo : MonoBehaviour
     public Image frames, line;
     public AudioSource audioSource;
     public GameObject arSession;
-    private Camera rubbishCamera;
-
+    public Button exitButton;
     // Disable Screen Rotation on that screen
     private void Awake()
     {
-        rubbishCamera = GetComponent<Camera>();
         Screen.autorotateToPortrait = false;
         Screen.autorotateToPortraitUpsideDown = false;
     }
@@ -94,6 +92,7 @@ public class SimpleDemo : MonoBehaviour
             barcodeScanner.Stop();
             codeFoundText.text = "Found: " + barCodeType + " / " + barCodeValue;
             frames.color = Color.green;
+            StartCoroutine(RubbishCooldown());
             line.gameObject.SetActive(false);
             // Feedback
             audioSource.Play();
@@ -105,6 +104,14 @@ public class SimpleDemo : MonoBehaviour
         frames.color = Color.white;
         line.gameObject.SetActive(true);
     }
+
+    IEnumerator RubbishCooldown()
+    {
+        yield return new WaitForSeconds(5);
+        frames.color = Color.white;
+        exitButton.onClick.Invoke();
+    }
+
 
     public void ClickStop()
     {

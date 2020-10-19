@@ -16,8 +16,8 @@ public class CameraWindow : MonoBehaviour
         {
             yield return new WaitUntil(() => rubbishCamera.activeSelf);
         }
-        rubbishCamera.GetComponent<SimpleDemo>().Init();
+        rubbishCamera.GetComponent<ScanRubbish>().Init();
         yield return new WaitForSeconds(2);
-        rubbishCamera.GetComponent<SimpleDemo>().ClickStart();
+        rubbishCamera.GetComponent<ScanRubbish>().ClickStart();
     }
 }

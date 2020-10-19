@@ -9,43 +9,59 @@ using Wizcorp.Utils.Logger;
 
 public class SimpleDemo : MonoBehaviour
 {
-    private IScanner BarcodeScanner;
+    private IScanner barcodeScanner;
     public TextMeshProUGUI TextHeader;
     public RawImage Image;
     public Image frames;
     public AudioSource Audio;
+    public GameObject arSession;
+    private Camera rubbishCamera;
 
     // Disable Screen Rotation on that screen
     private void Awake()
     {
+        rubbishCamera = GetComponent<Camera>();
         Screen.autorotateToPortrait = false;
         Screen.autorotateToPortraitUpsideDown = false;
     }
-
-    private void Start()
+    private void OnEnable()
     {
-        // Create a basic scanner
-        BarcodeScanner = new Scanner();
-        BarcodeScanner.Camera.Play();
+        arSession.SetActive(false);
+        StartCoroutine(CheckIfEnabled());
+    }
+    private IEnumerator CheckIfEnabled()
+    {
+        if (!rubbishCamera.enabled)
+        {
+            yield return new WaitUntil(() => rubbishCamera.enabled);
+        }
+        yield return new WaitForSeconds(2);
+        ClickStart();
+    }
 
+    public void Start()
+    {
+         // Create a basic scanner  
+        barcodeScanner = new Scanner();
+        barcodeScanner.Camera.Play();
         // Display the camera texture through a RawImage
-        BarcodeScanner.OnReady += (sender, arg) =>
+        barcodeScanner.OnReady += (sender, arg) =>
         {
             // Set Orientation & Texture
-            Image.transform.localEulerAngles = BarcodeScanner.Camera.GetEulerAngles();
-            Image.transform.localScale = BarcodeScanner.Camera.GetScale();
-            Image.texture = BarcodeScanner.Camera.Texture;
+            Image.transform.localEulerAngles = barcodeScanner.Camera.GetEulerAngles();
+            Image.transform.localScale = barcodeScanner.Camera.GetScale();
+            Image.texture = barcodeScanner.Camera.Texture;
 
             // Keep Image Aspect Ratio
             var rect = Image.GetComponent<RectTransform>();
-            //var newHeight = rect.sizeDelta.x * BarcodeScanner.Camera.Height / BarcodeScanner.Camera.Width;
+            //var newHeight = rect.sizeDelta.x * barcodeScanner.Camera.Height / barcodeScanner.Camera.Width;
             //rect.sizeDelta = new Vector2(rect.sizeDelta.x, newHeight);
         };
 
         // Track status of the scanner
-        BarcodeScanner.StatusChanged += (sender, arg) =>
+        barcodeScanner.StatusChanged += (sender, arg) =>
         {
-            TextHeader.text = "Status: " + BarcodeScanner.Status;
+            TextHeader.text = "Status: " + barcodeScanner.Status;
         };
     }
 
@@ -54,27 +70,27 @@ public class SimpleDemo : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if (BarcodeScanner == null)
+        if (barcodeScanner == null)
         {
             return;
         }
-        BarcodeScanner.Update();
+        barcodeScanner.Update();
     }
 
     #region UI Buttons
 
     public void ClickStart()
     {
-        if (BarcodeScanner == null)
+        if (barcodeScanner == null)
         {
             Log.Warning("No valid camera - Click Start");
             return;
         }
 
         // Start Scanning
-        BarcodeScanner.Scan((barCodeType, barCodeValue) =>
+        barcodeScanner.Scan((barCodeType, barCodeValue) =>
         {
-            BarcodeScanner.Stop();
+            barcodeScanner.Stop();
             TextHeader.text = "Found: " + barCodeType + " / " + barCodeValue;
             frames.color = Color.green;
             // Feedback
@@ -84,19 +100,19 @@ public class SimpleDemo : MonoBehaviour
             Handheld.Vibrate();
 #endif
         });
-        frames.color = Color.red;
+        frames.color = Color.white;
     }
 
     public void ClickStop()
     {
-        if (BarcodeScanner == null)
+        if (barcodeScanner == null)
         {
             Log.Warning("No valid camera - Click Stop");
             return;
         }
 
         // Stop Scanning
-        BarcodeScanner.Stop();
+        barcodeScanner.Stop();
     }
 
     public void ClickBack()
@@ -118,8 +134,8 @@ public class SimpleDemo : MonoBehaviour
     {
         // Stop Scanning
         Image = null;
-        BarcodeScanner.Destroy();
-        BarcodeScanner = null;
+        barcodeScanner.Destroy();
+        barcodeScanner = null;
 
         // Wait a bit
         yield return new WaitForSeconds(0.1f);

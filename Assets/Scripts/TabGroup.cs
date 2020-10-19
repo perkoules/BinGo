@@ -11,20 +11,7 @@ public class TabGroup : MonoBehaviour
     public Color hoverColor;
     public Color disabledColor;
 
-    private void OnEnable()
-    {
-        foreach (var item in tabButtons)
-        {
-            if (item.name.Contains("Amazon") || item.name.Contains("Players") || item.name.Contains("City"))
-            {
-                item.background.color = pressedColor;
-            }
-            else
-            {
-                item.background.color = disabledColor;
-            }
-        }
-    }
+    
 
     public void Subscribe(TabButton button)
     {
@@ -41,7 +28,7 @@ public class TabGroup : MonoBehaviour
         if (selectedTab == null || button != selectedTab)
         {
             button.background.color = hoverColor;
-        }
+        }        
     }
 
     public void OnTabExit(TabButton button)

@@ -9,7 +9,7 @@
 
         private ILocationProvider _locationProvider;
 
-        private ILocationProvider LocationProvider
+        public ILocationProvider LocationProvider
         {
             get
             {

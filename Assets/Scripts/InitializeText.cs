@@ -37,6 +37,10 @@ public class InitializeText : MonoBehaviour
                     myText.text = playerDataSaver.GetProgressLevel().ToString();
                     break;
 
+                case "LvlNumberNext":
+                    myText.text = (playerDataSaver.GetProgressLevel() + 1).ToString();
+                    break;
+
                 case "RubbishCollectedText":
                     int allRubbish = playerDataSaver.GetWasteCollected() + playerDataSaver.GetRecycleCollected();
                     myText.text = allRubbish.ToString();

@@ -22,17 +22,27 @@ public class PlayfabManager : MonoBehaviour
 
     public static PlayfabManager Instance { get; private set; }
 
+    private int progressLevel = 1;
+    private int wasteCollected = 0;
+    private int recycleCollected = 0;
+    private int rubbishInPlace = 0;
+    private int rubbishInDistrict = 0;
+    private int rubbishInRegion = 0;
+    private int rubbishInCountry = 0;
+    private int coinsAvailable = 0;
+    private string place, district, region, country;
+
     private void OnEnable()
     {
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
-        if (Instance != null && Instance != this)
+        /*if (Instance != null && Instance != this)
         {
             Destroy(this.gameObject);
         }
         else
         {
             Instance = this;
-        }
+        }*/
     }
 
     public void Awake()
@@ -43,6 +53,10 @@ public class PlayfabManager : MonoBehaviour
         if (string.IsNullOrEmpty(PlayFabSettings.TitleId))
         {
             PlayFabSettings.TitleId = "F86EF";
+        }
+        if (locationProvider == null)
+        {
+            locationProvider = FindObjectOfType<DeviceLocationProvider>();
         }
     }
 
@@ -62,16 +76,15 @@ public class PlayfabManager : MonoBehaviour
             if (currentBuildIndex == 1 && playerDataSaver.GetIsGuest() == 0)
             {
                 StartCoroutine(Initialization());
-                GetPlayerStats();
-                GetPlayerData();
             }
         }
     }
 
     private IEnumerator Initialization()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
         GetLocationDataOfRubbish();
+        yield return new WaitForSeconds(0.5f);
         playerInfo = new PlayerInfo
         {
             PlayerUsername = playerDataSaver.GetUsername(),
@@ -81,8 +94,15 @@ public class PlayfabManager : MonoBehaviour
             PlayerRecycle = playerDataSaver.GetRecycleCollected(),
             PlayerTeamName = playerDataSaver.GetTeamname(),
             PlayerCoins = playerDataSaver.GetCoinsAvailable(),
-            PlayerCurrentLevel = playerDataSaver.GetProgressLevel()
+            PlayerCurrentLevel = playerDataSaver.GetProgressLevel(),
+            RubbishPlace = place,
+            RubbishDistrict = district,
+            RubbishRegion = region,
+            RubbishCountry = country
         };
+        GetPlayerStats();
+        yield return new WaitForSeconds(0.5f);
+        GetPlayerData();
     }
 
     public void GetLocationDataOfRubbish()
@@ -103,31 +123,21 @@ public class PlayfabManager : MonoBehaviour
         int c = myResult.features.FindIndex(f => f.id.Contains("country"));         //[3] = United Kingdom
         if (p >= 0)
         {
-            playerInfo.RubbishPlace = myResult.features[p].text;
+            place = myResult.features[p].text;
         }
         if (d >= 0)
         {
-            playerInfo.RubbishDistrict = myResult.features[d].text;
+            district = myResult.features[d].text;
         }
         if (r >= 0)
         {
-            playerInfo.RubbishRegion = myResult.features[r].text;
+            region = myResult.features[r].text;
         }
         if (c >= 0)
         {
-            playerInfo.RubbishCountry = myResult.features[c].text;
+            country = myResult.features[c].text;
         }
     }
-
-    /*--------- Stats and data defaults ---------------------*/
-    private int progressLevel = 1;
-    private int wasteCollected = 0;
-    private int recycleCollected = 0;
-    private int rubbishInPlace = 0;
-    private int rubbishInDistrict = 0;
-    private int rubbishInRegion = 0;
-    private int rubbishInCountry = 0;
-    private int coinsAvailable = 0;
 
     public void GetPlayerStats()
     {
@@ -168,22 +178,22 @@ public class PlayfabManager : MonoBehaviour
                     }
                     if (playerInfo.RubbishPlace != null)
                     {
-                        if (eachStat.StatisticName == (playerInfo.RubbishPlace + "Place"))
+                        if (eachStat.StatisticName == (playerInfo.RubbishPlace + " isPlace"))
                         {
                             rubbishInPlace = eachStat.Value;
                             playerInfo.RubbishInPlace = eachStat.Value;
                         }
-                        else if (eachStat.StatisticName == playerInfo.RubbishDistrict)
+                        else if (eachStat.StatisticName == playerInfo.RubbishDistrict + " isDistrict")
                         {
                             rubbishInDistrict = eachStat.Value;
                             playerInfo.RubbishInDistrict = eachStat.Value;
                         }
-                        else if (eachStat.StatisticName == playerInfo.RubbishRegion)
+                        else if (eachStat.StatisticName == playerInfo.RubbishRegion + " isRegion")
                         {
                             rubbishInRegion = eachStat.Value;
                             playerInfo.RubbishInRegion = eachStat.Value;
                         }
-                        else if (eachStat.StatisticName == (playerInfo.RubbishCountry))
+                        else if (eachStat.StatisticName == (playerInfo.RubbishCountry) + " isCountry")
                         {
                             rubbishInCountry = eachStat.Value;
                             playerInfo.RubbishInCountry = eachStat.Value;

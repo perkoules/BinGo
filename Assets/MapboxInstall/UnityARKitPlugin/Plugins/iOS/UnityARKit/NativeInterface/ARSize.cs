@@ -1,8 +1,11 @@
-﻿namespace UnityEngine.XR.iOS
+﻿using System;
+
+namespace UnityEngine.XR.iOS
 {
-    public struct ARSize
-    {
-        public double width;
-        public double height;
-    }
+	public struct ARSize
+	{
+		public double width;
+		public double height;
+	}
 }
+

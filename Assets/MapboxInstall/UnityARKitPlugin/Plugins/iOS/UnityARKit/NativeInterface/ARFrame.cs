@@ -2,33 +2,35 @@
 
 namespace UnityEngine.XR.iOS
 {
-    public struct ARFrame
-    {
-        /**
+	public struct ARFrame
+	{
+		/**
 		 A timestamp identifying the frame.
 		 */
-        public double timestamp;
+		public double timestamp;
 
-        /**
+		/**
  		The frame's captured image.
  		*/
-        public IntPtr capturedImage;
+		public IntPtr capturedImage;
 
-        /**
+		/**
 		 The camera used to capture the frame's image.
 		 @discussion The camera provides the device's position and orientation as well as camera parameters.
 		 */
-        public ARCamera camera;
+		public ARCamera camera;
 
-        /**
+		/**
  		A list of anchors in the scene.
  		*/
-        //List<ARAnchor> anchors;
+		//List<ARAnchor> anchors;
 
-        /**
+		/**
  		A light estimate representing the light in the scene.
  		@discussion Returns nil if there is no light estimation.
 		 */
-        private ARLightEstimate lightEstimate;
-    }
+		ARLightEstimate lightEstimate;
+
+	}
 }
+

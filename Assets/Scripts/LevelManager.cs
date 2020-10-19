@@ -23,23 +23,24 @@ public class LevelManager : MonoBehaviour
         _instance = this;
     }
 
-    public void LoginScene()
+    public void LoadSceneByBuildIndex(int index)
     {
-        SceneManager.LoadSceneAsync(0, LoadSceneMode.Single);
+        SceneManager.LoadScene(index, LoadSceneMode.Single);
     }
 
-    public void MainScene()
+    public void LoadSceneByName(string name)
     {
-        SceneManager.LoadSceneAsync(1, LoadSceneMode.Single);
+        SceneManager.LoadSceneAsync(name, LoadSceneMode.Single);
     }
 
-    public void CameraScene()
+    public void LoadAdditive(int index)
     {
-        SceneManager.LoadSceneAsync(2, LoadSceneMode.Single);
+        SceneManager.LoadScene(index, LoadSceneMode.Additive);
     }
 
     public void QuitGame()
     {
+        Debug.Log("Closing...");
         Application.Quit();
     }
 }

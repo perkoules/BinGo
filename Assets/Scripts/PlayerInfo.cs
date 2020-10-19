@@ -7,7 +7,6 @@ public class PlayerInfo
     //Serialized for testing purposes
     [Header("Player Data:")]
     [SerializeField] private string playerUsername;
-
     [SerializeField] private string playerId;
     [SerializeField] private string playerEmail;
     [SerializeField] private string playerPassword;
@@ -19,14 +18,12 @@ public class PlayerInfo
 
     [Header("Player Stats:")]
     [SerializeField] private int playerCurrentLevel;
-
     [SerializeField] private int playerCoins;
     [SerializeField] private int playerRubbish;
     [SerializeField] private int playerRecycle;
 
     [Header("Rubbish Location Data:")]
     [SerializeField] private string rubbishPlace;
-
     [SerializeField] private int rubbishInPlace;
     [SerializeField] private string rubbishDistrict;
     [SerializeField] private int rubbishInDistrict;

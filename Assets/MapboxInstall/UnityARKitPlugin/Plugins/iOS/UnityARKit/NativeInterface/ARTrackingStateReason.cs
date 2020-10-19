@@ -1,4 +1,6 @@
-﻿namespace UnityEngine.XR.iOS
+﻿using System;
+
+namespace UnityEngine.XR.iOS
 {
     public enum ARTrackingStateReason
     {
@@ -15,3 +17,4 @@
         ARTrackingStateReasonInsufficientFeatures,
     }
 }
+

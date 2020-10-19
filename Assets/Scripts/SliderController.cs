@@ -21,4 +21,9 @@ public class SliderController : MonoBehaviour
         textToChange.text = selectedValue.ToString("F2");
         coinsUsed = Convert.ToInt32(selectedValue * 100);
     }
+
+    public void ResetSlider()
+    {
+        slider.value = slider.minValue;
+    }
 }

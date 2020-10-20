@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraWindow : MonoBehaviour
 {
     public GameObject rubbishCamera, arSession;
+    public ScanRubbish scanRubbish;
     private void OnEnable()
     {
         arSession.SetActive(false);
@@ -16,8 +17,8 @@ public class CameraWindow : MonoBehaviour
         {
             yield return new WaitUntil(() => rubbishCamera.activeSelf);
         }
-        rubbishCamera.GetComponent<ScanRubbish>().Init();
+        scanRubbish.Init();
         yield return new WaitForSeconds(2);
-        rubbishCamera.GetComponent<ScanRubbish>().ClickStart();
+        scanRubbish.Play();
     }
 }

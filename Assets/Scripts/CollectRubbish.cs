@@ -105,7 +105,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     {
         if (pointerDown)
         {
-            fillerImage.fillAmount += Time.deltaTime;
+            fillerImage.fillAmount += Time.deltaTime;            
         }
     }
 

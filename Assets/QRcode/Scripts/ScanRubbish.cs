@@ -6,17 +6,13 @@ using UnityEngine.UI;
 using TBEasyWebCam;
 public class ScanRubbish : MonoBehaviour
 {
-    public QRController e_qrController;
-    //public TextMeshProUGUI UiText;
-    public GameObject rescanButton;
-    public GameObject scanLineObj, torchOff, torchOn;
-
-    public Image frames;
+    public QRController barcodeController;
+    public GameObject rescanButton, scanLineObj, torchOff, torchOn;
     public Button exitButton;
+
 
 #if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
     private bool isTorchOn = false;
-
 #endif
 
     /// <summary>
@@ -31,51 +27,19 @@ public class ScanRubbish : MonoBehaviour
 
     public void Init()
     {
-        if (this.e_qrController != null)
+        if (this.barcodeController != null)
         {
-            this.e_qrController.onQRScanFinished += new QRController.QRScanFinished(this.QrScanFinished);
+            this.barcodeController.onQRScanFinished += new QRController.QRScanFinished(CollectRubbish.Instance.QrScanFinished);
         }
     }
 
-    private void QrScanFinished(string dataText)
-    {
-        if (isOpenBrowserIfUrl)
-        {
-            if (Utility.CheckIsUrlFormat(dataText))
-            {
-                if (!dataText.Contains("http://") && !dataText.Contains("https://"))
-                {
-                    dataText = "http://" + dataText;
-                }
-                Application.OpenURL(dataText);
-            }
-        }
-        //this.UiText.text = dataText;
-        frames.color = Color.green;
-        StartCoroutine(RubbishCooldown());
-        if (this.rescanButton != null)
-        {
-            this.rescanButton.SetActive(true);
-        }
-        if (this.scanLineObj != null)
-        {
-            this.scanLineObj.SetActive(false);
-        }
-    }
-
-    private IEnumerator RubbishCooldown()
-    {
-        yield return new WaitForSeconds(5);
-
-        frames.color = Color.white;
-        Reset();
-    }
+    
 
     public void Reset()
     {
-        if (this.e_qrController != null)
+        if (this.barcodeController != null)
         {
-            this.e_qrController.Reset();
+            this.barcodeController.Reset();
         }
         /*if (this.UiText != null)
         {
@@ -94,17 +58,17 @@ public class ScanRubbish : MonoBehaviour
     public void Play()
     {
         Reset();
-        if (this.e_qrController != null)
+        if (this.barcodeController != null)
         {
-            this.e_qrController.StartWork();
+            this.barcodeController.StartWork();
         }
     }
 
     public void Stop()
     {
-        if (this.e_qrController != null)
+        if (this.barcodeController != null)
         {
-            this.e_qrController.StopWork();
+            this.barcodeController.StopWork();
         }
         /*
         if (this.rescanButton != null)
@@ -119,9 +83,9 @@ public class ScanRubbish : MonoBehaviour
 
     public void GotoNextScene(string scenename)
     {
-        if (this.e_qrController != null)
+        if (this.barcodeController != null)
         {
-            this.e_qrController.StopWork();
+            this.barcodeController.StopWork();
         }
         //Application.LoadLevel(scenename);
         SceneManager.LoadScene(scenename);

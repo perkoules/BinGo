@@ -3,41 +3,62 @@ using Mapbox.Unity.Location;
 using Mapbox.Utils;
 using PlayFab;
 using PlayFab.ClientModels;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(PlayerDataSaver), typeof(Image))]
+[RequireComponent(typeof(PlayerDataSaver), typeof(Image), typeof(ScanRubbish))]
 public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
+    public static CollectRubbish Instance { get; private set; }
     public AchievementsController achievementsController;
     public PlayfabManager playfabManager;
-    public PlayerInfo playerInfo;
     public DeviceLocationProvider locationProvider;
     public MeasureDistance measureDistance;
     public Image frames;
+    public TextMeshProUGUI messageText;
+    public PlayerInfo playerInfo;
 
     private PlayerDataSaver playerDataSaver;
     private GetCurrentLocation currentLocation;
+    private ScanRubbish scanRubbish;
 
     private int progressLevel = 1;
     private int wasteCollected = 0;
     private int recycleCollected = 0;
     private int coinsAvailable = 0;
-    public int rubbishInPlace = 0;
-    public int rubbishInDistrict = 0;
-    public int rubbishInRegion = 0;
-    public int rubbishInCountry = 0;
+    private int rubbishInPlace = 0;
+    private int rubbishInDistrict = 0;
+    private int rubbishInRegion = 0;
+    private int rubbishInCountry = 0;
     private string place, district, region, country;
 
-    private Image fillerImage;
+    [HideInInspector]
+    public Image fillerImage;
+
     private bool pointerDown = false;
+    private bool barcodeDetected = false;
+    private float timeLeft = 20;
+    public Animator anim;
+
+    private IEnumerator rubbishCoroutine;
 
     private void OnEnable()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
         playerInfo = playfabManager.playerInfo;
         rubbishInPlace = playerInfo.RubbishInPlace;
         rubbishInDistrict = playerInfo.RubbishInDistrict;
@@ -47,6 +68,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     private void Awake()
     {
+        scanRubbish = GetComponent<ScanRubbish>();
         fillerImage = GetComponent<Image>();
         playerDataSaver = GetComponent<PlayerDataSaver>();
     }
@@ -57,7 +79,103 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         recycleCollected = playerDataSaver.GetRecycleCollected();
         coinsAvailable = playerDataSaver.GetCoinsAvailable();
         progressLevel = playerDataSaver.GetProgressLevel();
+        rubbishCoroutine = RubbishCooldown();
     }
+
+    private void Update()
+    {
+        if (pointerDown && frames.color == Color.green)
+        {
+            if (anim.GetBool("fill"))
+            {
+                anim.SetBool("fill", false);
+                fillerImage.fillAmount = 0;
+            }
+            fillerImage.fillAmount += Time.deltaTime;
+        }
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        pointerDown = true;
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        pointerDown = false;
+        if (fillerImage.fillAmount == 1 && measureDistance.distances[measureDistance.minIndex] <= 50)
+        {
+            frames.color = Color.white;
+            StopCoroutine(rubbishCoroutine);
+            StartCoroutine(ShowTextMessage());
+            string typeOfRubbish = measureDistance.spawnBins.binLocations.ElementAt(measureDistance.minIndex).Value;
+            SetRubbishCollection(typeOfRubbish);
+        }
+        else
+        {
+            messageText.text = "Hold the button until filled completely";
+        }
+        fillerImage.fillAmount = 0;
+    }
+
+    private IEnumerator ShowTextMessage()
+    {
+        messageText.text = "WELL DONE! You helped the environment!!!";
+        yield return new WaitForSeconds(2);
+        messageText.text = "Please scan another rubbish!!!";
+        barcodeDetected = false;
+        timeLeft = 20.0f;
+        anim.SetBool("fill", true);
+        scanRubbish.Play();
+    }
+
+    public void QrScanFinished(string dataText)
+    {
+        if (!barcodeDetected)
+        {
+            barcodeDetected = true;
+            frames.color = Color.green;
+            StartCoroutine(rubbishCoroutine);
+            if (scanRubbish.isOpenBrowserIfUrl)
+            {
+                if (Utility.CheckIsUrlFormat(dataText))
+                {
+                    if (!dataText.Contains("http://") && !dataText.Contains("https://"))
+                    {
+                        dataText = "http://" + dataText;
+                    }
+                    Application.OpenURL(dataText);
+                }
+            }
+            if (scanRubbish.rescanButton != null)
+            {
+                scanRubbish.rescanButton.SetActive(true);
+            }
+            if (scanRubbish.scanLineObj != null)
+            {
+                scanRubbish.scanLineObj.SetActive(false);
+            }
+        }
+    }
+
+    private IEnumerator RubbishCooldown()
+    {
+        timeLeft = 20.0f;
+        anim.SetBool("fill", true);
+        while (timeLeft > 0)
+        {
+            timeLeft--;
+            yield return new WaitForSeconds(1.0f);
+            messageText.text = "Throw it in the bin. Time Left: " + Convert.ToInt32(timeLeft).ToString() + "s";
+        }
+        frames.color = Color.white;
+        barcodeDetected = false;
+        anim.SetBool("fill", false);
+        timeLeft = 20.0f;
+        messageText.text = "Please rescan the rubbish!!!";
+    }
+
+    #region PlayfabCommunications
 
     private void UpdatePlayerInfo()
     {
@@ -80,33 +198,6 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
             RubbishRegion = region,
             RubbishCountry = country
         };
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        pointerDown = true;
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        pointerDown = false;
-        if (fillerImage.fillAmount >= 1 && frames.color == Color.green 
-                        && measureDistance.distances[measureDistance.minIndex] <= 5)
-        {
-            frames.color = Color.white;
-            Debug.Log("Congrats you helped the environment!!!");
-            string typeOfRubbish = measureDistance.spawnBins.binLocations.ElementAt(measureDistance.minIndex).Value;
-            SetRubbishCollection(typeOfRubbish);
-        }
-        fillerImage.fillAmount = 0;
-    }
-
-    private void Update()
-    {
-        if (pointerDown)
-        {
-            fillerImage.fillAmount += Time.deltaTime;            
-        }
     }
 
     public void SetRubbishCollection(string typeOfRubbish)
@@ -307,4 +398,6 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
             country = myResult.features[c].text;
         }
     }
+
+    #endregion PlayfabCommunications
 }

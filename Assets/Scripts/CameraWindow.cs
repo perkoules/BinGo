@@ -1,12 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class CameraWindow : MonoBehaviour
 {
     public GameObject rubbishCamera, arSession;
+    public ScanRubbish scanRubbish;
+    public TextMeshProUGUI messageText;
+
     private void OnEnable()
     {
+        messageText.text = "Scan your rubbish";
         arSession.SetActive(false);
         StartCoroutine(CheckIfEnabled());
     }
@@ -16,8 +21,8 @@ public class CameraWindow : MonoBehaviour
         {
             yield return new WaitUntil(() => rubbishCamera.activeSelf);
         }
-        rubbishCamera.GetComponent<ScanRubbish>().Init();
+        scanRubbish.Init();
         yield return new WaitForSeconds(2);
-        rubbishCamera.GetComponent<ScanRubbish>().ClickStart();
+        scanRubbish.Play();
     }
 }

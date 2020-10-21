@@ -35,14 +35,14 @@ public class PlayfabManager : MonoBehaviour
     private void OnEnable()
     {
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
-        /*if (Instance != null && Instance != this)
+        if (Instance != null && Instance != this)
         {
             Destroy(this.gameObject);
         }
         else
         {
             Instance = this;
-        }*/
+        }
     }
 
     public void Awake()

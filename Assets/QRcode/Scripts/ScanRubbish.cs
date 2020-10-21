@@ -7,7 +7,7 @@ using TBEasyWebCam;
 public class ScanRubbish : MonoBehaviour
 {
     public QRController barcodeController;
-    public GameObject rescanButton, scanLineObj, torchOff, torchOn;
+    public GameObject scanLineObj, torchOff, torchOn;
     public Button exitButton;
 
 

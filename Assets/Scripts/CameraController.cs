@@ -44,10 +44,8 @@ public class CameraController : MonoBehaviour
     {
         if (!gameObject.activeSelf)
         {
-            Debug.Log("Waiting for AR Session to be enabled...");
             yield return new WaitUntil(() => gameObject.activeSelf);
         }
-        Debug.LogWarning("AR Session ENABLED");
         arCamera.enabled = true;           
     }
 }

@@ -147,10 +147,6 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
                     Application.OpenURL(dataText);
                 }
             }
-            if (scanRubbish.rescanButton != null)
-            {
-                scanRubbish.rescanButton.SetActive(true);
-            }
             if (scanRubbish.scanLineObj != null)
             {
                 scanRubbish.scanLineObj.SetActive(false);

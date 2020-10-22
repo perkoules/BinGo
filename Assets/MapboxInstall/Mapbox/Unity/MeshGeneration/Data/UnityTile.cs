@@ -180,6 +180,8 @@ namespace Mapbox.Unity.MeshGeneration.Data
             }
         }
 
+        public object Map { get; internal set; }
+
         public event Action<UnityTile> OnHeightDataChanged = delegate { };
 
         public event Action<UnityTile> OnRasterDataChanged = delegate { };

@@ -1,116 +1,325 @@
 fileFormatVersion: 2
 guid: fffd9b31938fead45b4540ac6a05f4e7
-timeCreated: 1517313934
-licenseType: Free
 ModelImporter:
-  serializedVersion: 21
-  fileIDToRecycleName:
-    100000: Ankle.L
-    100002: Ankle.R
-    100004: Arm.L
-    100006: Arm.R
-    100008: ArmIK.L
-    100010: ArmIK.L_end
-    100012: ArmIK.R
-    100014: ArmIK.R_end
-    100016: foot.L
-    100018: foot.L_end
-    100020: foot.R
-    100022: foot.R_end
-    100024: Forearm.L
-    100026: Forearm.R
-    100028: Head
-    100030: Head_end
-    100032: Hips
-    100034: Index_Finger_a.L
-    100036: Index_Finger_a.R
-    100038: Index_Finger_b.L
-    100040: Index_Finger_b.L_end
-    100042: Index_Finger_b.R
-    100044: Index_Finger_b.R_end
-    100046: Knee.L
-    100048: Knee.R
-    100050: //RootNode
-    100052: Monster_arm_BAKE
-    100054: Monster_mesh
-    100056: Neck
-    100058: Ribs
-    100060: root
-    100062: Shoulder.L
-    100064: Shoulder.R
-    100066: Thigh.L
-    100068: Thigh.R
-    100070: Thumb_a.L
-    100072: Thumb_a.L_end
-    100074: Thumb_a.R
-    100076: Thumb_a.R_end
-    100078: Toe.L
-    100080: Toe.L_end
-    100082: Toe.R
-    100084: Toe.R_end
-    100086: Upper_Arm.L
-    100088: Upper_Arm.R
-    400000: Ankle.L
-    400002: Ankle.R
-    400004: Arm.L
-    400006: Arm.R
-    400008: ArmIK.L
-    400010: ArmIK.L_end
-    400012: ArmIK.R
-    400014: ArmIK.R_end
-    400016: foot.L
-    400018: foot.L_end
-    400020: foot.R
-    400022: foot.R_end
-    400024: Forearm.L
-    400026: Forearm.R
-    400028: Head
-    400030: Head_end
-    400032: Hips
-    400034: Index_Finger_a.L
-    400036: Index_Finger_a.R
-    400038: Index_Finger_b.L
-    400040: Index_Finger_b.L_end
-    400042: Index_Finger_b.R
-    400044: Index_Finger_b.R_end
-    400046: Knee.L
-    400048: Knee.R
-    400050: //RootNode
-    400052: Monster_arm_BAKE
-    400054: Monster_mesh
-    400056: Neck
-    400058: Ribs
-    400060: root
-    400062: Shoulder.L
-    400064: Shoulder.R
-    400066: Thigh.L
-    400068: Thigh.R
-    400070: Thumb_a.L
-    400072: Thumb_a.L_end
-    400074: Thumb_a.R
-    400076: Thumb_a.R_end
-    400078: Toe.L
-    400080: Toe.L_end
-    400082: Toe.R
-    400084: Toe.R_end
-    400086: Upper_Arm.L
-    400088: Upper_Arm.R
-    4300000: Monster_mesh
-    7400000: Attack-1_Bake
-    7400002: Attack-2_Bake
-    7400004: Dead_Bake
-    7400006: Get-hit_Bake
-    7400008: IDLE_Bake
-    7400010: IDLE_long_Bake
-    7400012: Jamp_Bake
-    7400014: run_Bake
-    7400016: walk_Bake
-    9500000: //RootNode
-    13700000: Monster_mesh
+  serializedVersion: 19301
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: Ankle.L
+  - first:
+      1: 100002
+    second: Ankle.R
+  - first:
+      1: 100004
+    second: Arm.L
+  - first:
+      1: 100006
+    second: Arm.R
+  - first:
+      1: 100008
+    second: ArmIK.L
+  - first:
+      1: 100010
+    second: ArmIK.L_end
+  - first:
+      1: 100012
+    second: ArmIK.R
+  - first:
+      1: 100014
+    second: ArmIK.R_end
+  - first:
+      1: 100016
+    second: foot.L
+  - first:
+      1: 100018
+    second: foot.L_end
+  - first:
+      1: 100020
+    second: foot.R
+  - first:
+      1: 100022
+    second: foot.R_end
+  - first:
+      1: 100024
+    second: Forearm.L
+  - first:
+      1: 100026
+    second: Forearm.R
+  - first:
+      1: 100028
+    second: Head
+  - first:
+      1: 100030
+    second: Head_end
+  - first:
+      1: 100032
+    second: Hips
+  - first:
+      1: 100034
+    second: Index_Finger_a.L
+  - first:
+      1: 100036
+    second: Index_Finger_a.R
+  - first:
+      1: 100038
+    second: Index_Finger_b.L
+  - first:
+      1: 100040
+    second: Index_Finger_b.L_end
+  - first:
+      1: 100042
+    second: Index_Finger_b.R
+  - first:
+      1: 100044
+    second: Index_Finger_b.R_end
+  - first:
+      1: 100046
+    second: Knee.L
+  - first:
+      1: 100048
+    second: Knee.R
+  - first:
+      1: 100050
+    second: //RootNode
+  - first:
+      1: 100052
+    second: Monster_arm_BAKE
+  - first:
+      1: 100054
+    second: Monster_mesh
+  - first:
+      1: 100056
+    second: Neck
+  - first:
+      1: 100058
+    second: Ribs
+  - first:
+      1: 100060
+    second: root
+  - first:
+      1: 100062
+    second: Shoulder.L
+  - first:
+      1: 100064
+    second: Shoulder.R
+  - first:
+      1: 100066
+    second: Thigh.L
+  - first:
+      1: 100068
+    second: Thigh.R
+  - first:
+      1: 100070
+    second: Thumb_a.L
+  - first:
+      1: 100072
+    second: Thumb_a.L_end
+  - first:
+      1: 100074
+    second: Thumb_a.R
+  - first:
+      1: 100076
+    second: Thumb_a.R_end
+  - first:
+      1: 100078
+    second: Toe.L
+  - first:
+      1: 100080
+    second: Toe.L_end
+  - first:
+      1: 100082
+    second: Toe.R
+  - first:
+      1: 100084
+    second: Toe.R_end
+  - first:
+      1: 100086
+    second: Upper_Arm.L
+  - first:
+      1: 100088
+    second: Upper_Arm.R
+  - first:
+      4: 400000
+    second: Ankle.L
+  - first:
+      4: 400002
+    second: Ankle.R
+  - first:
+      4: 400004
+    second: Arm.L
+  - first:
+      4: 400006
+    second: Arm.R
+  - first:
+      4: 400008
+    second: ArmIK.L
+  - first:
+      4: 400010
+    second: ArmIK.L_end
+  - first:
+      4: 400012
+    second: ArmIK.R
+  - first:
+      4: 400014
+    second: ArmIK.R_end
+  - first:
+      4: 400016
+    second: foot.L
+  - first:
+      4: 400018
+    second: foot.L_end
+  - first:
+      4: 400020
+    second: foot.R
+  - first:
+      4: 400022
+    second: foot.R_end
+  - first:
+      4: 400024
+    second: Forearm.L
+  - first:
+      4: 400026
+    second: Forearm.R
+  - first:
+      4: 400028
+    second: Head
+  - first:
+      4: 400030
+    second: Head_end
+  - first:
+      4: 400032
+    second: Hips
+  - first:
+      4: 400034
+    second: Index_Finger_a.L
+  - first:
+      4: 400036
+    second: Index_Finger_a.R
+  - first:
+      4: 400038
+    second: Index_Finger_b.L
+  - first:
+      4: 400040
+    second: Index_Finger_b.L_end
+  - first:
+      4: 400042
+    second: Index_Finger_b.R
+  - first:
+      4: 400044
+    second: Index_Finger_b.R_end
+  - first:
+      4: 400046
+    second: Knee.L
+  - first:
+      4: 400048
+    second: Knee.R
+  - first:
+      4: 400050
+    second: //RootNode
+  - first:
+      4: 400052
+    second: Monster_arm_BAKE
+  - first:
+      4: 400054
+    second: Monster_mesh
+  - first:
+      4: 400056
+    second: Neck
+  - first:
+      4: 400058
+    second: Ribs
+  - first:
+      4: 400060
+    second: root
+  - first:
+      4: 400062
+    second: Shoulder.L
+  - first:
+      4: 400064
+    second: Shoulder.R
+  - first:
+      4: 400066
+    second: Thigh.L
+  - first:
+      4: 400068
+    second: Thigh.R
+  - first:
+      4: 400070
+    second: Thumb_a.L
+  - first:
+      4: 400072
+    second: Thumb_a.L_end
+  - first:
+      4: 400074
+    second: Thumb_a.R
+  - first:
+      4: 400076
+    second: Thumb_a.R_end
+  - first:
+      4: 400078
+    second: Toe.L
+  - first:
+      4: 400080
+    second: Toe.L_end
+  - first:
+      4: 400082
+    second: Toe.R
+  - first:
+      4: 400084
+    second: Toe.R_end
+  - first:
+      4: 400086
+    second: Upper_Arm.L
+  - first:
+      4: 400088
+    second: Upper_Arm.R
+  - first:
+      43: 4300000
+    second: Monster_mesh
+  - first:
+      74: 7400000
+    second: Attack-1_Bake
+  - first:
+      74: 7400002
+    second: Attack-2_Bake
+  - first:
+      74: 7400004
+    second: Dead_Bake
+  - first:
+      74: 7400006
+    second: Get-hit_Bake
+  - first:
+      74: 7400008
+    second: IDLE_Bake
+  - first:
+      74: 7400010
+    second: IDLE_long_Bake
+  - first:
+      74: 7400012
+    second: Jamp_Bake
+  - first:
+      74: 7400014
+    second: run_Bake
+  - first:
+      74: 7400016
+    second: walk_Bake
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: Monster_mesh
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: None
+    second: {fileID: 2100000, guid: 89ce0e60ee222a048825f852d4c390ce, type: 2}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -120,16 +329,11 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: "\nClip 'Attack-2_Bake' has import animation warnings
-      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
-      to improve retargeting quality.\n\t'Shoulder.L' has translation animation that
-      will be discarded.\n\t'Shoulder.R' has translation animation that will be discarded.\n\nClip
-      'Get-hit_Bake' has import animation warnings that might lower retargeting quality:\nNote:
-      Activate translation DOF on avatar to improve retargeting quality.\n\t'Ribs'
-      has translation animation that will be discarded.\n\t'Neck' has translation
-      animation that will be discarded.\n"
+    animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -137,23 +341,292 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Attack-1_Bake
+      takeName: Attack-1_Bake
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Attack-2_Bake
+      takeName: Attack-2_Bake
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 33
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Dead_Bake
+      takeName: Dead_Bake
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Get-hit_Bake
+      takeName: Get-hit_Bake
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: IDLE_Bake
+      takeName: IDLE_Bake
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 50
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: IDLE_long_Bake
+      takeName: IDLE_long_Bake
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 200
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Jamp_Bake
+      takeName: Jamp_Bake
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 50
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: run_Bake
+      takeName: run_Bake
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: walk_Bake
+      takeName: walk_Bake
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
@@ -164,10 +637,13 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
-  copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -177,14 +653,16 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
+  avatarSetup: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

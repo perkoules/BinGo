@@ -116,4 +116,14 @@ public class ScanRubbish : MonoBehaviour
         }
 #endif
     }
+
+    public void TorchOff()
+    {
+#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
+        if (EasyWebCam.isActive)
+        {
+            EasyWebCam.setTorchMode(TBEasyWebCam.Setting.TorchMode.Off);            
+        }
+#endif
+    }
 }

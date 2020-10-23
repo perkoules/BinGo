@@ -87,7 +87,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2977491661203050371}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -335,7 +335,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _options:
     locationOptions:
-      latitudeLongitude: 48.20833, 16.373064
+      latitudeLongitude: 54.572233, -1.232345
       zoom: 17
     extentOptions:
       extentType: 1
@@ -373,7 +373,7 @@ MonoBehaviour:
           Modified: 
           UserName: 
       rasterOptions:
-        useRetina: 0
+        useRetina: 1
         useCompression: 0
         useMipMap: 0
   _terrain:
@@ -407,10 +407,12 @@ MonoBehaviour:
       tileJsonData:
         tileJSONLoaded: 0
         LayerDisplayNames:
+        - 
         - admin
         - aeroway
         - airport_label
         - barrier_line
+        - Bins
         - building
         - country_label
         - housenum_label
@@ -429,12 +431,12 @@ MonoBehaviour:
         - water_label
         - waterway
         - waterway_label
-      _sourceType: 1
+      _sourceType: 2
       sourceOptions:
         isActive: 1
         layerSource:
           Name: Mapbox Streets
-          Id: mapbox.mapbox-streets-v7
+          Id: mapbox.mapbox-streets-v7,perkoules.cke8ggc8g1gf029o6l6c914f8-2at9l
           Modified: 
           UserName: 
       useOptimizedStyle: 0
@@ -446,7 +448,151 @@ MonoBehaviour:
       performanceOptions:
         isEnabled: 1
         entityPerCoroutine: 20
-      vectorSubLayers: []
+      vectorSubLayers:
+      - coreOptions:
+          sourceId: 
+          isActive: 1
+          sublayerName: WasteBins
+          geometryType: 3
+          layerName: Bins
+          snapToTerrain: 1
+          combineMeshes: 0
+        lineGeometryOptions:
+          Width: 1
+          MiterLimit: 0.2
+          RoundLimit: 1.05
+          JoinType: 1
+          CapType: 1
+        filterOptions:
+          _selectedLayerName: Bins
+          filters:
+          - Key: bin_type
+            KeyDescription: String
+            PropertyValue: waste
+            Min: 0
+            Max: 0
+            filterOperator: 0
+          combinerType: 0
+        extrusionOptions:
+          _selectedLayerName: 
+          extrusionType: 0
+          extrusionGeometryType: 0
+          propertyName: height
+          propertyDescription: 
+          minimumHeight: 0
+          maximumHeight: 1
+          extrusionScaleFactor: 1
+        colliderOptions:
+          colliderType: 0
+        materialOptions:
+          style: 0
+          texturingType: 2
+          materials:
+          - Materials:
+            - {fileID: 0}
+          - Materials:
+            - {fileID: 0}
+          atlasInfo: {fileID: 0}
+          lightStyleOpacity: 1
+          darkStyleOpacity: 1
+          colorStyleColor: {r: 0.1764706, g: 0.8509805, b: 1, a: 1}
+          samplePalettes: 0
+          colorPalette: {fileID: 0}
+          customStyleOptions:
+            texturingType: 0
+            materials:
+            - Materials:
+              - {fileID: 0}
+            - Materials:
+              - {fileID: 0}
+            atlasInfo: {fileID: 11400000, guid: 414754d7155df47beb52ca117a774f21,
+              type: 2}
+            colorPalette: {fileID: 11400000, guid: 57bdfa37edf7a4f7f999d19443497554,
+              type: 2}
+        performanceOptions:
+          isEnabled: 0
+          entityPerCoroutine: 0
+        honorBuildingIdSetting: 1
+        buildingsWithUniqueIds: 0
+        moveFeaturePositionTo: 0
+        MeshModifiers: []
+        GoModifiers:
+        - {fileID: 11400000, guid: 71e26711c5639b34cb5a03fb7e13d1d5, type: 2}
+        presetFeatureType: 4
+        _maskValue: 0
+        selectedTypes: 
+      - coreOptions:
+          sourceId: 
+          isActive: 1
+          sublayerName: RecycleBins
+          geometryType: 3
+          layerName: Bins
+          snapToTerrain: 1
+          combineMeshes: 0
+        lineGeometryOptions:
+          Width: 1
+          MiterLimit: 0.2
+          RoundLimit: 1.05
+          JoinType: 1
+          CapType: 1
+        filterOptions:
+          _selectedLayerName: Bins
+          filters:
+          - Key: bin_type
+            KeyDescription: String
+            PropertyValue: recycle
+            Min: 0
+            Max: 0
+            filterOperator: 0
+          combinerType: 0
+        extrusionOptions:
+          _selectedLayerName: 
+          extrusionType: 0
+          extrusionGeometryType: 0
+          propertyName: height
+          propertyDescription: 
+          minimumHeight: 0
+          maximumHeight: 1
+          extrusionScaleFactor: 1
+        colliderOptions:
+          colliderType: 0
+        materialOptions:
+          style: 0
+          texturingType: 2
+          materials:
+          - Materials:
+            - {fileID: 0}
+          - Materials:
+            - {fileID: 0}
+          atlasInfo: {fileID: 0}
+          lightStyleOpacity: 1
+          darkStyleOpacity: 1
+          colorStyleColor: {r: 0.1764706, g: 0.8509805, b: 1, a: 1}
+          samplePalettes: 0
+          colorPalette: {fileID: 0}
+          customStyleOptions:
+            texturingType: 0
+            materials:
+            - Materials:
+              - {fileID: 0}
+            - Materials:
+              - {fileID: 0}
+            atlasInfo: {fileID: 11400000, guid: 414754d7155df47beb52ca117a774f21,
+              type: 2}
+            colorPalette: {fileID: 11400000, guid: 57bdfa37edf7a4f7f999d19443497554,
+              type: 2}
+        performanceOptions:
+          isEnabled: 0
+          entityPerCoroutine: 0
+        honorBuildingIdSetting: 1
+        buildingsWithUniqueIds: 0
+        moveFeaturePositionTo: 0
+        MeshModifiers: []
+        GoModifiers:
+        - {fileID: 11400000, guid: 361c55b4c122d5746b359d1bb3e96c3e, type: 2}
+        presetFeatureType: 4
+        _maskValue: 0
+        selectedTypes: 
       locationPrefabList: []
   _tileProvider: {fileID: 0}
   _previewOptions:
@@ -780,9 +926,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a38712e93231418a84665190b8473d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _desiredAccuracyInMeters: 5
-  _updateDistanceInMeters: 5
-  _updateTimeInMilliSeconds: 1000
+  _desiredAccuracyInMeters: 1
+  _updateDistanceInMeters: 0.5
+  _updateTimeInMilliSeconds: 500
   _userHeadingSmoothing: {fileID: 0}
   _deviceOrientationSmoothing: {fileID: 0}
   _editorDebuggingOnly:

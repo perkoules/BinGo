@@ -142,6 +142,8 @@ namespace UnityEngine.AI
             return buildSettings;
         }
 
+
+        [ContextMenu ( "BuildNavMesh" )]
         public void BuildNavMesh()
         {
             var sources = CollectSources();

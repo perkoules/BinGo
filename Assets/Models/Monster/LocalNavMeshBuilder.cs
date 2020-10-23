@@ -72,7 +72,7 @@ public class LocalNavMeshBuilder : MonoBehaviour
         return new Bounds(Quantize(center, 0.1f * m_Size), m_Size);
     }
 
-    void OnDrawGizmosSelected()
+    /*void OnDrawGizmosSelected()
     {
         if (m_NavMesh)
         {
@@ -87,5 +87,5 @@ public class LocalNavMeshBuilder : MonoBehaviour
         Gizmos.color = Color.green;
         var center = m_Tracked ? m_Tracked.position : transform.position;
         Gizmos.DrawWireCube(center, m_Size);
-    }
+    }*/
 }

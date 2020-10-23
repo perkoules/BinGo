@@ -56,8 +56,7 @@ namespace UnityEditor.AI
         static Color s_HandleColorSelected = new Color(127f, 214f, 244f, 210f) / 255;
         static Color s_HandleColorDisabled = new Color(127f * 0.75f, 214f * 0.75f, 244f * 0.75f, 100f) / 255;
 
-        static int s_HandleControlIDHint = typeof(NavMeshSurfaceEditor).Name.GetHashCode();
-        BoxBoundsHandle m_BoundsHandle = new BoxBoundsHandle(s_HandleControlIDHint);
+        BoxBoundsHandle m_BoundsHandle = new BoxBoundsHandle();
 
         bool editingCollider
         {
@@ -136,6 +135,12 @@ namespace UnityEditor.AI
             }
         }
 
+        Bounds GetBounds()
+        {
+            var navSurface = (NavMeshSurface)target;
+            return new Bounds(navSurface.transform.position, navSurface.size);
+        }
+
         public override void OnInspectorGUI()
         {
             if (s_Styles == null)
@@ -160,9 +165,13 @@ namespace UnityEditor.AI
             if ((CollectObjects)m_CollectObjects.enumValueIndex == CollectObjects.Volume)
             {
                 EditorGUI.indentLevel++;
-                InspectorEditButtonGUI();
+
+                EditMode.DoEditModeInspectorModeButton(EditMode.SceneViewEditMode.Collider, "Edit Volume",
+                    EditorGUIUtility.IconContent("EditCollider"), GetBounds, this);
                 EditorGUILayout.PropertyField(m_Size);
                 EditorGUILayout.PropertyField(m_Center);
+
+                EditorGUI.indentLevel--;
             }
             else
             {
@@ -433,20 +442,6 @@ namespace UnityEditor.AI
             Gizmos.color = oldColor;
 
             Gizmos.DrawIcon(navSurface.transform.position, "NavMeshSurface Icon", true);
-        }
-
-        void InspectorEditButtonGUI()
-        {
-            var navSurface = (NavMeshSurface)target;
-            var bounds = new Bounds(navSurface.transform.position, navSurface.size);
-
-            EditMode.DoEditModeInspectorModeButton(
-                EditMode.SceneViewEditMode.Collider,
-                "Edit Volume",
-                EditorGUIUtility.IconContent("EditCollider"),
-                bounds,
-                this
-                );
         }
 
         void OnSceneGUI()

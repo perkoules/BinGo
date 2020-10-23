@@ -103,7 +103,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public void OnPointerUp(PointerEventData eventData)
     {
         pointerDown = false;
-        if (fillerImage.fillAmount == 1 && measureDistance.distances[measureDistance.minIndex] <= 50)
+        if (fillerImage.fillAmount == 1 && measureDistance.distances[measureDistance.minIndex] <= 10)
         {
             frames.color = Color.white;
             StopCoroutine(rubbishCoroutine);

@@ -234,10 +234,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   locationProvider: {fileID: 6617651571807322214}
-  spawnBins: {fileID: 0}
   distances: []
   minIndex: -1
   myText: {fileID: 0}
+  bins: []
 --- !u!1 &6617651569950816470
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,10 +338,10 @@ MonoBehaviour:
       latitudeLongitude: 54.572233, -1.232345
       zoom: 17
     extentOptions:
-      extentType: 1
+      extentType: 0
       defaultExtents:
         cameraBoundsOptions:
-          camera: {fileID: 0}
+          camera: {fileID: 6617651571526324954}
           visibleBuffer: 0
           disposeBuffer: 0
         rangeAroundCenterOptions:
@@ -350,8 +350,8 @@ MonoBehaviour:
           east: 1
           south: 1
         rangeAroundTransformOptions:
-          targetTransform: {fileID: 0}
-          visibleBuffer: 0
+          targetTransform: {fileID: 3887955446587437161}
+          visibleBuffer: 1
           disposeBuffer: 0
     placementOptions:
       placementType: 1
@@ -749,7 +749,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6617651571526324956}
   - component: {fileID: 6617651571526324954}
-  - component: {fileID: 6617651571526324955}
+  - component: {fileID: 1283901598}
   m_Layer: 12
   m_Name: MapCamera
   m_TagString: Untagged
@@ -798,8 +798,8 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1500
   field of view: 60
-  orthographic: 0
-  orthographic size: 5
+  orthographic: 1
+  orthographic size: 85
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -815,7 +815,7 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &6617651571526324955
+--- !u!114 &1283901598
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -824,11 +824,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6617651571526324953}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ade537fc62d5c974cb84efe75fbc9f08, type: 3}
+  m_Script: {fileID: 11500000, guid: c5bd565fcbef74ea097c756caba72798, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _camera: {fileID: 6617651571526324954}
-  _locationProvider: {fileID: 6617651571827132394}
+  _targetTransform: {fileID: 3887955446587437161}
 --- !u!1 &6617651571632281066
 GameObject:
   m_ObjectHideFlags: 0

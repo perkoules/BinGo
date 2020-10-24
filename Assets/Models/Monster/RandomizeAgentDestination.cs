@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 using Mapbox.Unity.Utilities;
+using System.Collections;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class RandomizeAgentDestination : MonoBehaviour
@@ -21,9 +22,14 @@ public class RandomizeAgentDestination : MonoBehaviour
     void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
+        StartCoroutine(EnableAgent());
         SetDestination();
     }
-
+    IEnumerator EnableAgent()
+    {
+        yield return new WaitForSeconds(0.1f);
+        _agent.enabled = true;
+    }
     void Update()
     {
         Debug.DrawLine(transform.position, _agent.destination, Color.red);

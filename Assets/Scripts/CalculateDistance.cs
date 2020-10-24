@@ -43,10 +43,6 @@ public class CalculateDistance : MonoBehaviour
         yield return new WaitForSeconds(timeToWait);
         bins = GameObject.FindGameObjectsWithTag("BinTag");
         distances = new float[bins.Length];
-        distances = new float[]
-        {
-            1,1,1,1
-        };
     }
 
     private void GetAllDistances()

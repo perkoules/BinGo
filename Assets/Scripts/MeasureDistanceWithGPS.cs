@@ -6,7 +6,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 
-public class MeasureDistance : MonoBehaviour
+public class MeasureDistanceWithGPS : MonoBehaviour
 {
     public DeviceLocationProvider locationProvider;
     public SpawnBinsOnMap spawnBins;

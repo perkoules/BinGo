@@ -13407,6 +13407,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 597725220}
   m_CullTransparentMesh: 0
+--- !u!1 &601854493 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3887955446587437159, guid: 7f3f3596612df1d4e945d90591f82bf7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1377180107}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &601854497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 601854493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a30bfcdc8a9094e478b2ff7610196e96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bins: []
+  distances: []
+  minIndex: 0
+  myText: {fileID: 1218340224}
 --- !u!1 &612158875
 GameObject:
   m_ObjectHideFlags: 0
@@ -18539,6 +18561,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MapSpawning
+      objectReference: {fileID: 0}
+    - target: {fileID: 6269433096693917071, guid: c34e63dd1d0db0d46ba4936e1a16eea3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c34e63dd1d0db0d46ba4936e1a16eea3, type: 3}
@@ -34140,7 +34167,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2047161678, guid: 7f3f3596612df1d4e945d90591f82bf7, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7f3f3596612df1d4e945d90591f82bf7, type: 3}
 --- !u!1 &1377180108 stripped
 GameObject:
@@ -34172,18 +34200,6 @@ Camera:
     type: 3}
   m_PrefabInstance: {fileID: 1377180107}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1377180112 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2047161678, guid: 7f3f3596612df1d4e945d90591f82bf7,
-    type: 3}
-  m_PrefabInstance: {fileID: 1377180107}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46e65f368b858bd448876175bc586d0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1381035884
 GameObject:
   m_ObjectHideFlags: 0
@@ -50287,7 +50303,7 @@ MonoBehaviour:
   achievementsController: {fileID: 1050050751}
   playfabManager: {fileID: 1111653316}
   locationProvider: {fileID: 1377180109}
-  measureDistance: {fileID: 1377180112}
+  calculateDistance: {fileID: 601854497}
   frames: {fileID: 1880779234}
   messageText: {fileID: 1622764447}
   playerInfo:
@@ -65559,7 +65575,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 837.82}
+  m_AnchoredPosition: {x: 0, y: 838}
   m_SizeDelta: {x: 0, y: -1675.4691}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &9167841058334707288

@@ -20,7 +20,10 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public AchievementsController achievementsController;
     public PlayfabManager playfabManager;
     public DeviceLocationProvider locationProvider;
-    public MeasureDistance measureDistance;
+
+    //public MeasureDistanceWithGPS measureDistance;
+    public CalculateDistance calculateDistance;
+
     public Image frames;
     public TextMeshProUGUI messageText;
     public PlayerInfo playerInfo;
@@ -68,6 +71,10 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     private void Awake()
     {
+        if(calculateDistance == null)
+        {
+            calculateDistance = FindObjectOfType<CalculateDistance>();
+        }
         scanRubbish = GetComponent<ScanRubbish>();
         fillerImage = GetComponent<Image>();
         playerDataSaver = GetComponent<PlayerDataSaver>();
@@ -103,12 +110,20 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public void OnPointerUp(PointerEventData eventData)
     {
         pointerDown = false;
-        if (fillerImage.fillAmount == 1 && measureDistance.distances[measureDistance.minIndex] <= 10)
+        if (fillerImage.fillAmount == 1 && calculateDistance.distances[calculateDistance.minIndex] <= 10)
         {
             frames.color = Color.white;
             StopCoroutine(rubbishCoroutine);
             StartCoroutine(ShowTextMessage());
-            string typeOfRubbish = measureDistance.spawnBins.binLocations.ElementAt(measureDistance.minIndex).Value;
+            string typeOfRubbish = "";
+            if (calculateDistance.bins[calculateDistance.minIndex].transform.parent.name.Contains("Waste"))
+            {
+                typeOfRubbish = "waste";
+            }
+            else if (calculateDistance.bins[calculateDistance.minIndex].transform.parent.name.Contains("Recycle"))
+            {
+                typeOfRubbish = "recycle";
+            }
             SetRubbishCollection(typeOfRubbish);
         }
         else
@@ -173,29 +188,6 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     #region PlayfabCommunications
 
-    private void UpdatePlayerInfo()
-    {
-        playerInfo = new PlayerInfo
-        {
-            PlayerUsername = playerDataSaver.GetUsername(),
-            PlayerPassword = playerDataSaver.GetPassword(),
-            PlayerEmail = playerDataSaver.GetEmail(),
-            PlayerTeamName = playerDataSaver.GetTeamname(),
-            PlayerRubbish = playerDataSaver.GetWasteCollected(),
-            PlayerRecycle = playerDataSaver.GetRecycleCollected(),
-            PlayerCoins = playerDataSaver.GetCoinsAvailable(),
-            PlayerCurrentLevel = playerDataSaver.GetProgressLevel(),
-            RubbishInPlace = rubbishInPlace,
-            RubbishInDistrict = rubbishInDistrict,
-            RubbishInRegion = rubbishInRegion,
-            RubbishInCountry = rubbishInCountry,
-            RubbishPlace = place,
-            RubbishDistrict = district,
-            RubbishRegion = region,
-            RubbishCountry = country
-        };
-    }
-
     public void SetRubbishCollection(string typeOfRubbish)
     {
         GetLocationDataOfRubbish();
@@ -226,6 +218,29 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         //playfabManager.LevelBadgeDisplay();
         StartCoroutine(achievementsController.CheckAchievementUnlockability());
         UpdatePlayerInfo();
+    }
+
+    private void UpdatePlayerInfo()
+    {
+        playerInfo = new PlayerInfo
+        {
+            PlayerUsername = playerDataSaver.GetUsername(),
+            PlayerPassword = playerDataSaver.GetPassword(),
+            PlayerEmail = playerDataSaver.GetEmail(),
+            PlayerTeamName = playerDataSaver.GetTeamname(),
+            PlayerRubbish = playerDataSaver.GetWasteCollected(),
+            PlayerRecycle = playerDataSaver.GetRecycleCollected(),
+            PlayerCoins = playerDataSaver.GetCoinsAvailable(),
+            PlayerCurrentLevel = playerDataSaver.GetProgressLevel(),
+            RubbishInPlace = rubbishInPlace,
+            RubbishInDistrict = rubbishInDistrict,
+            RubbishInRegion = rubbishInRegion,
+            RubbishInCountry = rubbishInCountry,
+            RubbishPlace = place,
+            RubbishDistrict = district,
+            RubbishRegion = region,
+            RubbishCountry = country
+        };
     }
 
     public void ProgressLevelCheck()

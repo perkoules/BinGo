@@ -139,8 +139,12 @@ namespace GoogleARCore.Examples.HelloAR
                     }
 
                     // Instantiate prefab at the hit pose.
-                    var gameObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
-
+                    bool ok = true;
+                    if (ok)
+                    {
+                        var gameObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
+                        ok = false;
+                    }
                     // Compensate for the hitPose rotation facing away from the raycast (i.e.
                     // camera).
                     gameObject.transform.Rotate(0, k_PrefabRotation, 0, Space.Self);

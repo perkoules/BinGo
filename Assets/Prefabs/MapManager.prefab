@@ -60,6 +60,7 @@ GameObject:
   - component: {fileID: 2977491661203050397}
   - component: {fileID: 2977491661203050396}
   - component: {fileID: 2019237530}
+  - component: {fileID: 645732028}
   m_Layer: 0
   m_Name: AR Camera
   m_TagString: MainCamera
@@ -169,6 +170,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Tracked: {fileID: 2977491661348758858}
   m_Size: {x: 200, y: 20, z: 200}
+--- !u!114 &645732028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2977491661203050371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4933cefdd9cbcbb4fb59355f766fe6ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3887955446587437159
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,7 +396,7 @@ MonoBehaviour:
         isActive: 1
         layerSource:
           Name: Streets
-          Id: mapbox://styles/perkoules/cke4ilt5217k51ast9ktidbu8/
+          Id: mapbox://styles/perkoules/cke4ilt5217k51ast9ktidbu8
           Modified: 
           UserName: 
       rasterOptions:
@@ -449,7 +462,7 @@ MonoBehaviour:
         isActive: 1
         layerSource:
           Name: Mapbox Streets
-          Id: mapbox.mapbox-streets-v7,perkoules.cke8ggc8g1gf029o6l6c914f8-2at9l
+          Id: mapbox.mapbox-streets-v7,mapbox.mapbox-streets-v7,perkoules.cke8ggc8g1gf029o6l6c914f8-2at9l
           Modified: 
           UserName: 
       useOptimizedStyle: 0
@@ -629,14 +642,22 @@ MonoBehaviour:
             Min: 0
             Max: 0
             filterOperator: 0
-          combinerType: 0
+          - Key: class
+            KeyDescription: 'One of: agriculture, cemetery, glacier, grass, hospital,
+              industrial, park, parking, piste, pitch, rock, sand, school, scrub,
+              wood, aboriginal_lands'
+            PropertyValue: park
+            Min: 0
+            Max: 0
+            filterOperator: 0
+          combinerType: 1
         extrusionOptions:
           _selectedLayerName: landuse
           extrusionType: 5
           extrusionGeometryType: 0
           propertyName: height
-          propertyDescription: 
-          minimumHeight: 0
+          propertyDescription: Unavailable in Selected Layer.
+          minimumHeight: 1.89
           maximumHeight: 1
           extrusionScaleFactor: 1
         colliderOptions:
@@ -670,7 +691,7 @@ MonoBehaviour:
           isEnabled: 0
           entityPerCoroutine: 0
         honorBuildingIdSetting: 1
-        buildingsWithUniqueIds: 1
+        buildingsWithUniqueIds: 0
         moveFeaturePositionTo: 0
         MeshModifiers: []
         GoModifiers:
@@ -887,7 +908,7 @@ Camera:
   far clip plane: 1500
   field of view: 60
   orthographic: 1
-  orthographic size: 85
+  orthographic size: 100
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2

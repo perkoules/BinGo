@@ -16,7 +16,7 @@ public class MonsterDestroyer : MonoBehaviour
                 if (go.name.Contains("Monster"))
                 {
                     go.GetComponent<Animator>().SetBool("IsDead", true);
-                    Destroy(go, 3f);
+                    Destroy(go, 5f);
                 }
             }
         }

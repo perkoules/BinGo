@@ -60,7 +60,6 @@ GameObject:
   - component: {fileID: 2977491661203050397}
   - component: {fileID: 2977491661203050396}
   - component: {fileID: 2019237530}
-  - component: {fileID: 645732028}
   m_Layer: 0
   m_Name: AR Camera
   m_TagString: MainCamera
@@ -170,18 +169,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Tracked: {fileID: 2977491661348758858}
   m_Size: {x: 200, y: 20, z: 200}
---- !u!114 &645732028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2977491661203050371}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4933cefdd9cbcbb4fb59355f766fe6ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3887955446587437159
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,6 +181,7 @@ GameObject:
   - component: {fileID: 3887955446587437162}
   - component: {fileID: 3887955446587437160}
   - component: {fileID: 601854497}
+  - component: {fileID: 1377180113}
   m_Layer: 12
   m_Name: ARPlayer
   m_TagString: Untagged
@@ -265,6 +253,18 @@ MonoBehaviour:
   distances: []
   minIndex: 0
   myText: {fileID: 0}
+--- !u!114 &1377180113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3887955446587437159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4933cefdd9cbcbb4fb59355f766fe6ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6617651569950816470
 GameObject:
   m_ObjectHideFlags: 0

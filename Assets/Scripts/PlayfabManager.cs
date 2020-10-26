@@ -68,7 +68,6 @@ public class PlayfabManager : MonoBehaviour
             {
                 PlayerPrefs.DeleteKey(playerDataSaver.GetGuestPlayerRegistered());
                 PlayerPrefs.DeleteKey(playerDataSaver.GetIsGuest().ToString());
-                playerDataSaver.SetGuestPlayerRegistered("NO");
                 playerDataSaver.SetIsGuest(0);
                 emailInput.text = playerDataSaver.GetEmail();
                 passwordInput.text = playerDataSaver.GetPassword();

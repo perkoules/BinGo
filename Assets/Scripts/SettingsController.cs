@@ -1,10 +1,13 @@
-﻿using System;
+﻿using PlayFab;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(PlayerDataSaver))]
 public class SettingsController : MonoBehaviour
 {
+    private PlayerDataSaver playerDataSaver;
     public Color32 enabledColor;
     public List<Toggle> toggles;
 
@@ -14,13 +17,13 @@ public class SettingsController : MonoBehaviour
         {
             toggles.Add(tog);
         }
-        /*if (FindObjectOfType<PlayfabManager>().GetGuestPlayerRegistered() == "YES")
+        playerDataSaver = GetComponent<PlayerDataSaver>();
+        if (playerDataSaver.GetGuestPlayerRegistered() == "YES")
         {
-            Debug.Log("ENABLER " + FindObjectOfType<PlayfabManager>().GetGuestPlayerRegistered());
             int index = toggles.FindIndex(t => t.name.Contains("Register") == true);
             toggles[index].image.color = enabledColor;
             toggles[index].interactable = false;
-        }*/
+        }
     }
 
     public void DisableToggles()

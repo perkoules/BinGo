@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class RegisterManager : MonoBehaviour
 {
+    public PlayerInfo playerInfo;
     public TMP_Dropdown countryDropdown, avatarDropdown;
     public TMP_InputField usernameInputField, passwordInputField, repeatPasswordInputField, emailInputField;
     public Color32 colorDefault;
@@ -127,7 +128,22 @@ public class RegisterManager : MonoBehaviour
                     messageController.messages[0].SetActive(true);
                 }
             });
-
+        playerDataSaver.SetIsGuest(0);
+        playerDataSaver.SetProgressLevel(1);
+        playerDataSaver.SetWasteCollected(0);
+        playerDataSaver.SetRecycleCollected(0);
+        playerDataSaver.SetCoinsAvailable(0);
+        playerInfo = new PlayerInfo
+        {
+            PlayerUsername = playerDataSaver.GetUsername(),
+            PlayerPassword = playerDataSaver.GetPassword(),
+            PlayerEmail = playerDataSaver.GetEmail(),
+            PlayerRubbish = playerDataSaver.GetWasteCollected(),
+            PlayerRecycle = playerDataSaver.GetRecycleCollected(),
+            PlayerTeamName = playerDataSaver.GetTeamname(),
+            PlayerCoins = playerDataSaver.GetCoinsAvailable(),
+            PlayerCurrentLevel = playerDataSaver.GetProgressLevel()
+        };
         SetPlayerData();
         myID = result.PlayFabId;
         if (currentBuildLevel == 0)
@@ -201,7 +217,7 @@ public class RegisterManager : MonoBehaviour
             {"Avatar", avatar},
             {"Achievements", "0"},
             {"Tree Location", "-"},
-            {"TeamName", teamname} }
+            {"TeamName", "-"} }
         },
         result => Debug.Log("Successfully updated user data"),
         error =>
@@ -209,10 +225,12 @@ public class RegisterManager : MonoBehaviour
             Debug.Log(error.GenerateErrorReport());
         });
     }
+    
+
 
     private IEnumerator LoggingProcessSucceeded()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(10);
 
         if (currentBuildLevel == 0)
         {

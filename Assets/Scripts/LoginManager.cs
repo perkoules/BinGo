@@ -113,19 +113,17 @@ public class LoginManager : MonoBehaviour
 
     private IEnumerator LoggingProcessSucceeded()
     {
-        /*yield return new WaitForSeconds(3);
-
+        yield return new WaitForSeconds(2f);  
         if (messageController.messages[0].activeSelf)
         {
+            AsyncOperation operation = SceneManager.LoadSceneAsync(1);
+            if (!operation.isDone)
+            {
+                yield return new WaitUntil(() => operation.isDone);
+            }
             messageController.messages[0].SetActive(false);
-            SceneManager.LoadScene(1);
-        }*/
-
-        AsyncOperation operation = SceneManager.LoadSceneAsync(1);
-        if (!operation.isDone)
-        {
-            yield return new WaitUntil(() => operation.isDone);
         }
+        
     }
 
     private IEnumerator LoggingProcessFailed()

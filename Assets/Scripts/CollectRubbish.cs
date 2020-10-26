@@ -110,7 +110,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public void OnPointerUp(PointerEventData eventData)
     {
         pointerDown = false;
-        if (fillerImage.fillAmount == 1 && calculateDistance.distances[calculateDistance.minIndex] <= 5)
+        if (fillerImage.fillAmount == 1 && calculateDistance.distances[calculateDistance.minIndex] <= 50)
         {
             frames.color = Color.white;
             StopCoroutine(rubbishCoroutine);
@@ -128,7 +128,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         }
         else
         {
-            messageText.text = "Hold the button until filled completely";
+            messageText.text = "After scanning, hold the button until full.";
         }
         fillerImage.fillAmount = 0;
     }

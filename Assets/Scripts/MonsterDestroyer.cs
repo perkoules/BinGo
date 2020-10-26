@@ -48,7 +48,7 @@ public class MonsterDestroyer : MonoBehaviour
 
     private void Raycasting(Vector3 position)
     {
-        if (Camera.main.isActiveAndEnabled)
+        if (Camera.main.enabled)
         {
             Ray ray = Camera.main.ScreenPointToRay(position);
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))

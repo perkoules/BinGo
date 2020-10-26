@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 567712747}
   - component: {fileID: 3580149424455690806}
   - component: {fileID: 780103091001899641}
-  - component: {fileID: 5118606738830680577}
   m_Layer: 0
   m_Name: AR Camera Monsters
   m_TagString: MainCamera
@@ -61,7 +60,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.05
-  far clip plane: 1000
+  far clip plane: 200
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -124,7 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Tracked: {fileID: 567712750}
-  m_Size: {x: 200, y: 20, z: 200}
+  m_Size: {x: 2000, y: 20, z: 2000}
 --- !u!114 &3580149424455690806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,20 +148,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4933cefdd9cbcbb4fb59355f766fe6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monstersKilled: 0
---- !u!114 &5118606738830680577
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 567712745}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 045f718a145d53447ac926c1e7588ad5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   locationProvider: {fileID: 6617651571807322214}
+  monstersText: {fileID: 0}
+  amountText: {fileID: 0}
+  monstersKilled: 0
+  treeImg: {fileID: 0}
+  waterCan: {fileID: 0}
 --- !u!1 &2977491659715545857
 GameObject:
   m_ObjectHideFlags: 0
@@ -836,6 +827,74 @@ MonoBehaviour:
         - {fileID: 11400000, guid: e048901d2be710442aba9f730e940bd6, type: 2}
         - {fileID: 11400000, guid: 5e0270a34222afc4699eadd2b973ca59, type: 2}
         presetFeatureType: 2
+        _maskValue: 0
+        selectedTypes: 
+      - coreOptions:
+          sourceId: 
+          isActive: 1
+          sublayerName: Roads
+          geometryType: 1
+          layerName: road
+          snapToTerrain: 1
+          combineMeshes: 0
+        lineGeometryOptions:
+          Width: 9
+          MiterLimit: 0.2
+          RoundLimit: 1.05
+          JoinType: 1
+          CapType: 1
+        filterOptions:
+          _selectedLayerName: road
+          filters: []
+          combinerType: 0
+        extrusionOptions:
+          _selectedLayerName: road
+          extrusionType: 5
+          extrusionGeometryType: 0
+          propertyName: height
+          propertyDescription: Unavailable in Selected Layer.
+          minimumHeight: 1.89
+          maximumHeight: 1
+          extrusionScaleFactor: 1
+        colliderOptions:
+          colliderType: 2
+        materialOptions:
+          style: 7
+          texturingType: 2
+          materials:
+          - Materials:
+            - {fileID: 0}
+          - Materials:
+            - {fileID: 0}
+          atlasInfo: {fileID: 11400000, guid: 05066a15aa3b24c6493cc83636625fe3, type: 2}
+          lightStyleOpacity: 1
+          darkStyleOpacity: 1
+          colorStyleColor: {r: 0.1764706, g: 0.8509805, b: 1, a: 1}
+          samplePalettes: 0
+          colorPalette: {fileID: 0}
+          customStyleOptions:
+            texturingType: 0
+            materials:
+            - Materials:
+              - {fileID: 0}
+            - Materials:
+              - {fileID: 0}
+            atlasInfo: {fileID: 11400000, guid: 414754d7155df47beb52ca117a774f21,
+              type: 2}
+            colorPalette: {fileID: 11400000, guid: 57bdfa37edf7a4f7f999d19443497554,
+              type: 2}
+        performanceOptions:
+          isEnabled: 0
+          entityPerCoroutine: 0
+        honorBuildingIdSetting: 0
+        buildingsWithUniqueIds: 1
+        moveFeaturePositionTo: 0
+        MeshModifiers: []
+        GoModifiers:
+        - {fileID: 11400000, guid: bfeb106f64a33f543941ce0fbfb13191, type: 2}
+        - {fileID: 11400000, guid: 77ea6f44c95eacd4881da6f74e037cef, type: 2}
+        - {fileID: 11400000, guid: 5e0270a34222afc4699eadd2b973ca59, type: 2}
+        presetFeatureType: 1
         _maskValue: 0
         selectedTypes: 
       locationPrefabList: []

@@ -44,7 +44,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     [HideInInspector]
     public Image fillerImage;
-
+    
     private bool pointerDown = false;
     private bool barcodeDetected = false;
     private float timeLeft = 20;

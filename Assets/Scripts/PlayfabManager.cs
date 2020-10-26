@@ -220,7 +220,6 @@ public class PlayfabManager : MonoBehaviour
                 playerDataSaver.SetAvatar(result.Data["Avatar"].Value);
                 playerDataSaver.SetTeamname(result.Data["TeamName"].Value);
                 playerDataSaver.SetTasks(result.Data["Achievements"].Value);
-                playerDataSaver.SetTreeLocation(result.Data["Tree Location"].Value);
             }
         },
         error => Debug.Log(error.GenerateErrorReport()));

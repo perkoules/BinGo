@@ -1,16 +1,23 @@
-﻿using PlayFab;
+﻿using Mapbox.Unity.Location;
+using Mapbox.Utils;
+using PlayFab;
 using PlayFab.ClientModels;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(PlayerDataSaver))]
 public class MonsterDestroyer : MonoBehaviour
 {
+    public DeviceLocationProvider locationProvider;
     private PlayerDataSaver playerDataSaver;
+    public TextMeshProUGUI monstersText, amountText;
     private bool monsterGotHit = false;
     public int monstersKilled = 0;
+    public GameObject treeImg, waterCan;
 
     private void Awake()
     {
@@ -18,8 +25,12 @@ public class MonsterDestroyer : MonoBehaviour
         GetMonstersFromCloud();
     }
 
+    private void Start()
+    {
+        GetTreeLocationFromCloud();        
+    }
 
-    void Update()
+    private void Update()
     {
 #if UNITY_EDITOR || UNITY_STANDALONE
         if (Input.GetMouseButtonDown(0))
@@ -53,36 +64,32 @@ public class MonsterDestroyer : MonoBehaviour
         }
     }
 
-    IEnumerator Death(GameObject go)
+    private IEnumerator Death(GameObject go)
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(0.1f); //4f -> 0.1f for testing
         monsterGotHit = false;
         Destroy(go);
         monstersKilled++;
-    }
-
-    private void OnApplicationPause(bool pause)
-    {
-        if (pause)
+        monstersText.text = monstersKilled.ToString();
+        if (waterCan.activeSelf)
         {
-            Debug.Log("Sent Monsters To Cloud");
-            SetMonstersStats();
+            amountText.text = Mathf.FloorToInt((monstersKilled / 50)).ToString();
         }
     }
 
     public void SetMonstersStats()
     {
+        playerDataSaver.SetMonstersKilled(monstersKilled);
         PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
         {
-            FunctionName = "UpdatePlayerStats",
+            FunctionName = "UpdateMonstersKilled",
             FunctionParameter = new
             {
                 cloudMonstersKilled = monstersKilled
-            },
-            GeneratePlayStreamEvent = true,
+            }
         },
         result => GetMonstersFromCloud(),
-        error => Debug.Log(error.GenerateErrorReport()));;
+        error => Debug.Log(error.GenerateErrorReport())); ;
     }
 
     private void GetMonstersFromCloud()
@@ -96,9 +103,79 @@ public class MonsterDestroyer : MonoBehaviour
                     {
                         playerDataSaver.SetMonstersKilled(stat.Value);
                         monstersKilled = playerDataSaver.GetMonstersKilled();
+                        monstersText.text = monstersKilled.ToString();
                     }
                 }
             },
             error => Debug.LogError(error.GenerateErrorReport()));
+    }
+
+    private void GetTreeLocationFromCloud()
+    {
+        PlayFabClientAPI.GetUserData(new GetUserDataRequest() { },
+        result =>
+        {
+            if (result.Data == null) Debug.Log("No Data");
+            else
+            {                
+                playerDataSaver.SetTreeLocation(result.Data["Tree Location"].Value);
+                Debug.Log("Tree Location" + playerDataSaver.GetTreeLocation());
+                if (playerDataSaver.GetTreeLocation() != "-")
+                {
+                    SpawnTreeOnMap(playerDataSaver.GetTreeLocation());
+                }
+                else
+                {
+                    amountText.text = "1";
+                }
+            }
+        },
+        error => Debug.Log(error.GenerateErrorReport()));
+    }
+
+    public void PlantTree()
+    {
+        if (monstersKilled >= 50)
+        {
+            if (treeImg.activeSelf)
+            {
+                Vector2d latlon = locationProvider.CurrentLocation.LatitudeLongitude;
+                monstersKilled -= 50;
+                PlantedTreeLocationToCloud(latlon);
+            }
+            else
+            {
+                Debug.Log("Water it");
+                amountText.text = Mathf.FloorToInt((monstersKilled / 50)).ToString();
+            }
+            SetMonstersStats();
+        }        
+    }
+
+    private void PlantedTreeLocationToCloud(Vector2d latlon)
+    {
+        string treeLoc = latlon.ToString();
+        PlayFabClientAPI.UpdateUserData(
+            new UpdateUserDataRequest
+            {
+                Data = new Dictionary<string, string>() { { "Tree Location", treeLoc } },
+                Permission = UserDataPermission.Public
+            },
+            result => Debug.Log("Successfully planted a tree at " + treeLoc + " location"),
+            error => Debug.Log(error.GenerateErrorReport()));;
+
+        SpawnTreeOnMap(treeLoc);
+    }
+
+    private void SpawnTreeOnMap(string loc)
+    {
+        
+        treeImg.SetActive(false);
+        waterCan.SetActive(true);
+        string[] locArray = loc.Split(',');
+        double x = double.Parse(locArray[0]);
+        double y = double.Parse(locArray[1]);
+        Vector2d location = new Vector2d(x, y);
+        FindObjectOfType<SpawnTreeOnMap>().Tree(location);
     }
 }

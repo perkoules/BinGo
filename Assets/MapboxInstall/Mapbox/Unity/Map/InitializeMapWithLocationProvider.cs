@@ -1,6 +1,7 @@
 ﻿namespace Mapbox.Unity.Map
 {
     using Mapbox.Unity.Location;
+    using Mapbox.Unity.MeshGeneration.Modifiers;
     using System.Collections;
     using UnityEngine;
 
@@ -8,7 +9,6 @@
     {
         [SerializeField]
         private AbstractMap _map;
-
         private ILocationProvider _locationProvider;
 
         private void Awake()

@@ -200,6 +200,7 @@ public class RegisterManager : MonoBehaviour
             {"Country", country},
             {"Avatar", avatar},
             {"Achievements", "0"},
+            {"Tree Location", "-"},
             {"TeamName", teamname} }
         },
         result => Debug.Log("Successfully updated user data"),

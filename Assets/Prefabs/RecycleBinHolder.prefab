@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1216140314095764169}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RecycleBinHolder
-  m_TagString: Untagged
+  m_TagString: BinTag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51,7 +51,7 @@ PrefabInstance:
     - target: {fileID: 7254616453399686753, guid: bf3d8b7c282ea264cb68147b7dd81611,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7254616453399686753, guid: bf3d8b7c282ea264cb68147b7dd81611,
         type: 3}
@@ -102,6 +102,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mesh_TrashCan
+      objectReference: {fileID: 0}
+    - target: {fileID: 8063206497936995547, guid: bf3d8b7c282ea264cb68147b7dd81611,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf3d8b7c282ea264cb68147b7dd81611, type: 3}

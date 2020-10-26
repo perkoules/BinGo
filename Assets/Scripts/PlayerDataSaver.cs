@@ -15,6 +15,28 @@ public class PlayerDataSaver : MonoBehaviour
     private const string RECYCLE_COLLECTED = "RecycleCollected";
     private const string COINS_AVAILABLE = "CoinsAvailable";
     private const string PROGRESS_LEVEL = "ProgressLevel";
+    private const string MONSTERS_KILLED = "MonstersKilled";
+    private const string TREE_LOCATION = "MonstersKilled";
+
+    public void SetTreeLocation(string treeLoc)
+    {
+        PlayerPrefs.SetString(TREE_LOCATION, treeLoc);
+    }
+
+    public string GetTreeLocation()
+    {
+        return PlayerPrefs.GetString(TREE_LOCATION);
+    }
+
+    public void SetMonstersKilled(int monkil)
+    {
+        PlayerPrefs.SetInt(MONSTERS_KILLED, monkil);
+    }
+
+    public int GetMonstersKilled()
+    {
+        return PlayerPrefs.GetInt(MONSTERS_KILLED);
+    }
 
     public void SetWasteCollected(int waste)
     {

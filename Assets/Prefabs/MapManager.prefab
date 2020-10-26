@@ -1,5 +1,159 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &567712745
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 567712750}
+  - component: {fileID: 567712746}
+  - component: {fileID: 567712749}
+  - component: {fileID: 567712748}
+  - component: {fileID: 567712747}
+  - component: {fileID: 3580149424455690806}
+  - component: {fileID: 780103091001899641}
+  m_Layer: 0
+  m_Name: AR Camera Monsters
+  m_TagString: MainCamera
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &567712750
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567712745}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2977491661348758859}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &567712746
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567712745}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 4
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.05
+  far clip plane: 100
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 311
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!114 &567712749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567712745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a2a9c34df4095f47b9ca8f975175f5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Device: 0
+  m_PoseSource: 6
+  m_PoseProviderComponent: {fileID: 0}
+  m_TrackingType: 0
+  m_UpdateType: 1
+  m_UseRelativeTransform: 1
+--- !u!114 &567712748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567712745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb172c260d42e4f62945afda50892c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BackgroundMaterial: {fileID: 2100000, guid: 03ad0130a037647aeb60218f61aca114, type: 2}
+--- !u!114 &567712747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567712745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 115dfe7b0938447cbbf9507076f54049, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Tracked: {fileID: 567712750}
+  m_Size: {x: 2000, y: 20, z: 2000}
+--- !u!114 &3580149424455690806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567712745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba1204eb2f950114fb2b42a51d02db64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &780103091001899641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567712745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4933cefdd9cbcbb4fb59355f766fe6ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locationProvider: {fileID: 6617651571807322214}
+  monstersText: {fileID: 0}
+  amountText: {fileID: 0}
+  monstersKilled: 0
+  treeImg: {fileID: 0}
+  waterCan: {fileID: 0}
 --- !u!1 &2977491659715545857
 GameObject:
   m_ObjectHideFlags: 0
@@ -29,6 +183,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2977491661348758858}
+  - {fileID: 567712750}
   m_Father: {fileID: 6617651570897513817}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -61,7 +216,7 @@ GameObject:
   - component: {fileID: 2977491661203050396}
   m_Layer: 0
   m_Name: AR Camera
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -87,7 +242,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2977491661203050371}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -165,7 +320,7 @@ GameObject:
   - component: {fileID: 3887955446587437161}
   - component: {fileID: 3887955446587437162}
   - component: {fileID: 3887955446587437160}
-  - component: {fileID: 2047161678}
+  - component: {fileID: 601854497}
   m_Layer: 12
   m_Name: ARPlayer
   m_TagString: Untagged
@@ -221,7 +376,7 @@ MonoBehaviour:
   _rotateZ: 0
   _useNegativeAngle: 1
   _useTransformLocationProvider: 0
---- !u!114 &2047161678
+--- !u!114 &601854497
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -230,13 +385,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3887955446587437159}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46e65f368b858bd448876175bc586d0d, type: 3}
+  m_Script: {fileID: 11500000, guid: a30bfcdc8a9094e478b2ff7610196e96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  locationProvider: {fileID: 6617651571807322214}
-  spawnBins: {fileID: 0}
+  bins: []
   distances: []
-  minIndex: -1
+  minIndex: 0
   myText: {fileID: 0}
 --- !u!1 &6617651569950816470
 GameObject:
@@ -335,13 +489,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _options:
     locationOptions:
-      latitudeLongitude: 48.20833, 16.373064
+      latitudeLongitude: 54.572233, -1.232345
       zoom: 17
     extentOptions:
-      extentType: 1
+      extentType: 0
       defaultExtents:
         cameraBoundsOptions:
-          camera: {fileID: 0}
+          camera: {fileID: 6617651571526324954}
           visibleBuffer: 0
           disposeBuffer: 0
         rangeAroundCenterOptions:
@@ -350,8 +504,8 @@ MonoBehaviour:
           east: 1
           south: 1
         rangeAroundTransformOptions:
-          targetTransform: {fileID: 0}
-          visibleBuffer: 0
+          targetTransform: {fileID: 3887955446587437161}
+          visibleBuffer: 1
           disposeBuffer: 0
     placementOptions:
       placementType: 1
@@ -369,11 +523,11 @@ MonoBehaviour:
         isActive: 1
         layerSource:
           Name: Streets
-          Id: mapbox://styles/perkoules/cke4ilt5217k51ast9ktidbu8/
+          Id: mapbox://styles/perkoules/cke4ilt5217k51ast9ktidbu8
           Modified: 
           UserName: 
       rasterOptions:
-        useRetina: 0
+        useRetina: 1
         useCompression: 0
         useMipMap: 0
   _terrain:
@@ -411,6 +565,7 @@ MonoBehaviour:
         - aeroway
         - airport_label
         - barrier_line
+        - Bins
         - building
         - country_label
         - housenum_label
@@ -429,12 +584,12 @@ MonoBehaviour:
         - water_label
         - waterway
         - waterway_label
-      _sourceType: 1
+      _sourceType: 2
       sourceOptions:
         isActive: 1
         layerSource:
           Name: Mapbox Streets
-          Id: mapbox.mapbox-streets-v7
+          Id: mapbox.mapbox-streets-v7,mapbox.mapbox-streets-v7,perkoules.cke8ggc8g1gf029o6l6c914f8-2at9l
           Modified: 
           UserName: 
       useOptimizedStyle: 0
@@ -446,7 +601,302 @@ MonoBehaviour:
       performanceOptions:
         isEnabled: 1
         entityPerCoroutine: 20
-      vectorSubLayers: []
+      vectorSubLayers:
+      - coreOptions:
+          sourceId: 
+          isActive: 1
+          sublayerName: WasteBins
+          geometryType: 3
+          layerName: Bins
+          snapToTerrain: 1
+          combineMeshes: 0
+        lineGeometryOptions:
+          Width: 1
+          MiterLimit: 0.2
+          RoundLimit: 1.05
+          JoinType: 1
+          CapType: 1
+        filterOptions:
+          _selectedLayerName: Bins
+          filters:
+          - Key: bin_type
+            KeyDescription: String
+            PropertyValue: waste
+            Min: 0
+            Max: 0
+            filterOperator: 0
+          combinerType: 0
+        extrusionOptions:
+          _selectedLayerName: 
+          extrusionType: 0
+          extrusionGeometryType: 0
+          propertyName: height
+          propertyDescription: 
+          minimumHeight: 0
+          maximumHeight: 1
+          extrusionScaleFactor: 1
+        colliderOptions:
+          colliderType: 0
+        materialOptions:
+          style: 0
+          texturingType: 2
+          materials:
+          - Materials:
+            - {fileID: 0}
+          - Materials:
+            - {fileID: 0}
+          atlasInfo: {fileID: 0}
+          lightStyleOpacity: 1
+          darkStyleOpacity: 1
+          colorStyleColor: {r: 0.1764706, g: 0.8509805, b: 1, a: 1}
+          samplePalettes: 0
+          colorPalette: {fileID: 0}
+          customStyleOptions:
+            texturingType: 0
+            materials:
+            - Materials:
+              - {fileID: 0}
+            - Materials:
+              - {fileID: 0}
+            atlasInfo: {fileID: 11400000, guid: 414754d7155df47beb52ca117a774f21,
+              type: 2}
+            colorPalette: {fileID: 11400000, guid: 57bdfa37edf7a4f7f999d19443497554,
+              type: 2}
+        performanceOptions:
+          isEnabled: 0
+          entityPerCoroutine: 0
+        honorBuildingIdSetting: 1
+        buildingsWithUniqueIds: 0
+        moveFeaturePositionTo: 0
+        MeshModifiers: []
+        GoModifiers:
+        - {fileID: 11400000, guid: 71e26711c5639b34cb5a03fb7e13d1d5, type: 2}
+        presetFeatureType: 4
+        _maskValue: 0
+        selectedTypes: 
+      - coreOptions:
+          sourceId: 
+          isActive: 1
+          sublayerName: RecycleBins
+          geometryType: 3
+          layerName: Bins
+          snapToTerrain: 1
+          combineMeshes: 0
+        lineGeometryOptions:
+          Width: 1
+          MiterLimit: 0.2
+          RoundLimit: 1.05
+          JoinType: 1
+          CapType: 1
+        filterOptions:
+          _selectedLayerName: Bins
+          filters:
+          - Key: bin_type
+            KeyDescription: String
+            PropertyValue: recycle
+            Min: 0
+            Max: 0
+            filterOperator: 0
+          combinerType: 0
+        extrusionOptions:
+          _selectedLayerName: 
+          extrusionType: 0
+          extrusionGeometryType: 0
+          propertyName: height
+          propertyDescription: 
+          minimumHeight: 0
+          maximumHeight: 1
+          extrusionScaleFactor: 1
+        colliderOptions:
+          colliderType: 0
+        materialOptions:
+          style: 0
+          texturingType: 2
+          materials:
+          - Materials:
+            - {fileID: 0}
+          - Materials:
+            - {fileID: 0}
+          atlasInfo: {fileID: 0}
+          lightStyleOpacity: 1
+          darkStyleOpacity: 1
+          colorStyleColor: {r: 0.1764706, g: 0.8509805, b: 1, a: 1}
+          samplePalettes: 0
+          colorPalette: {fileID: 0}
+          customStyleOptions:
+            texturingType: 0
+            materials:
+            - Materials:
+              - {fileID: 0}
+            - Materials:
+              - {fileID: 0}
+            atlasInfo: {fileID: 11400000, guid: 414754d7155df47beb52ca117a774f21,
+              type: 2}
+            colorPalette: {fileID: 11400000, guid: 57bdfa37edf7a4f7f999d19443497554,
+              type: 2}
+        performanceOptions:
+          isEnabled: 0
+          entityPerCoroutine: 0
+        honorBuildingIdSetting: 1
+        buildingsWithUniqueIds: 0
+        moveFeaturePositionTo: 0
+        MeshModifiers: []
+        GoModifiers:
+        - {fileID: 11400000, guid: 361c55b4c122d5746b359d1bb3e96c3e, type: 2}
+        presetFeatureType: 4
+        _maskValue: 0
+        selectedTypes: 
+      - coreOptions:
+          sourceId: 
+          isActive: 1
+          sublayerName: Parks
+          geometryType: 2
+          layerName: landuse
+          snapToTerrain: 1
+          combineMeshes: 0
+        lineGeometryOptions:
+          Width: 1
+          MiterLimit: 0.2
+          RoundLimit: 1.05
+          JoinType: 1
+          CapType: 1
+        filterOptions:
+          _selectedLayerName: landuse
+          filters:
+          - Key: type
+            KeyDescription: OSM tag, more specific than class
+            PropertyValue: park
+            Min: 0
+            Max: 0
+            filterOperator: 0
+          - Key: class
+            KeyDescription: 'One of: agriculture, cemetery, glacier, grass, hospital,
+              industrial, park, parking, piste, pitch, rock, sand, school, scrub,
+              wood, aboriginal_lands'
+            PropertyValue: park
+            Min: 0
+            Max: 0
+            filterOperator: 0
+          combinerType: 1
+        extrusionOptions:
+          _selectedLayerName: landuse
+          extrusionType: 5
+          extrusionGeometryType: 0
+          propertyName: height
+          propertyDescription: Unavailable in Selected Layer.
+          minimumHeight: 1.89
+          maximumHeight: 1
+          extrusionScaleFactor: 1
+        colliderOptions:
+          colliderType: 2
+        materialOptions:
+          style: 7
+          texturingType: 2
+          materials:
+          - Materials:
+            - {fileID: 0}
+          - Materials:
+            - {fileID: 0}
+          atlasInfo: {fileID: 11400000, guid: 05066a15aa3b24c6493cc83636625fe3, type: 2}
+          lightStyleOpacity: 1
+          darkStyleOpacity: 1
+          colorStyleColor: {r: 0.1764706, g: 0.8509805, b: 1, a: 1}
+          samplePalettes: 0
+          colorPalette: {fileID: 0}
+          customStyleOptions:
+            texturingType: 0
+            materials:
+            - Materials:
+              - {fileID: 0}
+            - Materials:
+              - {fileID: 0}
+            atlasInfo: {fileID: 11400000, guid: 414754d7155df47beb52ca117a774f21,
+              type: 2}
+            colorPalette: {fileID: 11400000, guid: 57bdfa37edf7a4f7f999d19443497554,
+              type: 2}
+        performanceOptions:
+          isEnabled: 0
+          entityPerCoroutine: 0
+        honorBuildingIdSetting: 1
+        buildingsWithUniqueIds: 0
+        moveFeaturePositionTo: 0
+        MeshModifiers: []
+        GoModifiers:
+        - {fileID: 11400000, guid: 7d1fad488908ba74b99bd55423aa891e, type: 2}
+        - {fileID: 11400000, guid: 0e10dd898f56a604abf7df4c78edccb0, type: 2}
+        - {fileID: 11400000, guid: e048901d2be710442aba9f730e940bd6, type: 2}
+        - {fileID: 11400000, guid: 5e0270a34222afc4699eadd2b973ca59, type: 2}
+        presetFeatureType: 2
+        _maskValue: 0
+        selectedTypes: 
+      - coreOptions:
+          sourceId: 
+          isActive: 1
+          sublayerName: Roads
+          geometryType: 1
+          layerName: road
+          snapToTerrain: 1
+          combineMeshes: 0
+        lineGeometryOptions:
+          Width: 9
+          MiterLimit: 0.2
+          RoundLimit: 1.05
+          JoinType: 1
+          CapType: 1
+        filterOptions:
+          _selectedLayerName: road
+          filters: []
+          combinerType: 0
+        extrusionOptions:
+          _selectedLayerName: road
+          extrusionType: 5
+          extrusionGeometryType: 0
+          propertyName: height
+          propertyDescription: Unavailable in Selected Layer.
+          minimumHeight: 1.89
+          maximumHeight: 1
+          extrusionScaleFactor: 1
+        colliderOptions:
+          colliderType: 2
+        materialOptions:
+          style: 7
+          texturingType: 2
+          materials:
+          - Materials:
+            - {fileID: 0}
+          - Materials:
+            - {fileID: 0}
+          atlasInfo: {fileID: 11400000, guid: 05066a15aa3b24c6493cc83636625fe3, type: 2}
+          lightStyleOpacity: 1
+          darkStyleOpacity: 1
+          colorStyleColor: {r: 0.1764706, g: 0.8509805, b: 1, a: 1}
+          samplePalettes: 0
+          colorPalette: {fileID: 0}
+          customStyleOptions:
+            texturingType: 0
+            materials:
+            - Materials:
+              - {fileID: 0}
+            - Materials:
+              - {fileID: 0}
+            atlasInfo: {fileID: 11400000, guid: 414754d7155df47beb52ca117a774f21,
+              type: 2}
+            colorPalette: {fileID: 11400000, guid: 57bdfa37edf7a4f7f999d19443497554,
+              type: 2}
+        performanceOptions:
+          isEnabled: 0
+          entityPerCoroutine: 0
+        honorBuildingIdSetting: 0
+        buildingsWithUniqueIds: 1
+        moveFeaturePositionTo: 0
+        MeshModifiers: []
+        GoModifiers:
+        - {fileID: 11400000, guid: bfeb106f64a33f543941ce0fbfb13191, type: 2}
+        - {fileID: 11400000, guid: 77ea6f44c95eacd4881da6f74e037cef, type: 2}
+        - {fileID: 11400000, guid: 5e0270a34222afc4699eadd2b973ca59, type: 2}
+        presetFeatureType: 1
+        _maskValue: 0
+        selectedTypes: 
       locationPrefabList: []
   _tileProvider: {fileID: 0}
   _previewOptions:
@@ -603,7 +1053,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6617651571526324956}
   - component: {fileID: 6617651571526324954}
-  - component: {fileID: 6617651571526324955}
+  - component: {fileID: 1283901598}
   m_Layer: 12
   m_Name: MapCamera
   m_TagString: Untagged
@@ -652,8 +1102,8 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1500
   field of view: 60
-  orthographic: 0
-  orthographic size: 5
+  orthographic: 1
+  orthographic size: 100
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -669,7 +1119,7 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &6617651571526324955
+--- !u!114 &1283901598
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -678,11 +1128,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6617651571526324953}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ade537fc62d5c974cb84efe75fbc9f08, type: 3}
+  m_Script: {fileID: 11500000, guid: c5bd565fcbef74ea097c756caba72798, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _camera: {fileID: 6617651571526324954}
-  _locationProvider: {fileID: 6617651571827132394}
+  _targetTransform: {fileID: 3887955446587437161}
 --- !u!1 &6617651571632281066
 GameObject:
   m_ObjectHideFlags: 0
@@ -780,9 +1229,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a38712e93231418a84665190b8473d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _desiredAccuracyInMeters: 5
-  _updateDistanceInMeters: 5
-  _updateTimeInMilliSeconds: 1000
+  _desiredAccuracyInMeters: 1
+  _updateDistanceInMeters: 0.5
+  _updateTimeInMilliSeconds: 500
   _userHeadingSmoothing: {fileID: 0}
   _deviceOrientationSmoothing: {fileID: 0}
   _editorDebuggingOnly:
@@ -973,6 +1422,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayerArrow
+      objectReference: {fileID: 0}
+    - target: {fileID: 1698364925161033066, guid: 7b95a2d25e3694540acc95a230faceb4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 2079006382547572688, guid: 7b95a2d25e3694540acc95a230faceb4,
         type: 3}

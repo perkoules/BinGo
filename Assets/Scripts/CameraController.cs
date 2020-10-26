@@ -6,6 +6,7 @@ public class CameraController : MonoBehaviour
 {
     public Camera mapCamera;
     public Camera arCamera;
+    public Camera arCamera2;
     public GameObject mapImage, arImage, arSession;
     public Button aR_MapCameraSelection;
 
@@ -22,6 +23,7 @@ public class CameraController : MonoBehaviour
             mapImage.SetActive(false);
             mapCamera.enabled = true;
             arCamera.enabled = false;
+            arCamera2.enabled = false;
         }
         else if (arImage.activeSelf)           //AR Image is active so disable it and open AR Camera
         {
@@ -44,10 +46,9 @@ public class CameraController : MonoBehaviour
     {
         if (!gameObject.activeSelf)
         {
-            Debug.Log("Waiting for AR Session to be enabled...");
             yield return new WaitUntil(() => gameObject.activeSelf);
         }
-        Debug.LogWarning("AR Session ENABLED");
         arCamera.enabled = true;           
+        arCamera2.enabled = true;           
     }
 }

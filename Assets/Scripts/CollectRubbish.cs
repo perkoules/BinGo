@@ -110,7 +110,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public void OnPointerUp(PointerEventData eventData)
     {
         pointerDown = false;
-        if (fillerImage.fillAmount == 1 && calculateDistance.distances[calculateDistance.minIndex] <= 10)
+        if (fillerImage.fillAmount == 1 && calculateDistance.distances[calculateDistance.minIndex] <= 5)
         {
             frames.color = Color.white;
             StopCoroutine(rubbishCoroutine);
@@ -136,6 +136,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     private IEnumerator ShowTextMessage()
     {
         messageText.text = "WELL DONE! You helped the environment!!!";
+        fillerImage.fillAmount = 0;
         yield return new WaitForSeconds(2);
         messageText.text = "Please scan another rubbish!!!";
         barcodeDetected = false;

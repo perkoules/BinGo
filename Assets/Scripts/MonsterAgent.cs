@@ -58,7 +58,12 @@ public class MonsterAgent : MonoBehaviour
 
     private void Update()
     {
-        if (Vector3.Distance(transform.position, player.transform.position) < 10 && !playerDetected)
+        if (anim.GetBool("IsDead"))
+        {
+            agent.speed = 0;
+            agent.isStopped = true;
+        }
+        else if (Vector3.Distance(transform.position, player.transform.position) < 10 && !playerDetected)
         {
             playerDetected = true;
             StartCoroutine(Running());            

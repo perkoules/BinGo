@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -11,7 +10,6 @@ public class CalculateDistance : MonoBehaviour
     public float[] distances;
     public int minIndex;
     public TextMeshProUGUI myText;
-
 
     public static CalculateDistance Instance { get; private set; }
 
@@ -27,14 +25,9 @@ public class CalculateDistance : MonoBehaviour
         }
     }
 
-
-    private void Awake()
-    {
-        StartCoroutine(FindAllBinsInMap(4.5f));
-    }
-
     private void Start()
     {
+        StartCoroutine(FindAllBinsInMap(4.5f));
         InvokeRepeating("GetAllDistances", 5.0f, 3.0f);
     }
 
@@ -47,16 +40,18 @@ public class CalculateDistance : MonoBehaviour
 
     private void GetAllDistances()
     {
-        for (int i = 0; i < bins.Length; i++)
+        if (bins.Length > 0)
         {
-            bins[i].GetComponentInChildren<MeshRenderer>().material.color = Color.black;
-            distances[i] = Vector3.Distance(gameObject.transform.position, bins[i].transform.position);
+            for (int i = 0; i < bins.Length; i++)
+            {
+                distances[i] = Vector3.Distance(gameObject.transform.position, bins[i].transform.position);
+            }
+            minIndex = Array.IndexOf(distances, distances.Min());
+            myText.text = distances[minIndex].ToString(); // Show dist of the closest on ui [for testing]
         }
-
-        minIndex = Array.IndexOf(distances, distances.Min());
-
-        myText.text = distances[minIndex].ToString(); // Show dist of the closest on ui [for testing]
-
-        bins[minIndex].GetComponentInChildren<MeshRenderer>().material.color = Color.green;
+        else
+        {
+            StartCoroutine(FindAllBinsInMap(2f));
+        }
     }
 }

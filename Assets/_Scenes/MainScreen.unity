@@ -879,6 +879,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 177976731}
   m_CullTransparentMesh: 0
+--- !u!224 &219545281 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6442472866618526991, guid: c84c46120c9494044be440dc84e265ed,
+    type: 3}
+  m_PrefabInstance: {fileID: 6442472867016868347}
+  m_PrefabAsset: {fileID: 0}
 --- !u!21 &229559652
 Material:
   serializedVersion: 6
@@ -1129,6 +1135,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 258672844}
   m_CullTransparentMesh: 0
+--- !u!1 &262716203
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 262716205}
+  - component: {fileID: 262716204}
+  m_Layer: 0
+  m_Name: TaskController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &262716204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 262716203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ea53b8f286cbb74597384650530fed7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 219545281}
+  taskPrefabs:
+  - {fileID: 8277206474925419985, guid: 67f02ae8ba7a50a41a6a174c42957a29, type: 3}
+  - {fileID: 8678806324354110496, guid: 5f213a8903d7de84e8d42bff2405e943, type: 3}
+  - {fileID: 7182544813718584500, guid: 208bf45a51ecee24aa4134f0a43d2302, type: 3}
+--- !u!4 &262716205
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 262716203}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!21 &308617991
 Material:
   serializedVersion: 6

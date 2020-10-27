@@ -20,9 +20,14 @@ public class InitializeImage : MonoBehaviour
         StartCoroutine(DisplayMyImage(gameObject.name));
     }
 
+    public void ReInitialize()
+    {
+        StartCoroutine(DisplayMyImage(gameObject.name));
+    }
+
     private IEnumerator DisplayMyImage(string imageToSearch)
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         if (playerDataSaver.GetIsGuest() == 1)
         {
             myImage.sprite = flagSelection.anonymous;
@@ -66,6 +71,5 @@ public class InitializeImage : MonoBehaviour
                     break;
             }
         }
-        StopCoroutine("DisplayMyImage");
     }
 }

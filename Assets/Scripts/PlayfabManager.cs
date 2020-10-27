@@ -23,6 +23,7 @@ public class PlayfabManager : MonoBehaviour
     public static PlayfabManager Instance { get; private set; }
 
     private int progressLevel = 1;
+    private int rubbishCollected = 0;
     private int wasteCollected = 0;
     private int recycleCollected = 0;
     private int rubbishInPlace = 0;
@@ -66,9 +67,8 @@ public class PlayfabManager : MonoBehaviour
         {
             if (currentBuildIndex == 0)
             {
-                PlayerPrefs.DeleteKey(playerDataSaver.GetGuestPlayerRegistered());
+                //PlayerPrefs.DeleteKey(playerDataSaver.GetGuestPlayerRegistered());
                 PlayerPrefs.DeleteKey(playerDataSaver.GetIsGuest().ToString());
-                playerDataSaver.SetGuestPlayerRegistered("NO");
                 playerDataSaver.SetIsGuest(0);
                 emailInput.text = playerDataSaver.GetEmail();
                 passwordInput.text = playerDataSaver.GetPassword();
@@ -80,7 +80,21 @@ public class PlayfabManager : MonoBehaviour
         }
     }
 
-    private IEnumerator Initialization()
+    public void ReInitialize()
+    {
+        playerDataSaver.SetProgressLevel(1);
+        foreach (var item in FindObjectsOfType<InitializeImage>())
+        {
+            item.ReInitialize();
+        }
+        foreach (var item in FindObjectsOfType<InitializeText>())
+        {
+            item.ReInitialize();
+        }
+        StartCoroutine(Initialization());
+    }
+
+    public IEnumerator Initialization()
     {
         yield return new WaitForSeconds(1.5f);
         GetLocationDataOfRubbish();
@@ -90,6 +104,8 @@ public class PlayfabManager : MonoBehaviour
             PlayerUsername = playerDataSaver.GetUsername(),
             PlayerPassword = playerDataSaver.GetPassword(),
             PlayerEmail = playerDataSaver.GetEmail(),
+            PlayerCountry = playerDataSaver.GetCountry(),
+            PlayerAvatar = playerDataSaver.GetAvatar(),
             PlayerRubbish = playerDataSaver.GetWasteCollected(),
             PlayerRecycle = playerDataSaver.GetRecycleCollected(),
             PlayerTeamName = playerDataSaver.GetTeamname(),
@@ -155,9 +171,9 @@ public class PlayfabManager : MonoBehaviour
                             playerDataSaver.SetProgressLevel(progressLevel);
                             break;
 
-                        case "RubbishCollected":
+                        case "WasteCollected":
                             wasteCollected = eachStat.Value;
-                            playerInfo.PlayerRubbish = wasteCollected;
+                            playerInfo.PlayerWaste = wasteCollected;
                             playerDataSaver.SetWasteCollected(wasteCollected);
                             break;
 
@@ -165,6 +181,12 @@ public class PlayfabManager : MonoBehaviour
                             recycleCollected = eachStat.Value;
                             playerInfo.PlayerRecycle = recycleCollected;
                             playerDataSaver.SetRecycleCollected(recycleCollected);
+                            break;
+
+                        case "RubbishCollected":
+                            rubbishCollected = eachStat.Value;
+                            playerInfo.PlayerRubbish = rubbishCollected;
+                            playerDataSaver.SetRubbishCollected(rubbishCollected);
                             break;
 
                         case "CoinsAvailable":

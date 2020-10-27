@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Text.RegularExpressions;
+using TMPro;
 using UnityEngine;
 
 public class RegistrationValidity : MonoBehaviour

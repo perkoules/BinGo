@@ -1,19 +1,22 @@
 ﻿using PlayFab;
 using PlayFab.ClientModels;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(PlayerDataSaver))]
 public class LoginManager : MonoBehaviour
 {
     public MessageController messageController;
     public TMP_InputField email, password;
+    public Button loginBtn;
 
     private PlayerDataSaver playerDataSaver;
     private string myID = "";
-
+    private bool isGuest = false;
     public static LoginManager LM;
 
     private void OnEnable()
@@ -29,13 +32,23 @@ public class LoginManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
+
     private void Awake()
     {
         playerDataSaver = GetComponent<PlayerDataSaver>();
+        StartCoroutine(AttemptAutoLogin());
     }
-
+    IEnumerator AttemptAutoLogin()
+    {
+        yield return new WaitForSeconds(1f);
+        if (!string.IsNullOrEmpty(playerDataSaver.GetUsername()) && !string.IsNullOrEmpty(playerDataSaver.GetPassword()))
+        {
+            loginBtn.onClick.Invoke();
+        }
+    }
     public void GuestMode()
     {
+        isGuest = true;
         playerDataSaver.SetIsGuest(1);
         PlayFabClientAPI.LoginWithAndroidDeviceID(
             new LoginWithAndroidDeviceIDRequest { AndroidDeviceId = ReturnAndroidID(), CreateAccount = true },
@@ -45,6 +58,7 @@ public class LoginManager : MonoBehaviour
 
     public void ClickToLogin()
     {
+        isGuest = false;
         PlayFabClientAPI.LoginWithEmailAddress(
             new LoginWithEmailAddressRequest { Email = email.text, Password = password.text },
             OnLoginSuccess,
@@ -66,6 +80,14 @@ public class LoginManager : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
             messageController.messages[0].SetActive(true);
+            if (!isGuest)
+            {
+                playerDataSaver.SetIsGuest(0); 
+            }
+            else if (isGuest)
+            {
+                playerDataSaver.SetIsGuest(1);
+            }
             StartCoroutine(LoggingProcessSucceeded());
         }
     }
@@ -89,15 +111,28 @@ public class LoginManager : MonoBehaviour
           error => Debug.LogError(error.GenerateErrorReport()));
     }
 
-    private IEnumerator LoggingProcessSucceeded()
-    {
-        yield return new WaitForSeconds(3);
-
+    public void CancelLogIn()
+    { 
+        StopAllCoroutines();
         if (messageController.messages[0].activeSelf)
         {
             messageController.messages[0].SetActive(false);
-            SceneManager.LoadScene(1);
         }
+    }
+
+    private IEnumerator LoggingProcessSucceeded()
+    {
+        yield return new WaitForSeconds(2f);  
+        if (messageController.messages[0].activeSelf)
+        {
+            AsyncOperation operation = SceneManager.LoadSceneAsync(1);
+            if (!operation.isDone)
+            {
+                yield return new WaitUntil(() => operation.isDone);
+            }
+            messageController.messages[0].SetActive(false);
+        }
+        
     }
 
     private IEnumerator LoggingProcessFailed()

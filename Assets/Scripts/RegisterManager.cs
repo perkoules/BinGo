@@ -2,13 +2,16 @@
 using PlayFab.ClientModels;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Debug = UnityEngine.Debug;
 
 public class RegisterManager : MonoBehaviour
 {
+    public PlayerInfo playerInfo;
     public TMP_Dropdown countryDropdown, avatarDropdown;
     public TMP_InputField usernameInputField, passwordInputField, repeatPasswordInputField, emailInputField;
     public Color32 colorDefault;
@@ -17,9 +20,9 @@ public class RegisterManager : MonoBehaviour
     private string email = "";
     private string password = "";
     private string username = "";
-    private string country = "Australia";
-    private string avatar = "Avatar 1";
-    private string teamname = "-";
+    public string country = "Australia";
+    public string avatar = "Avatar 1";
+    public string teamname = "-";
     private string myID = "";
     private int currentBuildLevel = -1;
 
@@ -103,6 +106,8 @@ public class RegisterManager : MonoBehaviour
         playerDataSaver.SetUsername(username);
         playerDataSaver.SetEmail(email);
         playerDataSaver.SetPassword(password);
+        playerDataSaver.SetCountry(countryDropdown.captionText.text);
+        playerDataSaver.SetAvatar(avatarDropdown.captionText.text);
         PlayFabClientAPI.UpdateUserTitleDisplayName(
             new UpdateUserTitleDisplayNameRequest
             {
@@ -112,8 +117,6 @@ public class RegisterManager : MonoBehaviour
             {
                 string capitalFirst = resultSuccess.DisplayName.Replace(resultSuccess.DisplayName.First(), char.ToUpper(resultSuccess.DisplayName.First()));
                 playerDataSaver.SetUsername(capitalFirst);
-                playerDataSaver.SetCountry(countryDropdown.captionText.text);
-                playerDataSaver.SetAvatar(avatarDropdown.captionText.text);
             },
             error =>
             {
@@ -127,7 +130,22 @@ public class RegisterManager : MonoBehaviour
                     messageController.messages[0].SetActive(true);
                 }
             });
-
+        playerDataSaver.SetIsGuest(0);
+        playerDataSaver.SetProgressLevel(1);
+        playerDataSaver.SetWasteCollected(0);
+        playerDataSaver.SetRecycleCollected(0);
+        playerDataSaver.SetCoinsAvailable(0);
+        playerInfo = new PlayerInfo
+        {
+            PlayerUsername = playerDataSaver.GetUsername(),
+            PlayerPassword = playerDataSaver.GetPassword(),
+            PlayerEmail = playerDataSaver.GetEmail(),
+            PlayerRubbish = playerDataSaver.GetWasteCollected(),
+            PlayerRecycle = playerDataSaver.GetRecycleCollected(),
+            PlayerTeamName = playerDataSaver.GetTeamname(),
+            PlayerCoins = playerDataSaver.GetCoinsAvailable(),
+            PlayerCurrentLevel = playerDataSaver.GetProgressLevel()
+        };
         SetPlayerData();
         myID = result.PlayFabId;
         if (currentBuildLevel == 0)
@@ -140,6 +158,7 @@ public class RegisterManager : MonoBehaviour
     public void ClickToRegisterGuest()
     {
         playerDataSaver.SetTeamname(teamname);
+        playerDataSaver.SetIsGuest(0);
         email = emailInputField.text;
         password = repeatPasswordInputField.text;
         username = usernameInputField.text;
@@ -184,7 +203,7 @@ public class RegisterManager : MonoBehaviour
         playerDataSaver.SetCountry(countryDropdown.captionText.text);
         playerDataSaver.SetAvatar(avatarDropdown.captionText.text);
         SetPlayerData();
-        playerDataSaver.SetGuestPlayerRegistered("YES");
+        playerDataSaver.SetIsGuest(0);
         messageController.messages[0].SetActive(true);
     }
 
@@ -201,7 +220,7 @@ public class RegisterManager : MonoBehaviour
             {"Avatar", avatar},
             {"Achievements", "0"},
             {"Tree Location", "-"},
-            {"TeamName", teamname} }
+            {"TeamName", "-"} }
         },
         result => Debug.Log("Successfully updated user data"),
         error =>
@@ -209,10 +228,9 @@ public class RegisterManager : MonoBehaviour
             Debug.Log(error.GenerateErrorReport());
         });
     }
-
     private IEnumerator LoggingProcessSucceeded()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(3f);
 
         if (currentBuildLevel == 0)
         {
@@ -223,4 +241,5 @@ public class RegisterManager : MonoBehaviour
             }
         }
     }
+
 }

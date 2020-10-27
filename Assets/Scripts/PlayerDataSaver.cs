@@ -2,7 +2,6 @@
 
 public class PlayerDataSaver : MonoBehaviour
 {
-    private const string REGISTER_FROM_GUEST = "RegisterFromGuest";
     private const string IS_GUEST = "isGuest";
     private const string EMAIL_GIVEN = "EmailGiven";
     private const string PASSWORD_GIVEN = "PasswordGiven";
@@ -13,11 +12,28 @@ public class PlayerDataSaver : MonoBehaviour
     private const string TASK_BADGES = "TaskBadges";
     private const string WASTE_COLLECTED = "WasteCollected";
     private const string RECYCLE_COLLECTED = "RecycleCollected";
+    private const string RUBBISH_COLLECTED = "RubbishCollected";
     private const string COINS_AVAILABLE = "CoinsAvailable";
     private const string PROGRESS_LEVEL = "ProgressLevel";
     private const string MONSTERS_KILLED = "MonstersKilled";
     private const string TREE_LOCATION = "MonstersKilled";
 
+
+    public void SetRubbishCollected(int amount)
+    {
+        PlayerPrefs.SetInt(RUBBISH_COLLECTED, amount);
+    }
+
+    public void SetRubbishCollected()
+    {
+        int typRub = GetWasteCollected() + GetRecycleCollected();
+        PlayerPrefs.SetInt(RUBBISH_COLLECTED, typRub);
+    }
+
+    public int GetRubbishCollected()
+    {
+        return PlayerPrefs.GetInt(RUBBISH_COLLECTED);
+    }
     public void SetTreeLocation(string treeLoc)
     {
         PlayerPrefs.SetString(TREE_LOCATION, treeLoc);
@@ -41,6 +57,7 @@ public class PlayerDataSaver : MonoBehaviour
     public void SetWasteCollected(int waste)
     {
         PlayerPrefs.SetInt(WASTE_COLLECTED, waste);
+        SetRubbishCollected();
     }
 
     public int GetWasteCollected()
@@ -51,6 +68,7 @@ public class PlayerDataSaver : MonoBehaviour
     public void SetRecycleCollected(int recycle)
     {
         PlayerPrefs.SetInt(RECYCLE_COLLECTED, recycle);
+        SetRubbishCollected();
     }
 
     public int GetRecycleCollected()
@@ -86,17 +104,7 @@ public class PlayerDataSaver : MonoBehaviour
     public int GetIsGuest()
     {
         return PlayerPrefs.GetInt(IS_GUEST);
-    }
-
-    public void SetGuestPlayerRegistered(string reg)
-    {
-        PlayerPrefs.SetString(REGISTER_FROM_GUEST, reg);
-    }
-
-    public string GetGuestPlayerRegistered()
-    {
-        return PlayerPrefs.GetString(REGISTER_FROM_GUEST);
-    }
+    }    
 
     public void SetEmail(string usrEmail)
     {

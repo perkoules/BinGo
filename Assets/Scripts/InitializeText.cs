@@ -14,7 +14,10 @@ public class InitializeText : MonoBehaviour
         myText = GetComponent<TextMeshProUGUI>();
         Displayer(gameObject.name);
     }
-
+    public void ReInitialize()
+    {
+        Displayer(gameObject.name);
+    }
     public void Displayer(string which)
     {
         if (playerDataSaver.GetIsGuest() == 1)
@@ -42,8 +45,7 @@ public class InitializeText : MonoBehaviour
                     break;
 
                 case "RubbishCollectedText":
-                    int allRubbish = playerDataSaver.GetWasteCollected() + playerDataSaver.GetRecycleCollected();
-                    myText.text = allRubbish.ToString();
+                    myText.text = playerDataSaver.GetRubbishCollected().ToString();
                     break;
 
                 case "VoucherText":

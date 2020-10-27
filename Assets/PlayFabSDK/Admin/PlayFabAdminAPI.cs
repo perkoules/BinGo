@@ -537,7 +537,8 @@ namespace PlayFab
         {
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
-            if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+            if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) 
+            { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
             PlayFabHttp.MakeApiCall("/Admin/GetPlayersInSegment", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }

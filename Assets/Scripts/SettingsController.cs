@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(PlayerDataSaver))]
 public class SettingsController : MonoBehaviour
 {
+    private PlayerDataSaver playerDataSaver;
     public Color32 enabledColor;
     public List<Toggle> toggles;
 
@@ -14,13 +16,13 @@ public class SettingsController : MonoBehaviour
         {
             toggles.Add(tog);
         }
-        /*if (FindObjectOfType<PlayfabManager>().GetGuestPlayerRegistered() == "YES")
+        playerDataSaver = GetComponent<PlayerDataSaver>();
+        if (playerDataSaver.GetIsGuest() == 0) //if user is NOT guest, disable registration button cause he already did it
         {
-            Debug.Log("ENABLER " + FindObjectOfType<PlayfabManager>().GetGuestPlayerRegistered());
             int index = toggles.FindIndex(t => t.name.Contains("Register") == true);
             toggles[index].image.color = enabledColor;
             toggles[index].interactable = false;
-        }*/
+        }
     }
 
     public void DisableToggles()
@@ -72,15 +74,15 @@ public class SettingsController : MonoBehaviour
 
     public void RegisterTemporaryAccount()
     {
-        //if done
         int index = toggles.FindIndex(t => t.name.Contains("Register") == true);
-        if (!toggles[index].isOn)
+        if (playerDataSaver.GetIsGuest() == 0) //if user is NOT guest, disable registration button cause he already did it
         {
-            toggles[index].image.color = Color.red;
+            toggles[index].image.color = enabledColor;
+            toggles[index].interactable = false;
         }
         else
         {
-            toggles[index].image.color = enabledColor;
+            toggles[index].image.color = Color.red;
         }
     }
 

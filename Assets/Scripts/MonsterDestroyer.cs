@@ -18,6 +18,7 @@ public class MonsterDestroyer : MonoBehaviour
     private bool monsterGotHit = false;
     public int monstersKilled = 0;
     public GameObject treeImg, waterCan;
+    public bool canRaycast = false;
 
     private void Awake()
     {
@@ -30,7 +31,6 @@ public class MonsterDestroyer : MonoBehaviour
     {
         GetTreeLocationFromCloud();        
     }
-
     private void Update()
     {
 #if UNITY_EDITOR || UNITY_STANDALONE
@@ -49,7 +49,7 @@ public class MonsterDestroyer : MonoBehaviour
 
     private void Raycasting(Vector3 position)
     {
-        if (Camera.main.enabled) //add boolean
+        if (canRaycast) 
         {
             Ray ray = Camera.main.ScreenPointToRay(position);
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))

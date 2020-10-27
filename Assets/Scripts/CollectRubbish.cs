@@ -20,10 +20,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public AchievementsController achievementsController;
     public PlayfabManager playfabManager;
     public DeviceLocationProvider locationProvider;
-
-    //public MeasureDistanceWithGPS measureDistance;
     public CalculateDistance calculateDistance;
-
     public Image frames;
     public TextMeshProUGUI messageText;
     public PlayerInfo playerInfo;
@@ -31,7 +28,6 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     private PlayerDataSaver playerDataSaver;
     private GetCurrentLocation currentLocation;
     private ScanRubbish scanRubbish;
-
     private int progressLevel = 1;
     private int rubbishCollected = 0;
     private int wasteCollected = 0;
@@ -42,6 +38,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     private int rubbishInRegion = 0;
     private int rubbishInCountry = 0;
     private string place, district, region, country;
+    public string rubbishScanned = "";
 
     [HideInInspector]
     public Image fillerImage;
@@ -126,11 +123,12 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
                 typeOfRubbish = "recycle";
             }
             SetRubbishCollection(typeOfRubbish);
+            anim.SetBool("fill", false);
         }
         else
         {
             messageText.text = "After scanning, hold the button until full.";
-        }
+        }        
         fillerImage.fillAmount = 0;
     }
 
@@ -151,24 +149,33 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         if (!barcodeDetected)
         {
             barcodeDetected = true;
-            frames.color = Color.green;
-            StartCoroutine(rubbishCoroutine);
-            if (scanRubbish.isOpenBrowserIfUrl)
+            string comparer = "";
+            comparer = rubbishScanned;
+            rubbishScanned = dataText;
+            
+            if(rubbishScanned == comparer && ! string.IsNullOrEmpty(rubbishScanned))
             {
-                if (Utility.CheckIsUrlFormat(dataText))
+                messageText.text = "Please scan a different rubbish!!!";
+                barcodeDetected = false;
+                scanRubbish.Play();
+                StartCoroutine(DataTextCooldown());
+            }
+            else
+            {
+                frames.color = Color.green;
+                StartCoroutine(rubbishCoroutine);
+                if (scanRubbish.scanLineObj != null)
                 {
-                    if (!dataText.Contains("http://") && !dataText.Contains("https://"))
-                    {
-                        dataText = "http://" + dataText;
-                    }
-                    Application.OpenURL(dataText);
+                    scanRubbish.scanLineObj.SetActive(false);
                 }
-            }
-            if (scanRubbish.scanLineObj != null)
-            {
-                scanRubbish.scanLineObj.SetActive(false);
-            }
+            }            
         }
+    }
+
+    IEnumerator DataTextCooldown()
+    {
+        yield return new WaitForSeconds(10f);        
+        rubbishScanned = "";
     }
 
     private IEnumerator RubbishCooldown()
@@ -218,7 +225,6 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         achievementsController.recycleToUnlockCounter = recycleCollected;
         rubbishCollected = wasteCollected + recycleCollected;
         UpdatePlayerStats();
-        //playfabManager.LevelBadgeDisplay();
         StartCoroutine(achievementsController.CheckAchievementUnlockability());
         UpdatePlayerInfo();
     }

@@ -9,7 +9,7 @@ public class CameraController : MonoBehaviour
     public Camera arCamera2;
     public GameObject mapImage, arImage, arSession;
     public Button aR_MapCameraSelection;
-
+    
     private void Start()
     {
         aR_MapCameraSelection.onClick.AddListener(ChangeCameraMode);
@@ -24,6 +24,7 @@ public class CameraController : MonoBehaviour
             mapCamera.enabled = true;
             arCamera.enabled = false;
             arCamera2.enabled = false;
+            arCamera2.GetComponent<MonsterDestroyer>().canRaycast = false;
         }
         else if (arImage.activeSelf)           //AR Image is active so disable it and open AR Camera
         {
@@ -49,6 +50,7 @@ public class CameraController : MonoBehaviour
             yield return new WaitUntil(() => gameObject.activeSelf);
         }
         arCamera.enabled = true;           
-        arCamera2.enabled = true;           
+        arCamera2.enabled = true;
+        arCamera2.GetComponent<MonsterDestroyer>().canRaycast = true;
     }
 }

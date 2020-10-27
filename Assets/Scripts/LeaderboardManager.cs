@@ -15,7 +15,7 @@ public class LeaderboardManager : MonoBehaviour
     private PlayerInfo playerInfo;
     public GameObject leaderboardPanel, listingPrefab;
     private string playerID, playerName;
-
+    public Color32 evenColor, oddColor;
     private void Start()
     {
         GetPlayerID();
@@ -140,6 +140,7 @@ public class LeaderboardManager : MonoBehaviour
     private IEnumerator PlayersProgressInWorldAndCitiesResults(string statName, string place, string whatToLookFor)
     {
         yield return new WaitForSeconds(0.1f);
+        int i = 0;
         var requestLeaderboard = new GetLeaderboardRequest { StatisticName = statName };
         PlayFabClientAPI.GetLeaderboard(requestLeaderboard, result =>
         {
@@ -150,6 +151,7 @@ public class LeaderboardManager : MonoBehaviour
                     string getCountry = GetCountryFromPlace(place);
                     if (!getCountry.Contains("United Kingdom") && whatToLookFor.Contains("world"))
                     {
+                        i++;
                         GameObject obj = Instantiate(listingPrefab, leaderboardPanel.transform);
                         LeaderboardListing leaderboardListing = obj.GetComponent<LeaderboardListing>();
                         leaderboardListing.positionText.text = (player.Position + 1).ToString();
@@ -306,6 +308,14 @@ public class LeaderboardManager : MonoBehaviour
         {
             GameObject obj = Instantiate(listingPrefab, leaderboardPanel.transform);
             LeaderboardListing leaderboardListing = obj.GetComponent<LeaderboardListing>();
+            if (i % 2 == 0)
+            {
+                obj.GetComponent<Image>().color = leaderboardListing.evenColor;
+            }
+            else if (i % 2 != 0)
+            {
+                obj.GetComponent<Image>().color = leaderboardListing.oddColor;
+            }
             leaderboardListing.positionText.text = (i + 1).ToString();
             leaderboardListing.playerNameText.text = segmentsToSearch.ElementAt(i).Key;
             leaderboardListing.countryText.text = playersInCountry.ElementAt(i).Value.ToString();

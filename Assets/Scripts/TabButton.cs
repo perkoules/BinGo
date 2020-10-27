@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -6,7 +7,8 @@ public class TabButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
 {
     public TabGroup tabgroup;
     public Image background;
-
+    [SerializeField] string infoTextToShow;
+    public TextMeshProUGUI infoText;
     private void Start()
     {
         background = GetComponent<Image>();
@@ -15,6 +17,10 @@ public class TabButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (infoText != null)
+        {
+            infoText.text = infoTextToShow;
+        }
         tabgroup.OnTabSelected(this);
     }
 

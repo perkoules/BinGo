@@ -1,17 +1,16 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class TabAdjust : MonoBehaviour
 {
     public TabGroup tabGroup;
     public TabButton tabToOpen;
-    public GameObject tabResultToShow;
 
 
     private void OnEnable()
     {
-        tabGroup.selectedTab = tabToOpen;
-        tabResultToShow.SetActive(true);
-        Invoke("ColorInitialization", 0.5f);
+        tabGroup.OnTabSelected(tabToOpen);
+        //Invoke("ColorInitialization", 0.5f);
     }
 
     private void ColorInitialization()

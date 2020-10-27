@@ -12,6 +12,15 @@ public class CloseButton : MonoBehaviour
         button.onClick.AddListener(Clicked);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Debug.Log("ESC");
+            Clicked();
+        }
+    }
+
     public void Clicked()
     {
         if (button.name.Contains("Close"))

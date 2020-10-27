@@ -29,7 +29,6 @@ public class LoginManager : MonoBehaviour
         {
             Destroy(LM);
         }
-        DontDestroyOnLoad(this.gameObject);
     }
 
 

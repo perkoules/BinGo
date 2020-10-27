@@ -1,5 +1,4 @@
-﻿using PlayFab;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,7 +17,7 @@ public class SettingsController : MonoBehaviour
             toggles.Add(tog);
         }
         playerDataSaver = GetComponent<PlayerDataSaver>();
-        if (playerDataSaver.GetGuestPlayerRegistered() == "YES")
+        if (playerDataSaver.GetIsGuest() == 0) //if user is NOT guest, disable registration button cause he already did it
         {
             int index = toggles.FindIndex(t => t.name.Contains("Register") == true);
             toggles[index].image.color = enabledColor;
@@ -75,15 +74,15 @@ public class SettingsController : MonoBehaviour
 
     public void RegisterTemporaryAccount()
     {
-        //if done
         int index = toggles.FindIndex(t => t.name.Contains("Register") == true);
-        if (!toggles[index].isOn)
+        if (playerDataSaver.GetIsGuest() == 0) //if user is NOT guest, disable registration button cause he already did it
         {
-            toggles[index].image.color = Color.red;
+            toggles[index].image.color = enabledColor;
+            toggles[index].interactable = false;
         }
         else
         {
-            toggles[index].image.color = enabledColor;
+            toggles[index].image.color = Color.red;
         }
     }
 

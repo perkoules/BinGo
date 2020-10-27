@@ -16,7 +16,7 @@ public class LoginManager : MonoBehaviour
 
     private PlayerDataSaver playerDataSaver;
     private string myID = "";
-
+    private bool isGuest = false;
     public static LoginManager LM;
 
     private void OnEnable()
@@ -48,6 +48,7 @@ public class LoginManager : MonoBehaviour
     }
     public void GuestMode()
     {
+        isGuest = true;
         playerDataSaver.SetIsGuest(1);
         PlayFabClientAPI.LoginWithAndroidDeviceID(
             new LoginWithAndroidDeviceIDRequest { AndroidDeviceId = ReturnAndroidID(), CreateAccount = true },
@@ -57,6 +58,7 @@ public class LoginManager : MonoBehaviour
 
     public void ClickToLogin()
     {
+        isGuest = false;
         PlayFabClientAPI.LoginWithEmailAddress(
             new LoginWithEmailAddressRequest { Email = email.text, Password = password.text },
             OnLoginSuccess,
@@ -78,7 +80,14 @@ public class LoginManager : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
             messageController.messages[0].SetActive(true);
-            playerDataSaver.SetGuestPlayerRegistered("YES");
+            if (!isGuest)
+            {
+                playerDataSaver.SetIsGuest(0); 
+            }
+            else if (isGuest)
+            {
+                playerDataSaver.SetIsGuest(1);
+            }
             StartCoroutine(LoggingProcessSucceeded());
         }
     }

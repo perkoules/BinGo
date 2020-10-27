@@ -33,6 +33,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     private ScanRubbish scanRubbish;
 
     private int progressLevel = 1;
+    private int rubbishCollected = 0;
     private int wasteCollected = 0;
     private int recycleCollected = 0;
     private int coinsAvailable = 0;
@@ -215,6 +216,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         }
         achievementsController.rubbishToUnlockCounter = wasteCollected;
         achievementsController.recycleToUnlockCounter = recycleCollected;
+        rubbishCollected = wasteCollected + recycleCollected;
         UpdatePlayerStats();
         //playfabManager.LevelBadgeDisplay();
         StartCoroutine(achievementsController.CheckAchievementUnlockability());
@@ -229,8 +231,9 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
             PlayerPassword = playerDataSaver.GetPassword(),
             PlayerEmail = playerDataSaver.GetEmail(),
             PlayerTeamName = playerDataSaver.GetTeamname(),
-            PlayerRubbish = playerDataSaver.GetWasteCollected(),
+            PlayerWaste = playerDataSaver.GetWasteCollected(),
             PlayerRecycle = playerDataSaver.GetRecycleCollected(),
+            PlayerRubbish = playerDataSaver.GetRubbishCollected(),
             PlayerCoins = playerDataSaver.GetCoinsAvailable(),
             PlayerCurrentLevel = playerDataSaver.GetProgressLevel(),
             RubbishInPlace = rubbishInPlace,
@@ -290,7 +293,8 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
             FunctionParameter = new
             {
                 cloudProgressLevel = progressLevel,
-                cloudRubbishCollected = wasteCollected,
+                cloudWasteCollected = wasteCollected,
+                cloudRubbishCollected = rubbishCollected,
                 cloudRecycleCollected = recycleCollected,
                 cloudStatisticNamePlace = playerInfo.RubbishPlace + " isPlace",
                 cloudStatisticNameDistrict = playerInfo.RubbishDistrict + " isDistrict",
@@ -324,9 +328,9 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
                             playerDataSaver.SetProgressLevel(progressLevel);
                             break;
 
-                        case "RubbishCollected":
+                        case "WasteCollected":
                             wasteCollected = eachStat.Value;
-                            playerInfo.PlayerRubbish = wasteCollected;
+                            playerInfo.PlayerWaste = wasteCollected;
                             playerDataSaver.SetWasteCollected(wasteCollected);
                             break;
 
@@ -334,6 +338,12 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
                             recycleCollected = eachStat.Value;
                             playerInfo.PlayerRecycle = recycleCollected;
                             playerDataSaver.SetRecycleCollected(recycleCollected);
+                            break;
+
+                        case "RubbishCollected":
+                            rubbishCollected = eachStat.Value;
+                            playerInfo.PlayerRubbish = rubbishCollected;
+                            playerDataSaver.SetRubbishCollected(rubbishCollected);
                             break;
 
                         case "CoinsAvailable":

@@ -22,6 +22,7 @@ public class MonsterDestroyer : MonoBehaviour
     private void Awake()
     {
         playerDataSaver = GetComponent<PlayerDataSaver>();
+        monstersText.text = "0";
         GetMonstersFromCloud();
     }
 
@@ -48,7 +49,7 @@ public class MonsterDestroyer : MonoBehaviour
 
     private void Raycasting(Vector3 position)
     {
-        if (Camera.main.enabled)
+        if (Camera.main.enabled) //add boolean
         {
             Ray ray = Camera.main.ScreenPointToRay(position);
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 [System.Serializable]
 public class PlayerInfo
@@ -12,15 +11,16 @@ public class PlayerInfo
     [SerializeField] private string playerPassword;
     [SerializeField] private string playerTeamName;
     [SerializeField] private string playerTasks;
-    [SerializeField] private Image playerCurrentBadge;
-    [SerializeField] private Image playerAvatar;
-    [SerializeField] private Image playerCountry;
+    [SerializeField] private string playerCurrentBadge;
+    [SerializeField] private string playerAvatar;
+    [SerializeField] private string playerCountry;
 
     [Header("Player Stats:")]
     [SerializeField] private int playerCurrentLevel;
     [SerializeField] private int playerCoins;
-    [SerializeField] private int playerRubbish;
+    [SerializeField] private int playerWaste;
     [SerializeField] private int playerRecycle;
+    [SerializeField] private int playerRubbish;
 
     [Header("Rubbish Location Data:")]
     [SerializeField] private string rubbishPlace;
@@ -31,6 +31,24 @@ public class PlayerInfo
     [SerializeField] private int rubbishInRegion;
     [SerializeField] private string rubbishCountry;
     [SerializeField] private int rubbishInCountry;
+
+    public string PlayerCurrentBadge
+    {
+        get { return playerCurrentBadge; }
+        set { playerCurrentBadge = value; }
+    }
+
+    public string PlayerAvatar
+    {
+        get { return playerAvatar; }
+        set { playerAvatar = value; }
+    }
+
+    public string PlayerCountry
+    {
+        get { return playerCountry; }
+        set { playerCountry = value; }
+    }
 
     public string PlayerId
     {
@@ -114,6 +132,11 @@ public class PlayerInfo
     {
         get { return playerRecycle; }
         set { playerRecycle = value; }
+    }
+    public int PlayerWaste
+    {
+        get { return playerWaste; }
+        set { playerWaste = value; }
     }
 
     public int RubbishInPlace

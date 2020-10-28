@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 public class TaskController : MonoBehaviour, IPointerClickHandler
 {
     private Animator anim;
-    private bool isOn = false;
+    private bool isOn = true;
     private void Awake()
     {
         anim = GetComponent<Animator>();

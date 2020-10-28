@@ -1,43 +1,33 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class SwipeController : MonoBehaviour
+public class SwipeController : MonoBehaviour, IPointerClickHandler
 {
     private Animator anim;
-
+    private bool isOn = false;
     private void Awake()
     {
         anim = GetComponent<Animator>();
     }
 
-    private void Update()
-    {
-        if (Input.touchCount == 1)
-        {
-            Touch myTouch = Input.GetTouch(0);
-
-            //Swipe Right
-            if (myTouch.phase == TouchPhase.Began && myTouch.position.x >= Screen.width / 2)
-            {
-            }
-            if (myTouch.phase == TouchPhase.Ended && myTouch.position.x < Screen.width / 2)
-            {
-                anim.SetTrigger("OpenTask");
-                anim.ResetTrigger("CloseTask");
-            }
-            //Swipe Left
-            if (myTouch.phase == TouchPhase.Began && myTouch.position.x < Screen.width / 2)
-            {
-            }
-            if (myTouch.phase == TouchPhase.Ended && myTouch.position.x >= Screen.width / 2)
-            {
-                anim.SetTrigger("CloseTask");
-                anim.ResetTrigger("OpenTask");
-            }
-        }
-    }
-
     public void OnTaskComplete()
     {
         Destroy(gameObject);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (isOn)
+        {
+            isOn = false;
+            anim.SetTrigger("OpenTask");
+            anim.ResetTrigger("CloseTask");
+        }
+        else
+        {
+            isOn = true;
+            anim.SetTrigger("CloseTask");
+            anim.ResetTrigger("OpenTask");
+        }
     }
 }

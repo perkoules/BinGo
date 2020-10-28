@@ -3,9 +3,9 @@ using PlayFab.ClientModels;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
+
 
 public class TasksManager : MonoBehaviour
 {
@@ -13,25 +13,20 @@ public class TasksManager : MonoBehaviour
     private int daysPassed = 0;
     public RectTransform parent;
     public GameObject[] taskPrefabs;
-    private Dictionary<int, string> tasks;
+    public Tasks t;
+    private GameObject go;
+
 
     private void Awake()
     {
-        tasks = new Dictionary<int, string>()
-        {
-            {1, "Collect 2 waste" },
-            {2, "Collect 2 recycle" },
-            {3, "Collect 2 recycle" },
-        };
     }
 
     private void Start()
     {
         GetDateCreated();
     }
-
     private void GetDateCreated()
-    {
+    {        
         PlayFabClientAPI.GetAccountInfo(
             new GetAccountInfoRequest { },
             result =>
@@ -42,22 +37,29 @@ public class TasksManager : MonoBehaviour
                 Debug.Log("Passed " + daysPassed);
                 StartCoroutine(ShowTask());
             },
-            error => Debug.LogError(error.GenerateErrorReport()));        
+            error => Debug.LogError(error.GenerateErrorReport()));
     }
+    
 
     IEnumerator ShowTask()
     {
-        yield return new WaitUntil(() => Time.timeSinceLevelLoad > 30);
-        if(daysPassed >=0 && daysPassed < 30)
+        yield return new WaitUntil(() => Time.timeSinceLevelLoad > 10);
+        List<TextMeshProUGUI> texts = new List<TextMeshProUGUI>();
+        if (daysPassed >= 0 && daysPassed < 30)
         {
             for (int i = 0; i < taskPrefabs.Length; i++)
             {
-                GameObject go = Instantiate(taskPrefabs[i], parent);
+                go = Instantiate(taskPrefabs[i], parent);
                 TextMeshProUGUI goText = go.GetComponentInChildren<TextMeshProUGUI>();
-                goText.text = tasks.ElementAt(i).Value;
+                texts.Add(goText);
             }
         }
+        t = new Tasks
+        {
+            Task1 = "Collect 2 waste",
+            Task2 = "Recycle 2 rubbish",
+            Task3 = "Use 2 bins"
+        };
+        t.Daily(texts[0], texts[1], texts[2]);
     }
-
-
 }

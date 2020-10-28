@@ -17,6 +17,7 @@ using UnityEngine.UI;
 public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public static CollectRubbish Instance { get; private set; }
+
     public AchievementsController achievementsController;
     public PlayfabManager playfabManager;
     public DeviceLocationProvider locationProvider;
@@ -39,6 +40,8 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     private int rubbishInCountry = 0;
     private string place, district, region, country;
     public string rubbishScanned = "";
+    
+    [SerializeField]private int distanceAcceptable = 50;
 
     [HideInInspector]
     public Image fillerImage;
@@ -108,7 +111,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public void OnPointerUp(PointerEventData eventData)
     {
         pointerDown = false;
-        if (fillerImage.fillAmount == 1 && calculateDistance.distances[calculateDistance.minIndex] <= 50)
+        if (fillerImage.fillAmount == 1 && calculateDistance.distances[calculateDistance.minIndex] <= distanceAcceptable)
         {
             frames.color = Color.white;
             StopCoroutine(rubbishCoroutine);

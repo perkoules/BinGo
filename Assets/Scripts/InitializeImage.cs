@@ -15,7 +15,7 @@ public class InitializeImage : MonoBehaviour
         myImage = GetComponent<Image>();
     }
 
-    private void Start()
+    private void OnEnable()
     {
         StartCoroutine(DisplayMyImage(gameObject.name));
     }

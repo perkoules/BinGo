@@ -8,7 +8,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(PlayerDataSaver))]
 public class AchievementsController : MonoBehaviour
 {
-    public int rubbishToUnlockCounter = 0;
+    public int wasteToUnlockCounter = 0;
     public int recycleToUnlockCounter = 0;
     public int cityToUnlockCounter = 0;
     public int statesToUnlockCounter = 0;
@@ -23,7 +23,7 @@ public class AchievementsController : MonoBehaviour
     private void Awake()
     {
         playerDataSaver = GetComponent<PlayerDataSaver>();
-        rubbishToUnlockCounter = playerDataSaver.GetWasteCollected();
+        wasteToUnlockCounter = playerDataSaver.GetWasteCollected();
         recycleToUnlockCounter = playerDataSaver.GetRecycleCollected();
         tasks = playerDataSaver.GetTasks();
         CheckForLocations();
@@ -86,7 +86,7 @@ public class AchievementsController : MonoBehaviour
         {
             {"recycled", recycleToUnlockCounter },
             {"city", cityToUnlockCounter },
-            {"rubbish", rubbishToUnlockCounter },
+            {"rubbish", wasteToUnlockCounter },
             {"country", countryToUnlockCounter },
             {"state", statesToUnlockCounter }
         };

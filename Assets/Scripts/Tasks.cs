@@ -1,12 +1,12 @@
 ﻿using TMPro;
 using UnityEngine;
 
-[System.Serializable]
-public class Tasks 
+[CreateAssetMenu(fileName = "Tasks", menuName = "TaskScriptableObject", order = 1)]
+public class Tasks : ScriptableObject
 {
-    private string task1;
-    private string task2;
-    private string task3;
+    public string task1;
+    public string task2;
+    public string task3;
 
     public string Task1
     {
@@ -28,5 +28,11 @@ public class Tasks
         t1.text = task1;
         t2.text = task2;
         t3.text = task3;
+    }
+    public void SetName(GameObject obj1, GameObject obj2, GameObject obj3)
+    {
+        obj1.name = task1;
+        obj2.name = task2;
+        obj3.name = task3;
     }
 }

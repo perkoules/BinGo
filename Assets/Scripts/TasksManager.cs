@@ -13,13 +13,9 @@ public class TasksManager : MonoBehaviour
     private int daysPassed = 0;
     public RectTransform parent;
     public GameObject[] taskPrefabs;
-    public Tasks t;
+    public List<Tasks> tasks;
     private GameObject go;
 
-
-    private void Awake()
-    {
-    }
 
     private void Start()
     {
@@ -34,32 +30,24 @@ public class TasksManager : MonoBehaviour
                 dateCreated = result.AccountInfo.Created;
                 dateToday = DateTime.Today;
                 daysPassed = (dateToday - dateCreated).Days;
-                Debug.Log("Passed " + daysPassed);
                 StartCoroutine(ShowTask());
             },
             error => Debug.LogError(error.GenerateErrorReport()));
-    }
-    
+    }    
 
     IEnumerator ShowTask()
     {
         yield return new WaitUntil(() => Time.timeSinceLevelLoad > 10);
         List<TextMeshProUGUI> texts = new List<TextMeshProUGUI>();
-        if (daysPassed >= 0 && daysPassed < 30)
+        List<GameObject> objs = new List<GameObject>();
+        for (int i = 0; i < taskPrefabs.Length; i++)
         {
-            for (int i = 0; i < taskPrefabs.Length; i++)
-            {
-                go = Instantiate(taskPrefabs[i], parent);
-                TextMeshProUGUI goText = go.GetComponentInChildren<TextMeshProUGUI>();
-                texts.Add(goText);
-            }
+            go = Instantiate(taskPrefabs[i], parent);
+            objs.Add(go);
+            TextMeshProUGUI goText = go.GetComponentInChildren<TextMeshProUGUI>();
+            texts.Add(goText);
         }
-        t = new Tasks
-        {
-            Task1 = "Collect 2 waste",
-            Task2 = "Recycle 2 rubbish",
-            Task3 = "Use 2 bins"
-        };
-        t.Daily(texts[0], texts[1], texts[2]);
+        tasks[daysPassed].Daily(texts[0], texts[1], texts[2]);
+        tasks[daysPassed].SetName(objs[0], objs[1], objs[2]);
     }
 }

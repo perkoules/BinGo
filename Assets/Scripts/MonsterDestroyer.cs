@@ -147,6 +147,7 @@ public class MonsterDestroyer : MonoBehaviour
             else
             {
                 Debug.Log("Water it");
+                //monstersKilled -= 50;
                 amountText.text = Mathf.FloorToInt((monstersKilled / 50)).ToString();
             }
             SetMonstersStats();

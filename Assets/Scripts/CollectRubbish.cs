@@ -17,6 +17,7 @@ using UnityEngine.UI;
 public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public static CollectRubbish Instance { get; private set; }
+
     public AchievementsController achievementsController;
     public PlayfabManager playfabManager;
     public DeviceLocationProvider locationProvider;
@@ -24,6 +25,9 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public Image frames;
     public TextMeshProUGUI messageText;
     public PlayerInfo playerInfo;
+    public Animator anim;
+    public GameObject nextLevelAnimator;
+    public RectTransform parent;
 
     private PlayerDataSaver playerDataSaver;
     private GetCurrentLocation currentLocation;
@@ -37,17 +41,15 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     private int rubbishInDistrict = 0;
     private int rubbishInRegion = 0;
     private int rubbishInCountry = 0;
+    private int currentLevel = 0;
+    private int distanceAcceptable = 100;
     private string place, district, region, country;
-    public string rubbishScanned = "";
-
-    [HideInInspector]
-    public Image fillerImage;
-    
+    private string rubbishScanned = "";
     private bool pointerDown = false;
     private bool barcodeDetected = false;
     private float timeLeft = 20;
-    public Animator anim;
 
+    [HideInInspector] public Image fillerImage;    
     private IEnumerator rubbishCoroutine;
 
     private void OnEnable()
@@ -108,7 +110,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public void OnPointerUp(PointerEventData eventData)
     {
         pointerDown = false;
-        if (fillerImage.fillAmount == 1 && calculateDistance.distances[calculateDistance.minIndex] <= 50)
+        if (fillerImage.fillAmount == 1 && calculateDistance.distances[calculateDistance.minIndex] <= distanceAcceptable)
         {
             frames.color = Color.white;
             StopCoroutine(rubbishCoroutine);
@@ -193,6 +195,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         anim.SetBool("fill", false);
         timeLeft = 20.0f;
         messageText.text = "Please rescan the rubbish!!!";
+        scanRubbish.Play();
     }
 
     #region PlayfabCommunications
@@ -209,7 +212,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
             rubbishInRegion++;
             rubbishInCountry++;
             coinsAvailable++;
-            ProgressLevelCheck();
+            playerDataSaver.SetWasteCollected(wasteCollected);
         }
         else if (typeOfRubbish == "recycle")
         {
@@ -219,11 +222,12 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
             rubbishInRegion++;
             rubbishInCountry++;
             coinsAvailable += 2;
-            ProgressLevelCheck();
+            playerDataSaver.SetRecycleCollected(recycleCollected);
         }
-        achievementsController.rubbishToUnlockCounter = wasteCollected;
+        achievementsController.wasteToUnlockCounter = wasteCollected;
         achievementsController.recycleToUnlockCounter = recycleCollected;
         rubbishCollected = wasteCollected + recycleCollected;
+        ProgressLevelCheck();
         UpdatePlayerStats();
         StartCoroutine(achievementsController.CheckAchievementUnlockability());
         UpdatePlayerInfo();
@@ -256,6 +260,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public void ProgressLevelCheck()
     {
         int allRubbish = playerDataSaver.GetWasteCollected() + playerDataSaver.GetRecycleCollected();
+        playerDataSaver.SetRubbishCollected(allRubbish);
         Dictionary<int, int> progressByRubbish = new Dictionary<int, int>()
         {
             {1, 20},
@@ -278,9 +283,17 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         {
             if (progressByRubbish.ElementAt(i - 1).Value <= allRubbish && allRubbish <= progressByRubbish.ElementAt(i).Value)
             {
-                playerDataSaver.SetProgressLevel(progressByRubbish.ElementAt(i).Key);
+                currentLevel = playerDataSaver.GetProgressLevel();
+                progressLevel = progressByRubbish.ElementAt(i - 1).Key;
+                playerDataSaver.SetProgressLevel(progressLevel);
+                if(currentLevel != progressLevel)
+                {
+                    GameObject obj = Instantiate(nextLevelAnimator, parent);
+                    Destroy(obj, 4f);
+                    FindObjectOfType<PlayfabManager>().ReInitialize();
+                }
             }
-        }
+        }        
     }
 
     public void UpdatePlayerStats()

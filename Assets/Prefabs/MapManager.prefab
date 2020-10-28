@@ -154,6 +154,7 @@ MonoBehaviour:
   monstersKilled: 0
   treeImg: {fileID: 0}
   waterCan: {fileID: 0}
+  canRaycast: 0
 --- !u!1 &2977491659715545857
 GameObject:
   m_ObjectHideFlags: 0
@@ -831,7 +832,7 @@ MonoBehaviour:
         selectedTypes: 
       - coreOptions:
           sourceId: 
-          isActive: 1
+          isActive: 0
           sublayerName: Roads
           geometryType: 1
           layerName: road

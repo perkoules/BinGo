@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class SwipeController : MonoBehaviour, IPointerClickHandler
+public class TaskController : MonoBehaviour, IPointerClickHandler
 {
     private Animator anim;
     private bool isOn = false;

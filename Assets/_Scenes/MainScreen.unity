@@ -1349,6 +1349,7 @@ GameObject:
   m_Component:
   - component: {fileID: 262716205}
   - component: {fileID: 262716204}
+  - component: {fileID: 262716206}
   m_Layer: 0
   m_Name: TaskController
   m_TagString: Untagged
@@ -1394,16 +1395,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 341b4b43d4a07014687fff87ac4515c0, type: 2}
   - {fileID: 11400000, guid: 4f6a8764400b4284a9837e865fc013a5, type: 2}
   - {fileID: 11400000, guid: 2d1a9e27d8a35e54c96068983e6a867c, type: 2}
-  - {fileID: 11400000, guid: 9378bed8a6f0b9b43a2a6376f81f44cd, type: 2}
-  - {fileID: 11400000, guid: 55e0617a1f0c2fa4f84e620b7b458d74, type: 2}
-  - {fileID: 11400000, guid: 67a0846092f8a1f4fafd2ec6d78a0ca5, type: 2}
-  - {fileID: 11400000, guid: b5783cb1e52b67846877370a186d19c2, type: 2}
-  - {fileID: 11400000, guid: e180d41a4733ba84bbf7fd6a804b30c8, type: 2}
-  - {fileID: 11400000, guid: 4aa496f6e2f62a5439f7607b34c833a0, type: 2}
-  - {fileID: 11400000, guid: e77edcf5282f71f4e883962d7e2dba0f, type: 2}
-  - {fileID: 11400000, guid: 75f89ffdb42e24e4d8ff72fbef64f430, type: 2}
-  - {fileID: 11400000, guid: 728ad8dbc50011b48af2b9aa40951de9, type: 2}
-  - {fileID: 11400000, guid: df4b1c283bc53ab4ba932ad7790a017e, type: 2}
 --- !u!4 &262716205
 Transform:
   m_ObjectHideFlags: 0
@@ -1418,6 +1409,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &262716206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 262716203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a84862245f76a04b951673ec87c1950, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gotasks: []
 --- !u!21 &308617991
 Material:
   serializedVersion: 6

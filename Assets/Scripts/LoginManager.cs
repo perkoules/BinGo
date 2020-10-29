@@ -14,7 +14,7 @@ public class LoginManager : MonoBehaviour
     public TMP_InputField email, password;
     public Button loginBtn;
 
-    private PlayerDataSaver playerDataSaver;
+    public PlayerDataSaver playerDataSaver;
     private string myID = "";
     private bool isGuest = false;
     public static LoginManager LM;

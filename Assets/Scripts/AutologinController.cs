@@ -8,11 +8,17 @@ public class AutologinController : MonoBehaviour
 {
     private Toggle toggle;
 
-
     private void Awake()
     {
         toggle = GetComponent<Toggle>();
-        toggle.onValueChanged.AddListener(AutologinChecker);
+        /*if (LoginManager.LM.playerDataSaver.GetShouldAutologin() == 1)
+        {
+            toggle.isOn = true;
+        }
+        else
+        {*/
+            toggle.onValueChanged.AddListener(AutologinChecker);
+        //}        
     }
 
     private void AutologinChecker(bool isOn)

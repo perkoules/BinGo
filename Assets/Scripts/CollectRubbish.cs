@@ -227,6 +227,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         achievementsController.wasteToUnlockCounter = wasteCollected;
         achievementsController.recycleToUnlockCounter = recycleCollected;
         rubbishCollected = wasteCollected + recycleCollected;
+        TaskChecker.Instance.CheckTaskDone();
         ProgressLevelCheck();
         UpdatePlayerStats();
         StartCoroutine(achievementsController.CheckAchievementUnlockability());

@@ -11,6 +11,7 @@ public class TaskController : MonoBehaviour, IPointerClickHandler
         anim = GetComponent<Animator>();
         anim.ResetTrigger("OpenTask");
         anim.ResetTrigger("CloseTask");
+        TaskChecker.Instance.FindActiveTasks();
     }
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -26,5 +27,10 @@ public class TaskController : MonoBehaviour, IPointerClickHandler
             anim.SetTrigger("CloseTask");
             anim.ResetTrigger("OpenTask");
         }
+    }
+
+    private void OnDestroy()
+    {
+        Debug.Log(gameObject.name + " destroyed");
     }
 }

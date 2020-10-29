@@ -70,6 +70,7 @@ public class MonsterDestroyer : MonoBehaviour
         yield return new WaitForSeconds(0.1f); //4f -> 0.1f for testing
         monsterGotHit = false;
         Destroy(go);
+        TaskChecker.Instance.CheckTaskDone();
         monstersKilled++;
         monstersText.text = monstersKilled.ToString();
         if (waterCan.activeSelf)

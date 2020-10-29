@@ -47,7 +47,15 @@ public class TasksManager : MonoBehaviour
             TextMeshProUGUI goText = go.GetComponentInChildren<TextMeshProUGUI>();
             texts.Add(goText);
         }
-        tasks[daysPassed].Daily(texts[0], texts[1], texts[2]);
-        tasks[daysPassed].SetName(objs[0], objs[1], objs[2]);
+        if (daysPassed >= 19)
+        {
+            tasks[19].Daily(texts[0], texts[1], texts[2]);
+            tasks[19].SetName(objs[0], objs[1], objs[2]);
+        }
+        else
+        {
+            tasks[daysPassed].Daily(texts[0], texts[1], texts[2]);
+            tasks[daysPassed].SetName(objs[0], objs[1], objs[2]);
+        }        
     }
 }

@@ -32,7 +32,6 @@ public class TaskChecker : MonoBehaviour
 
     public void CheckTaskDone()
     {
-        Debug.Log("Checker");
         foreach (var go in gotasks)
         {
             if (go.name.Contains("waste"))
@@ -66,6 +65,7 @@ public class TaskChecker : MonoBehaviour
             else if (go.name.Contains("monsters"))
             {
                 int amount = Convert.ToInt32((go.name.Replace("Kill", "")).Replace("monsters", ""));
+                monsters++;
                 if (monsters >= amount)
                 {
                     Destroy(go);

@@ -42,7 +42,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     private int rubbishInRegion = 0;
     private int rubbishInCountry = 0;
     private int currentLevel = 0;
-    private int distanceAcceptable = 100;
+    private int distanceAcceptable = 5;
     private string place, district, region, country;
     private string rubbishScanned = "";
     private bool pointerDown = false;

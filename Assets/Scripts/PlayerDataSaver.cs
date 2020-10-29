@@ -17,7 +17,17 @@ public class PlayerDataSaver : MonoBehaviour
     private const string PROGRESS_LEVEL = "ProgressLevel";
     private const string MONSTERS_KILLED = "MonstersKilled";
     private const string TREE_LOCATION = "MonstersKilled";
+    private const string AUTOLOGIN = "Autologin";
 
+    public void SetShouldAutologin(int auto)
+    {
+        PlayerPrefs.SetInt(AUTOLOGIN, auto);
+    }
+
+    public int GetShouldAutologin()
+    {
+        return PlayerPrefs.GetInt(AUTOLOGIN);
+    }
 
     public void SetRubbishCollected(int amount)
     {

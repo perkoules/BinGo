@@ -14,7 +14,7 @@ public class LoginManager : MonoBehaviour
     public TMP_InputField email, password;
     public Button loginBtn;
 
-    private PlayerDataSaver playerDataSaver;
+    public PlayerDataSaver playerDataSaver;
     private string myID = "";
     private bool isGuest = false;
     public static LoginManager LM;
@@ -35,8 +35,24 @@ public class LoginManager : MonoBehaviour
     private void Awake()
     {
         playerDataSaver = GetComponent<PlayerDataSaver>();
-        StartCoroutine(AttemptAutoLogin());
+        if (playerDataSaver.GetShouldAutologin() == 1)
+        {
+            StartCoroutine(AttemptAutoLogin());
+        }
     }
+
+    public void ShouldAutologin(bool isOn)
+    {
+        if (isOn)
+        {
+            playerDataSaver.SetShouldAutologin(1);
+        }
+        else
+        {
+            playerDataSaver.SetShouldAutologin(0);
+        }
+    }
+
     IEnumerator AttemptAutoLogin()
     {
         yield return new WaitForSeconds(1f);
@@ -113,6 +129,7 @@ public class LoginManager : MonoBehaviour
     public void CancelLogIn()
     { 
         StopAllCoroutines();
+        ShouldAutologin(false);
         if (messageController.messages[0].activeSelf)
         {
             messageController.messages[0].SetActive(false);

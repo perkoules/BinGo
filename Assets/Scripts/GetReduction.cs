@@ -1,5 +1,6 @@
 ﻿using PlayFab;
 using PlayFab.ClientModels;
+using System.Collections;
 using System.Text;
 using TMPro;
 using UnityEngine;
@@ -11,6 +12,10 @@ public class GetReduction : MonoBehaviour
     public SliderController sliderController;
     public TextMeshProUGUI coinsAvailable;
     public TextMeshProUGUI codeText;
+    public GameObject prefabNotification;
+    public RectTransform parent;
+
+    private TextMeshProUGUI myText;
     private PlayerDataSaver playerDataSaver;
     private Button voucher;
     private int coins = 0;
@@ -40,8 +45,13 @@ public class GetReduction : MonoBehaviour
             }
             codeText.text = sb.ToString();
             CopyText(codeText);
-        }
-        ReductionUsed(sliderController.coinsUsed);
+
+            myText = prefabNotification.GetComponentInChildren<TextMeshProUGUI>();
+            myText.text = "Code copied to clipboard";
+            GameObject go = Instantiate(prefabNotification, parent);
+            Destroy(go, 2f);
+        }       
+        ReductionUsed();
     }
 
     public void CopyText(TextMeshProUGUI textToCopy)
@@ -54,9 +64,9 @@ public class GetReduction : MonoBehaviour
         editor.Copy();
     }
 
-    public void ReductionUsed(int coinsUsed)
+    public void ReductionUsed()
     {
-        int newCoins = playerDataSaver.GetCoinsAvailable() - coinsUsed;
+        int newCoins = playerDataSaver.GetCoinsAvailable() - sliderController.coinsUsed;
         playerDataSaver.SetCoinsAvailable(newCoins);
         PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
         {
@@ -80,5 +90,6 @@ public class GetReduction : MonoBehaviour
                 item.Displayer("VoucherText");
             }
         }
+        sliderController.ResetSlider();
     }
 }

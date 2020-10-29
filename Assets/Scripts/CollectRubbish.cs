@@ -42,7 +42,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     private int rubbishInRegion = 0;
     private int rubbishInCountry = 0;
     private int currentLevel = 0;
-    private int distanceAcceptable = 100;
+    private int distanceAcceptable = 5;
     private string place, district, region, country;
     private string rubbishScanned = "";
     private bool pointerDown = false;
@@ -141,7 +141,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         yield return new WaitForSeconds(2);
         messageText.text = "Please scan another rubbish!!!";
         barcodeDetected = false;
-        timeLeft = 20.0f;
+        timeLeft = 10f;
         anim.SetBool("fill", true);
         scanRubbish.Play();
     }
@@ -182,7 +182,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     private IEnumerator RubbishCooldown()
     {
-        timeLeft = 20.0f;
+        timeLeft = 10f;
         anim.SetBool("fill", true);
         while (timeLeft > 0)
         {
@@ -193,7 +193,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         frames.color = Color.white;
         barcodeDetected = false;
         anim.SetBool("fill", false);
-        timeLeft = 20.0f;
+        timeLeft = 10f;
         messageText.text = "Please rescan the rubbish!!!";
         scanRubbish.Play();
     }

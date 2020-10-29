@@ -9,7 +9,13 @@ public class TabAdjust : MonoBehaviour
 
     private void OnEnable()
     {
-        tabGroup.OnTabSelected(tabToOpen);
+        foreach (var item in tabGroup.tabButtons)
+        {
+            if(item.name == tabToOpen.name)
+            {
+                tabGroup.OnTabSelected(tabToOpen);
+            }
+        }        
         //Invoke("ColorInitialization", 0.5f);
     }
 

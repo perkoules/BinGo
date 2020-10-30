@@ -7,6 +7,7 @@ public class Swipe : MonoBehaviour
     private Vector3 fp;  
     private Vector3 lp;  
     private float dragDistance;
+    public TabGroup tabGroup;
 
 
     void Start()
@@ -37,12 +38,12 @@ public class Swipe : MonoBehaviour
                     if (Mathf.Abs(lp.x - fp.x) > Mathf.Abs(lp.y - fp.y))
                     {  
                         if ((lp.x > fp.x)) 
-                        {   //Right swipe
+                        {
                             
                         }
                         else
-                        {   //Left swipe
-                            
+                        {
+             
                         }
                     }
                     else

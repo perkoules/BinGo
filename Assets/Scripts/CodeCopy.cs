@@ -4,7 +4,9 @@ using UnityEngine;
 public class CodeCopy : MonoBehaviour
 {
     private TextMeshProUGUI textToCopy;
-
+    private TextMeshProUGUI myText;
+    public GameObject prefabNotification;
+    public RectTransform parent;
     private void Start()
     {
         textToCopy = GetComponent<TextMeshProUGUI>();
@@ -18,6 +20,9 @@ public class CodeCopy : MonoBehaviour
         };
         editor.SelectAll();
         editor.Copy();
-        Debug.Log("Copied code: " + textToCopy.text);
+        myText = prefabNotification.GetComponentInChildren<TextMeshProUGUI>();
+        myText.text = "Code copied to clipboard";
+        GameObject go = Instantiate(prefabNotification, parent);
+        Destroy(go, 2f);
     }
 }

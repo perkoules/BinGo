@@ -56,8 +56,8 @@ public class LeaderboardManager : MonoBehaviour
                     GetPlayersCountry(player.PlayFabId, leaderboardListing);
                     leaderboardListing.rubbishText.text = player.StatValue.ToString();
                 }
-            }
-            , error => Debug.LogError(error.GenerateErrorReport()));
+            }, 
+            error => Debug.LogError(error.GenerateErrorReport()));
     }
 
     public void GetPlayersCountry(string playerId, LeaderboardListing ll)
@@ -185,8 +185,6 @@ public class LeaderboardManager : MonoBehaviour
         return country;
     }
 
-    //This is THE INCORRECT WAY for security reasons
-    //Exposing admin tasks
     public CountryRub countryRub;
 
     public void GetAllPlayers()

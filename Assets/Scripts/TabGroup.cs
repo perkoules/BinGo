@@ -8,7 +8,6 @@ public class TabGroup : MonoBehaviour
     public List<GameObject> gameobjectsToSwap;
 
     public Color pressedColor;
-    public Color hoverColor;
     public Color disabledColor;
 
     
@@ -20,21 +19,7 @@ public class TabGroup : MonoBehaviour
             tabButtons = new List<TabButton>();
         }
         tabButtons.Add(button);
-    }
-
-    public void OnTabEnter(TabButton button)
-    {
-        ResetTabs();
-        if (selectedTab == null || button != selectedTab)
-        {
-            button.background.color = hoverColor;
-        }        
-    }
-
-    public void OnTabExit(TabButton button)
-    {
-        ResetTabs();
-    }
+    }    
 
     public void OnTabSelected(TabButton button)
     {

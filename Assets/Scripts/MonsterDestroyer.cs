@@ -24,6 +24,7 @@ public class MonsterDestroyer : MonoBehaviour
     {
         playerDataSaver = GetComponent<PlayerDataSaver>();
         monstersText.text = "0";
+        amountText.text = "0";
         GetMonstersFromCloud();
     }
 
@@ -67,7 +68,7 @@ public class MonsterDestroyer : MonoBehaviour
 
     private IEnumerator Death(GameObject go)
     {
-        yield return new WaitForSeconds(0.1f); //4f -> 0.1f for testing
+        yield return new WaitForSeconds(4f); //4f -> 0.1f for testing
         monsterGotHit = false;
         Destroy(go);
         TaskChecker.Instance.CheckTaskDone();
@@ -76,6 +77,10 @@ public class MonsterDestroyer : MonoBehaviour
         if (waterCan.activeSelf)
         {
             amountText.text = Mathf.FloorToInt((monstersKilled / 50)).ToString();
+        }
+        else
+        {
+            amountText.text = "1";
         }
     }
 
@@ -128,7 +133,10 @@ public class MonsterDestroyer : MonoBehaviour
                 }
                 else
                 {
-                    amountText.text = "1";
+                    if (monstersKilled >= 50)
+                    {
+                        amountText.text = "1";
+                    }
                 }
             }
         },

@@ -50,6 +50,38 @@ public class AddFriend : MonoBehaviour
         }
     }
 
+    private IEnumerator SearchDatabase()
+    {
+        string friendsID = "";
+        yield return new WaitForSeconds(1);
+        PlayFabClientAPI.GetAccountInfo(
+            new GetAccountInfoRequest { Username = friendToFind.text },
+            result =>
+            {
+                friendsID = result.AccountInfo.PlayFabId;
+            },
+            error => Debug.LogError(error.GenerateErrorReport()));
+        yield return new WaitForSeconds(1);
+        PlayFabClientAPI.GetUserData(new GetUserDataRequest() { PlayFabId = friendsID },
+        result =>
+        {
+            if (result.Data == null) Debug.Log("No Data");
+            else
+            {
+                username.text = friendToFind.text;
+                avatarImage.sprite = FindImageAvatar(result.Data["Avatar"].Value);
+                countryImage.sprite = FindImageFlag(result.Data["Country"].Value);
+            }
+        },
+        error => Debug.Log(error.GenerateErrorReport()));
+        yield return new WaitForSeconds(1f);
+        GetTeammatesLevel(friendsID);
+        yield return new WaitForSeconds(1f);
+        levelBadge.sprite = FindImageLevel(level.text);
+        objectToHide.SetActive(false);
+    }
+
+
     public void SearchForFriend()
     {
         PlayFabClientAPI.AddFriend(
@@ -57,7 +89,7 @@ public class AddFriend : MonoBehaviour
              result =>
              {
                  Debug.Log(friendToFind.text + " added as a friend");
-                 StartCoroutine(GetFriendsID());
+                 StartCoroutine(SearchDatabase());
                  button.interactable = false;
              },
              error =>
@@ -90,7 +122,7 @@ public class AddFriend : MonoBehaviour
             result =>
             {
                 foreach (var item in result.Friends)
-                {
+                {                    
                     if (item.Username == friendToFind.text)
                     {
                         friendsID = item.FriendPlayFabId;
@@ -106,15 +138,15 @@ public class AddFriend : MonoBehaviour
             else
             {
                 username.text = friendToFind.text;
-                avatarImage.sprite = FindImage(result.Data["Avatar"].Value);
-                countryImage.sprite = FindImage(result.Data["Country"].Value);
+                avatarImage.sprite = FindImageAvatar(result.Data["Avatar"].Value);
+                countryImage.sprite = FindImageFlag(result.Data["Country"].Value);
             }
         },
         error => Debug.Log(error.GenerateErrorReport()));
         yield return new WaitForSeconds(1f);
         GetTeammatesLevel(friendsID);
         yield return new WaitForSeconds(1f);
-        levelBadge.sprite = FindImage(level.text);
+        levelBadge.sprite = FindImageLevel(level.text);
         objectToHide.SetActive(false);
     }
 
@@ -135,7 +167,7 @@ public class AddFriend : MonoBehaviour
             error => Debug.LogError(error.GenerateErrorReport()));
     }
 
-    private Sprite FindImage(string imageToSearch)
+    private Sprite FindImageFlag(string imageToSearch)
     {
         foreach (var img in flagSelection.imageContainer)
         {
@@ -144,6 +176,10 @@ public class AddFriend : MonoBehaviour
                 return img.sprite;
             }
         }
+        return null;
+    }
+    private Sprite FindImageAvatar(string imageToSearch)
+    {
         foreach (var img in avatarSelection.imageContainer)
         {
             if (img.sprite.name == imageToSearch)
@@ -151,6 +187,10 @@ public class AddFriend : MonoBehaviour
                 return img.sprite;
             }
         }
+        return null;
+    }
+    private Sprite FindImageLevel(string imageToSearch)
+    {
         foreach (var img in levelBadgeSelection.imageContainer)
         {
             string imgObj = img.name.Remove(0, 10);

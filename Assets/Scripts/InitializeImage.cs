@@ -46,6 +46,36 @@ public class InitializeImage : MonoBehaviour
                     }
                     break;
 
+                case "Teammate 1":
+                    foreach (var img in avatarSelection.imageContainer)
+                    {
+                        if (img.sprite.name == playerDataSaver.GetAvatar())
+                        {
+                            myImage.sprite = img.sprite;
+                        }
+                    }
+                    break;
+
+                case "Teammate 2":
+                    foreach (var img in avatarSelection.imageContainer)
+                    {
+                        if (img.sprite.name == playerDataSaver.GetAvatar())
+                        {
+                            myImage.sprite = img.sprite;
+                        }
+                    }
+                    break;
+
+                case "Teammate 3":
+                    foreach (var img in avatarSelection.imageContainer)
+                    {
+                        if (img.sprite.name == playerDataSaver.GetAvatar())
+                        {
+                            myImage.sprite = img.sprite;
+                        }
+                    }
+                    break;
+
                 case "Flag":
                     foreach (var img in flagSelection.imageContainer)
                     {

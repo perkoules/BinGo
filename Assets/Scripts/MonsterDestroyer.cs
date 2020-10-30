@@ -133,7 +133,10 @@ public class MonsterDestroyer : MonoBehaviour
                 }
                 else
                 {
-                    amountText.text = "1";
+                    if (monstersKilled >= 50)
+                    {
+                        amountText.text = "1";
+                    }
                 }
             }
         },

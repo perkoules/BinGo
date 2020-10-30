@@ -16,7 +16,7 @@ public class TabAdjust : MonoBehaviour
                 tabGroup.OnTabSelected(tabToOpen);
             }
         }        
-        //Invoke("ColorInitialization", 0.5f);
+        Invoke("ColorInitialization", 0.5f);
     }
 
     private void ColorInitialization()

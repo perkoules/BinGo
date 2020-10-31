@@ -11,7 +11,7 @@ public class LeaderboardWorldByCountry : MonoBehaviour
         if (leaderboardHolder.transform.childCount == 0)
         {
             leaderboardManager = GetComponent<LeaderboardManager>();
-            leaderboardManager.GetAllPlayers();
+            StartCoroutine(leaderboardManager.GetWorldLeaderboardByCountry());
             StartCoroutine(GettingDataMessage());
         }
         else

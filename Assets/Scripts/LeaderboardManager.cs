@@ -18,6 +18,15 @@ public class LeaderboardManager : MonoBehaviour
     private string playerID, playerName;
     public Color32 evenColor, oddColor;
 
+    public bool worldCountries = false;
+    public bool worldPlayer = false;
+    public bool worldTeam = false;
+
+    public List<string> allPlayers;
+    private void Awake()
+    {
+        allPlayers = new List<string>();
+    }
 
     private void Start()
     {
@@ -61,6 +70,7 @@ public class LeaderboardManager : MonoBehaviour
                 }
             },
             error => Debug.LogError(error.GenerateErrorReport()));
+        worldPlayer = true;
     }
 
     public void GetPlayersCountry(string playerId, LeaderboardListing ll)
@@ -199,6 +209,7 @@ public class LeaderboardManager : MonoBehaviour
                 foreach (var item in result.PlayerProfiles)
                 {
                     idCountry.Add(item.PlayerId, "");
+                    allPlayers.Add(item.PlayerId);
                 }
             },
             error => Debug.LogError(error.GenerateErrorReport()));
@@ -242,7 +253,7 @@ public class LeaderboardManager : MonoBehaviour
         }
         yield return new WaitForSeconds(1);
         var orderCountryRubbish = countryRubbish.OrderByDescending(key => key.Value);
-        for (int i = 0; i < countryRubbish.Count; i++)
+        for (int i = 0; i < orderCountryRubbish.Count(); i++)
         {
             GameObject obj = Instantiate(listingPrefab, leaderboardPanel.transform);
             LeaderboardListing leaderboardListing = obj.GetComponent<LeaderboardListing>();
@@ -257,29 +268,51 @@ public class LeaderboardManager : MonoBehaviour
             leaderboardListing.positionText.text = (i + 1).ToString();
             leaderboardListing.playerNameText.text = orderCountryRubbish.ElementAt(i).Key;
 
-            int index = 0;
+
+            int val = 0;
             foreach (var k in countryPlayers)
             {
                 if(k.Key == orderCountryRubbish.ElementAt(i).Key)
                 {
-                    index = k.Value;
+                    val = k.Value;
                 }
             }
-            leaderboardListing.countryText.text = countryPlayers.ElementAt(index).Value.ToString();
 
+            leaderboardListing.countryText.text = val.ToString();
             leaderboardListing.rubbishText.text = orderCountryRubbish.ElementAt(i).Value.ToString();
-
-
-            /*leaderboardListing.playerNameText.text = segmentsToSearch.ElementAt(i).Key;
-            leaderboardListing.countryText.text = playersInCountry.ElementAt(i).Value.ToString();
-            leaderboardListing.rubbishText.text = allcountries[i].ToString();*/
         }
-
+        worldCountries = true;
     }
 
-    private void SortDictionary()
+    public IEnumerator GetWorldLeaderboardByTeam()
     {
+        Dictionary<string, string> idTeamname = new Dictionary<string, string>();
 
+        PlayFabAdminAPI.GetPlayersInSegment(
+            new GetPlayersInSegmentRequest { SegmentId = "CAD8FCF4CF87AD8E" },
+            result =>
+            {
+                foreach (var item in result.PlayerProfiles)
+                {
+                    idTeamname.Add(item.PlayerId, "");
+                }
+            },
+            error => Debug.LogError(error.GenerateErrorReport()));
+        yield return new WaitForSeconds(3);
+        foreach (var id in idTeamname.Keys)
+        {
+            PlayFabClientAPI.GetUserData(
+                new PlayFab.ClientModels.GetUserDataRequest { PlayFabId = id },
+                result =>
+                {
+                        idTeamname[id] = result.Data["TeamName"].Value;
+                    if (idTeamname.ContainsKey(id))
+                    {
+                    }
+                },
+                error => Debug.LogError(error.GenerateErrorReport()));
+            //Debug.Log(id + " belongs to " + idTeamname[id] + " team");
+        }
+        worldTeam = true;
     }
-
 }

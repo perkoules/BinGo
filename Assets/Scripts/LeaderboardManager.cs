@@ -8,7 +8,6 @@ using System.Linq;
 using System.Net;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.VFX;
 
 public class LeaderboardManager : MonoBehaviour
 {
@@ -22,11 +21,6 @@ public class LeaderboardManager : MonoBehaviour
     public bool worldPlayer = false;
     public bool worldTeam = false;
 
-    public List<string> allPlayers;
-    private void Awake()
-    {
-        allPlayers = new List<string>();
-    }
 
     private void Start()
     {
@@ -209,7 +203,6 @@ public class LeaderboardManager : MonoBehaviour
                 foreach (var item in result.PlayerProfiles)
                 {
                     idCountry.Add(item.PlayerId, "");
-                    allPlayers.Add(item.PlayerId);
                 }
             },
             error => Debug.LogError(error.GenerateErrorReport()));
@@ -268,11 +261,10 @@ public class LeaderboardManager : MonoBehaviour
             leaderboardListing.positionText.text = (i + 1).ToString();
             leaderboardListing.playerNameText.text = orderCountryRubbish.ElementAt(i).Key;
 
-
             int val = 0;
             foreach (var k in countryPlayers)
             {
-                if(k.Key == orderCountryRubbish.ElementAt(i).Key)
+                if (k.Key == orderCountryRubbish.ElementAt(i).Key)
                 {
                     val = k.Value;
                 }
@@ -287,6 +279,8 @@ public class LeaderboardManager : MonoBehaviour
     public IEnumerator GetWorldLeaderboardByTeam()
     {
         Dictionary<string, string> idTeamname = new Dictionary<string, string>();
+        var idTeamnameRubbish = new Trictionary();
+
 
         PlayFabAdminAPI.GetPlayersInSegment(
             new GetPlayersInSegmentRequest { SegmentId = "CAD8FCF4CF87AD8E" },
@@ -295,24 +289,97 @@ public class LeaderboardManager : MonoBehaviour
                 foreach (var item in result.PlayerProfiles)
                 {
                     idTeamname.Add(item.PlayerId, "");
+                    idTeamnameRubbish.Add(item.PlayerId, "-", 0);
                 }
             },
             error => Debug.LogError(error.GenerateErrorReport()));
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
         foreach (var id in idTeamname.Keys)
         {
             PlayFabClientAPI.GetUserData(
                 new PlayFab.ClientModels.GetUserDataRequest { PlayFabId = id },
                 result =>
                 {
-                        idTeamname[id] = result.Data["TeamName"].Value;
-                    if (idTeamname.ContainsKey(id))
+                    idTeamname[id] = result.Data["TeamName"].Value;
+                    idTeamnameRubbish[id] = new TeamNameRubbish
                     {
-                    }
+                        Value1 = result.Data["TeamName"].Value
+                    };
                 },
                 error => Debug.LogError(error.GenerateErrorReport()));
-            //Debug.Log(id + " belongs to " + idTeamname[id] + " team");
+        }
+        yield return new WaitForSeconds(2f);
+        Dictionary<string, int> idRubbish = new Dictionary<string, int>();
+        foreach (var id in idTeamname.Keys)
+        {
+            PlayFabClientAPI.GetLeaderboard(
+            new GetLeaderboardRequest { StatisticName = "RubbishCollected" },
+            result =>
+            {
+                foreach (var ldb in result.Leaderboard)
+                {
+                    if (ldb.PlayFabId == id)
+                    {
+                        //idRubbish.Add(ldb.PlayFabId, ldb.StatValue);
+                        idTeamnameRubbish[id] = new TeamNameRubbish
+                        {
+                            Value1 = idTeamnameRubbish[id].Value1,
+                            Value2 = ldb.StatValue
+                        };
+                    }
+                }
+            },
+            error => Debug.LogError(error.GenerateErrorReport()));
+        }
+        yield return new WaitForSeconds(2f);
+
+        Dictionary<string, int> results = new Dictionary<string, int>();
+        foreach (var item in idTeamnameRubbish)
+        {
+            if (!results.ContainsKey(item.Value.Value1))
+            {
+                results.Add(item.Value.Value1, item.Value.Value2);
+            }
+            else
+            {
+                results[item.Value.Value1] += item.Value.Value2;
+            }
+        }
+        var orderResults = results.OrderByDescending(key => key.Value);
+
+
+        for (int i = 0; i < orderResults.Count(); i++)
+        {
+            GameObject obj = Instantiate(listingPrefab, leaderboardPanel.transform);
+            LeaderboardListing leaderboardListing = obj.GetComponent<LeaderboardListing>();
+            if (i % 2 == 0)
+            {
+                obj.GetComponent<Image>().color = leaderboardListing.evenColor;
+            }
+            else if (i % 2 != 0)
+            {
+                obj.GetComponent<Image>().color = leaderboardListing.oddColor;
+            }
+            leaderboardListing.positionText.text = (i + 1).ToString();
+            leaderboardListing.playerNameText.text = orderResults.ElementAt(i).Key;
+            leaderboardListing.rubbishText.text = orderResults.ElementAt(i).Value.ToString();
         }
         worldTeam = true;
     }
+}
+
+public struct TeamNameRubbish
+{
+    public string Value1;
+    public int Value2;
+}
+public class  Trictionary: Dictionary<string, TeamNameRubbish>
+{
+    public void Add(string key, string teamname, int rubbishCollected)
+    {
+        TeamNameRubbish t;
+        t.Value1 = teamname;
+        t.Value2 = rubbishCollected;
+        Add(key, t);
+    }    
 }

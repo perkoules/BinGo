@@ -285,7 +285,7 @@ namespace Mapbox.Unity.MeshGeneration.Filters
         {
             foreach (var value in ValueSet)
             {
-                if (property.ToString().ToLower().Contains(value.ToString()))
+                if (property.ToString().ToLower() == (value.ToString()))
                 {
                     return true;
                 }

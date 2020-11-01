@@ -764,12 +764,6 @@ MonoBehaviour:
         filterOptions:
           _selectedLayerName: landuse
           filters:
-          - Key: type
-            KeyDescription: OSM tag, more specific than class
-            PropertyValue: park
-            Min: 0
-            Max: 0
-            filterOperator: 0
           - Key: class
             KeyDescription: 'One of: agriculture, cemetery, glacier, grass, hospital,
               industrial, park, parking, piste, pitch, rock, sand, school, scrub,
@@ -1104,7 +1098,7 @@ Camera:
   far clip plane: 1500
   field of view: 60
   orthographic: 1
-  orthographic size: 100
+  orthographic size: 800
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2

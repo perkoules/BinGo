@@ -42,7 +42,8 @@ public class LeaderboardWorldByPlayer : MonoBehaviour
     private IEnumerator GettingDataMessage()
     {
         gettingDataMessage.SetActive(true);
-        yield return new WaitForSeconds(3);
+        yield return new WaitUntil(() => leaderboardManager.worldPlayer == true);
+        leaderboardManager.worldPlayer = false;
         gettingDataMessage.SetActive(false);
     }
 }

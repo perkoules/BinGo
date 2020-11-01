@@ -16,6 +16,12 @@ public class LeaderboardManager : MonoBehaviour
     public GameObject leaderboardPanel, listingPrefab;
     private string playerID, playerName;
     public Color32 evenColor, oddColor;
+
+    public bool worldCountries = false;
+    public bool worldPlayer = false;
+    public bool worldTeam = false;
+
+
     private void Start()
     {
         GetPlayerID();
@@ -56,8 +62,9 @@ public class LeaderboardManager : MonoBehaviour
                     GetPlayersCountry(player.PlayFabId, leaderboardListing);
                     leaderboardListing.rubbishText.text = player.StatValue.ToString();
                 }
-            }, 
+            },
             error => Debug.LogError(error.GenerateErrorReport()));
+        worldPlayer = true;
     }
 
     public void GetPlayersCountry(string playerId, LeaderboardListing ll)
@@ -185,124 +192,61 @@ public class LeaderboardManager : MonoBehaviour
         return country;
     }
 
-    public CountryRub countryRub;
-
-    public void GetAllPlayers()
+    public IEnumerator GetWorldLeaderboardByCountry()
     {
-        Dictionary<string, int> playersInCountry = new Dictionary<string, int>();
-        Dictionary<string, string> segmentsToSearch = new Dictionary<string, string>()
-        {
-            {"United Kingdom", "F43CFFDFFF02BC40"},
-            {"Portugal", "9AD6F24D907081C5"},
-            {"Poland", "CF6BE4C64641073F"},
-            {"Greece", "675A868507B5483B"},
-            {"Germany", "E773C4A5A9B6FEA1"},
-            {"France", "351DADD6FD249EB2"},
-            {"Spain", "	9FD52454F4613737"},
-            {"Sweden", "78FBE0CB313CE16F"},
-        };
-        StartCoroutine(GetSegment(playersInCountry, segmentsToSearch));
-    }
+        Dictionary<string, string> idCountry = new Dictionary<string, string>();
 
-    private IEnumerator GetSegment(Dictionary<string, int> playersInCountry, Dictionary<string, string> segmentsToSearch)
-    {
-        foreach (var seg in segmentsToSearch)
+        PlayFabAdminAPI.GetPlayersInSegment(
+            new GetPlayersInSegmentRequest { SegmentId = "CAD8FCF4CF87AD8E" },
+            result =>
+            {
+                foreach (var item in result.PlayerProfiles)
+                {
+                    idCountry.Add(item.PlayerId, "");
+                }
+            },
+            error => Debug.LogError(error.GenerateErrorReport()));
+
+        yield return new WaitForSeconds(3);
+        foreach (var id in idCountry.Keys)
         {
-            yield return new WaitForSeconds(0.5f);
-            PlayFabAdminAPI.GetPlayersInSegment(
-                    new GetPlayersInSegmentRequest() { SegmentId = segmentsToSearch[seg.Key] },
-                    result =>
-                    {
-                        playersInCountry.Add(seg.Key, result.ProfilesInSegment); // x country has x players
-                    },
-                    error => Debug.LogError(error.GenerateErrorReport())
-                    );
-        }
-        yield return new WaitForSeconds(1);
-        foreach (var seg in segmentsToSearch)
-        {
-            yield return new WaitForSeconds(0.5f);
-            PlayFabClientAPI.GetLeaderboard(
-                new GetLeaderboardRequest() { StatisticName = seg.Key + " isCountry" },
+            PlayFabClientAPI.GetUserData(
+                new PlayFab.ClientModels.GetUserDataRequest { PlayFabId = id },
                 result =>
                 {
-                    foreach (var item in result.Leaderboard)
+                    if (idCountry.ContainsKey(id))
                     {
-                        if (seg.Key.Contains("Kingdom"))
-                        {
-                            if (item.StatValue != 0)
-                            {
-                                countryRub.unitedKingdom += item.StatValue;
-                            }
-                        }
-                        else if (seg.Key.Contains("Portugal"))
-                        {
-                            if (item.StatValue != 0)
-                            {
-                                countryRub.portugal += item.StatValue;
-                            }
-                        }
-                        else if (seg.Key.Contains("Poland"))
-                        {
-                            if (item.StatValue != 0)
-                            {
-                                countryRub.poland += item.StatValue;
-                            }
-                        }
-                        else if (seg.Key.Contains("Greece"))
-                        {
-                            if (item.StatValue != 0)
-                            {
-                                countryRub.greece += item.StatValue;
-                            }
-                        }
-                        else if (seg.Key.Contains("Germany"))
-                        {
-                            if (item.StatValue != 0)
-                            {
-                                countryRub.germany += item.StatValue;
-                            }
-                        }
-                        else if (seg.Key.Contains("France"))
-                        {
-                            if (item.StatValue != 0)
-                            {
-                                countryRub.france += item.StatValue;
-                            }
-                        }
-                        else if (seg.Key.Contains("Spain"))
-                        {
-                            if (item.StatValue != 0)
-                            {
-                                countryRub.spain += item.StatValue;
-                            }
-                        }
-                        else if (seg.Key.Contains("Sweden"))
-                        {
-                            if (item.StatValue != 0)
-                            {
-                                countryRub.sweden += item.StatValue;
-                            }
-                        }
+                        idCountry[id] = result.Data["Country"].Value;
                     }
                 },
-                error => Debug.LogError(error.GenerateErrorReport())
-                );
+                error => Debug.LogError(error.GenerateErrorReport()));
         }
-        Debug.Log("Presenting");
-        List<int> allcountries = new List<int>()
+        yield return new WaitForSeconds(2);
+        Dictionary<string, int> countryRubbish = new Dictionary<string, int>();
+        Dictionary<string, int> countryPlayers = new Dictionary<string, int>();
+        foreach (var id in idCountry.Keys)
         {
-            countryRub.unitedKingdom,
-            countryRub.portugal,
-            countryRub.poland,
-            countryRub.greece,
-            countryRub.germany,
-            countryRub.france,
-            countryRub.spain,
-            countryRub.sweden
-        };
-
-        for (int i = 0; i < segmentsToSearch.Count; i++)
+            PlayFabClientAPI.GetLeaderboardAroundPlayer(
+                    new GetLeaderboardAroundPlayerRequest { PlayFabId = id, StatisticName = idCountry[id] + " isCountry" },
+                    result =>
+                    {
+                        int index = result.Leaderboard.FindIndex(pl => pl.PlayFabId == id);
+                        if (!countryRubbish.ContainsKey(idCountry[id]))
+                        {
+                            countryRubbish.Add(idCountry[id], result.Leaderboard[index].StatValue);
+                            countryPlayers.Add(idCountry[id], 1);
+                        }
+                        else
+                        {
+                            countryRubbish[idCountry[id]] += result.Leaderboard[index].StatValue;
+                            countryPlayers[idCountry[id]]++;
+                        }
+                    },
+                    error => Debug.LogError(error.GenerateErrorReport()));
+        }
+        yield return new WaitForSeconds(1);
+        var orderCountryRubbish = countryRubbish.OrderByDescending(key => key.Value);
+        for (int i = 0; i < orderCountryRubbish.Count(); i++)
         {
             GameObject obj = Instantiate(listingPrefab, leaderboardPanel.transform);
             LeaderboardListing leaderboardListing = obj.GetComponent<LeaderboardListing>();
@@ -315,22 +259,127 @@ public class LeaderboardManager : MonoBehaviour
                 obj.GetComponent<Image>().color = leaderboardListing.oddColor;
             }
             leaderboardListing.positionText.text = (i + 1).ToString();
-            leaderboardListing.playerNameText.text = segmentsToSearch.ElementAt(i).Key;
-            leaderboardListing.countryText.text = playersInCountry.ElementAt(i).Value.ToString();
-            leaderboardListing.rubbishText.text = allcountries[i].ToString();
+            leaderboardListing.playerNameText.text = orderCountryRubbish.ElementAt(i).Key;
+
+            int val = 0;
+            foreach (var k in countryPlayers)
+            {
+                if (k.Key == orderCountryRubbish.ElementAt(i).Key)
+                {
+                    val = k.Value;
+                }
+            }
+
+            leaderboardListing.countryText.text = val.ToString();
+            leaderboardListing.rubbishText.text = orderCountryRubbish.ElementAt(i).Value.ToString();
         }
+        worldCountries = true;
+    }
+
+    public IEnumerator GetWorldLeaderboardByTeam()
+    {
+        Dictionary<string, string> idTeamname = new Dictionary<string, string>();
+        var idTeamnameRubbish = new Trictionary();
+
+
+        PlayFabAdminAPI.GetPlayersInSegment(
+            new GetPlayersInSegmentRequest { SegmentId = "CAD8FCF4CF87AD8E" },
+            result =>
+            {
+                foreach (var item in result.PlayerProfiles)
+                {
+                    idTeamname.Add(item.PlayerId, "");
+                    idTeamnameRubbish.Add(item.PlayerId, "-", 0);
+                }
+            },
+            error => Debug.LogError(error.GenerateErrorReport()));
+        yield return new WaitForSeconds(1);
+        foreach (var id in idTeamname.Keys)
+        {
+            PlayFabClientAPI.GetUserData(
+                new PlayFab.ClientModels.GetUserDataRequest { PlayFabId = id },
+                result =>
+                {
+                    idTeamname[id] = result.Data["TeamName"].Value;
+                    idTeamnameRubbish[id] = new TeamNameRubbish
+                    {
+                        Value1 = result.Data["TeamName"].Value
+                    };
+                },
+                error => Debug.LogError(error.GenerateErrorReport()));
+        }
+        yield return new WaitForSeconds(2f);
+        Dictionary<string, int> idRubbish = new Dictionary<string, int>();
+        foreach (var id in idTeamname.Keys)
+        {
+            PlayFabClientAPI.GetLeaderboard(
+            new GetLeaderboardRequest { StatisticName = "RubbishCollected" },
+            result =>
+            {
+                foreach (var ldb in result.Leaderboard)
+                {
+                    if (ldb.PlayFabId == id)
+                    {
+                        //idRubbish.Add(ldb.PlayFabId, ldb.StatValue);
+                        idTeamnameRubbish[id] = new TeamNameRubbish
+                        {
+                            Value1 = idTeamnameRubbish[id].Value1,
+                            Value2 = ldb.StatValue
+                        };
+                    }
+                }
+            },
+            error => Debug.LogError(error.GenerateErrorReport()));
+        }
+        yield return new WaitForSeconds(2f);
+
+        Dictionary<string, int> results = new Dictionary<string, int>();
+        foreach (var item in idTeamnameRubbish)
+        {
+            if (!results.ContainsKey(item.Value.Value1))
+            {
+                results.Add(item.Value.Value1, item.Value.Value2);
+            }
+            else
+            {
+                results[item.Value.Value1] += item.Value.Value2;
+            }
+        }
+        var orderResults = results.OrderByDescending(key => key.Value);
+
+
+        for (int i = 0; i < orderResults.Count(); i++)
+        {
+            GameObject obj = Instantiate(listingPrefab, leaderboardPanel.transform);
+            LeaderboardListing leaderboardListing = obj.GetComponent<LeaderboardListing>();
+            if (i % 2 == 0)
+            {
+                obj.GetComponent<Image>().color = leaderboardListing.evenColor;
+            }
+            else if (i % 2 != 0)
+            {
+                obj.GetComponent<Image>().color = leaderboardListing.oddColor;
+            }
+            leaderboardListing.positionText.text = (i + 1).ToString();
+            leaderboardListing.playerNameText.text = orderResults.ElementAt(i).Key;
+            leaderboardListing.rubbishText.text = orderResults.ElementAt(i).Value.ToString();
+        }
+        worldTeam = true;
     }
 }
 
-[System.Serializable]
-public class CountryRub
+public struct TeamNameRubbish
 {
-    public int unitedKingdom;
-    public int portugal;
-    public int poland;
-    public int greece;
-    public int germany;
-    public int france;
-    public int spain;
-    public int sweden;
+    public string Value1;
+    public int Value2;
+}
+public class  Trictionary: Dictionary<string, TeamNameRubbish>
+{
+    public void Add(string key, string teamname, int rubbishCollected)
+    {
+        TeamNameRubbish t;
+        t.Value1 = teamname;
+        t.Value2 = rubbishCollected;
+        Add(key, t);
+    }    
 }

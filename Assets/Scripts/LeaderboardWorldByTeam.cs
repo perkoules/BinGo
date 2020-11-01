@@ -1,7 +1,8 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class LeaderboardWorldByCountry : MonoBehaviour
+public class LeaderboardWorldByTeam : MonoBehaviour
 {
     private LeaderboardManager leaderboardManager;
     public GameObject leaderboardHolder, gettingDataMessage;
@@ -11,7 +12,7 @@ public class LeaderboardWorldByCountry : MonoBehaviour
         if (leaderboardHolder.transform.childCount == 0)
         {
             leaderboardManager = GetComponent<LeaderboardManager>();
-            StartCoroutine(leaderboardManager.GetWorldLeaderboardByCountry());
+            StartCoroutine(leaderboardManager.GetWorldLeaderboardByTeam());
             StartCoroutine(GettingDataMessage());
         }
         else
@@ -42,8 +43,8 @@ public class LeaderboardWorldByCountry : MonoBehaviour
     private IEnumerator GettingDataMessage()
     {
         gettingDataMessage.SetActive(true);
-        yield return new WaitUntil(() => leaderboardManager.worldCountries == true);
-        leaderboardManager.worldCountries = false;
+        yield return new WaitUntil(() => leaderboardManager.worldTeam == true);
+        leaderboardManager.worldTeam = false;
         gettingDataMessage.SetActive(false);
     }
 }

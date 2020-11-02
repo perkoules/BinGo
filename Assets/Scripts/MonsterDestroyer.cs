@@ -68,7 +68,7 @@ public class MonsterDestroyer : MonoBehaviour
 
     private IEnumerator Death(GameObject go)
     {
-        yield return new WaitForSeconds(4f); //4f -> 0.1f for testing
+        yield return new WaitForSeconds(4f); 
         monsterGotHit = false;
         Destroy(go);
         TaskChecker.Instance.CheckTaskDone();

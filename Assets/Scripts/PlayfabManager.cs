@@ -3,6 +3,7 @@ using Mapbox.Unity.Location;
 using Mapbox.Utils;
 using PlayFab;
 using PlayFab.ClientModels;
+using System;
 using System.Collections;
 using System.Net;
 using TMPro;
@@ -16,6 +17,7 @@ public class PlayfabManager : MonoBehaviour
     private GetCurrentLocation currentLocation;
     private int currentBuildIndex = -1;
 
+    public GameObject tutorialWindow;
     public PlayerInfo playerInfo;
     public DeviceLocationProvider locationProvider;
     public TMP_InputField emailInput, passwordInput;
@@ -75,6 +77,7 @@ public class PlayfabManager : MonoBehaviour
             }
             if (currentBuildIndex == 1 && playerDataSaver.GetIsGuest() == 0)
             {
+                IsFirstTime();
                 StartCoroutine(Initialization());
             }
         }
@@ -256,4 +259,22 @@ public class PlayfabManager : MonoBehaviour
         SceneManager.UnloadSceneAsync(currentBuildIndex);
         SceneManager.LoadScene(0);
     }
+
+    public void IsFirstTime()
+    {
+        PlayFabClientAPI.GetAccountInfo(
+            new GetAccountInfoRequest { },
+            result =>
+            {
+                DateTime dateCreated = result.AccountInfo.Created;
+                DateTime dateToday = DateTime.Now;
+                int daysPassed = (dateToday - dateCreated).Minutes;
+                if(daysPassed <= 1)
+                {
+                    tutorialWindow.SetActive(true);
+                }
+            },
+            error => Debug.LogError(error.GenerateErrorReport()));
+    }
+
 }

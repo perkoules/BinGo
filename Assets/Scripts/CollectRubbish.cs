@@ -28,6 +28,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public Animator anim;
     public GameObject nextLevelAnimator;
     public RectTransform parent;
+    public MusicController musicController;
 
     private PlayerDataSaver playerDataSaver;
     private GetCurrentLocation currentLocation;
@@ -45,9 +46,12 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     private int distanceAcceptable = 5;
     private string place, district, region, country;
     private string rubbishScanned = "";
+    private float timeLeft = 20;
     private bool pointerDown = false;
     private bool barcodeDetected = false;
-    private float timeLeft = 20;
+
+    public bool isSfxOn = true;
+    public bool isVibrationOn = true;
 
     [HideInInspector] public Image fillerImage;    
     private IEnumerator rubbishCoroutine;
@@ -136,6 +140,14 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     private IEnumerator ShowTextMessage()
     {
+        if (isVibrationOn)
+        {
+            Handheld.Vibrate();
+        }
+        if (isSfxOn)
+        {
+            musicController.globalAudioSource.PlayOneShot(musicController.rubbishCollectedSound);
+        }
         messageText.text = "WELL DONE! You helped the environment!!!";
         fillerImage.fillAmount = 0;
         yield return new WaitForSeconds(2);
@@ -150,6 +162,10 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     {
         if (!barcodeDetected)
         {
+            if (isSfxOn)
+            {
+                musicController.globalAudioSource.PlayOneShot(musicController.beepSound);
+            }
             barcodeDetected = true;
             string comparer = "";
             comparer = rubbishScanned;

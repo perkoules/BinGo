@@ -6,6 +6,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(PlayerDataSaver))]
 public class SettingsController : MonoBehaviour
 {
+    public CollectRubbish collectRubbish;
+    public MusicController musicController;
     private PlayerDataSaver playerDataSaver;
     public Color32 enabledColor;
     public List<Toggle> toggles;
@@ -17,12 +19,26 @@ public class SettingsController : MonoBehaviour
             toggles.Add(tog);
         }
         playerDataSaver = GetComponent<PlayerDataSaver>();
+        Initialization();
+    }
+
+    private void Initialization()
+    {
         if (playerDataSaver.GetIsGuest() == 0) //if user is NOT guest, disable registration button cause he already did it
         {
             int index = toggles.FindIndex(t => t.name.Contains("Register") == true);
             toggles[index].image.color = enabledColor;
             toggles[index].interactable = false;
         }
+        int indexMusic = toggles.FindIndex(t => t.name.Contains("Music") == true);
+        toggles[indexMusic].image.color = enabledColor;
+        toggles[indexMusic].isOn = true;
+        int indexSfx = toggles.FindIndex(t => t.name.Contains("SFX") == true);
+        toggles[indexSfx].image.color = enabledColor;
+        toggles[indexSfx].isOn = true;
+        int indexVibration = toggles.FindIndex(t => t.name.Contains("Vibration") == true);
+        toggles[indexVibration].image.color = enabledColor;
+        toggles[indexVibration].isOn = true;
     }
 
     public void DisableToggles()
@@ -121,10 +137,12 @@ public class SettingsController : MonoBehaviour
         if (!toggles[index].isOn)
         {
             toggles[index].image.color = Color.red;
+            musicController.IsMusicOn(false);
         }
         else
         {
             toggles[index].image.color = enabledColor;
+            musicController.IsMusicOn(true);
         }
     }
 
@@ -135,10 +153,12 @@ public class SettingsController : MonoBehaviour
         if (!toggles[index].isOn)
         {
             toggles[index].image.color = Color.red;
+            collectRubbish.isSfxOn = false;
         }
         else
         {
             toggles[index].image.color = enabledColor;
+            collectRubbish.isSfxOn = true;
         }
     }
 
@@ -149,10 +169,12 @@ public class SettingsController : MonoBehaviour
         if (!toggles[index].isOn)
         {
             toggles[index].image.color = Color.red;
+            collectRubbish.isVibrationOn = false;
         }
         else
         {
             toggles[index].image.color = enabledColor;
+            collectRubbish.isVibrationOn = true;
         }
     }
 

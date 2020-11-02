@@ -14,7 +14,6 @@ public class PlayfabManager : MonoBehaviour
     private PlayerDataSaver playerDataSaver;
     private MessageController messageController;
     private GetCurrentLocation currentLocation;
-    private AudioSource audioSource;
     private int currentBuildIndex = -1;
 
     public PlayerInfo playerInfo;
@@ -49,7 +48,6 @@ public class PlayfabManager : MonoBehaviour
 
     public void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
         playerDataSaver = GetComponent<PlayerDataSaver>();
         messageController = FindObjectOfType<MessageController>();
         currentBuildIndex = SceneManager.GetActiveScene().buildIndex;
@@ -77,7 +75,6 @@ public class PlayfabManager : MonoBehaviour
             }
             if (currentBuildIndex == 1 && playerDataSaver.GetIsGuest() == 0)
             {
-                audioSource.Play();
                 StartCoroutine(Initialization());
             }
         }

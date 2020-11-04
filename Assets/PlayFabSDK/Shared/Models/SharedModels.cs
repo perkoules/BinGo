@@ -1,3 +1,5 @@
+using PlayFab.Internal;
+
 namespace PlayFab.SharedModels
 {
     public class HttpResponseObject

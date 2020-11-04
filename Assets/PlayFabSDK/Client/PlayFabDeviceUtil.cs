@@ -1,7 +1,6 @@
 #if !DISABLE_PLAYFABCLIENT_API
-
-using PlayFab.SharedModels;
 using System.Collections.Generic;
+using PlayFab.SharedModels;
 using UnityEngine;
 
 namespace PlayFab.Internal
@@ -11,7 +10,6 @@ namespace PlayFab.Internal
         private static bool _needsAttribution, _gatherDeviceInfo, _gatherScreenTime;
 
         #region Make Attribution API call
-
         private static void DoAttributeInstall(PlayFabApiSettings settings, IPlayFabInstanceApi instanceApi)
         {
             if (!_needsAttribution || settings.DisableAdvertising)
@@ -30,18 +28,15 @@ namespace PlayFab.Internal
                 PlayFabClientAPI.AttributeInstall(attribRequest, OnAttributeInstall, null, settings);
 #endif
         }
-
         private static void OnAttributeInstall(ClientModels.AttributeInstallResult result)
         {
             var settings = (PlayFabApiSettings)result.CustomData;
             // This is for internal testing.
             settings.AdvertisingIdType += "_Successful";
         }
-
         #endregion Make Attribution API call
 
         #region Scrape Device Info
-
         private static void SendDeviceInfoToPlayFab(PlayFabApiSettings settings, IPlayFabInstanceApi instanceApi)
         {
             if (settings.DisableDeviceInfo || !_gatherDeviceInfo) return;
@@ -59,13 +54,11 @@ namespace PlayFab.Internal
                 PlayFabClientAPI.ReportDeviceInfo(request, null, OnGatherFail, settings);
 #endif
         }
-
         private static void OnGatherFail(PlayFabError error)
         {
             Debug.Log("OnGatherFail: " + error.GenerateErrorReport());
         }
-
-        #endregion Scrape Device Info
+        #endregion
 
         /// <summary>
         /// When a PlayFab login occurs, check the result information, and
@@ -167,5 +160,4 @@ namespace PlayFab.Internal
         }
     }
 }
-
 #endif

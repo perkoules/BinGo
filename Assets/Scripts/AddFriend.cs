@@ -90,7 +90,7 @@ public class AddFriend : MonoBehaviour
         string friendsID = "";
         yield return new WaitForSeconds(1);
         PlayFabClientAPI.GetFriendsList(
-            new GetFriendList() { },
+            new GetFriendsListRequest() { },
             result =>
             {
                 foreach (var item in result.Friends)

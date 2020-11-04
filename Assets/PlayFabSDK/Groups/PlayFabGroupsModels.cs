@@ -1,8 +1,7 @@
 #if !DISABLE_PLAYFABENTITY_API
-
-using PlayFab.SharedModels;
 using System;
 using System.Collections.Generic;
+using PlayFab.SharedModels;
 
 namespace PlayFab.GroupsModels
 {
@@ -16,14 +15,12 @@ namespace PlayFab.GroupsModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string, string> CustomTags;
-
+        public Dictionary<string,string> CustomTags;
         /// <summary>
         /// Optional. Type of the entity to accept as. If specified, must be the same entity as the claimant or an entity that is a
         /// child of the claimant entity. Defaults to the claimant entity.
         /// </summary>
         public EntityKey Entity;
-
         /// <summary>
         /// The identifier of the group
         /// </summary>
@@ -41,13 +38,11 @@ namespace PlayFab.GroupsModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string, string> CustomTags;
-
+        public Dictionary<string,string> CustomTags;
         /// <summary>
         /// The entity to perform this action on.
         /// </summary>
         public EntityKey Entity;
-
         /// <summary>
         /// The identifier of the group
         /// </summary>
@@ -65,18 +60,15 @@ namespace PlayFab.GroupsModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string, string> CustomTags;
-
+        public Dictionary<string,string> CustomTags;
         /// <summary>
         /// The identifier of the group
         /// </summary>
         public EntityKey Group;
-
         /// <summary>
         /// List of entities to add to the group. Only entities of type title_player_account and character may be added to groups.
         /// </summary>
         public List<EntityKey> Members;
-
         /// <summary>
         /// Optional: The ID of the existing role to add the entities to. If this is not specified, the default member role for the
         /// group will be used. Role IDs must be between 1 and 64 characters long.
@@ -98,17 +90,14 @@ namespace PlayFab.GroupsModels
         /// Optional, default true. Automatically accept an outstanding invitation if one exists instead of creating an application
         /// </summary>
         public bool? AutoAcceptOutstandingInvite;
-
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string, string> CustomTags;
-
+        public Dictionary<string,string> CustomTags;
         /// <summary>
         /// The entity to perform this action on.
         /// </summary>
         public EntityKey Entity;
-
         /// <summary>
         /// The identifier of the group
         /// </summary>
@@ -125,12 +114,10 @@ namespace PlayFab.GroupsModels
         /// Type of entity that requested membership
         /// </summary>
         public EntityWithLineage Entity;
-
         /// <summary>
         /// When the application to join will expire and be deleted
         /// </summary>
         public DateTime Expires;
-
         /// <summary>
         /// ID of the group that the entity requesting membership to
         /// </summary>
@@ -148,13 +135,11 @@ namespace PlayFab.GroupsModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string, string> CustomTags;
-
+        public Dictionary<string,string> CustomTags;
         /// <summary>
         /// The entity to perform this action on.
         /// </summary>
         public EntityKey Entity;
-
         /// <summary>
         /// The identifier of the group
         /// </summary>
@@ -172,25 +157,21 @@ namespace PlayFab.GroupsModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string, string> CustomTags;
-
+        public Dictionary<string,string> CustomTags;
         /// <summary>
         /// The ID of the role that the entities will become a member of. This must be an existing role. Role IDs must be between 1
         /// and 64 characters long.
         /// </summary>
         public string DestinationRoleId;
-
         /// <summary>
         /// The identifier of the group
         /// </summary>
         public EntityKey Group;
-
         /// <summary>
         /// List of entities to move between roles in the group. All entities in this list must be members of the group and origin
         /// role.
         /// </summary>
         public List<EntityKey> Members;
-
         /// <summary>
         /// The ID of the role that the entities currently are a member of. Role IDs must be between 1 and 64 characters long.
         /// </summary>
@@ -207,13 +188,11 @@ namespace PlayFab.GroupsModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string, string> CustomTags;
-
+        public Dictionary<string,string> CustomTags;
         /// <summary>
         /// The entity to perform this action on.
         /// </summary>
         public EntityKey Entity;
-
         /// <summary>
         /// The name of the group. This is unique at the title level by default.
         /// </summary>
@@ -227,36 +206,30 @@ namespace PlayFab.GroupsModels
         /// The ID of the administrator role for the group.
         /// </summary>
         public string AdminRoleId;
-
         /// <summary>
         /// The server date and time the group was created.
         /// </summary>
         public DateTime Created;
-
         /// <summary>
         /// The identifier of the group
         /// </summary>
         public EntityKey Group;
-
         /// <summary>
         /// The name of the group.
         /// </summary>
         public string GroupName;
-
         /// <summary>
         /// The ID of the default member role for the group.
         /// </summary>
         public string MemberRoleId;
-
         /// <summary>
         /// The current version of the profile, can be used for concurrency control during updates.
         /// </summary>
         public int ProfileVersion;
-
         /// <summary>
         /// The list of roles and names that belong to the group.
         /// </summary>
-        public Dictionary<string, string> Roles;
+        public Dictionary<string,string> Roles;
     }
 
     /// <summary>
@@ -270,19 +243,16 @@ namespace PlayFab.GroupsModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string, string> CustomTags;
-
+        public Dictionary<string,string> CustomTags;
         /// <summary>
         /// The identifier of the group
         /// </summary>
         public EntityKey Group;
-
         /// <summary>
         /// The ID of the role. This must be unique within the group and cannot be changed. Role IDs must be between 1 and 64
         /// characters long.
         /// </summary>
         public string RoleId;
-
         /// <summary>
         /// The name of the role. This must be unique within the group and can be changed later. Role names must be between 1 and
         /// 100 characters long
@@ -297,12 +267,10 @@ namespace PlayFab.GroupsModels
         /// The current version of the group profile, can be used for concurrency control during updates.
         /// </summary>
         public int ProfileVersion;
-
         /// <summary>
         /// ID for the role
         /// </summary>
         public string RoleId;
-
         /// <summary>
         /// The name of the role
         /// </summary>
@@ -320,8 +288,7 @@ namespace PlayFab.GroupsModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string, string> CustomTags;
-
+        public Dictionary<string,string> CustomTags;
         /// <summary>
         /// ID of the group or role to remove
         /// </summary>
@@ -337,13 +304,11 @@ namespace PlayFab.GroupsModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string, string> CustomTags;
-
+        public Dictionary<string,string> CustomTags;
         /// <summary>
         /// The identifier of the group
         /// </summary>
         public EntityKey Group;
-
         /// <summary>
         /// The ID of the role to delete. Role IDs must be between 1 and 64 characters long.
         /// </summary>
@@ -365,7 +330,6 @@ namespace PlayFab.GroupsModels
         /// Unique ID of the entity.
         /// </summary>
         public string Id;
-
         /// <summary>
         /// Entity type. See https://docs.microsoft.com/gaming/playfab/features/data/entities/available-built-in-entity-types
         /// </summary>
@@ -379,12 +343,10 @@ namespace PlayFab.GroupsModels
         /// The list of members in the role
         /// </summary>
         public List<EntityWithLineage> Members;
-
         /// <summary>
         /// The ID of the role.
         /// </summary>
         public string RoleId;
-
         /// <summary>
         /// The name of the role
         /// </summary>
@@ -401,11 +363,10 @@ namespace PlayFab.GroupsModels
         /// The entity key for the specified entity
         /// </summary>
         public EntityKey Key;
-
         /// <summary>
         /// Dictionary of entity keys for related entities. Dictionary key is entity type.
         /// </summary>
-        public Dictionary<string, EntityKey> Lineage;
+        public Dictionary<string,EntityKey> Lineage;
     }
 
     /// <summary>
@@ -417,13 +378,11 @@ namespace PlayFab.GroupsModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string, string> CustomTags;
-
+        public Dictionary<string,string> CustomTags;
         /// <summary>
         /// The identifier of the group
         /// </summary>
         public EntityKey Group;
-
         /// <summary>
         /// The full name of the group
         /// </summary>
@@ -437,36 +396,30 @@ namespace PlayFab.GroupsModels
         /// The ID of the administrator role for the group.
         /// </summary>
         public string AdminRoleId;
-
         /// <summary>
         /// The server date and time the group was created.
         /// </summary>
         public DateTime Created;
-
         /// <summary>
         /// The identifier of the group
         /// </summary>
         public EntityKey Group;
-
         /// <summary>
         /// The name of the group.
         /// </summary>
         public string GroupName;
-
         /// <summary>
         /// The ID of the default member role for the group.
         /// </summary>
         public string MemberRoleId;
-
         /// <summary>
         /// The current version of the profile, can be used for concurrency control during updates.
         /// </summary>
         public int ProfileVersion;
-
         /// <summary>
         /// The list of roles and names that belong to the group.
         /// </summary>
-        public Dictionary<string, string> Roles;
+        public Dictionary<string,string> Roles;
     }
 
     /// <summary>
@@ -479,12 +432,10 @@ namespace PlayFab.GroupsModels
         /// Type of entity that requested membership
         /// </summary>
         public EntityWithLineage Entity;
-
         /// <summary>
         /// When the application to join will expire and be deleted
         /// </summary>
         public DateTime Expires;
-
         /// <summary>
         /// ID of the group that the entity requesting membership to
         /// </summary>
@@ -501,7 +452,6 @@ namespace PlayFab.GroupsModels
         /// The entity that is blocked
         /// </summary>
         public EntityWithLineage Entity;
-
         /// <summary>
         /// ID of the group that the entity is blocked from
         /// </summary>
@@ -518,22 +468,18 @@ namespace PlayFab.GroupsModels
         /// When the invitation will expire and be deleted
         /// </summary>
         public DateTime Expires;
-
         /// <summary>
         /// The group that the entity invited to
         /// </summary>
         public EntityKey Group;
-
         /// <summary>
         /// The entity that created the invitation
         /// </summary>
         public EntityWithLineage InvitedByEntity;
-
         /// <summary>
         /// The entity that is invited
         /// </summary>
         public EntityWithLineage InvitedEntity;
-
         /// <summary>
         /// ID of the role in the group to assign the user to.
         /// </summary>
@@ -550,7 +496,6 @@ namespace PlayFab.GroupsModels
         /// ID for the role
         /// </summary>
         public string RoleId;
-
         /// <summary>
         /// The name of the role
         /// </summary>
@@ -567,17 +512,14 @@ namespace PlayFab.GroupsModels
         /// ID for the group
         /// </summary>
         public EntityKey Group;
-
         /// <summary>
         /// The name of the group
         /// </summary>
         public string GroupName;
-
         /// <summary>
         /// The current version of the profile, can be used for concurrency control during updates.
         /// </summary>
         public int ProfileVersion;
-
         /// <summary>
         /// The list of roles within the group
         /// </summary>
@@ -598,22 +540,18 @@ namespace PlayFab.GroupsModels
         /// Optional, default true. Automatically accept an application if one exists instead of creating an invitation
         /// </summary>
         public bool? AutoAcceptOutstandingApplication;
-
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string, string> CustomTags;
-
+        public Dictionary<string,string> CustomTags;
         /// <summary>
         /// The entity to perform this action on.
         /// </summary>
         public EntityKey Entity;
-
         /// <summary>
         /// The identifier of the group
         /// </summary>
         public EntityKey Group;
-
         /// <summary>
         /// Optional. ID of an existing a role in the group to assign the user to. The group's default member role is used if this
         /// is not specified. Role IDs must be between 1 and 64 characters long.
@@ -631,22 +569,18 @@ namespace PlayFab.GroupsModels
         /// When the invitation will expire and be deleted
         /// </summary>
         public DateTime Expires;
-
         /// <summary>
         /// The group that the entity invited to
         /// </summary>
         public EntityKey Group;
-
         /// <summary>
         /// The entity that created the invitation
         /// </summary>
         public EntityWithLineage InvitedByEntity;
-
         /// <summary>
         /// The entity that is invited
         /// </summary>
         public EntityWithLineage InvitedEntity;
-
         /// <summary>
         /// ID of the role in the group to assign the user to.
         /// </summary>
@@ -664,18 +598,15 @@ namespace PlayFab.GroupsModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string, string> CustomTags;
-
+        public Dictionary<string,string> CustomTags;
         /// <summary>
         /// The entity to perform this action on.
         /// </summary>
         public EntityKey Entity;
-
         /// <summary>
         /// The identifier of the group
         /// </summary>
         public EntityKey Group;
-
         /// <summary>
         /// Optional: ID of the role to check membership of. Defaults to any role (that is, check to see if the entity is a member
         /// of the group in any capacity) if not specified.
@@ -702,8 +633,7 @@ namespace PlayFab.GroupsModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string, string> CustomTags;
-
+        public Dictionary<string,string> CustomTags;
         /// <summary>
         /// The identifier of the group
         /// </summary>
@@ -728,8 +658,7 @@ namespace PlayFab.GroupsModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string, string> CustomTags;
-
+        public Dictionary<string,string> CustomTags;
         /// <summary>
         /// The identifier of the group
         /// </summary>
@@ -755,8 +684,7 @@ namespace PlayFab.GroupsModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string, string> CustomTags;
-
+        public Dictionary<string,string> CustomTags;
         /// <summary>
         /// The identifier of the group
         /// </summary>
@@ -783,8 +711,7 @@ namespace PlayFab.GroupsModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string, string> CustomTags;
-
+        public Dictionary<string,string> CustomTags;
         /// <summary>
         /// ID of the group to list the members and roles for
         /// </summary>
@@ -811,8 +738,7 @@ namespace PlayFab.GroupsModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string, string> CustomTags;
-
+        public Dictionary<string,string> CustomTags;
         /// <summary>
         /// The entity to perform this action on.
         /// </summary>
@@ -826,7 +752,6 @@ namespace PlayFab.GroupsModels
         /// The requested list of group applications.
         /// </summary>
         public List<GroupApplication> Applications;
-
         /// <summary>
         /// The requested list of group invitations.
         /// </summary>
@@ -844,8 +769,7 @@ namespace PlayFab.GroupsModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string, string> CustomTags;
-
+        public Dictionary<string,string> CustomTags;
         /// <summary>
         /// The entity to perform this action on.
         /// </summary>
@@ -880,13 +804,11 @@ namespace PlayFab.GroupsModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string, string> CustomTags;
-
+        public Dictionary<string,string> CustomTags;
         /// <summary>
         /// The entity to perform this action on.
         /// </summary>
         public EntityKey Entity;
-
         /// <summary>
         /// The identifier of the group
         /// </summary>
@@ -905,13 +827,11 @@ namespace PlayFab.GroupsModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string, string> CustomTags;
-
+        public Dictionary<string,string> CustomTags;
         /// <summary>
         /// The entity to perform this action on.
         /// </summary>
         public EntityKey Entity;
-
         /// <summary>
         /// The identifier of the group
         /// </summary>
@@ -928,18 +848,15 @@ namespace PlayFab.GroupsModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string, string> CustomTags;
-
+        public Dictionary<string,string> CustomTags;
         /// <summary>
         /// The identifier of the group
         /// </summary>
         public EntityKey Group;
-
         /// <summary>
         /// List of entities to remove
         /// </summary>
         public List<EntityKey> Members;
-
         /// <summary>
         /// The ID of the role to remove the entities from.
         /// </summary>
@@ -955,13 +872,11 @@ namespace PlayFab.GroupsModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string, string> CustomTags;
-
+        public Dictionary<string,string> CustomTags;
         /// <summary>
         /// The entity to perform this action on.
         /// </summary>
         public EntityKey Entity;
-
         /// <summary>
         /// The identifier of the group
         /// </summary>
@@ -979,29 +894,24 @@ namespace PlayFab.GroupsModels
         /// Optional: the ID of an existing role to set as the new administrator role for the group
         /// </summary>
         public string AdminRoleId;
-
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string, string> CustomTags;
-
+        public Dictionary<string,string> CustomTags;
         /// <summary>
         /// Optional field used for concurrency control. By specifying the previously returned value of ProfileVersion from the
         /// GetGroup API, you can ensure that the group data update will only be performed if the group has not been updated by any
         /// other clients since the version you last loaded.
         /// </summary>
         public int? ExpectedProfileVersion;
-
         /// <summary>
         /// The identifier of the group
         /// </summary>
         public EntityKey Group;
-
         /// <summary>
         /// Optional: the new name of the group
         /// </summary>
         public string GroupName;
-
         /// <summary>
         /// Optional: the ID of an existing role to set as the new member role for the group
         /// </summary>
@@ -1015,12 +925,10 @@ namespace PlayFab.GroupsModels
         /// Optional reason to explain why the operation was the result that it was.
         /// </summary>
         public string OperationReason;
-
         /// <summary>
         /// New version of the group data.
         /// </summary>
         public int ProfileVersion;
-
         /// <summary>
         /// Indicates which operation was completed, either Created, Updated, Deleted or None.
         /// </summary>
@@ -1036,25 +944,21 @@ namespace PlayFab.GroupsModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string, string> CustomTags;
-
+        public Dictionary<string,string> CustomTags;
         /// <summary>
         /// Optional field used for concurrency control. By specifying the previously returned value of ProfileVersion from the
         /// GetGroup API, you can ensure that the group data update will only be performed if the group has not been updated by any
         /// other clients since the version you last loaded.
         /// </summary>
         public int? ExpectedProfileVersion;
-
         /// <summary>
         /// The identifier of the group
         /// </summary>
         public EntityKey Group;
-
         /// <summary>
         /// ID of the role to update. Role IDs must be between 1 and 64 characters long.
         /// </summary>
         public string RoleId;
-
         /// <summary>
         /// The new name of the role
         /// </summary>
@@ -1068,17 +972,14 @@ namespace PlayFab.GroupsModels
         /// Optional reason to explain why the operation was the result that it was.
         /// </summary>
         public string OperationReason;
-
         /// <summary>
         /// New version of the role data.
         /// </summary>
         public int ProfileVersion;
-
         /// <summary>
         /// Indicates which operation was completed, either Created, Updated, Deleted or None.
         /// </summary>
         public OperationTypes? SetResult;
     }
 }
-
 #endif

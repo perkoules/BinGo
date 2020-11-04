@@ -1,5 +1,4 @@
 #if !DISABLE_PLAYFABENTITY_API && !DISABLE_PLAYFABCLIENT_API
-
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,18 +12,13 @@ namespace PlayFab.Public
     {
         // Unity MonoBehaviour callbacks
         void OnEnable();
-
         void OnDisable();
-
         void OnDestroy();
-
         void OnApplicationQuit();
-
         void OnApplicationFocus(bool isFocused);
 
         // Class specific methods
         void ClientSessionStart(string entityId, string entityType, string playFabUserId);
-
         void Send();
     }
 
@@ -161,6 +155,7 @@ namespace PlayFab.Public
                 // If we are losing focus we should make an attempt to push out a focus lost event ASAP
                 Send();
             }
+
         }
 
         /// <summary>
@@ -209,7 +204,6 @@ namespace PlayFab.Public
         }
 
         #region Unused MonoBehaviour compatibility  methods
-
         /// <summary>
         /// Unused
         /// Name mimics MonoBehaviour method, for ease of integration.
@@ -236,8 +230,7 @@ namespace PlayFab.Public
         {
             // add code sending events on destroy
         }
-
-        #endregion Unused MonoBehaviour compatibility  methods
+        #endregion
 
         /// <summary>
         /// Trying to send event during game exit. Note: works only on certain platforms.
@@ -250,5 +243,4 @@ namespace PlayFab.Public
         }
     }
 }
-
 #endif

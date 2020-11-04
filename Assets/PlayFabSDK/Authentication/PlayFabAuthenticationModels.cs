@@ -1,8 +1,7 @@
 #if !DISABLE_PLAYFABENTITY_API
-
-using PlayFab.SharedModels;
 using System;
 using System.Collections.Generic;
+using PlayFab.SharedModels;
 
 namespace PlayFab.AuthenticationModels
 {
@@ -16,7 +15,6 @@ namespace PlayFab.AuthenticationModels
         /// Unique ID of the entity.
         /// </summary>
         public string Id;
-
         /// <summary>
         /// Entity type. See https://docs.microsoft.com/gaming/playfab/features/data/entities/available-built-in-entity-types
         /// </summary>
@@ -30,27 +28,22 @@ namespace PlayFab.AuthenticationModels
         /// The Character Id of the associated entity.
         /// </summary>
         public string CharacterId;
-
         /// <summary>
         /// The Group Id of the associated entity.
         /// </summary>
         public string GroupId;
-
         /// <summary>
         /// The Master Player Account Id of the associated entity.
         /// </summary>
         public string MasterPlayerAccountId;
-
         /// <summary>
         /// The Namespace Id of the associated entity.
         /// </summary>
         public string NamespaceId;
-
         /// <summary>
         /// The Title Id of the associated entity.
         /// </summary>
         public string TitleId;
-
         /// <summary>
         /// The Title Player Account Id of the associated entity.
         /// </summary>
@@ -70,8 +63,7 @@ namespace PlayFab.AuthenticationModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string, string> CustomTags;
-
+        public Dictionary<string,string> CustomTags;
         /// <summary>
         /// The entity to perform this action on.
         /// </summary>
@@ -85,12 +77,10 @@ namespace PlayFab.AuthenticationModels
         /// The entity id and type.
         /// </summary>
         public EntityKey Entity;
-
         /// <summary>
         /// The token used to set X-EntityToken for all entity based API calls.
         /// </summary>
         public string EntityToken;
-
         /// <summary>
         /// The time the token will expire, if it is an expiring token, in UTC.
         /// </summary>
@@ -138,8 +128,7 @@ namespace PlayFab.AuthenticationModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string, string> CustomTags;
-
+        public Dictionary<string,string> CustomTags;
         /// <summary>
         /// Client EntityToken
         /// </summary>
@@ -153,22 +142,18 @@ namespace PlayFab.AuthenticationModels
         /// The entity id and type.
         /// </summary>
         public EntityKey Entity;
-
         /// <summary>
         /// The authenticated device for this entity, for the given login
         /// </summary>
         public IdentifiedDeviceType? IdentifiedDeviceType;
-
         /// <summary>
         /// The identity provider for this entity, for the given login
         /// </summary>
         public LoginIdentityProvider? IdentityProvider;
-
         /// <summary>
         /// The lineage of this profile.
         /// </summary>
         public EntityLineage Lineage;
     }
 }
-
 #endif

@@ -13,8 +13,8 @@ public class FriendListController : MonoBehaviour
     {
         if (buttons[0].interactable || buttons[1].interactable || buttons[2].interactable)
         {
-            PlayFabClientAPI.GetFriendsList(
-                new GetFriendList() { },
+            PlayFabClientAPI.GetFriendsList( 
+                new GetFriendsListRequest() { },
                 result =>
                 {
                     friendList.friend1 = result.Friends[0].Username;

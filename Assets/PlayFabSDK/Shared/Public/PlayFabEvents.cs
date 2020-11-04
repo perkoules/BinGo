@@ -1,20 +1,16 @@
-using PlayFab.Internal;
 using PlayFab.SharedModels;
+using PlayFab.Internal;
 
 namespace PlayFab.Events
 {
     public partial class PlayFabEvents
     {
         public delegate void PlayFabErrorEvent(PlayFabRequestCommon request, PlayFabError error);
-
         public delegate void PlayFabResultEvent<in TResult>(TResult result) where TResult : PlayFabResultCommon;
-
         public delegate void PlayFabRequestEvent<in TRequest>(TRequest request) where TRequest : PlayFabRequestCommon;
-
         public event PlayFabErrorEvent OnGlobalErrorEvent;
 
         private static PlayFabEvents _instance;
-
         /// <summary>
         /// Private constructor because we call PlayFabEvents.init();
         /// </summary>
@@ -465,7 +461,7 @@ namespace PlayFab.Events
             if (OnGetFriendLeaderboardAroundPlayerRequestEvent != null) { foreach (var each in OnGetFriendLeaderboardAroundPlayerRequestEvent.GetInvocationList()) { if (ReferenceEquals(each.Target, instance)) { OnGetFriendLeaderboardAroundPlayerRequestEvent -= (PlayFabRequestEvent<ClientModels.GetFriendLeaderboardAroundPlayerRequest>)each; } } }
             if (OnGetFriendLeaderboardAroundPlayerResultEvent != null) { foreach (var each in OnGetFriendLeaderboardAroundPlayerResultEvent.GetInvocationList()) { if (ReferenceEquals(each.Target, instance)) { OnGetFriendLeaderboardAroundPlayerResultEvent -= (PlayFabResultEvent<ClientModels.GetFriendLeaderboardAroundPlayerResult>)each; } } }
 
-            if (OnGetFriendsListRequestEvent != null) { foreach (var each in OnGetFriendsListRequestEvent.GetInvocationList()) { if (ReferenceEquals(each.Target, instance)) { OnGetFriendsListRequestEvent -= (PlayFabRequestEvent<ClientModels.GetFriendList>)each; } } }
+            if (OnGetFriendsListRequestEvent != null) { foreach (var each in OnGetFriendsListRequestEvent.GetInvocationList()) { if (ReferenceEquals(each.Target, instance)) { OnGetFriendsListRequestEvent -= (PlayFabRequestEvent<ClientModels.GetFriendsListRequest>)each; } } }
             if (OnGetFriendsListResultEvent != null) { foreach (var each in OnGetFriendsListResultEvent.GetInvocationList()) { if (ReferenceEquals(each.Target, instance)) { OnGetFriendsListResultEvent -= (PlayFabResultEvent<ClientModels.GetFriendsListResult>)each; } } }
 
             if (OnGetGameServerRegionsRequestEvent != null) { foreach (var each in OnGetGameServerRegionsRequestEvent.GetInvocationList()) { if (ReferenceEquals(each.Target, instance)) { OnGetGameServerRegionsRequestEvent -= (PlayFabRequestEvent<ClientModels.GameServerRegionsRequest>)each; } } }
@@ -1347,11 +1343,23 @@ namespace PlayFab.Events
 
 #endif
 #if !DISABLE_PLAYFABENTITY_API
+            if (OnExperimentationCreateExclusionGroupRequestEvent != null) { foreach (var each in OnExperimentationCreateExclusionGroupRequestEvent.GetInvocationList()) { if (ReferenceEquals(each.Target, instance)) { OnExperimentationCreateExclusionGroupRequestEvent -= (PlayFabRequestEvent<ExperimentationModels.CreateExclusionGroupRequest>)each; } } }
+            if (OnExperimentationCreateExclusionGroupResultEvent != null) { foreach (var each in OnExperimentationCreateExclusionGroupResultEvent.GetInvocationList()) { if (ReferenceEquals(each.Target, instance)) { OnExperimentationCreateExclusionGroupResultEvent -= (PlayFabResultEvent<ExperimentationModels.CreateExclusionGroupResult>)each; } } }
+
             if (OnExperimentationCreateExperimentRequestEvent != null) { foreach (var each in OnExperimentationCreateExperimentRequestEvent.GetInvocationList()) { if (ReferenceEquals(each.Target, instance)) { OnExperimentationCreateExperimentRequestEvent -= (PlayFabRequestEvent<ExperimentationModels.CreateExperimentRequest>)each; } } }
             if (OnExperimentationCreateExperimentResultEvent != null) { foreach (var each in OnExperimentationCreateExperimentResultEvent.GetInvocationList()) { if (ReferenceEquals(each.Target, instance)) { OnExperimentationCreateExperimentResultEvent -= (PlayFabResultEvent<ExperimentationModels.CreateExperimentResult>)each; } } }
 
+            if (OnExperimentationDeleteExclusionGroupRequestEvent != null) { foreach (var each in OnExperimentationDeleteExclusionGroupRequestEvent.GetInvocationList()) { if (ReferenceEquals(each.Target, instance)) { OnExperimentationDeleteExclusionGroupRequestEvent -= (PlayFabRequestEvent<ExperimentationModels.DeleteExclusionGroupRequest>)each; } } }
+            if (OnExperimentationDeleteExclusionGroupResultEvent != null) { foreach (var each in OnExperimentationDeleteExclusionGroupResultEvent.GetInvocationList()) { if (ReferenceEquals(each.Target, instance)) { OnExperimentationDeleteExclusionGroupResultEvent -= (PlayFabResultEvent<ExperimentationModels.EmptyResponse>)each; } } }
+
             if (OnExperimentationDeleteExperimentRequestEvent != null) { foreach (var each in OnExperimentationDeleteExperimentRequestEvent.GetInvocationList()) { if (ReferenceEquals(each.Target, instance)) { OnExperimentationDeleteExperimentRequestEvent -= (PlayFabRequestEvent<ExperimentationModels.DeleteExperimentRequest>)each; } } }
             if (OnExperimentationDeleteExperimentResultEvent != null) { foreach (var each in OnExperimentationDeleteExperimentResultEvent.GetInvocationList()) { if (ReferenceEquals(each.Target, instance)) { OnExperimentationDeleteExperimentResultEvent -= (PlayFabResultEvent<ExperimentationModels.EmptyResponse>)each; } } }
+
+            if (OnExperimentationGetExclusionGroupsRequestEvent != null) { foreach (var each in OnExperimentationGetExclusionGroupsRequestEvent.GetInvocationList()) { if (ReferenceEquals(each.Target, instance)) { OnExperimentationGetExclusionGroupsRequestEvent -= (PlayFabRequestEvent<ExperimentationModels.GetExclusionGroupsRequest>)each; } } }
+            if (OnExperimentationGetExclusionGroupsResultEvent != null) { foreach (var each in OnExperimentationGetExclusionGroupsResultEvent.GetInvocationList()) { if (ReferenceEquals(each.Target, instance)) { OnExperimentationGetExclusionGroupsResultEvent -= (PlayFabResultEvent<ExperimentationModels.GetExclusionGroupsResult>)each; } } }
+
+            if (OnExperimentationGetExclusionGroupTrafficRequestEvent != null) { foreach (var each in OnExperimentationGetExclusionGroupTrafficRequestEvent.GetInvocationList()) { if (ReferenceEquals(each.Target, instance)) { OnExperimentationGetExclusionGroupTrafficRequestEvent -= (PlayFabRequestEvent<ExperimentationModels.GetExclusionGroupTrafficRequest>)each; } } }
+            if (OnExperimentationGetExclusionGroupTrafficResultEvent != null) { foreach (var each in OnExperimentationGetExclusionGroupTrafficResultEvent.GetInvocationList()) { if (ReferenceEquals(each.Target, instance)) { OnExperimentationGetExclusionGroupTrafficResultEvent -= (PlayFabResultEvent<ExperimentationModels.GetExclusionGroupTrafficResult>)each; } } }
 
             if (OnExperimentationGetExperimentsRequestEvent != null) { foreach (var each in OnExperimentationGetExperimentsRequestEvent.GetInvocationList()) { if (ReferenceEquals(each.Target, instance)) { OnExperimentationGetExperimentsRequestEvent -= (PlayFabRequestEvent<ExperimentationModels.GetExperimentsRequest>)each; } } }
             if (OnExperimentationGetExperimentsResultEvent != null) { foreach (var each in OnExperimentationGetExperimentsResultEvent.GetInvocationList()) { if (ReferenceEquals(each.Target, instance)) { OnExperimentationGetExperimentsResultEvent -= (PlayFabResultEvent<ExperimentationModels.GetExperimentsResult>)each; } } }
@@ -1367,6 +1375,9 @@ namespace PlayFab.Events
 
             if (OnExperimentationStopExperimentRequestEvent != null) { foreach (var each in OnExperimentationStopExperimentRequestEvent.GetInvocationList()) { if (ReferenceEquals(each.Target, instance)) { OnExperimentationStopExperimentRequestEvent -= (PlayFabRequestEvent<ExperimentationModels.StopExperimentRequest>)each; } } }
             if (OnExperimentationStopExperimentResultEvent != null) { foreach (var each in OnExperimentationStopExperimentResultEvent.GetInvocationList()) { if (ReferenceEquals(each.Target, instance)) { OnExperimentationStopExperimentResultEvent -= (PlayFabResultEvent<ExperimentationModels.EmptyResponse>)each; } } }
+
+            if (OnExperimentationUpdateExclusionGroupRequestEvent != null) { foreach (var each in OnExperimentationUpdateExclusionGroupRequestEvent.GetInvocationList()) { if (ReferenceEquals(each.Target, instance)) { OnExperimentationUpdateExclusionGroupRequestEvent -= (PlayFabRequestEvent<ExperimentationModels.UpdateExclusionGroupRequest>)each; } } }
+            if (OnExperimentationUpdateExclusionGroupResultEvent != null) { foreach (var each in OnExperimentationUpdateExclusionGroupResultEvent.GetInvocationList()) { if (ReferenceEquals(each.Target, instance)) { OnExperimentationUpdateExclusionGroupResultEvent -= (PlayFabResultEvent<ExperimentationModels.EmptyResponse>)each; } } }
 
             if (OnExperimentationUpdateExperimentRequestEvent != null) { foreach (var each in OnExperimentationUpdateExperimentRequestEvent.GetInvocationList()) { if (ReferenceEquals(each.Target, instance)) { OnExperimentationUpdateExperimentRequestEvent -= (PlayFabRequestEvent<ExperimentationModels.UpdateExperimentRequest>)each; } } }
             if (OnExperimentationUpdateExperimentResultEvent != null) { foreach (var each in OnExperimentationUpdateExperimentResultEvent.GetInvocationList()) { if (ReferenceEquals(each.Target, instance)) { OnExperimentationUpdateExperimentResultEvent -= (PlayFabResultEvent<ExperimentationModels.EmptyResponse>)each; } } }
@@ -1679,6 +1690,7 @@ namespace PlayFab.Events
             if (OnProfilesSetProfilePolicyResultEvent != null) { foreach (var each in OnProfilesSetProfilePolicyResultEvent.GetInvocationList()) { if (ReferenceEquals(each.Target, instance)) { OnProfilesSetProfilePolicyResultEvent -= (PlayFabResultEvent<ProfilesModels.SetEntityProfilePolicyResponse>)each; } } }
 
 #endif
+
         }
 
         private void OnProcessingErrorEvent(PlayFabRequestCommon request, PlayFabError error)
@@ -1692,6 +1704,7 @@ namespace PlayFab.Events
 
         private void OnProcessingEvent(ApiProcessingEventArgs e)
         {
+
             if (e.EventType == ApiProcessingEventType.Pre)
             {
                 var type = e.Request.GetType();
@@ -1840,7 +1853,7 @@ namespace PlayFab.Events
                 if (type == typeof(ClientModels.CurrentGamesRequest)) { if (_instance.OnGetCurrentGamesRequestEvent != null) { _instance.OnGetCurrentGamesRequestEvent((ClientModels.CurrentGamesRequest)e.Request); return; } }
                 if (type == typeof(ClientModels.GetFriendLeaderboardRequest)) { if (_instance.OnGetFriendLeaderboardRequestEvent != null) { _instance.OnGetFriendLeaderboardRequestEvent((ClientModels.GetFriendLeaderboardRequest)e.Request); return; } }
                 if (type == typeof(ClientModels.GetFriendLeaderboardAroundPlayerRequest)) { if (_instance.OnGetFriendLeaderboardAroundPlayerRequestEvent != null) { _instance.OnGetFriendLeaderboardAroundPlayerRequestEvent((ClientModels.GetFriendLeaderboardAroundPlayerRequest)e.Request); return; } }
-                if (type == typeof(ClientModels.GetFriendList)) { if (_instance.OnGetFriendsListRequestEvent != null) { _instance.OnGetFriendsListRequestEvent((ClientModels.GetFriendList)e.Request); return; } }
+                if (type == typeof(ClientModels.GetFriendsListRequest)) { if (_instance.OnGetFriendsListRequestEvent != null) { _instance.OnGetFriendsListRequestEvent((ClientModels.GetFriendsListRequest)e.Request); return; } }
                 if (type == typeof(ClientModels.GameServerRegionsRequest)) { if (_instance.OnGetGameServerRegionsRequestEvent != null) { _instance.OnGetGameServerRegionsRequestEvent((ClientModels.GameServerRegionsRequest)e.Request); return; } }
                 if (type == typeof(ClientModels.GetLeaderboardRequest)) { if (_instance.OnGetLeaderboardRequestEvent != null) { _instance.OnGetLeaderboardRequestEvent((ClientModels.GetLeaderboardRequest)e.Request); return; } }
                 if (type == typeof(ClientModels.GetLeaderboardAroundCharacterRequest)) { if (_instance.OnGetLeaderboardAroundCharacterRequestEvent != null) { _instance.OnGetLeaderboardAroundCharacterRequestEvent((ClientModels.GetLeaderboardAroundCharacterRequest)e.Request); return; } }
@@ -2150,13 +2163,18 @@ namespace PlayFab.Events
                 if (type == typeof(EventsModels.WriteEventsRequest)) { if (_instance.OnEventsWriteTelemetryEventsRequestEvent != null) { _instance.OnEventsWriteTelemetryEventsRequestEvent((EventsModels.WriteEventsRequest)e.Request); return; } }
 #endif
 #if !DISABLE_PLAYFABENTITY_API
+                if (type == typeof(ExperimentationModels.CreateExclusionGroupRequest)) { if (_instance.OnExperimentationCreateExclusionGroupRequestEvent != null) { _instance.OnExperimentationCreateExclusionGroupRequestEvent((ExperimentationModels.CreateExclusionGroupRequest)e.Request); return; } }
                 if (type == typeof(ExperimentationModels.CreateExperimentRequest)) { if (_instance.OnExperimentationCreateExperimentRequestEvent != null) { _instance.OnExperimentationCreateExperimentRequestEvent((ExperimentationModels.CreateExperimentRequest)e.Request); return; } }
+                if (type == typeof(ExperimentationModels.DeleteExclusionGroupRequest)) { if (_instance.OnExperimentationDeleteExclusionGroupRequestEvent != null) { _instance.OnExperimentationDeleteExclusionGroupRequestEvent((ExperimentationModels.DeleteExclusionGroupRequest)e.Request); return; } }
                 if (type == typeof(ExperimentationModels.DeleteExperimentRequest)) { if (_instance.OnExperimentationDeleteExperimentRequestEvent != null) { _instance.OnExperimentationDeleteExperimentRequestEvent((ExperimentationModels.DeleteExperimentRequest)e.Request); return; } }
+                if (type == typeof(ExperimentationModels.GetExclusionGroupsRequest)) { if (_instance.OnExperimentationGetExclusionGroupsRequestEvent != null) { _instance.OnExperimentationGetExclusionGroupsRequestEvent((ExperimentationModels.GetExclusionGroupsRequest)e.Request); return; } }
+                if (type == typeof(ExperimentationModels.GetExclusionGroupTrafficRequest)) { if (_instance.OnExperimentationGetExclusionGroupTrafficRequestEvent != null) { _instance.OnExperimentationGetExclusionGroupTrafficRequestEvent((ExperimentationModels.GetExclusionGroupTrafficRequest)e.Request); return; } }
                 if (type == typeof(ExperimentationModels.GetExperimentsRequest)) { if (_instance.OnExperimentationGetExperimentsRequestEvent != null) { _instance.OnExperimentationGetExperimentsRequestEvent((ExperimentationModels.GetExperimentsRequest)e.Request); return; } }
                 if (type == typeof(ExperimentationModels.GetLatestScorecardRequest)) { if (_instance.OnExperimentationGetLatestScorecardRequestEvent != null) { _instance.OnExperimentationGetLatestScorecardRequestEvent((ExperimentationModels.GetLatestScorecardRequest)e.Request); return; } }
                 if (type == typeof(ExperimentationModels.GetTreatmentAssignmentRequest)) { if (_instance.OnExperimentationGetTreatmentAssignmentRequestEvent != null) { _instance.OnExperimentationGetTreatmentAssignmentRequestEvent((ExperimentationModels.GetTreatmentAssignmentRequest)e.Request); return; } }
                 if (type == typeof(ExperimentationModels.StartExperimentRequest)) { if (_instance.OnExperimentationStartExperimentRequestEvent != null) { _instance.OnExperimentationStartExperimentRequestEvent((ExperimentationModels.StartExperimentRequest)e.Request); return; } }
                 if (type == typeof(ExperimentationModels.StopExperimentRequest)) { if (_instance.OnExperimentationStopExperimentRequestEvent != null) { _instance.OnExperimentationStopExperimentRequestEvent((ExperimentationModels.StopExperimentRequest)e.Request); return; } }
+                if (type == typeof(ExperimentationModels.UpdateExclusionGroupRequest)) { if (_instance.OnExperimentationUpdateExclusionGroupRequestEvent != null) { _instance.OnExperimentationUpdateExclusionGroupRequestEvent((ExperimentationModels.UpdateExclusionGroupRequest)e.Request); return; } }
                 if (type == typeof(ExperimentationModels.UpdateExperimentRequest)) { if (_instance.OnExperimentationUpdateExperimentRequestEvent != null) { _instance.OnExperimentationUpdateExperimentRequestEvent((ExperimentationModels.UpdateExperimentRequest)e.Request); return; } }
 #endif
 #if !DISABLE_PLAYFABENTITY_API
@@ -2268,6 +2286,7 @@ namespace PlayFab.Events
                 if (type == typeof(ProfilesModels.SetProfileLanguageRequest)) { if (_instance.OnProfilesSetProfileLanguageRequestEvent != null) { _instance.OnProfilesSetProfileLanguageRequestEvent((ProfilesModels.SetProfileLanguageRequest)e.Request); return; } }
                 if (type == typeof(ProfilesModels.SetEntityProfilePolicyRequest)) { if (_instance.OnProfilesSetProfilePolicyRequestEvent != null) { _instance.OnProfilesSetProfilePolicyRequestEvent((ProfilesModels.SetEntityProfilePolicyRequest)e.Request); return; } }
 #endif
+
             }
             else
             {
@@ -2717,13 +2736,18 @@ namespace PlayFab.Events
 #endif
 #if !DISABLE_PLAYFABENTITY_API
 
+                if (type == typeof(ExperimentationModels.CreateExclusionGroupResult)) { if (_instance.OnExperimentationCreateExclusionGroupResultEvent != null) { _instance.OnExperimentationCreateExclusionGroupResultEvent((ExperimentationModels.CreateExclusionGroupResult)e.Result); return; } }
                 if (type == typeof(ExperimentationModels.CreateExperimentResult)) { if (_instance.OnExperimentationCreateExperimentResultEvent != null) { _instance.OnExperimentationCreateExperimentResultEvent((ExperimentationModels.CreateExperimentResult)e.Result); return; } }
+                if (type == typeof(ExperimentationModels.EmptyResponse)) { if (_instance.OnExperimentationDeleteExclusionGroupResultEvent != null) { _instance.OnExperimentationDeleteExclusionGroupResultEvent((ExperimentationModels.EmptyResponse)e.Result); return; } }
                 if (type == typeof(ExperimentationModels.EmptyResponse)) { if (_instance.OnExperimentationDeleteExperimentResultEvent != null) { _instance.OnExperimentationDeleteExperimentResultEvent((ExperimentationModels.EmptyResponse)e.Result); return; } }
+                if (type == typeof(ExperimentationModels.GetExclusionGroupsResult)) { if (_instance.OnExperimentationGetExclusionGroupsResultEvent != null) { _instance.OnExperimentationGetExclusionGroupsResultEvent((ExperimentationModels.GetExclusionGroupsResult)e.Result); return; } }
+                if (type == typeof(ExperimentationModels.GetExclusionGroupTrafficResult)) { if (_instance.OnExperimentationGetExclusionGroupTrafficResultEvent != null) { _instance.OnExperimentationGetExclusionGroupTrafficResultEvent((ExperimentationModels.GetExclusionGroupTrafficResult)e.Result); return; } }
                 if (type == typeof(ExperimentationModels.GetExperimentsResult)) { if (_instance.OnExperimentationGetExperimentsResultEvent != null) { _instance.OnExperimentationGetExperimentsResultEvent((ExperimentationModels.GetExperimentsResult)e.Result); return; } }
                 if (type == typeof(ExperimentationModels.GetLatestScorecardResult)) { if (_instance.OnExperimentationGetLatestScorecardResultEvent != null) { _instance.OnExperimentationGetLatestScorecardResultEvent((ExperimentationModels.GetLatestScorecardResult)e.Result); return; } }
                 if (type == typeof(ExperimentationModels.GetTreatmentAssignmentResult)) { if (_instance.OnExperimentationGetTreatmentAssignmentResultEvent != null) { _instance.OnExperimentationGetTreatmentAssignmentResultEvent((ExperimentationModels.GetTreatmentAssignmentResult)e.Result); return; } }
                 if (type == typeof(ExperimentationModels.EmptyResponse)) { if (_instance.OnExperimentationStartExperimentResultEvent != null) { _instance.OnExperimentationStartExperimentResultEvent((ExperimentationModels.EmptyResponse)e.Result); return; } }
                 if (type == typeof(ExperimentationModels.EmptyResponse)) { if (_instance.OnExperimentationStopExperimentResultEvent != null) { _instance.OnExperimentationStopExperimentResultEvent((ExperimentationModels.EmptyResponse)e.Result); return; } }
+                if (type == typeof(ExperimentationModels.EmptyResponse)) { if (_instance.OnExperimentationUpdateExclusionGroupResultEvent != null) { _instance.OnExperimentationUpdateExclusionGroupResultEvent((ExperimentationModels.EmptyResponse)e.Result); return; } }
                 if (type == typeof(ExperimentationModels.EmptyResponse)) { if (_instance.OnExperimentationUpdateExperimentResultEvent != null) { _instance.OnExperimentationUpdateExperimentResultEvent((ExperimentationModels.EmptyResponse)e.Result); return; } }
 #endif
 #if !DISABLE_PLAYFABENTITY_API
@@ -2840,6 +2864,7 @@ namespace PlayFab.Events
                 if (type == typeof(ProfilesModels.SetProfileLanguageResponse)) { if (_instance.OnProfilesSetProfileLanguageResultEvent != null) { _instance.OnProfilesSetProfileLanguageResultEvent((ProfilesModels.SetProfileLanguageResponse)e.Result); return; } }
                 if (type == typeof(ProfilesModels.SetEntityProfilePolicyResponse)) { if (_instance.OnProfilesSetProfilePolicyResultEvent != null) { _instance.OnProfilesSetProfilePolicyResultEvent((ProfilesModels.SetEntityProfilePolicyResponse)e.Result); return; } }
 #endif
+
             }
         }
     }

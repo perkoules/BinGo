@@ -1,10 +1,10 @@
 #if !DISABLE_PLAYFABENTITY_API
 
+using System;
+using System.Collections.Generic;
 using PlayFab.AuthenticationModels;
 using PlayFab.Internal;
 using PlayFab.SharedModels;
-using System;
-using System.Collections.Generic;
 
 namespace PlayFab
 {
@@ -88,9 +88,10 @@ namespace PlayFab
         {
             var context = (request == null ? null : request.AuthenticationContext) ?? authenticationContext;
             var callSettings = apiSettings ?? PlayFabSettings.staticSettings;
-            if (!context.IsEntityLoggedIn()) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
+            if (!context.IsEntityLoggedIn()) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn,"Must be logged in to call this method");
             PlayFabHttp.MakeApiCall("/Authentication/ValidateEntityToken", request, AuthType.EntityToken, resultCallback, errorCallback, customData, extraHeaders, context, callSettings, this);
         }
+
     }
 }
 

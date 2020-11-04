@@ -16,18 +16,11 @@ namespace PlayFab.Internal
 
         public bool IsInitialized { get { return _isInitialized; } }
 
-        public void Initialize()
-        {
-            _isInitialized = true;
-        }
+        public void Initialize() { _isInitialized = true; }
 
-        public void Update()
-        {
-        }
+        public void Update() { }
 
-        public void OnDestroy()
-        {
-        }
+        public void OnDestroy() { }
 
         public void SimpleGetCall(string fullUrl, Action<byte[]> successCallback, Action<string> errorCallback)
         {
@@ -64,6 +57,7 @@ namespace PlayFab.Internal
             }
             else
             {
+
                 UnityWebRequest request;
                 if (method == "put")
                 {
@@ -76,6 +70,7 @@ namespace PlayFab.Internal
                     request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
                     request.SetRequestHeader("Content-Type", "application/json");
                 }
+
 
 #if UNITY_2017_2_OR_NEWER
 #if !UNITY_2019_1_OR_NEWER

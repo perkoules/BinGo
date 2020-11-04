@@ -69,7 +69,6 @@ public class PlayfabManager : MonoBehaviour
         {
             if (currentBuildIndex == 0)
             {
-                //PlayerPrefs.DeleteKey(playerDataSaver.GetGuestPlayerRegistered());
                 PlayerPrefs.DeleteKey(playerDataSaver.GetIsGuest().ToString());
                 playerDataSaver.SetIsGuest(0);
                 emailInput.text = playerDataSaver.GetEmail();
@@ -122,6 +121,8 @@ public class PlayfabManager : MonoBehaviour
         GetPlayerStats();
         yield return new WaitForSeconds(0.5f);
         GetPlayerData();
+        yield return new WaitForSeconds(0.5f);
+        //StartCoroutine(LeaderboardInitialization.Instance.GetAllLeaderboards());
     }
 
     public void GetLocationDataOfRubbish()
@@ -262,6 +263,7 @@ public class PlayfabManager : MonoBehaviour
 
     public void IsFirstTime()
     {
+        
         PlayFabClientAPI.GetAccountInfo(
             new GetAccountInfoRequest { },
             result =>

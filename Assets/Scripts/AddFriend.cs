@@ -22,24 +22,24 @@ public class AddFriend : MonoBehaviour
 
         if (friendListController.friendsExist)
         {
-            for (int i = 0; i < 2; i++)
-            {
-                if (this.button == friendListController.addFriendButtons[i] && !string.IsNullOrEmpty(friendListController.friendsName[i].text)
-                    && this.button.IsInteractable())
-                {
-                    countryImage.sprite = FindImageFlag(friendListController.friendsFlag[i]);
-                    avatarImage.sprite = FindImageAvatar(friendListController.friendsAvatar[i]);
-                    levelBadge.sprite = FindImageLevel(friendListController.friendsLevel[i].text);
-                    button.interactable = false;
-                }
-                else if (!button.IsInteractable())
-                {
+            ImageAdjustment();
+        }
+    }
 
-                }
+    public void ImageAdjustment()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            if (this.button == friendListController.addFriendButtons[i] && !string.IsNullOrEmpty(friendListController.friendsName[i].text)
+                && this.button.IsInteractable())
+            {
+                countryImage.sprite = FindImageFlag(friendListController.friendsFlag[i]);
+                avatarImage.sprite = FindImageAvatar(friendListController.friendsAvatar[i]);
+                levelBadge.sprite = FindImageLevel(friendListController.friendsLevel[i].text);
+                button.interactable = false;
             }
         }
     }
-    
 
     public void SearchForFriend()
     {

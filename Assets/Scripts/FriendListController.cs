@@ -31,7 +31,7 @@ public class FriendListController : MonoBehaviour
 
         Invoke("GetFriends", 2f);
     }
-    private void GetFriends()
+    public void GetFriends()
     {
         friendList = new Dictionary<string, string>();
         StartCoroutine(GetFriendsList());
@@ -49,7 +49,6 @@ public class FriendListController : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("fqwaerqrewhryejdgfkjbgjsbg");
                     friendsExist = true;
                     for (int i = 0; i < 2; i++)
                     {

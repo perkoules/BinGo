@@ -9,10 +9,9 @@ public class LeaderboardWorldByTeam : MonoBehaviour
 
     private void OnEnable()
     {
+        leaderboardManager = GetComponent<LeaderboardManager>();
         if (leaderboardHolder.transform.childCount == 0)
         {
-            leaderboardManager = GetComponent<LeaderboardManager>();
-            StartCoroutine(leaderboardManager.GetWorldLeaderboardByTeam());
             StartCoroutine(GettingDataMessage());
         }
         else
@@ -43,8 +42,7 @@ public class LeaderboardWorldByTeam : MonoBehaviour
     private IEnumerator GettingDataMessage()
     {
         gettingDataMessage.SetActive(true);
-        yield return new WaitUntil(() => leaderboardManager.worldTeam == true);
-        leaderboardManager.worldTeam = false;
+        yield return new WaitUntil(() => leaderboardHolder.transform.childCount > 0);
         gettingDataMessage.SetActive(false);
     }
 }

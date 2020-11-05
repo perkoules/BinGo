@@ -31,6 +31,6 @@ public class TaskController : MonoBehaviour, IPointerClickHandler
 
     private void OnDestroy()
     {
-        Debug.Log(gameObject.name + " destroyed");
+        
     }
 }

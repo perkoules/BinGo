@@ -7071,7 +7071,7 @@ MonoBehaviour:
   avatarSelection: {fileID: 0}
   levelBadgeSelection: {fileID: 0}
   objectToHide: {fileID: 6442472866293247353}
-  friendListController: {fileID: 6442472867334928902}
+  friendListController: {fileID: 0}
   userNotfound: {fileID: 6442472866483833829}
 --- !u!1 &1610559668337769814
 GameObject:
@@ -19664,7 +19664,7 @@ MonoBehaviour:
   nameToSet: {fileID: 6442472865532687918}
   teamnameText: {fileID: 6442472867639209237}
   setWindowButton: {fileID: 6442472866110595218}
-  listController: {fileID: 6442472867334928902}
+  listController: {fileID: 0}
 --- !u!1 &6442472865744888945
 GameObject:
   m_ObjectHideFlags: 0
@@ -25370,7 +25370,7 @@ MonoBehaviour:
   avatarSelection: {fileID: 0}
   levelBadgeSelection: {fileID: 0}
   objectToHide: {fileID: 6442472866463807651}
-  friendListController: {fileID: 6442472867334928902}
+  friendListController: {fileID: 0}
   userNotfound: {fileID: 6442472867354981910}
 --- !u!1 &6442472865974556974
 GameObject:
@@ -39758,7 +39758,7 @@ MonoBehaviour:
   avatarSelection: {fileID: 0}
   levelBadgeSelection: {fileID: 0}
   objectToHide: {fileID: 6442472865604829145}
-  friendListController: {fileID: 6442472867334928902}
+  friendListController: {fileID: 0}
   userNotfound: {fileID: 6442472865531834387}
 --- !u!1 &6442472866534232742
 GameObject:
@@ -49477,7 +49477,7 @@ GameObject:
   - component: {fileID: 6442472866971292097}
   - component: {fileID: 6442472866971292098}
   - component: {fileID: 6442472867016868355}
-  - component: {fileID: 6442472867016868356}
+  - component: {fileID: 1643421991443359480}
   m_Layer: 5
   m_Name: TeamsRankInWorldResult
   m_TagString: Untagged
@@ -49569,7 +49569,7 @@ MonoBehaviour:
   worldCountries: 0
   worldPlayer: 0
   worldTeam: 0
---- !u!114 &6442472867016868356
+--- !u!114 &1643421991443359480
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -52733,7 +52733,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6442472867136837373}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6442472867407429510}
+        m_MethodName: ClearLeaderboard
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6442472867136857203
 GameObject:
   m_ObjectHideFlags: 0
@@ -53928,8 +53939,8 @@ GameObject:
   - component: {fileID: 6442472867176343817}
   - component: {fileID: 6442472867176343822}
   - component: {fileID: 6442472867176343823}
-  - component: {fileID: 6442472867176343821}
   - component: {fileID: 6442472867176343816}
+  - component: {fileID: 6051732621981267779}
   m_Layer: 5
   m_Name: CountriesRankInWorldResult
   m_TagString: Untagged
@@ -53998,20 +54009,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6442472867176343821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6442472867176343818}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7dd7adac4e793454db6db5a42483fee0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leaderboardHolder: {fileID: 6442472866315259874}
-  gettingDataMessage: {fileID: 6578072241085049723}
 --- !u!114 &6442472867176343816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54036,6 +54033,20 @@ MonoBehaviour:
   worldCountries: 0
   worldPlayer: 0
   worldTeam: 0
+--- !u!114 &6051732621981267779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6442472867176343818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dd7adac4e793454db6db5a42483fee0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leaderboardHolder: {fileID: 6442472866315259874}
+  gettingDataMessage: {fileID: 6578072241085049723}
 --- !u!1 &6442472867176463317
 GameObject:
   m_ObjectHideFlags: 0
@@ -57251,7 +57262,6 @@ GameObject:
   - component: {fileID: 6442472867334928897}
   - component: {fileID: 6442472867334928903}
   - component: {fileID: 6442472867334928896}
-  - component: {fileID: 6442472867334928902}
   m_Layer: 5
   m_Name: WorldRankingWindow
   m_TagString: Untagged
@@ -57325,29 +57335,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6442472867334928902
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6442472867334928898}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b8c84aeca842ed44acab00c9e187f1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttons:
-  - {fileID: 4581501478795558497}
-  - {fileID: 6442472866531587882}
-  - {fileID: 6442472865969535190}
-  friendList:
-    friend1: 
-    friend1Id: 
-    friend2: 
-    friend2Id: 
-    friend3: 
-    friend3Id: 
 --- !u!1 &6442472867337456021
 GameObject:
   m_ObjectHideFlags: 0
@@ -67572,12 +67559,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2329f085085895f42acd80355d38cbd4, type: 3}
---- !u!1 &3645264880733945206 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7781894599060661202, guid: 2329f085085895f42acd80355d38cbd4,
-    type: 3}
-  m_PrefabInstance: {fileID: 6442472866063638180}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &3645264878905884277 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7781894598308438225, guid: 2329f085085895f42acd80355d38cbd4,
@@ -67596,6 +67577,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &3645264880733945206 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7781894599060661202, guid: 2329f085085895f42acd80355d38cbd4,
+    type: 3}
+  m_PrefabInstance: {fileID: 6442472866063638180}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6442472866088574947
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -68438,15 +68425,15 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 6442472866487091774}
   m_PrefabAsset: {fileID: 0}
---- !u!224 &8031185720692464693 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3899204874266353163, guid: 58ce24ff3be188646a8c3e44afa5042f,
-    type: 3}
-  m_PrefabInstance: {fileID: 6442472866487091774}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6578072241085049723 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 153759184393152837, guid: 58ce24ff3be188646a8c3e44afa5042f,
+    type: 3}
+  m_PrefabInstance: {fileID: 6442472866487091774}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &8031185720692464693 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3899204874266353163, guid: 58ce24ff3be188646a8c3e44afa5042f,
     type: 3}
   m_PrefabInstance: {fileID: 6442472866487091774}
   m_PrefabAsset: {fileID: 0}
@@ -68726,15 +68713,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58ce24ff3be188646a8c3e44afa5042f, type: 3}
---- !u!224 &8031185721460318984 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3899204874266353163, guid: 58ce24ff3be188646a8c3e44afa5042f,
-    type: 3}
-  m_PrefabInstance: {fileID: 6442472866751118595}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6578072239789298758 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 153759184393152837, guid: 58ce24ff3be188646a8c3e44afa5042f,
+    type: 3}
+  m_PrefabInstance: {fileID: 6442472866751118595}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &8031185721460318984 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3899204874266353163, guid: 58ce24ff3be188646a8c3e44afa5042f,
     type: 3}
   m_PrefabInstance: {fileID: 6442472866751118595}
   m_PrefabAsset: {fileID: 0}
@@ -69022,12 +69009,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58ce24ff3be188646a8c3e44afa5042f, type: 3}
---- !u!1 &6578072239621732363 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 153759184393152837, guid: 58ce24ff3be188646a8c3e44afa5042f,
-    type: 3}
-  m_PrefabInstance: {fileID: 6442472866909245774}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &8031185721348443973 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3899204874266353163, guid: 58ce24ff3be188646a8c3e44afa5042f,
@@ -69037,6 +69018,12 @@ RectTransform:
 --- !u!1 &1046400638805346535 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6335945814200539561, guid: 58ce24ff3be188646a8c3e44afa5042f,
+    type: 3}
+  m_PrefabInstance: {fileID: 6442472866909245774}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6578072239621732363 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 153759184393152837, guid: 58ce24ff3be188646a8c3e44afa5042f,
     type: 3}
   m_PrefabInstance: {fileID: 6442472866909245774}
   m_PrefabAsset: {fileID: 0}
@@ -69346,15 +69333,15 @@ PrefabInstance:
       objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58ce24ff3be188646a8c3e44afa5042f, type: 3}
---- !u!1 &6578072239997562549 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 153759184393152837, guid: 58ce24ff3be188646a8c3e44afa5042f,
-    type: 3}
-  m_PrefabInstance: {fileID: 6442472867616294896}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &8031185721652058619 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3899204874266353163, guid: 58ce24ff3be188646a8c3e44afa5042f,
+    type: 3}
+  m_PrefabInstance: {fileID: 6442472867616294896}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6578072239997562549 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 153759184393152837, guid: 58ce24ff3be188646a8c3e44afa5042f,
     type: 3}
   m_PrefabInstance: {fileID: 6442472867616294896}
   m_PrefabAsset: {fileID: 0}

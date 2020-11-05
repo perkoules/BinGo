@@ -279,7 +279,6 @@ public class LeaderboardManager : MonoBehaviour
     public IEnumerator GetWorldLeaderboardByTeam()
     {
         var idTeamnameRubbish = new Trictionary();
-        Debug.Log("Get seg");
         PlayFabAdminAPI.GetPlayersInSegment(
             new GetPlayersInSegmentRequest { SegmentId = "CAD8FCF4CF87AD8E" },
             result =>
@@ -291,16 +290,13 @@ public class LeaderboardManager : MonoBehaviour
             },
             error => Debug.LogError(error.GenerateErrorReport()));
         yield return new WaitForSeconds(6);
-        Debug.Log("get user country");
         foreach (var id in idTeamnameRubbish.Keys)
         {
-            Debug.Log("id");
 
             PlayFabClientAPI.GetUserData(
                 new PlayFab.ClientModels.GetUserDataRequest { PlayFabId = id },
                 result =>
                 {
-                    Debug.LogWarning(result.Data["TeamName"].Value);
                     idTeamnameRubbish[id] = new TeamNameRubbish
                     {
                         Value1 = result.Data["TeamName"].Value
@@ -366,18 +362,3 @@ public class LeaderboardManager : MonoBehaviour
     }
 }
 
-public struct TeamNameRubbish
-{
-    public string Value1;
-    public int Value2;
-}
-public class  Trictionary: Dictionary<string, TeamNameRubbish>
-{
-    public void Add(string key, string teamname, int rubbishCollected)
-    {
-        TeamNameRubbish t;
-        t.Value1 = teamname;
-        t.Value2 = rubbishCollected;
-        Add(key, t);
-    }    
-}

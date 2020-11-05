@@ -8,10 +8,9 @@ public class LeaderboardWorldByCountry : MonoBehaviour
 
     private void OnEnable()
     {
+        leaderboardManager = GetComponent<LeaderboardManager>();
         if (leaderboardHolder.transform.childCount == 0)
         {
-            leaderboardManager = GetComponent<LeaderboardManager>();
-            StartCoroutine(leaderboardManager.GetWorldLeaderboardByCountry());
             StartCoroutine(GettingDataMessage());
         }
         else
@@ -42,8 +41,7 @@ public class LeaderboardWorldByCountry : MonoBehaviour
     private IEnumerator GettingDataMessage()
     {
         gettingDataMessage.SetActive(true);
-        yield return new WaitUntil(() => leaderboardManager.worldCountries == true);
-        leaderboardManager.worldCountries = false;
+        yield return new WaitUntil(() => leaderboardHolder.transform.childCount > 0);
         gettingDataMessage.SetActive(false);
     }
 }

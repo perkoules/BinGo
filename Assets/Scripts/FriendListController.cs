@@ -11,9 +11,10 @@ public class FriendListController : MonoBehaviour
 {
     public List<Button> addFriendButtons;
     public Dictionary<string, string> friendList;
-
     public List<TextMeshProUGUI> friendsName, friendsLevel;
     public List<string> friendsFlag, friendsAvatar, friendsBadge;
+
+    public bool friendsExist = false;
 
     public static FriendListController Instance { get; private set; }
 
@@ -42,37 +43,49 @@ public class FriendListController : MonoBehaviour
             new GetFriendsListRequest() { },
             result =>
             {
-                for (int i = 0; i < 2; i++)
+                if(result.Friends.Count == 0)
                 {
-                    if (!string.IsNullOrEmpty(result.Friends[i].FriendPlayFabId))
+                    friendsExist = false;
+                }
+                else
+                {
+                    Debug.Log("fqwaerqrewhryejdgfkjbgjsbg");
+                    friendsExist = true;
+                    for (int i = 0; i < 2; i++)
                     {
-                        friendList.Add(result.Friends[i].FriendPlayFabId, result.Friends[i].Username);
+                        if (!string.IsNullOrEmpty(result.Friends[i].FriendPlayFabId))
+                        {
+                            friendList.Add(result.Friends[i].FriendPlayFabId, result.Friends[i].Username);
+                        }
                     }
                 }
             },
             error => Debug.LogError(error.GenerateErrorReport()));
         yield return new WaitForSeconds(1f);
-        for (int i = 0; i < 2; i++)
+        if (friendsExist)
         {
-            if (!string.IsNullOrEmpty(friendList.ElementAt(i).Key))
+            for (int i = 0; i < 2; i++)
             {
-                PlayFabClientAPI.GetUserData(new GetUserDataRequest() { PlayFabId = friendList.ElementAt(i).Key },
-                    result =>
-                    {
-                        if (result.Data == null) Debug.Log("No Data");
-                        else
+                if (!string.IsNullOrEmpty(friendList.ElementAt(i).Key))
+                {
+                    PlayFabClientAPI.GetUserData(new GetUserDataRequest() { PlayFabId = friendList.ElementAt(i).Key },
+                        result =>
                         {
-                            friendsName[i].text = friendList.ElementAt(i).Value;
-                            friendsFlag[i] = result.Data["Country"].Value;
-                            friendsAvatar[i] = result.Data["Avatar"].Value;
+                            if (result.Data == null) Debug.Log("No Data");
+                            else
+                            {
+                                friendsName[i].text = friendList.ElementAt(i).Value;
+                                friendsFlag[i] = result.Data["Country"].Value;
+                                friendsAvatar[i] = result.Data["Avatar"].Value;
 
-                        }
-                    },
-                    error => Debug.Log(error.GenerateErrorReport()));
-                yield return new WaitForSeconds(2f);
+                            }
+                        },
+                        error => Debug.Log(error.GenerateErrorReport()));
+                    yield return new WaitForSeconds(2f);
+                }
             }
+            GetTeammatesLevel();
         }
-        GetTeammatesLevel();
     }
     private void GetTeammatesLevel()
     {

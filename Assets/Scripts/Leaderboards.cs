@@ -122,7 +122,6 @@ public class Leaderboards : MonoBehaviour
     
     public IEnumerator GetWorldLeaderboardByTeam()
     {
-        Debug.Log("Teams started");
         idTeamnameRubbish = new Trictionary();        
         yield return new WaitForSeconds(6);
         foreach (var id in allPlayers)

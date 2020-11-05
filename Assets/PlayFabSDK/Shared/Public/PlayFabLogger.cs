@@ -1,16 +1,15 @@
-using PlayFab.Internal;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
 using System.Threading;
+using PlayFab.Internal;
 using UnityEngine;
 
 namespace PlayFab.Public
 {
 #if !UNITY_WSA && !UNITY_WP8 && !NETFX_CORE
-
     public interface IPlayFabLogger
     {
         IPAddress ip { get; set; }
@@ -19,9 +18,7 @@ namespace PlayFab.Public
 
         // Unity MonoBehaviour callbacks
         void OnEnable();
-
         void OnDisable();
-
         void OnDestroy();
     }
 
@@ -95,13 +92,11 @@ namespace PlayFab.Public
         /// BeginUploadLog is called at the begining of each burst
         /// </summary>
         protected abstract void BeginUploadLog();
-
         /// <summary>
         /// Logs are cached and written in bursts
         /// UploadLog is called for each cached log, between BeginUploadLog and EndUploadLog
         /// </summary>
         protected abstract void UploadLog(string message);
-
         /// <summary>
         /// Logs are cached and written in bursts
         /// EndUploadLog is called at the end of each burst
@@ -181,7 +176,6 @@ namespace PlayFab.Public
                     EndUploadLog();
 
                     #region Expire Thread.
-
                     // Check if we've been inactive
                     lock (_threadLock)
                     {
@@ -199,11 +193,11 @@ namespace PlayFab.Public
                         }
                         // This thread will be stopped, so null this now, inside lock (_threadLock)
                     }
-
-                    #endregion Expire Thread.
+                    #endregion
 
                     Thread.Sleep(LOG_CACHE_INTERVAL_MS);
                 } while (active);
+
             }
             catch (Exception e)
             {
@@ -212,7 +206,6 @@ namespace PlayFab.Public
             }
         }
     }
-
 #else
     public interface IPlayFabLogger
     {
@@ -259,7 +252,6 @@ namespace PlayFab.Public
         protected override void BeginUploadLog()
         {
         }
-
         /// <summary>
         /// Logs are cached and written in bursts
         /// UploadLog is called for each cached log, between BeginUploadLog and EndUploadLog
@@ -267,7 +259,6 @@ namespace PlayFab.Public
         protected override void UploadLog(string message)
         {
         }
-
         /// <summary>
         /// Logs are cached and written in bursts
         /// EndUploadLog is called at the end of each burst

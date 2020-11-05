@@ -278,29 +278,25 @@ public class LeaderboardManager : MonoBehaviour
 
     public IEnumerator GetWorldLeaderboardByTeam()
     {
-        Dictionary<string, string> idTeamname = new Dictionary<string, string>();
         var idTeamnameRubbish = new Trictionary();
-
-
         PlayFabAdminAPI.GetPlayersInSegment(
             new GetPlayersInSegmentRequest { SegmentId = "CAD8FCF4CF87AD8E" },
             result =>
             {
                 foreach (var item in result.PlayerProfiles)
                 {
-                    idTeamname.Add(item.PlayerId, "");
                     idTeamnameRubbish.Add(item.PlayerId, "-", 0);
                 }
             },
             error => Debug.LogError(error.GenerateErrorReport()));
-        yield return new WaitForSeconds(1);
-        foreach (var id in idTeamname.Keys)
+        yield return new WaitForSeconds(6);
+        foreach (var id in idTeamnameRubbish.Keys)
         {
+
             PlayFabClientAPI.GetUserData(
                 new PlayFab.ClientModels.GetUserDataRequest { PlayFabId = id },
                 result =>
                 {
-                    idTeamname[id] = result.Data["TeamName"].Value;
                     idTeamnameRubbish[id] = new TeamNameRubbish
                     {
                         Value1 = result.Data["TeamName"].Value
@@ -308,9 +304,9 @@ public class LeaderboardManager : MonoBehaviour
                 },
                 error => Debug.LogError(error.GenerateErrorReport()));
         }
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(4f);
         Dictionary<string, int> idRubbish = new Dictionary<string, int>();
-        foreach (var id in idTeamname.Keys)
+        foreach (var id in idTeamnameRubbish.Keys)
         {
             PlayFabClientAPI.GetLeaderboard(
             new GetLeaderboardRequest { StatisticName = "RubbishCollected" },
@@ -320,7 +316,6 @@ public class LeaderboardManager : MonoBehaviour
                 {
                     if (ldb.PlayFabId == id)
                     {
-                        //idRubbish.Add(ldb.PlayFabId, ldb.StatValue);
                         idTeamnameRubbish[id] = new TeamNameRubbish
                         {
                             Value1 = idTeamnameRubbish[id].Value1,
@@ -332,7 +327,6 @@ public class LeaderboardManager : MonoBehaviour
             error => Debug.LogError(error.GenerateErrorReport()));
         }
         yield return new WaitForSeconds(2f);
-
         Dictionary<string, int> results = new Dictionary<string, int>();
         foreach (var item in idTeamnameRubbish)
         {
@@ -368,18 +362,3 @@ public class LeaderboardManager : MonoBehaviour
     }
 }
 
-public struct TeamNameRubbish
-{
-    public string Value1;
-    public int Value2;
-}
-public class  Trictionary: Dictionary<string, TeamNameRubbish>
-{
-    public void Add(string key, string teamname, int rubbishCollected)
-    {
-        TeamNameRubbish t;
-        t.Value1 = teamname;
-        t.Value2 = rubbishCollected;
-        Add(key, t);
-    }    
-}

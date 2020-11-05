@@ -1,9 +1,9 @@
-using PlayFab.Public;
-using PlayFab.SharedModels;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using PlayFab.Public;
+using PlayFab.SharedModels;
 using UnityEngine;
 
 namespace PlayFab.Internal
@@ -16,13 +16,9 @@ namespace PlayFab.Internal
         private static List<CallRequestContainer> _apiCallQueue = new List<CallRequestContainer>(); // Starts initialized, and is nulled when it's flushed
 
         public delegate void ApiProcessingEvent<in TEventArgs>(TEventArgs e);
-
         public delegate void ApiProcessErrorEvent(PlayFabRequestCommon request, PlayFabError error);
-
         public static event ApiProcessingEvent<ApiProcessingEventArgs> ApiProcessingEventHandler;
-
         public static event ApiProcessErrorEvent ApiProcessingErrorEventHandler;
-
         public static readonly Dictionary<string, string> GlobalHeaderInjection = new Dictionary<string, string>();
 
         private static IPlayFabLogger _logger;
@@ -82,7 +78,6 @@ namespace PlayFab.Internal
         }
 
 #if !DISABLE_PLAYFABENTITY_API && !DISABLE_PLAYFABCLIENT_API
-
         /// <summary>
         /// This initializes ScreenTimeTracker object and notifying it to start sending info.
         /// </summary>
@@ -107,7 +102,6 @@ namespace PlayFab.Internal
                 yield return delay;
             }
         }
-
 #endif
 
         public static void SimpleGetCall(string fullUrl, Action<byte[]> successCallback, Action<string> errorCallback)
@@ -115,6 +109,7 @@ namespace PlayFab.Internal
             InitializeHttp();
             PluginManager.GetPlugin<ITransportPlugin>(PluginContract.PlayFab_Transport).SimpleGetCall(fullUrl, successCallback, errorCallback);
         }
+
 
         public static void SimplePutCall(string fullUrl, byte[] payload, Action<byte[]> successCallback, Action<string> errorCallback)
         {
@@ -383,7 +378,6 @@ namespace PlayFab.Internal
         }
 
         #region Helpers
-
         protected internal static PlayFabError GeneratePlayFabError(string apiEndpoint, string json, object customData)
         {
             Dictionary<string, object> errorDict = null;
@@ -465,9 +459,7 @@ namespace PlayFab.Internal
             }
         }
 #endif
-
-        #endregion Helpers
-
+        #endregion
         private readonly Queue<IEnumerator> _injectedCoroutines = new Queue<IEnumerator>();
         private readonly Queue<Action> _injectedAction = new Queue<Action>();
 
@@ -483,7 +475,6 @@ namespace PlayFab.Internal
     }
 
     #region Event Classes
-
     public enum ApiProcessingEventType
     {
         Pre,
@@ -502,6 +493,5 @@ namespace PlayFab.Internal
             return Request as TRequest;
         }
     }
-
-    #endregion Event Classes
+    #endregion
 }

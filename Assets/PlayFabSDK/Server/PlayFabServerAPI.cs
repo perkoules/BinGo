@@ -1,4 +1,4 @@
-//#if ENABLE_PLAYFABSERVER_API && !DISABLE_PLAYFAB_STATIC_API
+#if ENABLE_PLAYFABSERVER_API && !DISABLE_PLAYFAB_STATIC_API
 
 using System;
 using System.Collections.Generic;
@@ -14,6 +14,7 @@ namespace PlayFab
     public static class PlayFabServerAPI
     {
         static PlayFabServerAPI() {}
+
 
         /// <summary>
         /// Clear the Client SessionToken which allows this Client to call API calls requiring login.
@@ -33,6 +34,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/AddCharacterVirtualCurrency", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -45,6 +47,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/AddFriend", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -60,6 +63,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/AddGenericID", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -71,6 +75,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/AddPlayerTag", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -87,6 +92,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/AddSharedGroupMembers", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -98,6 +104,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/AddUserVirtualCurrency", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -111,6 +118,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/AuthenticateSessionTicket", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -122,6 +130,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/AwardSteamAchievement", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -135,6 +144,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/BanUsers", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -146,6 +156,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/ConsumeItem", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -162,6 +173,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/CreateSharedGroup", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -173,6 +185,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/DeleteCharacterFromUser", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -186,6 +199,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/DeletePlayer", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -197,6 +211,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/DeletePushNotificationTemplate", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -212,6 +227,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/DeleteSharedGroup", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -223,6 +239,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/DeregisterGame", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -237,6 +254,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/EvaluateRandomResultTable", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -248,6 +266,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/ExecuteCloudScript", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -282,6 +301,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/GetAllSegments", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -295,6 +315,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/GetAllUsersCharacters", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -306,6 +327,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/GetCatalogItems", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -319,6 +341,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/GetCharacterData", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -330,6 +353,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/GetCharacterInternalData", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -343,6 +367,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/GetCharacterInventory", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -354,6 +379,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/GetCharacterLeaderboard", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -367,6 +393,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/GetCharacterReadOnlyData", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -378,6 +405,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/GetCharacterStatistics", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -396,6 +424,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/GetContentDownloadUrl", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -408,6 +437,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/GetFriendLeaderboard", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -422,6 +452,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/GetFriendsList", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -433,6 +464,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/GetLeaderboard", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -446,6 +478,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/GetLeaderboardAroundCharacter", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -458,6 +491,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/GetLeaderboardAroundUser", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -469,6 +503,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/GetLeaderboardForUserCharacters", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -483,6 +518,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/GetPlayerCombinedInfo", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -495,6 +531,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/GetPlayerProfile", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -506,6 +543,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/GetPlayerSegments", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -523,6 +561,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/GetPlayersInSegment", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -534,6 +573,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/GetPlayerStatistics", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -547,6 +587,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/GetPlayerStatisticVersions", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -558,6 +599,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/GetPlayerTags", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -571,6 +613,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/GetPlayFabIDsFromFacebookIDs", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -582,6 +625,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/GetPlayFabIDsFromFacebookInstantGamesIds", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -597,6 +641,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/GetPlayFabIDsFromGenericIDs", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -609,6 +654,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/GetPlayFabIDsFromNintendoSwitchDeviceIds", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -620,6 +666,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/GetPlayFabIDsFromPSNAccountIDs", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -634,6 +681,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/GetPlayFabIDsFromSteamIDs", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -646,6 +694,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/GetPlayFabIDsFromXboxLiveIDs", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -657,6 +706,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/GetPublisherData", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -671,6 +721,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/GetRandomResultTables", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -682,6 +733,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/GetServerCustomIDsFromPlayFabIDs", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -697,6 +749,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/GetSharedGroupData", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -708,6 +761,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/GetStoreItems", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -721,6 +775,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/GetTime", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -732,6 +787,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/GetTitleData", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -745,6 +801,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/GetTitleInternalData", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -756,6 +813,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/GetTitleNews", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -769,6 +827,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/GetUserAccountInfo", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -780,6 +839,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/GetUserBans", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -793,6 +853,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/GetUserData", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -804,6 +865,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/GetUserInternalData", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -817,6 +879,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/GetUserInventory", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -828,6 +891,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/GetUserPublisherData", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -841,6 +905,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/GetUserPublisherInternalData", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -853,6 +918,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/GetUserPublisherReadOnlyData", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -864,6 +930,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/GetUserReadOnlyData", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -878,6 +945,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/GrantCharacterToUser", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -889,6 +957,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/GrantItemsToCharacter", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -902,6 +971,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/GrantItemsToUser", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -913,6 +983,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/GrantItemsToUsers", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -926,6 +997,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/LinkPSNAccount", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -938,6 +1010,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/LinkServerCustomId", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -949,6 +1022,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/LinkXboxAccount", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -963,6 +1037,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/LoginWithServerCustomId", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -975,6 +1050,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/LoginWithXbox", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -989,6 +1065,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/LoginWithXboxId", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -1000,6 +1077,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/ModifyItemUses", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -1013,6 +1091,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/MoveItemToCharacterFromCharacter", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -1024,6 +1103,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/MoveItemToCharacterFromUser", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -1037,6 +1117,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/MoveItemToUserFromCharacter", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -1048,6 +1129,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/NotifyMatchmakerPlayerLeft", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -1062,6 +1144,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/RedeemCoupon", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -1073,6 +1156,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/RedeemMatchmakerTicket", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -1086,6 +1170,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/RefreshGameServerInstanceHeartbeat", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -1097,6 +1182,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/RegisterGame", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -1110,6 +1196,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/RemoveFriend", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -1122,6 +1209,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/RemoveGenericID", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -1133,6 +1221,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/RemovePlayerTag", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -1149,6 +1238,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/RemoveSharedGroupMembers", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -1162,6 +1252,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/ReportPlayer", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -1173,6 +1264,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/RevokeAllBansForUser", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -1186,6 +1278,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/RevokeBans", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -1197,6 +1290,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/RevokeInventoryItem", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -1210,6 +1304,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/RevokeInventoryItems", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -1221,6 +1316,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/SavePushNotificationTemplate", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -1235,6 +1331,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/SendCustomAccountRecoveryEmail", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -1246,6 +1343,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/SendEmailFromTemplate", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -1260,6 +1358,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/SendPushNotification", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -1273,6 +1372,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/SendPushNotificationFromTemplate", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -1284,6 +1384,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/SetFriendTags", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -1297,6 +1398,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/SetGameServerInstanceData", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -1309,6 +1411,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/SetGameServerInstanceState", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -1320,6 +1423,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/SetGameServerInstanceTags", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -1334,6 +1438,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/SetPlayerSecret", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -1345,6 +1450,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/SetPublisherData", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -1358,6 +1464,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/SetTitleData", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -1369,6 +1476,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/SetTitleInternalData", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -1383,6 +1491,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/SubtractCharacterVirtualCurrency", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -1396,6 +1505,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/SubtractUserVirtualCurrency", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -1407,6 +1517,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/UnlinkPSNAccount", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -1420,6 +1531,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/UnlinkServerCustomId", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -1431,6 +1543,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/UnlinkXboxAccount", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -1445,6 +1558,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/UnlockContainerInstance", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -1461,6 +1575,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/UnlockContainerItem", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -1472,6 +1587,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/UpdateAvatarUrl", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -1485,6 +1601,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/UpdateBans", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -1496,6 +1613,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/UpdateCharacterData", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -1509,6 +1627,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/UpdateCharacterInternalData", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -1520,6 +1639,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/UpdateCharacterReadOnlyData", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -1533,6 +1653,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/UpdateCharacterStatistics", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -1544,6 +1665,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/UpdatePlayerStatistics", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -1561,6 +1683,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/UpdateSharedGroupData", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -1572,6 +1695,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/UpdateUserData", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -1585,6 +1709,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/UpdateUserInternalData", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -1596,6 +1721,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/UpdateUserInventoryItemCustomData", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -1609,6 +1735,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/UpdateUserPublisherData", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -1620,6 +1747,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/UpdateUserPublisherInternalData", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -1633,6 +1761,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/UpdateUserPublisherReadOnlyData", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -1644,6 +1773,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/UpdateUserReadOnlyData", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -1657,6 +1787,7 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/WriteCharacterEvent", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
@@ -1668,6 +1799,7 @@ namespace PlayFab
             var context = (request == null ? null : request.AuthenticationContext) ?? PlayFabSettings.staticPlayer;
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
+
 
             PlayFabHttp.MakeApiCall("/Server/WritePlayerEvent", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
@@ -1681,9 +1813,12 @@ namespace PlayFab
             var callSettings = PlayFabSettings.staticSettings;
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
 
+
             PlayFabHttp.MakeApiCall("/Server/WriteTitleEvent", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
+
+
     }
 }
 
-//#endif
+#endif

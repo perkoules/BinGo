@@ -69,7 +69,6 @@ public class PlayfabManager : MonoBehaviour
         {
             if (currentBuildIndex == 0)
             {
-                //PlayerPrefs.DeleteKey(playerDataSaver.GetGuestPlayerRegistered());
                 PlayerPrefs.DeleteKey(playerDataSaver.GetIsGuest().ToString());
                 playerDataSaver.SetIsGuest(0);
                 emailInput.text = playerDataSaver.GetEmail();
@@ -117,11 +116,13 @@ public class PlayfabManager : MonoBehaviour
             RubbishPlace = place,
             RubbishDistrict = district,
             RubbishRegion = region,
-            RubbishCountry = country
+            RubbishCountry = country,
         };
         GetPlayerStats();
         yield return new WaitForSeconds(0.5f);
         GetPlayerData();
+        yield return new WaitForSeconds(5f);
+        StartCoroutine(Leaderboards.Instance.GetWorldLeaderboardByCountry());
     }
 
     public void GetLocationDataOfRubbish()
@@ -261,7 +262,7 @@ public class PlayfabManager : MonoBehaviour
     }
 
     public void IsFirstTime()
-    {
+    {        
         PlayFabClientAPI.GetAccountInfo(
             new GetAccountInfoRequest { },
             result =>

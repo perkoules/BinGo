@@ -31,6 +31,7 @@ using System.IO;
 
 namespace Ionic.Zlib
 {
+
     /// <summary>
     /// Represents a Zlib stream for compression or decompression.
     /// </summary>
@@ -71,7 +72,7 @@ namespace Ionic.Zlib
     public class ZlibStream : System.IO.Stream
     {
         internal ZlibBaseStream _baseStream;
-        private bool _disposed;
+        bool _disposed;
 
         /// <summary>
         /// Create a <c>ZlibStream</c> using the specified <c>CompressionMode</c>.
@@ -320,7 +321,7 @@ namespace Ionic.Zlib
             _baseStream = new ZlibBaseStream(stream, mode, level, ZlibStreamFlavor.ZLIB, leaveOpen);
         }
 
-        #region Zlib properties
+#region Zlib properties
 
         /// <summary>
         /// This property sets the flush behavior on the stream.
@@ -382,9 +383,9 @@ namespace Ionic.Zlib
             get { return this._baseStream._z.TotalBytesOut; }
         }
 
-        #endregion Zlib properties
+#endregion
 
-        #region System.IO.Stream methods
+#region System.IO.Stream methods
 
         /// <summary>
         ///   Dispose the stream.
@@ -425,6 +426,7 @@ namespace Ionic.Zlib
                 base.Dispose(disposing);
             }
         }
+
 
         /// <summary>
         /// Indicates whether the stream can be read.
@@ -544,7 +546,7 @@ namespace Ionic.Zlib
         /// <returns>the number of bytes read</returns>
         public override int Read(byte[] buffer, int offset, int count)
         {
-            if (_disposed) throw new ObjectDisposedException("ZlibStream");
+                if (_disposed) throw new ObjectDisposedException("ZlibStream");
             return _baseStream.Read(buffer, offset, count);
         }
 
@@ -606,11 +608,11 @@ namespace Ionic.Zlib
         /// <param name="count">the number of bytes to write.</param>
         public override void Write(byte[] buffer, int offset, int count)
         {
-            if (_disposed) throw new ObjectDisposedException("ZlibStream");
+                if (_disposed) throw new ObjectDisposedException("ZlibStream");
             _baseStream.Write(buffer, offset, count);
         }
+#endregion
 
-        #endregion System.IO.Stream methods
 
         /// <summary>
         ///   Compress a string into a byte array using ZLIB.
@@ -641,6 +643,7 @@ namespace Ionic.Zlib
             }
         }
 
+
         /// <summary>
         ///   Compress a byte array into a new byte array using ZLIB.
         /// </summary>
@@ -662,12 +665,13 @@ namespace Ionic.Zlib
             using (var ms = new MemoryStream())
             {
                 Stream compressor =
-                    new ZlibStream(ms, CompressionMode.Compress, CompressionLevel.BestCompression);
+                    new ZlibStream( ms, CompressionMode.Compress, CompressionLevel.BestCompression );
 
                 ZlibBaseStream.CompressBuffer(b, compressor);
                 return ms.ToArray();
             }
         }
+
 
         /// <summary>
         ///   Uncompress a ZLIB-compressed byte array into a single string.
@@ -692,6 +696,7 @@ namespace Ionic.Zlib
             }
         }
 
+
         /// <summary>
         ///   Uncompress a ZLIB-compressed byte array into a byte array.
         /// </summary>
@@ -709,12 +714,14 @@ namespace Ionic.Zlib
             using (var input = new MemoryStream(compressed))
             {
                 Stream decompressor =
-                    new ZlibStream(input, CompressionMode.Decompress);
+                    new ZlibStream( input, CompressionMode.Decompress );
 
                 return ZlibBaseStream.UncompressBuffer(compressed, decompressor);
             }
         }
-    }
-}
 
+    }
+
+
+}
 #endif

@@ -26,6 +26,7 @@
 //
 // ------------------------------------------------------------------
 
+
 using System;
 using Interop = System.Runtime.InteropServices;
 
@@ -114,6 +115,7 @@ namespace Ionic.Crc
             }
         }
 
+
         /// <summary>
         ///   Get the CRC32 for the given (word,byte) combo.  This is a
         ///   computation defined by PKzip for PKZIP 2.0 (weak) encryption.
@@ -130,6 +132,7 @@ namespace Ionic.Crc
         {
             return (Int32)(crc32Table[(W ^ B) & 0xFF] ^ (W >> 8));
         }
+
 
         /// <summary>
         /// Update the value for the running CRC32 using the given block of bytes.
@@ -161,6 +164,7 @@ namespace Ionic.Crc
             }
             _TotalBytesRead += count;
         }
+
 
         /// <summary>
         ///   Process one byte in the CRC.
@@ -211,9 +215,12 @@ namespace Ionic.Crc
                     _register = (_register >> 8) ^ crc32Table[(temp >= 0)
                                                               ? temp
                                                               : (temp + 256)];
+
                 }
             }
         }
+
+
 
         private static uint ReverseBits(uint data)
         {
@@ -239,6 +246,8 @@ namespace Ionic.Crc
                 return (byte)((0x01001001 * (s + t)) >> 24);
             }
         }
+
+
 
         private void GenerateLookupTable()
         {
@@ -270,7 +279,7 @@ namespace Ionic.Crc
                         crc32Table[i] = dwCrc;
                     }
                     i++;
-                } while (i != 0);
+                } while (i!=0);
             }
 
 #if VERBOSE
@@ -290,13 +299,14 @@ namespace Ionic.Crc
 #endif
         }
 
+
         private uint gf2_matrix_times(uint[] matrix, uint vec)
         {
             uint sum = 0;
-            int i = 0;
+            int i=0;
             while (vec != 0)
             {
-                if ((vec & 0x01) == 0x01)
+                if ((vec & 0x01)== 0x01)
                     sum ^= matrix[i];
                 vec >>= 1;
                 i++;
@@ -309,6 +319,8 @@ namespace Ionic.Crc
             for (int i = 0; i < 32; i++)
                 square[i] = gf2_matrix_times(mat, mat[i]);
         }
+
+
 
         /// <summary>
         ///   Combines the given CRC32 value with the current running total.
@@ -329,8 +341,8 @@ namespace Ionic.Crc
             if (length == 0)
                 return;
 
-            uint crc1 = ~_register;
-            uint crc2 = (uint)crc;
+            uint crc1= ~_register;
+            uint crc2= (uint) crc;
 
             // put operator for one zero bit in odd
             odd[0] = this.dwPolynomial;  // the CRC-32 polynomial
@@ -347,16 +359,15 @@ namespace Ionic.Crc
             // put operator for four zero bits in odd
             gf2_matrix_square(odd, even);
 
-            uint len2 = (uint)length;
+            uint len2 = (uint) length;
 
             // apply len2 zeros to crc1 (first square will put the operator for one
             // zero byte, eight zero bits, in even)
-            do
-            {
+            do {
                 // apply zeros operator for this bit of len2
                 gf2_matrix_square(even, odd);
 
-                if ((len2 & 1) == 1)
+                if ((len2 & 1)== 1)
                     crc1 = gf2_matrix_times(even, crc1);
                 len2 >>= 1;
 
@@ -365,18 +376,21 @@ namespace Ionic.Crc
 
                 // another iteration of the loop with odd and even swapped
                 gf2_matrix_square(odd, even);
-                if ((len2 & 1) == 1)
+                if ((len2 & 1)==1)
                     crc1 = gf2_matrix_times(odd, crc1);
                 len2 >>= 1;
+
+
             } while (len2 != 0);
 
             crc1 ^= crc2;
 
-            _register = ~crc1;
+            _register= ~crc1;
 
             //return (int) crc1;
             return;
         }
+
 
         /// <summary>
         ///   Create an instance of the CRC32 class using the default settings: no
@@ -403,9 +417,10 @@ namespace Ionic.Crc
         ///   </para>
         /// </remarks>
         public CRC32(bool reverseBits) :
-            this(unchecked((int)0xEDB88320), reverseBits)
+            this( unchecked((int)0xEDB88320), reverseBits)
         {
         }
+
 
         /// <summary>
         ///   Create an instance of the CRC32 class, specifying the polynomial and
@@ -435,7 +450,7 @@ namespace Ionic.Crc
         public CRC32(int polynomial, bool reverseBits)
         {
             this.reverseBits = reverseBits;
-            this.dwPolynomial = (uint)polynomial;
+            this.dwPolynomial = (uint) polynomial;
             this.GenerateLookupTable();
         }
 
@@ -455,13 +470,13 @@ namespace Ionic.Crc
 
         // private member vars
         private UInt32 dwPolynomial;
-
         private Int64 _TotalBytesRead;
         private bool reverseBits;
         private UInt32[] crc32Table;
         private const int BUFFER_SIZE = 8192;
         private UInt32 _register = 0xFFFFFFFFU;
     }
+
 
     /// <summary>
     /// A Stream that calculates a CRC32 (a checksum) on all bytes read,
@@ -594,6 +609,7 @@ namespace Ionic.Crc
                 throw new ArgumentException("length");
         }
 
+
         // This ctor is private - no validation is done here.  This is to allow the use
         // of a (specific) negative value for the _lengthLimit, to indicate that there
         // is no length set.  So we validate the length limit in those ctors that use an
@@ -608,6 +624,7 @@ namespace Ionic.Crc
             _lengthLimit = length;
             _leaveOpen = leaveOpen;
         }
+
 
         /// <summary>
         ///   Gets the total number of bytes run through the CRC32 calculator.
@@ -777,6 +794,7 @@ namespace Ionic.Crc
             throw new NotSupportedException();
         }
 
+
         void IDisposable.Dispose()
         {
             Close();
@@ -791,7 +809,8 @@ namespace Ionic.Crc
             if (!_leaveOpen)
                 _innerStream.Close();
         }
-    }
-}
 
+    }
+
+}
 #endif

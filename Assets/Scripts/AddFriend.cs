@@ -19,39 +19,24 @@ public class AddFriend : MonoBehaviour
     private void OnEnable()
     {
         button = GetComponent<Button>();
-        if (button.interactable)
+        
+        for (int i = 0; i < 2; i++)
         {
-            StartCoroutine(ShowFriends());
-        }
-    }
+            if (this.button == friendListController.addFriendButtons[i] && !string.IsNullOrEmpty(friendListController.friendsName[i].text)
+                && this.button.IsInteractable())
+            {
+                countryImage.sprite = FindImageFlag(friendListController.friendsFlag[i]);
+                avatarImage.sprite = FindImageAvatar(friendListController.friendsAvatar[i]);
+                levelBadge.sprite = FindImageLevel(friendListController.friendsLevel[i].text);
+                button.interactable = false;
+            }
+            else if (!button.IsInteractable())
+            {
 
-    private IEnumerator ShowFriends()
-    {
-        yield return new WaitForSeconds(1);
-        if (button.name.Contains("1") && friendListController.friendList.friend1 != "")
-        {
-            friendToFind.text = friendListController.friendList.friend1;
-            button.interactable = false;
-            SearchForFriend();
-        }
-        else if (button.name.Contains("2") && friendListController.friendList.friend2 != "")
-        {
-            yield return new WaitForSeconds(1);
-            friendToFind.text = friendListController.friendList.friend2;
-            button.interactable = false;
-            SearchForFriend();
-        }
-        else if (button.name.Contains("3") && friendListController.friendList.friend3 != "")
-        {
-            yield return new WaitForSeconds(1);
-            friendToFind.text = friendListController.friendList.friend3;
-            button.interactable = false;
-            SearchForFriend();
-        }
+            }
+        }        
     }
-
     
-
 
     public void SearchForFriend()
     {
@@ -67,12 +52,7 @@ public class AddFriend : MonoBehaviour
              error =>
              {
                  Debug.LogError(error.GenerateErrorReport());
-                 if (error.ErrorMessage == "These users are already friends.")
-                 {
-                     StartCoroutine(GetFriendsID());
-                     button.interactable = false;
-                 }
-                 else if (error.ErrorMessage == "User not found")
+                 if (error.ErrorMessage == "User not found")
                  {
                      StartCoroutine(UserNotFound());
                  }
@@ -85,42 +65,7 @@ public class AddFriend : MonoBehaviour
         userNotfound.SetActive(true);
     }
 
-    private IEnumerator GetFriendsID()
-    {
-        string friendsID = "";
-        yield return new WaitForSeconds(1);
-        PlayFabClientAPI.GetFriendsList(
-            new GetFriendList() { },
-            result =>
-            {
-                foreach (var item in result.Friends)
-                {                    
-                    if (item.Username == friendToFind.text)
-                    {
-                        friendsID = item.FriendPlayFabId;
-                    }
-                }
-            },
-            error => Debug.LogError(error.GenerateErrorReport()));
-        yield return new WaitForSeconds(1);
-        PlayFabClientAPI.GetUserData(new GetUserDataRequest() { PlayFabId = friendsID },
-        result =>
-        {
-            if (result.Data == null) Debug.Log("No Data");
-            else
-            {
-                username.text = friendToFind.text;
-                avatarImage.sprite = FindImageAvatar(result.Data["Avatar"].Value);
-                countryImage.sprite = FindImageFlag(result.Data["Country"].Value);
-            }
-        },
-        error => Debug.Log(error.GenerateErrorReport()));
-        yield return new WaitForSeconds(1f);
-        GetTeammatesLevel(friendsID);
-        yield return new WaitForSeconds(1f);
-        levelBadge.sprite = FindImageLevel(level.text);
-        objectToHide.SetActive(false);
-    }
+    
     private IEnumerator SearchDatabase()
     {
         string friendsID = "";

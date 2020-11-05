@@ -1,41 +1,97 @@
 ﻿using PlayFab;
 using PlayFab.ClientModels;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class FriendListController : MonoBehaviour
 {
-    public List<Button> buttons;
-    public FriendList friendList;
+    public List<Button> addFriendButtons;
+    public Dictionary<string, string> friendList;
 
-    public void OnEnable()
+    public List<TextMeshProUGUI> friendsName, friendsLevel;
+    public List<string> friendsFlag, friendsAvatar, friendsBadge;
+
+    public static FriendListController Instance { get; private set; }
+
+    private void OnEnable()
     {
-        if (buttons[0].interactable || buttons[1].interactable || buttons[2].interactable)
+        if (Instance != null && Instance != this)
         {
-            PlayFabClientAPI.GetFriendsList(
-                new GetFriendList() { },
-                result =>
-                {
-                    friendList.friend1 = result.Friends[0].Username;
-                    friendList.friend1Id = result.Friends[0].FriendPlayFabId;
-                    friendList.friend2 = result.Friends[1].Username;
-                    friendList.friend2Id = result.Friends[1].FriendPlayFabId;
-                    friendList.friend3 = result.Friends[2].Username;
-                    friendList.friend3Id = result.Friends[2].FriendPlayFabId;
-                },
-                error => Debug.LogError(error.GenerateErrorReport()));
+            Destroy(this.gameObject);
         }
-    }
-}
+        else
+        {
+            Instance = this;
+        }
 
-[System.Serializable]
-public class FriendList
-{
-    public string friend1;
-    public string friend1Id;
-    public string friend2;
-    public string friend2Id;
-    public string friend3;
-    public string friend3Id;
+        Invoke("GetFriends", 2f);
+    }
+    private void GetFriends()
+    {
+        friendList = new Dictionary<string, string>();
+        StartCoroutine(GetFriendsList());
+    }
+
+    public IEnumerator GetFriendsList()
+    {
+        PlayFabClientAPI.GetFriendsList(
+            new GetFriendsListRequest() { },
+            result =>
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    if (!string.IsNullOrEmpty(result.Friends[i].FriendPlayFabId))
+                    {
+                        friendList.Add(result.Friends[i].FriendPlayFabId, result.Friends[i].Username);
+                    }
+                }
+            },
+            error => Debug.LogError(error.GenerateErrorReport()));
+        yield return new WaitForSeconds(1f);
+        for (int i = 0; i < 2; i++)
+        {
+            if (!string.IsNullOrEmpty(friendList.ElementAt(i).Key))
+            {
+                PlayFabClientAPI.GetUserData(new GetUserDataRequest() { PlayFabId = friendList.ElementAt(i).Key },
+                    result =>
+                    {
+                        if (result.Data == null) Debug.Log("No Data");
+                        else
+                        {
+                            friendsName[i].text = friendList.ElementAt(i).Value;
+                            friendsFlag[i] = result.Data["Country"].Value;
+                            friendsAvatar[i] = result.Data["Avatar"].Value;
+
+                        }
+                    },
+                    error => Debug.Log(error.GenerateErrorReport()));
+                yield return new WaitForSeconds(2f);
+            }
+        }
+        GetTeammatesLevel();
+    }
+    private void GetTeammatesLevel()
+    {
+        PlayFabClientAPI.GetFriendLeaderboard(
+            new GetFriendLeaderboardRequest() { StatisticName = "ProgressLevel" },
+            result =>
+            {
+                for (int i = 0; i < result.Leaderboard.Count; i++)
+                {
+                    int ind = friendsName.FindIndex(tmp => tmp.text == result.Leaderboard[i].DisplayName.ToLower());
+                    if (ind != -1)
+                    {
+                        if (result.Leaderboard[i].DisplayName.ToLower() == friendsName[ind].text)
+                        {
+                            friendsLevel[ind].text = result.Leaderboard[i].StatValue.ToString();
+                        }
+                    }
+                }
+            },
+            error => Debug.LogError(error.GenerateErrorReport()));
+    }
 }

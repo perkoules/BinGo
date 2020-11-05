@@ -1,8 +1,7 @@
 #if !DISABLE_PLAYFABENTITY_API
-
-using PlayFab.SharedModels;
 using System;
 using System.Collections.Generic;
+using PlayFab.SharedModels;
 
 namespace PlayFab.DataModels
 {
@@ -15,18 +14,15 @@ namespace PlayFab.DataModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string, string> CustomTags;
-
+        public Dictionary<string,string> CustomTags;
         /// <summary>
         /// The entity to perform this action on.
         /// </summary>
         public EntityKey Entity;
-
         /// <summary>
         /// Names of the files to have their pending uploads aborted.
         /// </summary>
         public List<string> FileNames;
-
         /// <summary>
         /// The expected version of the profile, if set and doesn't match the current version of the profile the operation will not
         /// be performed.
@@ -41,7 +37,6 @@ namespace PlayFab.DataModels
         /// The entity id and type.
         /// </summary>
         public EntityKey Entity;
-
         /// <summary>
         /// The current version of the profile, can be used for concurrency control during updates.
         /// </summary>
@@ -57,18 +52,15 @@ namespace PlayFab.DataModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string, string> CustomTags;
-
+        public Dictionary<string,string> CustomTags;
         /// <summary>
         /// The entity to perform this action on.
         /// </summary>
         public EntityKey Entity;
-
         /// <summary>
         /// Names of the files to be deleted.
         /// </summary>
         public List<string> FileNames;
-
         /// <summary>
         /// The expected version of the profile, if set and doesn't match the current version of the profile the operation will not
         /// be performed.
@@ -83,7 +75,6 @@ namespace PlayFab.DataModels
         /// The entity id and type.
         /// </summary>
         public EntityKey Entity;
-
         /// <summary>
         /// The current version of the profile, can be used for concurrency control during updates.
         /// </summary>
@@ -100,7 +91,6 @@ namespace PlayFab.DataModels
         /// Unique ID of the entity.
         /// </summary>
         public string Id;
-
         /// <summary>
         /// Entity type. See https://docs.microsoft.com/gaming/playfab/features/data/entities/available-built-in-entity-types
         /// </summary>
@@ -117,17 +107,19 @@ namespace PlayFab.DataModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string, string> CustomTags;
-
+        public Dictionary<string,string> CustomTags;
         /// <summary>
         /// The entity to perform this action on.
         /// </summary>
         public EntityKey Entity;
-
         /// <summary>
         /// Names of the files to be finalized. Restricted to a-Z, 0-9, '(', ')', '_', '-' and '.'
         /// </summary>
         public List<string> FileNames;
+        /// <summary>
+        /// The current version of the profile, can be used for concurrency control during updates.
+        /// </summary>
+        public int ProfileVersion;
     }
 
     [Serializable]
@@ -137,12 +129,10 @@ namespace PlayFab.DataModels
         /// The entity id and type.
         /// </summary>
         public EntityKey Entity;
-
         /// <summary>
         /// Collection of metadata for the entity's files
         /// </summary>
-        public Dictionary<string, GetFileMetadata> Metadata;
-
+        public Dictionary<string,GetFileMetadata> Metadata;
         /// <summary>
         /// The current version of the profile, can be used for concurrency control during updates.
         /// </summary>
@@ -156,22 +146,18 @@ namespace PlayFab.DataModels
         /// Checksum value for the file
         /// </summary>
         public string Checksum;
-
         /// <summary>
         /// Download URL where the file can be retrieved
         /// </summary>
         public string DownloadUrl;
-
         /// <summary>
         /// Name of the file
         /// </summary>
         public string FileName;
-
         /// <summary>
         /// Last UTC time the file was modified
         /// </summary>
         public DateTime LastModified;
-
         /// <summary>
         /// Storage service's reported byte count
         /// </summary>
@@ -189,8 +175,7 @@ namespace PlayFab.DataModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string, string> CustomTags;
-
+        public Dictionary<string,string> CustomTags;
         /// <summary>
         /// The entity to perform this action on.
         /// </summary>
@@ -204,12 +189,10 @@ namespace PlayFab.DataModels
         /// The entity id and type.
         /// </summary>
         public EntityKey Entity;
-
         /// <summary>
         /// Collection of metadata for the entity's files
         /// </summary>
-        public Dictionary<string, GetFileMetadata> Metadata;
-
+        public Dictionary<string,GetFileMetadata> Metadata;
         /// <summary>
         /// The current version of the profile, can be used for concurrency control during updates.
         /// </summary>
@@ -225,13 +208,11 @@ namespace PlayFab.DataModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string, string> CustomTags;
-
+        public Dictionary<string,string> CustomTags;
         /// <summary>
         /// The entity to perform this action on.
         /// </summary>
         public EntityKey Entity;
-
         /// <summary>
         /// Determines whether the object will be returned as an escaped JSON string or as a un-escaped JSON object. Default is JSON
         /// object.
@@ -246,12 +227,10 @@ namespace PlayFab.DataModels
         /// The entity id and type.
         /// </summary>
         public EntityKey Entity;
-
         /// <summary>
         /// Requested objects that the calling entity has access to
         /// </summary>
-        public Dictionary<string, ObjectResult> Objects;
-
+        public Dictionary<string,ObjectResult> Objects;
         /// <summary>
         /// The current version of the profile, can be used for concurrency control during updates.
         /// </summary>
@@ -265,7 +244,6 @@ namespace PlayFab.DataModels
         /// Name of the file.
         /// </summary>
         public string FileName;
-
         /// <summary>
         /// Location the data should be sent to via an HTTP PUT operation.
         /// </summary>
@@ -282,18 +260,15 @@ namespace PlayFab.DataModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string, string> CustomTags;
-
+        public Dictionary<string,string> CustomTags;
         /// <summary>
         /// The entity to perform this action on.
         /// </summary>
         public EntityKey Entity;
-
         /// <summary>
         /// Names of the files to be set. Restricted to a-Z, 0-9, '(', ')', '_', '-' and '.'
         /// </summary>
         public List<string> FileNames;
-
         /// <summary>
         /// The expected version of the profile, if set and doesn't match the current version of the profile the operation will not
         /// be performed.
@@ -308,12 +283,10 @@ namespace PlayFab.DataModels
         /// The entity id and type.
         /// </summary>
         public EntityKey Entity;
-
         /// <summary>
         /// The current version of the profile, can be used for concurrency control during updates.
         /// </summary>
         public int ProfileVersion;
-
         /// <summary>
         /// Collection of file names and upload urls
         /// </summary>
@@ -327,12 +300,10 @@ namespace PlayFab.DataModels
         /// Un-escaped JSON object, if EscapeObject false or default.
         /// </summary>
         public object DataObject;
-
         /// <summary>
         /// Escaped string JSON body of the object, if EscapeObject is true.
         /// </summary>
         public string EscapedDataObject;
-
         /// <summary>
         /// Name of the object. Restricted to a-Z, 0-9, '(', ')', '_', '-' and '.'
         /// </summary>
@@ -355,18 +326,15 @@ namespace PlayFab.DataModels
         /// will occur if it does not exist. Only one of Object or EscapedDataObject fields may be used.
         /// </summary>
         public object DataObject;
-
         /// <summary>
         /// Flag to indicate that this object should be deleted. Both DataObject and EscapedDataObject must not be set as well.
         /// </summary>
         public bool? DeleteObject;
-
         /// <summary>
         /// Body of the object to be saved as an escaped JSON string. If empty and DeleteObject is true object will be deleted if it
         /// exists, or no operation will occur if it does not exist. Only one of DataObject or EscapedDataObject fields may be used.
         /// </summary>
         public string EscapedDataObject;
-
         /// <summary>
         /// Name of object. Restricted to a-Z, 0-9, '(', ')', '_', '-' and '.'.
         /// </summary>
@@ -380,12 +348,10 @@ namespace PlayFab.DataModels
         /// Name of the object
         /// </summary>
         public string ObjectName;
-
         /// <summary>
         /// Optional reason to explain why the operation was the result that it was.
         /// </summary>
         public string OperationReason;
-
         /// <summary>
         /// Indicates which operation was completed, either Created, Updated, Deleted or None.
         /// </summary>
@@ -405,20 +371,17 @@ namespace PlayFab.DataModels
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
-        public Dictionary<string, string> CustomTags;
-
+        public Dictionary<string,string> CustomTags;
         /// <summary>
         /// The entity to perform this action on.
         /// </summary>
         public EntityKey Entity;
-
         /// <summary>
         /// Optional field used for concurrency control. By specifying the previously returned value of ProfileVersion from
         /// GetProfile API, you can ensure that the object set will only be performed if the profile has not been updated by any
         /// other clients since the version you last loaded.
         /// </summary>
         public int? ExpectedProfileVersion;
-
         /// <summary>
         /// Collection of objects to set on the profile.
         /// </summary>
@@ -432,12 +395,10 @@ namespace PlayFab.DataModels
         /// New version of the entity profile.
         /// </summary>
         public int ProfileVersion;
-
         /// <summary>
         /// New version of the entity profile.
         /// </summary>
         public List<SetObjectInfo> SetResults;
     }
 }
-
 #endif

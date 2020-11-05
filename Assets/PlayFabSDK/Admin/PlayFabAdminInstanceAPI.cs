@@ -1,10 +1,10 @@
 #if ENABLE_PLAYFABADMIN_API
 
+using System;
+using System.Collections.Generic;
 using PlayFab.AdminModels;
 using PlayFab.Internal;
 using PlayFab.SharedModels;
-using System;
-using System.Collections.Generic;
 
 namespace PlayFab
 {
@@ -16,9 +16,7 @@ namespace PlayFab
         public readonly PlayFabApiSettings apiSettings = null;
         public readonly PlayFabAuthenticationContext authenticationContext = null;
 
-        public PlayFabAdminInstanceAPI()
-        {
-        }
+        public PlayFabAdminInstanceAPI() { }
 
         public PlayFabAdminInstanceAPI(PlayFabApiSettings settings)
         {
@@ -1312,6 +1310,7 @@ namespace PlayFab
             if (string.IsNullOrEmpty(callSettings.DeveloperSecretKey)) { throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must set DeveloperSecretKey in settings to call this method"); }
             PlayFabHttp.MakeApiCall("/Admin/UpdateUserTitleDisplayName", request, AuthType.DevSecretKey, resultCallback, errorCallback, customData, extraHeaders, context, callSettings, this);
         }
+
     }
 }
 

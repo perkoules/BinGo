@@ -1,6 +1,7 @@
 ﻿using PlayFab;
 using PlayFab.ClientModels;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -36,19 +37,28 @@ public class SetTeamname : MonoBehaviour
         SetNameToFriends(nameToSet.text);
         setWindowButton.gameObject.SetActive(false);
     }
-
+    
     private void SetNameToFriends(string nameText)
     {
-        FriendOne(nameText);
-        FriendTwo(nameText);
-        FriendThree(nameText);
+        if (!string.IsNullOrEmpty(listController.friendList.ElementAt(0).Key))
+        {
+            FriendOne(nameText);
+        }
+        if (!string.IsNullOrEmpty(listController.friendList.ElementAt(1).Key))
+        {
+            FriendTwo(nameText);
+        }
+        if (!string.IsNullOrEmpty(listController.friendList.ElementAt(2).Key))
+        {
+            FriendThree(nameText);
+        }
     }
-
+    
     private void FriendThree(string nameText)
     {
         PlayFabAdminAPI.UpdateUserData(new PlayFab.AdminModels.UpdateUserDataRequest()
         {
-            PlayFabId = listController.friendList.friend3Id,
+            PlayFabId = listController.friendList.ElementAt(2).Key,
             Permission = PlayFab.AdminModels.UserDataPermission.Public,
             Data = new Dictionary<string, string>() {
             {"TeamName", nameText} }
@@ -64,7 +74,7 @@ public class SetTeamname : MonoBehaviour
     {
         PlayFabAdminAPI.UpdateUserData(new PlayFab.AdminModels.UpdateUserDataRequest()
         {
-            PlayFabId = listController.friendList.friend2Id,
+            PlayFabId = listController.friendList.ElementAt(1).Key,
             Permission = PlayFab.AdminModels.UserDataPermission.Public,
             Data = new Dictionary<string, string>() {
             {"TeamName", nameText} }
@@ -80,7 +90,7 @@ public class SetTeamname : MonoBehaviour
     {
         PlayFabAdminAPI.UpdateUserData(new PlayFab.AdminModels.UpdateUserDataRequest()
         {
-            PlayFabId = listController.friendList.friend1Id,
+            PlayFabId = listController.friendList.ElementAt(0).Key,
             Permission = PlayFab.AdminModels.UserDataPermission.Public,
             Data = new Dictionary<string, string>() {
             {"TeamName", nameText} }

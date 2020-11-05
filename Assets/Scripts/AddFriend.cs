@@ -19,7 +19,15 @@ public class AddFriend : MonoBehaviour
     private void OnEnable()
     {
         button = GetComponent<Button>();
-        
+
+        if (friendListController.friendsExist)
+        {
+            ImageAdjustment();
+        }
+    }
+
+    public void ImageAdjustment()
+    {
         for (int i = 0; i < 2; i++)
         {
             if (this.button == friendListController.addFriendButtons[i] && !string.IsNullOrEmpty(friendListController.friendsName[i].text)
@@ -30,13 +38,8 @@ public class AddFriend : MonoBehaviour
                 levelBadge.sprite = FindImageLevel(friendListController.friendsLevel[i].text);
                 button.interactable = false;
             }
-            else if (!button.IsInteractable())
-            {
-
-            }
-        }        
+        }
     }
-    
 
     public void SearchForFriend()
     {

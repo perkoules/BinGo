@@ -35,20 +35,35 @@ public class Leaderboards : MonoBehaviour
 
     private void Start()
     {
+        GetAllPlayers();
+    }
+
+    public void ReSyncData()
+    {
+        GetAllPlayers();
+        StartCoroutine(GetWorldLeaderboardByCountry());
+    }
+
+    public void GetAllPlayers()
+    {
         PlayFabAdminAPI.GetPlayersInSegment(
-            new GetPlayersInSegmentRequest { SegmentId = "CAD8FCF4CF87AD8E" },
-            result =>
-            {
-                foreach (var item in result.PlayerProfiles)
-                {
-                    allPlayers.Add(item.PlayerId);
-                }
-            },
-            error => Debug.LogError(error.GenerateErrorReport()));
+                    new GetPlayersInSegmentRequest { SegmentId = "CAD8FCF4CF87AD8E" },
+                    result =>
+                    {
+                        foreach (var item in result.PlayerProfiles)
+                        {
+                            if (!allPlayers.Contains(item.PlayerId))
+                            {
+                                allPlayers.Add(item.PlayerId);
+                            }
+                        }
+                    },
+                    error => Debug.LogError(error.GenerateErrorReport()));
     }
 
     public IEnumerator GetWorldLeaderboardByCountry()
     {
+        yield return new WaitForSeconds(2);
         Dictionary<string, string> idCountry = new Dictionary<string, string>();
 
         foreach (var id in allPlayers)
@@ -122,7 +137,6 @@ public class Leaderboards : MonoBehaviour
     
     public IEnumerator GetWorldLeaderboardByTeam()
     {
-        Debug.Log("Teams started");
         idTeamnameRubbish = new Trictionary();        
         yield return new WaitForSeconds(6);
         foreach (var id in allPlayers)

@@ -42,7 +42,7 @@ public class LeaderboardWorldByTeam : MonoBehaviour
     private IEnumerator GettingDataMessage()
     {
         gettingDataMessage.SetActive(true);
-        yield return new WaitUntil(() => leaderboardHolder.transform.childCount > 0);
+        yield return new WaitUntil(() => leaderboardHolder.transform.childCount > 0 || gettingDataMessage.activeSelf == false);
         gettingDataMessage.SetActive(false);
     }
 }

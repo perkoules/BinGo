@@ -12,7 +12,7 @@ public class Container : MonoBehaviour
     {
         container = this;
     }
-
+/*
     private void Start()
     {
         for (int i = 0; i < gameObject.transform.childCount; i++)
@@ -20,5 +20,5 @@ public class Container : MonoBehaviour
             Image img = transform.GetChild(i).GetComponentInChildren<Image>();
             imageContainer.Add(img);
         }
-    }
+    }*/
 }

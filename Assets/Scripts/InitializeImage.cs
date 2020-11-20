@@ -89,7 +89,7 @@ public class InitializeImage : MonoBehaviour
                 case "Badge":
                     foreach (var img in levelBadgeSelection.imageContainer)
                     {
-                        string imgObj = img.name.Remove(0, 10);
+                        string imgObj = img.name.Remove(0, 6);
                         if (imgObj == playerDataSaver.GetProgressLevel().ToString())
                         {
                             myImage.sprite = img.sprite;

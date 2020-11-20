@@ -144,7 +144,7 @@ public class AddFriend : MonoBehaviour
     {
         foreach (var img in levelBadgeSelection.imageContainer)
         {
-            string imgObj = img.name.Remove(0, 10);
+            string imgObj = img.name.Remove(0, 6);
             if (imgObj == imageToSearch)
             {
                 return img.sprite;

@@ -7,6 +7,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
 
 public class RegisterManager : MonoBehaviour
@@ -17,6 +18,8 @@ public class RegisterManager : MonoBehaviour
     public Color32 colorDefault;
     public MessageController messageController;
     private PlayerDataSaver playerDataSaver;
+    public Image userValidImg, passValidImg, repPassValidImg, emailValidImg;
+    public Sprite greenLeaf, redLeaf;
     private string email = "";
     private string password = "";
     private string username = "";
@@ -50,11 +53,15 @@ public class RegisterManager : MonoBehaviour
     {
         if (usernameInputField.text.Length < 5)
         {
-            usernameInputField.image.color = Color.red;
+            //usernameInputField.image.color = Color.red;
+            userValidImg.gameObject.SetActive(true);
+            userValidImg.sprite = redLeaf;
         }
         else
         {
-            usernameInputField.image.color = colorDefault;
+            //usernameInputField.image.color = colorDefault;
+            userValidImg.gameObject.SetActive(true);
+            userValidImg.sprite = greenLeaf;
         }
     }
 
@@ -62,13 +69,21 @@ public class RegisterManager : MonoBehaviour
     {
         if (passwordInputField.text.Length >= 8 && passwordInputField.text.Equals(repeatPasswordInputField.text))
         {
-            passwordInputField.image.color = colorDefault;
-            repeatPasswordInputField.image.color = colorDefault;
+            //passwordInputField.image.color = colorDefault;
+            //repeatPasswordInputField.image.color = colorDefault;
+            passValidImg.gameObject.SetActive(true);
+            repPassValidImg.gameObject.SetActive(true);
+            passValidImg.sprite = greenLeaf;
+            repPassValidImg.sprite = greenLeaf;
         }
         else
         {
-            passwordInputField.image.color = Color.red;
-            repeatPasswordInputField.image.color = Color.red;
+            //passwordInputField.image.color = Color.red;
+            //repeatPasswordInputField.image.color = Color.red;
+            passValidImg.gameObject.SetActive(true);
+            repPassValidImg.gameObject.SetActive(true);
+            passValidImg.sprite = redLeaf;
+            repPassValidImg.sprite = redLeaf;
         }
     }
 

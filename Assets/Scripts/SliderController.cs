@@ -8,6 +8,7 @@ public class SliderController : MonoBehaviour
     public TextMeshProUGUI textToChange, maxCoins;
     private Slider slider;
     public int coinsUsed;
+    public Button reductionButton;
 
     private void OnEnable()
     {
@@ -20,10 +21,19 @@ public class SliderController : MonoBehaviour
     {
         textToChange.text = selectedValue.ToString("F2");
         coinsUsed = Convert.ToInt32(selectedValue * 100);
+        if(coinsUsed == 0)
+        {
+            reductionButton.interactable = false;
+        }
+        else
+        { 
+            reductionButton.interactable = true;
+        }
     }
 
     public void ResetSlider()
     {
         slider.value = slider.minValue;
+        reductionButton.interactable = false;
     }
 }

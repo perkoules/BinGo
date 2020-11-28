@@ -14,6 +14,8 @@ public class MonsterAgent : MonoBehaviour
     private bool playerDetected = false;
     private const string ANIM_WALKING = "Walking";
     private const string ANIM_DETECTED = "PlayerDetected";
+    private const string ANIM_COOLDOWN = "RunningCooldown";
+    private const string ANIM_DEAD = "IsDead";
 
     private void Awake()
     {
@@ -58,7 +60,7 @@ public class MonsterAgent : MonoBehaviour
 
     private void Update()
     {
-        if (anim.GetBool("IsDead"))
+        if (anim.GetBool(ANIM_DEAD))
         {
             agent.speed = 0;
             agent.isStopped = true;
@@ -72,12 +74,12 @@ public class MonsterAgent : MonoBehaviour
 
     IEnumerator Running()
     {
-        anim.SetBool(ANIM_DETECTED, true);
+        anim.SetTrigger(ANIM_DETECTED);
         agent.speed = 15;
         yield return new WaitForSeconds(Random.Range(5,10));
         playerDetected = false;
+        anim.SetTrigger(ANIM_COOLDOWN);
         agent.speed = 5;
-        anim.SetBool(ANIM_DETECTED, false);
         Idle();
     }
 

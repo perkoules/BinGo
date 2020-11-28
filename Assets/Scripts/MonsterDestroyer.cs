@@ -56,10 +56,10 @@ public class MonsterDestroyer : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
             {
                 GameObject go = hit.transform.gameObject;
-                if (go.name.Contains("Monster") && !monsterGotHit)
+                if (go.tag == "MonsterTag" && !monsterGotHit)
                 {
                     monsterGotHit = true;
-                    go.GetComponent<Animator>().SetTrigger("IsDead");
+                    go.GetComponent<Animator>().SetBool("IsDead", true);
                     StartCoroutine(Death(go));
                 }
             }
@@ -68,6 +68,7 @@ public class MonsterDestroyer : MonoBehaviour
 
     private IEnumerator Death(GameObject go)
     {
+        //Instantiate particle for death
         yield return new WaitForSeconds(4f); 
         monsterGotHit = false;
         Destroy(go);

@@ -5,10 +5,11 @@ using UnityEngine;
 public class EnemyCollection : MonoBehaviour
 {
     public List<GameObject> enemiesAdded;
+    public List<GameObject> clues;
     public static EnemyCollection Instance { get; private set; }
     private void OnEnable()
     {
-        if(Instance != null && Instance != this)
+        if (Instance != null && Instance != this)
         {
             Destroy(this.gameObject);
         }
@@ -24,9 +25,13 @@ public class EnemyCollection : MonoBehaviour
 
     public void AddEnemy(GameObject go)
     {
-        if(!enemiesAdded.Exists(g => g.name == go.name))
+        if (!enemiesAdded.Exists(g => g.name == go.name))
         {
             enemiesAdded.Add(go);
         }
+    }
+    public void AddEnemy(GameObject bat, GameObject message)
+    {
+        clues.Add(bat);
     }
 }

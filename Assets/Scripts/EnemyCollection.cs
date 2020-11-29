@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollectionTest : MonoBehaviour
+public class EnemyCollection : MonoBehaviour
 {
     public List<GameObject> enemiesAdded;
-    public static CollectionTest Instance { get; private set; }
+    public static EnemyCollection Instance { get; private set; }
     private void OnEnable()
     {
         if(Instance != null && Instance != this)

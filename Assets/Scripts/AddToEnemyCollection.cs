@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AddMe : MonoBehaviour
+public class AddToEnemyCollection : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
-        CollectionTest.Instance.AddEnemy(this.gameObject);
+        EnemyCollection.Instance.AddEnemy(this.gameObject);
     }
 
 }

@@ -1,5 +1,30 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!65 &8556791688652639746
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655030014943720262}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.37, y: 1.78, z: 1.6}
+  m_Center: {x: 0, y: 0.92, z: 0}
+--- !u!114 &285822238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655030014943720262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8424e0e7a9a9fa94399d6ff043810a4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!195 &285822239
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -22,31 +47,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &285822238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 655030014943720262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8424e0e7a9a9fa94399d6ff043810a4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!65 &8556791688652639746
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 655030014943720262}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.37, y: 1.78, z: 1.6}
-  m_Center: {x: 0, y: 0.92, z: 0}
 --- !u!1001 &653833687763883122
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -56,7 +56,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1618574005888820, guid: 30443ab5b6a78ea4899ca1d13e2e8e76, type: 3}
       propertyPath: m_Name
-      value: MonsterPlant
+      value: MonsterPlant Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1618574005888820, guid: 30443ab5b6a78ea4899ca1d13e2e8e76, type: 3}
       propertyPath: m_IsActive
@@ -64,7 +64,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1618574005888820, guid: 30443ab5b6a78ea4899ca1d13e2e8e76, type: 3}
       propertyPath: m_TagString
-      value: MonsterTag
+      value: HuntMonsterTag
       objectReference: {fileID: 0}
     - target: {fileID: 4268068898142106, guid: 30443ab5b6a78ea4899ca1d13e2e8e76, type: 3}
       propertyPath: m_LocalPosition.x

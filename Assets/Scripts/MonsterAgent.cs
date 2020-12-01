@@ -2,11 +2,14 @@
 using UnityEngine.AI;
 using Mapbox.Unity.Utilities;
 using System.Collections;
+using System;
+using Random = UnityEngine.Random;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class MonsterAgent : MonoBehaviour
 {
-    private Vector2 distanceRange = new Vector2(200f, 200f);
+    private Vector2 distanceRange;
     private NavMeshAgent agent;
     private GameObject player;
     private Animator anim;
@@ -17,11 +20,14 @@ public class MonsterAgent : MonoBehaviour
     private const string ANIM_COOLDOWN = "RunningCooldown";
     private const string ANIM_DEAD = "IsDead";
 
+    public MeshCollider parkCollider;
+
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        parkCollider = transform.GetComponentInParent<NavMeshSourceTag>().gameObject.GetComponent<MeshCollider>();
         StartCoroutine(EnableAgent());
     }
     private IEnumerator EnableAgent()
@@ -39,11 +45,10 @@ public class MonsterAgent : MonoBehaviour
 
     private IEnumerator Walking()
     {
-        Debug.DrawLine(transform.position, agent.destination, Color.red);  // Destination        
+        //Debug.DrawLine(transform.position, agent.destination, Color.red);  // Destination        
         anim.SetBool(ANIM_WALKING, true);
         if ((transform.position - agent.destination).sqrMagnitude > 1)
         {
-            
             yield return new WaitUntil(() => (transform.position - agent.destination).sqrMagnitude < 1);
         }
         if (!playerDetected)
@@ -84,8 +89,8 @@ public class MonsterAgent : MonoBehaviour
     }
 
     private void SetDestination()
-    {
-        var target = (Random.insideUnitCircle * Random.Range(distanceRange.x, distanceRange.y)).ToVector3xz() + transform.position;
+    {       
+        var target = (Random.insideUnitCircle * Random.Range(parkCollider.bounds.size.x, parkCollider.bounds.size.z)).ToVector3xz() + transform.position;
         if (agent.isOnNavMesh)
         {
             agent.destination = target;

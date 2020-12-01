@@ -29,6 +29,10 @@ public class EnemyCollection : MonoBehaviour
         {
             enemiesAdded.Add(go);
         }
+        else
+        {
+            Destroy(go);
+        }
     }
     public void AddEnemy(GameObject bat, GameObject message)
     {

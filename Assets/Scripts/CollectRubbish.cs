@@ -151,6 +151,13 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         messageText.text = "WELL DONE! You helped the environment!!!";
         fillerImage.fillAmount = 0;
         yield return new WaitForSeconds(2);
+
+        // If rubbish location (name) == Middlesbrough Tower
+        // Unlock treasure hunt 
+        // Open AR camera
+        // Get/collect clue & ammo
+        // Go to next place
+
         messageText.text = "Please scan another rubbish!!!";
         barcodeDetected = false;
         timeLeft = 10f;

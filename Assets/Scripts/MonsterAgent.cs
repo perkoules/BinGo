@@ -19,8 +19,12 @@ public class MonsterAgent : MonoBehaviour
     private const string ANIM_DETECTED = "PlayerDetected";
     private const string ANIM_COOLDOWN = "RunningCooldown";
     private const string ANIM_DEAD = "IsDead";
+    private const string ANIM_GOTHIT = "GotHit";
 
-    public MeshCollider parkCollider;
+    private MeshCollider parkCollider;
+    public GameObject prefabAmmo, prefabDeath;
+    public Transform ammoStart;
+    [SerializeField] private int health; 
 
     private void Awake()
     {
@@ -95,5 +99,29 @@ public class MonsterAgent : MonoBehaviour
         {
             agent.destination = target;
         }
+    }
+
+    public void AttackAmmo()
+    {
+        Debug.Log("Attack");
+        GameObject go = Instantiate(prefabAmmo, ammoStart.position, Quaternion.identity, ammoStart);
+        Destroy(go, 5f);
+    }
+
+    public void CheckHealth()
+    {
+        Debug.Log("Check Health");
+        anim.SetTrigger(ANIM_GOTHIT);
+        health--;
+        if (health <= 0)
+        {
+            anim.SetTrigger(ANIM_DEAD);
+        }
+    }
+
+    public void DestroyObject()
+    {
+        Instantiate(prefabDeath, gameObject.transform);
+        Destroy(gameObject, 1f);
     }
 }

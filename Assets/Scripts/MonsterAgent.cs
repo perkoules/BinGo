@@ -38,8 +38,7 @@ public class MonsterAgent : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         agent.enabled = true;
-        SetDestination();
-        StartCoroutine(Walking());
+        Idle();
     }
     private void Idle()
     {
@@ -47,7 +46,7 @@ public class MonsterAgent : MonoBehaviour
         StartCoroutine(Walking());
     }
 
-    private IEnumerator Walking()
+    public IEnumerator Walking()
     {
         //Debug.DrawLine(transform.position, agent.destination, Color.red);  // Destination        
         anim.SetBool(ANIM_WALKING, true);
@@ -81,7 +80,7 @@ public class MonsterAgent : MonoBehaviour
         }
     }
 
-    IEnumerator Running()
+    public IEnumerator Running()
     {
         anim.SetTrigger(ANIM_DETECTED);
         agent.speed = 15;
@@ -103,7 +102,6 @@ public class MonsterAgent : MonoBehaviour
 
     public void AttackAmmo()
     {
-        Debug.Log("Attack");
         GameObject go = Instantiate(prefabAmmo, ammoStart.position, Quaternion.identity, ammoStart);
         Destroy(go, 5f);
     }

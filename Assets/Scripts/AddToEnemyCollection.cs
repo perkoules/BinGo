@@ -10,4 +10,8 @@ public class AddToEnemyCollection : MonoBehaviour
         EnemyCollection.Instance.AddEnemy(this.gameObject);
     }
 
+    public void LookAtPlayer()
+    {
+        transform.LookAt(Camera.main.transform, Vector3.up);
+    }
 }

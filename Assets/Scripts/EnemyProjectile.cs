@@ -12,12 +12,12 @@ public class EnemyProjectile : MonoBehaviour
 
     private void Update()
     {
-        transform.position += Vector3.forward * 10f * Time.deltaTime;
+        transform.localPosition += transform.forward * 10f * Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)
-    {
-        if(other.tag == "Player")
+    { 
+        if(other.tag == "Player" || other.tag == "MainCamera")
         {
             Debug.Log("PlayerGotHit");
             Destroy(gameObject);

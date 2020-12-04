@@ -19,8 +19,12 @@ public class EnemyProjectile : MonoBehaviour
     { 
         if(other.tag == "Player" || other.tag == "MainCamera")
         {
-            Debug.Log("PlayerGotHit");
             Destroy(gameObject);
+        }
+        else if (other.tag == "ShieldTag")
+        {
+            Destroy(gameObject);
+            Destroy(other.gameObject);
         }
     }
 }

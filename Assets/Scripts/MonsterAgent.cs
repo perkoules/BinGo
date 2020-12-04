@@ -103,13 +103,11 @@ public class MonsterAgent : MonoBehaviour
     public void AttackAmmo()
     {
         GameObject go = Instantiate(prefabAmmo, ammoStart.position, Quaternion.identity, ammoStart);
-        Destroy(go, 5f);
+        Destroy(go, 10f);
     }
 
     public void CheckHealth()
     {
-        Debug.Log("Check Health");
-        anim.SetTrigger(ANIM_GOTHIT);
         health--;
         if (health <= 0)
         {
@@ -120,6 +118,15 @@ public class MonsterAgent : MonoBehaviour
     public void DestroyObject()
     {
         Instantiate(prefabDeath, gameObject.transform);
-        Destroy(gameObject, 1f);
+        Destroy(gameObject, 2f);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "PlayerProjectileTag")
+        {
+            Destroy(other.gameObject);
+            anim.SetTrigger(ANIM_GOTHIT);
+        }
     }
 }

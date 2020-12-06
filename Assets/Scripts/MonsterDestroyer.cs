@@ -12,6 +12,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(PlayerDataSaver))]
 public class MonsterDestroyer : MonoBehaviour
 {
+    public static MonsterDestroyer Instance;
     public DeviceLocationProvider locationProvider;
     private PlayerDataSaver playerDataSaver;
     public TextMeshProUGUI monstersText, amountText;
@@ -19,6 +20,18 @@ public class MonsterDestroyer : MonoBehaviour
     public int monstersKilled = 0;
     public GameObject treeImg, waterCan;
     public bool canRaycast = false;
+
+    private void OnEnable()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
 
     private void Awake()
     {
@@ -48,6 +61,9 @@ public class MonsterDestroyer : MonoBehaviour
 #endif
     }
 
+    public delegate void MonsterClicked();
+    public static event MonsterClicked OnMonsterClicked;
+    
     private void Raycasting(Vector3 position)
     {
         if (canRaycast) 
@@ -55,24 +71,13 @@ public class MonsterDestroyer : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(position);
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
             {
-                GameObject go = hit.transform.gameObject;
-                if (go.tag == "MonsterTag" && !monsterGotHit)
-                {
-                    monsterGotHit = true;
-                    go.GetComponent<Animator>().SetBool("IsDead", true);
-                    StartCoroutine(Death(go));
-                }
+                OnMonsterClicked();
             }
         }
     }
 
-    private IEnumerator Death(GameObject go)
-    {
-        //Instantiate particle for death
-        yield return new WaitForSeconds(4f); 
-        monsterGotHit = false;
-        Destroy(go);
-        TaskChecker.Instance.CheckTaskDone();
+    public void ChangeMonsterText()
+    {        
         monstersKilled++;
         monstersText.text = monstersKilled.ToString();
         if (waterCan.activeSelf)

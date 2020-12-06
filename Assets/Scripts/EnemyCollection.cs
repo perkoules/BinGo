@@ -7,6 +7,9 @@ public class EnemyCollection : MonoBehaviour
     public List<GameObject> enemiesAdded;
     public List<GameObject> clues;
     public static EnemyCollection Instance { get; private set; }
+
+
+
     private void OnEnable()
     {
         if (Instance != null && Instance != this)

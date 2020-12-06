@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7755639337116513916}
   m_Layer: 0
   m_Name: SpiderParks
-  m_TagString: Untagged
+  m_TagString: MonsterTag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,6 +31,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2251692294715681112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4937548918928364138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b78e1c19eb6bdeb419f9cbcb431bb1f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8731934553491990437
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -103,6 +115,12 @@ PrefabInstance:
 --- !u!4 &4939532499176564874 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4441304138842885935, guid: b3db7f713916d7e4c8ee34dbf2de90e6,
+    type: 3}
+  m_PrefabInstance: {fileID: 8731934553491990437}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4937548918928364138 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4443824277003679183, guid: b3db7f713916d7e4c8ee34dbf2de90e6,
     type: 3}
   m_PrefabInstance: {fileID: 8731934553491990437}
   m_PrefabAsset: {fileID: 0}

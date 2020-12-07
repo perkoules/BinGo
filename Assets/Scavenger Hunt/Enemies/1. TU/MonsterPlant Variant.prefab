@@ -25,6 +25,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8424e0e7a9a9fa94399d6ff043810a4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefabAmmo: {fileID: 0}
+  prefabDeath: {fileID: 0}
+  ammoStart: {fileID: 0}
+  health: 0
+  distAgent: 0
+  distVector: 0
+  canvas: {fileID: 0}
 --- !u!195 &285822239
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -64,7 +71,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1618574005888820, guid: 30443ab5b6a78ea4899ca1d13e2e8e76, type: 3}
       propertyPath: m_TagString
-      value: HuntMonsterTag
+      value: MonsterHuntTag
       objectReference: {fileID: 0}
     - target: {fileID: 4268068898142106, guid: 30443ab5b6a78ea4899ca1d13e2e8e76, type: 3}
       propertyPath: m_LocalPosition.x

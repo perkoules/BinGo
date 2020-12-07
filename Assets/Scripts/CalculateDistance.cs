@@ -9,7 +9,6 @@ public class CalculateDistance : MonoBehaviour
     public GameObject[] bins;
     public float[] distances;
     public int minIndex;
-    public TextMeshProUGUI myText;
 
     public static CalculateDistance Instance { get; private set; }
 
@@ -47,7 +46,6 @@ public class CalculateDistance : MonoBehaviour
                 distances[i] = Vector3.Distance(gameObject.transform.position, bins[i].transform.position);
             }
             minIndex = Array.IndexOf(distances, distances.Min());
-            myText.text = distances[minIndex].ToString(); // Show dist of the closest on ui [for testing]
         }
         else
         {

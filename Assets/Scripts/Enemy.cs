@@ -38,9 +38,9 @@ public class Enemy : MonoBehaviour
         StartCoroutine(EnableAgent());
     }
 
-    private void MonsterDestroyer_OnMonsterClicked()
+    private void MonsterDestroyer_OnMonsterClicked(string rayTag)
     {
-        if(gameObject.tag == "MonsterHuntTag")
+        if(gameObject.CompareTag(rayTag))
         {
             MonsterDestroyer.Instance.BattlePanelController(true);
             transform.LookAt(player.transform, Vector3.up);
@@ -125,8 +125,8 @@ public class Enemy : MonoBehaviour
         Instantiate(prefabDeath, gameObject.transform);
         ScavengerHunt.Instance.CompleteHuntTask(gameObject, true);
         //Sent Ammo used to the cloud
-
         MonsterDestroyer.Instance.BattlePanelController(false);
+
         gameObject.SetActive(false); 
     }
 

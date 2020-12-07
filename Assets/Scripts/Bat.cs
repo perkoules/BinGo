@@ -23,12 +23,15 @@ public class Bat : MonoBehaviour
         MonsterDestroyer.OnMonsterClicked += MonsterDestroyer_OnMonsterClicked;
     }
 
-    private void MonsterDestroyer_OnMonsterClicked()
+    private void MonsterDestroyer_OnMonsterClicked(string rayTag)
     {
-        Instantiate(prefabDeath, gameObject.transform);
-        ScavengerHunt.Instance.StartHunting();
-        gameObject.SetActive(false);
-        Deactivation();
+        if (gameObject.CompareTag(rayTag))
+        {
+            Instantiate(prefabDeath, gameObject.transform);
+            ScavengerHunt.Instance.StartHunting();
+            gameObject.SetActive(false);
+            Deactivation(); 
+        }
     }
 
     private void Update()

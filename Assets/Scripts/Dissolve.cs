@@ -24,7 +24,6 @@ public class Dissolve : MonoBehaviour
             if(mats[0].GetFloat("_Cutoff") >= 0.95f)
             {
                 dying = false;
-                Destroy(gameObject.transform.root.gameObject);
             }
             t += Time.deltaTime;
             // Unity does not allow meshRenderer.materials[0]...

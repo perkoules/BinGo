@@ -28,25 +28,28 @@ public class RoamingMonster : MonoBehaviour
         StartCoroutine(EnableAgent());
     }
 
-    private void MonsterDestroyer_OnMonsterClicked()
+    private void MonsterDestroyer_OnMonsterClicked(string rayTag)
     {
-        if(gameObject.tag == "MonsterTag")
+        if(gameObject.CompareTag(rayTag))
         {
-            anim.SetBool(ANIM_DEAD, true);
+            agent.speed = 0;
+            agent.isStopped = true;
+            anim.SetTrigger(ANIM_DEAD);
         }
     }
-
+    //Triggered from Animation
     private void MonsterDestruction()
     {
         gameObject.GetComponentInChildren<Dissolve>().dying = true;
         TaskChecker.Instance.CheckTaskDone();
         MonsterDestroyer.Instance.ChangeMonsterText();
+        Destroy(gameObject);
     }
 
     private IEnumerator EnableAgent()
     {
         yield return new WaitForSeconds(0.1f);
-        //agent.enabled = true;
+        agent.enabled = true;
         Idle();
     }
     private void Idle()
@@ -77,12 +80,7 @@ public class RoamingMonster : MonoBehaviour
 
     private void Update()
     {
-        if (anim.GetBool(ANIM_DEAD))
-        {
-            agent.speed = 0;
-            agent.isStopped = true;
-        }
-        else if (Vector3.Distance(transform.position, player.transform.position) < 10 && !playerDetected)
+        if (Vector3.Distance(transform.position, player.transform.position) < 10 && !playerDetected)
         {
             playerDetected = true;
             StartCoroutine(Running());

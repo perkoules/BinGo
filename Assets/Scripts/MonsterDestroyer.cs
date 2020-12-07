@@ -61,7 +61,7 @@ public class MonsterDestroyer : MonoBehaviour
 #endif
     }
 
-    public delegate void MonsterClicked();
+    public delegate void MonsterClicked(string rayTag);
     public static event MonsterClicked OnMonsterClicked;
     
     public void BattlePanelController(bool en)
@@ -76,7 +76,7 @@ public class MonsterDestroyer : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(position);
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
             {
-                OnMonsterClicked();
+                OnMonsterClicked(hit.transform.gameObject.tag);
             }
         }
     }

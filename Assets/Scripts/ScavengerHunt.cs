@@ -42,14 +42,14 @@ public class ScavengerHunt : MonoBehaviour
         }
     }
 
+    public delegate void TaskCompleted(string obj);
+    public static event TaskCompleted OnTaskCompleted;
+
     public void CompleteHuntTask(GameObject go, bool completed)
     {
         string task = go.name.Replace(" Variant", "");
         taskCompletion[task] = completed;
-        foreach (var item in taskCompletion)
-        {
-            Debug.Log(item.Key + "  -  " + item.Value);
-        }
+        OnTaskCompleted(task);
     }
 
     public int CurrentHuntTask()

@@ -6,7 +6,6 @@ using UnityEngine.AI;
 
 public class RoamingMonster : MonoBehaviour
 {
-    private Vector2 distanceRange;
     private NavMeshAgent agent;
     private GameObject player;
     private Animator anim;
@@ -108,5 +107,9 @@ public class RoamingMonster : MonoBehaviour
         {
             agent.destination = target;
         }
+    }
+    private void OnDestroy()
+    {
+        MonsterDestroyer.OnMonsterClicked -= MonsterDestroyer_OnMonsterClicked;
     }
 }

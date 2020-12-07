@@ -9,22 +9,25 @@ using System.Collections.Generic;
 [RequireComponent(typeof(NavMeshAgent))]
 public class Enemy : MonoBehaviour
 {
-    private Vector2 distanceRange;
     private NavMeshAgent agent;
     private GameObject player;
     private Animator anim;
 
-    private bool playerDetected = false;
-    private const string ANIM_WALKING = "Walking";
-    private const string ANIM_DETECTED = "PlayerDetected";
-    private const string ANIM_COOLDOWN = "RunningCooldown";
+    private bool attack = false;
     private const string ANIM_DEAD = "IsDead";
     private const string ANIM_GOTHIT = "GotHit";
+    private const string ANIM_ATTACKMODE = "AttackMode";
+    private const string ANIM_BATTLE = "ReadyToBattle";
+    private const string ANIM_ATTACK = "Attack";
+    private const string ANIM_REPOSITION = "Reposition";
+    private const string ANIM_WON = "Won";
 
-    private MeshCollider parkCollider;
     public GameObject prefabAmmo, prefabDeath;
     public Transform ammoStart;
-    [SerializeField] private int health; 
+    [SerializeField] private int health;
+    public float distAgent, distVector;
+
+    public Canvas canvas;
 
     private void Awake()
     {
@@ -32,7 +35,6 @@ public class Enemy : MonoBehaviour
         MonsterDestroyer.OnMonsterClicked += MonsterDestroyer_OnMonsterClicked;
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
-        parkCollider = transform.GetComponentInParent<NavMeshSourceTag>().gameObject.GetComponent<MeshCollider>();
         StartCoroutine(EnableAgent());
     }
 
@@ -40,7 +42,10 @@ public class Enemy : MonoBehaviour
     {
         if(gameObject.tag == "MonsterHuntTag")
         {
-
+            MonsterDestroyer.Instance.BattlePanelController(true);
+            transform.LookAt(player.transform, Vector3.up);
+            anim.SetBool(ANIM_ATTACKMODE, true);
+            canvas.enabled = false;
         }
     }
 
@@ -48,62 +53,42 @@ public class Enemy : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         agent.enabled = true;
-        Idle();
     }
     private void Idle()
     {
         SetDestination();
-        StartCoroutine(Walking());
+        StartCoroutine(WalkingToPosition());
     }
 
-    public IEnumerator Walking()
+    public IEnumerator WalkingToPosition()
     {
-        //Debug.DrawLine(transform.position, agent.destination, Color.red);  // Destination        
-        anim.SetBool(ANIM_WALKING, true);
+        agent.speed = 15;
+        distAgent = (transform.position - agent.destination).sqrMagnitude;
         if ((transform.position - agent.destination).sqrMagnitude > 1)
         {
             yield return new WaitUntil(() => (transform.position - agent.destination).sqrMagnitude < 1);
         }
-        if (!playerDetected)
-        {
-            anim.SetBool(ANIM_WALKING, false);
-            yield return new WaitForSeconds(3);
-            Idle();
-        }
-        else
-        {
-            Idle();
-        }
+        anim.SetTrigger(ANIM_BATTLE);
     }
 
     private void Update()
     {
-        if (anim.GetBool(ANIM_DEAD))
+        if (attack)
         {
-            agent.speed = 0;
-            agent.isStopped = true;
+            attack = false;
+            anim.SetTrigger(ANIM_ATTACK);
         }
-        else if (Vector3.Distance(transform.position, player.transform.position) < 10 && !playerDetected)
+        distVector = Vector3.Distance(transform.position, player.transform.position);
+        if (Vector3.Distance(transform.position, player.transform.position) > 50)
         {
-            playerDetected = true;
-            StartCoroutine(Running());            
+            anim.SetTrigger(ANIM_REPOSITION);
+            Idle();
         }
-    }
-
-    public IEnumerator Running()
-    {
-        anim.SetTrigger(ANIM_DETECTED);
-        agent.speed = 15;
-        yield return new WaitForSeconds(Random.Range(5,10));
-        playerDetected = false;
-        anim.SetTrigger(ANIM_COOLDOWN);
-        agent.speed = 5;
-        Idle();
     }
 
     private void SetDestination()
     {       
-        var target = (Random.insideUnitCircle * Random.Range(parkCollider.bounds.size.x, parkCollider.bounds.size.z)).ToVector3xz() + transform.position;
+        var target = player.transform.position + Vector3.forward * 50f + transform.position;
         if (agent.isOnNavMesh)
         {
             agent.destination = target;
@@ -121,13 +106,23 @@ public class Enemy : MonoBehaviour
         health--;
         if (health <= 0)
         {
+            agent.speed = 0;
+            agent.isStopped = true;
             anim.SetTrigger(ANIM_DEAD);
         }
+    }
+
+    public void EnemyWon()
+    {
+        anim.SetTrigger(ANIM_WON);
     }
 
     public void DestroyObject()
     {
         Instantiate(prefabDeath, gameObject.transform);
+        //Check task successful
+        //Sent Ammo used to the cloud
+        //Close Battle Panel
         Destroy(gameObject, 2f);
     }
 
@@ -138,5 +133,20 @@ public class Enemy : MonoBehaviour
             Destroy(other.gameObject);
             anim.SetTrigger(ANIM_GOTHIT);
         }
+    }
+
+    private void OnDestroy()
+    {
+        MonsterDestroyer.OnMonsterClicked -= MonsterDestroyer_OnMonsterClicked;
+    }
+
+    //Player Defeated
+    public void BattleEnded()
+    {
+        anim.SetBool(ANIM_ATTACKMODE, false);
+        canvas.enabled = true;
+        MonsterDestroyer.OnMonsterClicked -= MonsterDestroyer_OnMonsterClicked;
+        //Sent Ammo used to the cloud
+        //Close Battle Panel
     }
 }

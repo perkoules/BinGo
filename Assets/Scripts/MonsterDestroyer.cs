@@ -18,7 +18,7 @@ public class MonsterDestroyer : MonoBehaviour
     public TextMeshProUGUI monstersText, amountText;
     private bool monsterGotHit = false;
     public int monstersKilled = 0;
-    public GameObject treeImg, waterCan;
+    public GameObject treeImg, waterCan, battlePanel;
     public bool canRaycast = false;
 
     private void OnEnable()
@@ -64,6 +64,11 @@ public class MonsterDestroyer : MonoBehaviour
     public delegate void MonsterClicked();
     public static event MonsterClicked OnMonsterClicked;
     
+    public void BattlePanelController(bool en)
+    {
+        battlePanel.SetActive(en);
+    }
+
     private void Raycasting(Vector3 position)
     {
         if (canRaycast) 

@@ -73,16 +73,19 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if (attack)
+        if (health > 0 && anim.GetBool(ANIM_ATTACKMODE))
         {
-            attack = false;
-            anim.SetTrigger(ANIM_ATTACK);
-        }
-        distVector = Vector3.Distance(transform.position, player.transform.position);
-        if (Vector3.Distance(transform.position, player.transform.position) > 50)
-        {
-            anim.SetTrigger(ANIM_REPOSITION);
-            Idle();
+            if (attack)
+            {
+                attack = false;
+                anim.SetTrigger(ANIM_ATTACK);
+            }
+            distVector = Vector3.Distance(transform.position, player.transform.position);
+            /*if (Vector3.Distance(transform.position, player.transform.position) > 50)
+            {
+                anim.SetTrigger(ANIM_REPOSITION);
+                Idle();
+            } */
         }
     }
 
@@ -116,14 +119,15 @@ public class Enemy : MonoBehaviour
     {
         anim.SetTrigger(ANIM_WON);
     }
-
+    //Enemy Lost
     public void DestroyObject()
     {
         Instantiate(prefabDeath, gameObject.transform);
-        //Check task successful
+        ScavengerHunt.Instance.CompleteHuntTask(gameObject, true);
         //Sent Ammo used to the cloud
-        //Close Battle Panel
-        Destroy(gameObject, 2f);
+
+        MonsterDestroyer.Instance.BattlePanelController(false);
+        gameObject.SetActive(false); 
     }
 
     private void OnTriggerEnter(Collider other)
@@ -147,6 +151,7 @@ public class Enemy : MonoBehaviour
         canvas.enabled = true;
         MonsterDestroyer.OnMonsterClicked -= MonsterDestroyer_OnMonsterClicked;
         //Sent Ammo used to the cloud
-        //Close Battle Panel
+
+        MonsterDestroyer.Instance.BattlePanelController(false);
     }
 }

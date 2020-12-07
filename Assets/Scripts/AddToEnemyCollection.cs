@@ -6,7 +6,7 @@ public class AddToEnemyCollection : MonoBehaviour
 {
     void Start()
     {
-        EnemyCollection.Instance.AddEnemy(this.gameObject);
+        ScavengerHunt.Instance.AddEnemy(this.gameObject);
     }
 
     public void LookAtPlayer()

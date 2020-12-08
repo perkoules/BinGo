@@ -13,29 +13,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.69, y: 1.6, z: 1}
   m_Center: {x: 0, y: 1.36, z: 0}
---- !u!195 &2603074865358999987
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1077275665481223645}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.85
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 1.74
-  m_BaseOffset: -0.48
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
---- !u!114 &6842766879478769365
+--- !u!114 &3077710671287138111
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,9 +22,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1077275665481223645}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8424e0e7a9a9fa94399d6ff043810a4a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0900d2d74a917ed4da6df0dea4069baf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefabDeath: {fileID: 3906108321631627750, guid: 2078ebf17e9ff554f870f77d2cd650e7,
+    type: 3}
 --- !u!1001 &1078094155857594077
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -68,7 +48,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4353946734237038, guid: 2e4ab17be462ca346983757421a25d62, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4353946734237038, guid: 2e4ab17be462ca346983757421a25d62, type: 3}
       propertyPath: m_LocalPosition.z

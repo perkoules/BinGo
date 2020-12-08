@@ -82,19 +82,13 @@ public class PlayfabManager : MonoBehaviour
         }
     }
 
-    public void ReInitialize()
+   /* public void ReInitialize()
     {
         playerDataSaver.SetProgressLevel(1);
-        foreach (var item in FindObjectsOfType<InitializeImage>())
-        {
-            item.ReInitialize();
-        }
-        foreach (var item in FindObjectsOfType<InitializeText>())
-        {
-            item.ReInitialize();
-        }
+        //<------------------------------------------>        
         StartCoroutine(Initialization());
-    }
+        //<------------------------------------------>
+    }*/
 
     public IEnumerator Initialization()
     {
@@ -158,7 +152,10 @@ public class PlayfabManager : MonoBehaviour
             country = myResult.features[c].text;
         }
     }
-
+    public delegate void AdjustValues(int recycle, int waste, int coins, int level);
+    public delegate void AdjustNames(string team, string user);
+    public static event AdjustValues OnValuesAdjusted;
+    public static event AdjustNames OnNamesAdjusted;
     public void GetPlayerStats()
     {
         PlayFabClientAPI.GetPlayerStatistics(
@@ -202,6 +199,7 @@ public class PlayfabManager : MonoBehaviour
                         default:
                             break;
                     }
+                    OnValuesAdjusted(recycleCollected, wasteCollected, coinsAvailable, progressLevel);
                     if (playerInfo.RubbishPlace != null)
                     {
                         if (eachStat.StatisticName == (playerInfo.RubbishPlace + " isPlace"))
@@ -233,7 +231,8 @@ public class PlayfabManager : MonoBehaviour
                 }
             }, error => Debug.LogError(error.GenerateErrorReport()));
     }
-
+    public delegate void AdjustImage(string player, string country, int level);
+    public static event AdjustImage OnImageAdjusted;
     private void GetPlayerData()
     {
         PlayFabClientAPI.GetUserData(new GetUserDataRequest() { },
@@ -249,6 +248,8 @@ public class PlayfabManager : MonoBehaviour
             }
         },
         error => Debug.Log(error.GenerateErrorReport()));
+        OnNamesAdjusted(playerDataSaver.GetTeamname(), playerDataSaver.GetUsername());
+        OnImageAdjusted(playerDataSaver.GetAvatar(), playerDataSaver.GetCountry(), progressLevel);
     }
 
     public void Logout()

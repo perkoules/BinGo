@@ -222,7 +222,9 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     }
 
     #region PlayfabCommunications
-    public TextMeshProUGUI shieldAmount, attackAmount;
+    public delegate void AdjustValues(int recycle, int waste, int coins, int level);
+    public static event AdjustValues OnValuesAdjusted;
+
     public void SetRubbishCollection(string typeOfRubbish)
     {
         GetLocationDataOfRubbish();
@@ -247,8 +249,6 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
             coinsAvailable += 2;
             playerDataSaver.SetRecycleCollected(recycleCollected);
         }
-        shieldAmount.text = recycleCollected.ToString();
-        attackAmount.text = wasteCollected.ToString();
         achievementsController.wasteToUnlockCounter = wasteCollected;
         achievementsController.recycleToUnlockCounter = recycleCollected;
         rubbishCollected = wasteCollected + recycleCollected;
@@ -316,10 +316,13 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
                 {
                     GameObject obj = Instantiate(nextLevelAnimator, parent);
                     Destroy(obj, 4f);
-                    FindObjectOfType<PlayfabManager>().ReInitialize();
+                    //<------------------------------------------>
+                    //FindObjectOfType<PlayfabManager>().ReInitialize();
+                    //<------------------------------------------>
                 }
             }
-        }        
+        }
+        OnValuesAdjusted(recycleCollected, wasteCollected, coinsAvailable, progressLevel);
     }
 
     public void UpdatePlayerStats()

@@ -7,16 +7,8 @@ using System;
 
 public class AmmoShieldController : MonoBehaviour
 {
-    public PlayerDataSaver dataSaver;
     public TextMeshProUGUI shieldAmount, attackAmount;    
     private int sh, att = 0;
-
-    private void OnEnable()
-    {
-        shieldAmount.text = dataSaver.GetRecycleCollected().ToString();
-        attackAmount.text = dataSaver.GetWasteCollected().ToString();
-    }
-
     public void ShieldUsed()
     {
         sh = Convert.ToInt32(shieldAmount);

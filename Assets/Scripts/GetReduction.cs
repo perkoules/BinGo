@@ -63,7 +63,8 @@ public class GetReduction : MonoBehaviour
         editor.SelectAll();
         editor.Copy();
     }
-
+    public delegate void AdjustValues(int coins);
+    public static event AdjustValues OnValuesAdjusted;
     public void ReductionUsed()
     {
         int newCoins = playerDataSaver.GetCoinsAvailable() - sliderController.coinsUsed;
@@ -79,17 +80,7 @@ public class GetReduction : MonoBehaviour
         },
         result => Debug.Log("Sent " + newCoins + " coins to cloudscript"),
         error => Debug.Log(error.GenerateErrorReport()));
-        foreach (var item in FindObjectsOfType<InitializeText>())
-        {
-            if (item.gameObject.name == "CoinsCollectedNumber")
-            {
-                item.Displayer("CoinsCollectedNumber");
-            }
-            if (item.gameObject.name == "VoucherText")
-            {
-                item.Displayer("VoucherText");
-            }
-        }
+        OnValuesAdjusted(newCoins);
         sliderController.ResetSlider();
     }
 }

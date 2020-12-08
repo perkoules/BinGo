@@ -35,7 +35,8 @@ public class GiftCardEnabler : MonoBehaviour
             }
         }
     }
-
+    public delegate void AdjustValues(int coins);
+    public static event AdjustValues OnValuesAdjusted;
     public void CardUsed(int coinsUsed)
     {
         int newCoins = playerDataSaver.GetCoinsAvailable() - coinsUsed;
@@ -52,16 +53,6 @@ public class GiftCardEnabler : MonoBehaviour
         },
         result => Debug.Log("Sent " + playerDataSaver.GetCoinsAvailable() + " coins to cloudscript"),
         error => Debug.Log(error.GenerateErrorReport()));
-        foreach (var item in FindObjectsOfType<InitializeText>())
-        {
-            if (item.gameObject.name == "CoinsCollectedNumber")
-            {
-                item.Displayer("CoinsCollectedNumber");
-            }
-            if (item.gameObject.name == "VoucherText")
-            {
-                item.Displayer("VoucherText");
-            }
-        }
+        OnValuesAdjusted(newCoins);
     }
 }

@@ -6,7 +6,8 @@ using UnityEngine.UI;
 
 public class Shield : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    public GameObject prefabShield, go;
+    public GameObject prefabShield;
+    private GameObject go;
     bool holding = false;
 
     public void OnPointerDown(PointerEventData eventData)

@@ -222,7 +222,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     }
 
     #region PlayfabCommunications
-
+    public TextMeshProUGUI shieldAmount, attackAmount;
     public void SetRubbishCollection(string typeOfRubbish)
     {
         GetLocationDataOfRubbish();
@@ -247,6 +247,8 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
             coinsAvailable += 2;
             playerDataSaver.SetRecycleCollected(recycleCollected);
         }
+        shieldAmount.text = recycleCollected.ToString();
+        attackAmount.text = wasteCollected.ToString();
         achievementsController.wasteToUnlockCounter = wasteCollected;
         achievementsController.recycleToUnlockCounter = recycleCollected;
         rubbishCollected = wasteCollected + recycleCollected;

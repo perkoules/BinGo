@@ -1,0 +1,33 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
+using System;
+
+public class AmmoShieldController : MonoBehaviour
+{
+    public TextMeshProUGUI shieldAmount, attackAmount;    
+    private int sh, att = 0;
+    
+    public void ShieldUsed()
+    {
+        sh = Convert.ToInt32(shieldAmount);
+        sh--;
+        shieldAmount.text = sh.ToString();
+    }
+
+    public void ProjectileUsed()
+    {
+        att = Convert.ToInt32(shieldAmount);
+        att--;
+        attackAmount.text = att.ToString();
+    }
+
+    public void SendAmmoShieldusedToCloud()
+    {
+        gameObject.SetActive(false);
+        //Close battle Panel
+        //update player info
+    }
+}

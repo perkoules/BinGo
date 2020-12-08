@@ -1,33 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class TestDestroy : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private Button btn;
+    public TextMeshProUGUI ww, rr;
+    public int w, r = 0;
+
+    public delegate void GainAmmoShield(int waste, int recycled);
+    public static event GainAmmoShield OnGainAmmoShield;
+    private void Awake()
     {
-        
+        btn = GetComponent<Button>();
+        btn.onClick.AddListener(Gain);
     }
-    public delegate void MonsterClicked();
-    public static event MonsterClicked OnMonsterClicked;
-    // Update is called once per frame
-    void Update()
+    public void Gain()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
-            {
-                OnMonsterClicked();
-                /*GameObject go = hit.transform.gameObject;
-                if (go.tag == "MonsterTag" && !monsterGotHit)
-                {
-                    monsterGotHit = true;
-                    go.GetComponent<RoamingMonster>().DestroyObject();
-                    Death();
-                }*/
-            }
-        }
+        w = Random.Range(1, 100);
+        r = Random.Range(1, 100);
+        OnGainAmmoShield(w, r);
     }
 }

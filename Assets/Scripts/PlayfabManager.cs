@@ -82,14 +82,6 @@ public class PlayfabManager : MonoBehaviour
         }
     }
 
-   /* public void ReInitialize()
-    {
-        playerDataSaver.SetProgressLevel(1);
-        //<------------------------------------------>        
-        StartCoroutine(Initialization());
-        //<------------------------------------------>
-    }*/
-
     public IEnumerator Initialization()
     {
         yield return new WaitForSeconds(1.5f);

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class Shield : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
+    public AmmoShieldController ammoShield;
     public GameObject prefabShield;
     private GameObject go;
     bool holding = false;
@@ -26,12 +27,13 @@ public class Shield : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             else if (!holding)
             {
                 go.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
-            } 
+            }
+
         }
     }
-
     public void OnPointerUp(PointerEventData eventData)
     {
         holding = false;
+        StartCoroutine(ammoShield.AmmoShieldCooldown());
     }
 }

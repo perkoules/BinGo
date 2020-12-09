@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Bat : MonoBehaviour
 {
+    private PlayerDataSaver playerDataSaver;
     public GameObject prefabDeath;
     public static Bat Instance { get; set; }
 
@@ -16,6 +17,15 @@ public class Bat : MonoBehaviour
         else
         {
             Instance = this;
+        }
+    }
+    private void Awake()
+    {
+        playerDataSaver = GetComponent<PlayerDataSaver>();
+        if (playerDataSaver.GetScavHunt() == 1)
+        {
+            gameObject.SetActive(false);
+            Deactivation();
         }
     }
     private void Start()
@@ -31,6 +41,8 @@ public class Bat : MonoBehaviour
             ScavengerHunt.Instance.StartHunting();
             gameObject.SetActive(false);
             Deactivation(); 
+            Destroy(GameObject.FindGameObjectWithTag("BatEffectTag"));
+            playerDataSaver.SetScavHunt(1);
         }
     }
 

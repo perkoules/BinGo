@@ -7,7 +7,9 @@ using System;
 
 public class AmmoShieldController : MonoBehaviour
 {
-    public TextMeshProUGUI shieldAmount, attackAmount;    
+    public Button shieldButton, attackButton;
+    public TextMeshProUGUI shieldAmount, attackAmount;
+    public bool isPlayerTurn = false;
     private int sh, att = 0;
     public void ShieldUsed()
     {
@@ -21,6 +23,15 @@ public class AmmoShieldController : MonoBehaviour
         att = Convert.ToInt32(shieldAmount);
         att--;
         attackAmount.text = att.ToString();
+    }
+
+    public IEnumerator AmmoShieldCooldown()
+    {
+        shieldButton.interactable = false;
+        attackButton.interactable = false;
+        yield return new WaitUntil(() => isPlayerTurn == true);
+        shieldButton.interactable = true;
+        attackButton.interactable = true;
     }
 
     public void SendAmmoShieldusedToCloud()

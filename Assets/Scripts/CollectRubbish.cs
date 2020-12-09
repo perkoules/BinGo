@@ -152,11 +152,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         fillerImage.fillAmount = 0;
         yield return new WaitForSeconds(2);
 
-        // If rubbish location (name) == Middlesbrough Tower
-        // Unlock treasure hunt 
-        // Open AR camera
-        // Get/collect clue & ammo
-        // Go to next place
+        FindObjectOfType<SpawnOnMap>().BatEffect(); //Bat appeared on map - effect
 
         messageText.text = "Please scan another rubbish!!!";
         barcodeDetected = false;
@@ -316,9 +312,6 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
                 {
                     GameObject obj = Instantiate(nextLevelAnimator, parent);
                     Destroy(obj, 4f);
-                    //<------------------------------------------>
-                    //FindObjectOfType<PlayfabManager>().ReInitialize();
-                    //<------------------------------------------>
                 }
             }
         }

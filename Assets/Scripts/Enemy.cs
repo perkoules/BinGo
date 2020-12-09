@@ -10,7 +10,7 @@ using System.Collections.Generic;
 public class Enemy : MonoBehaviour
 {
     private NavMeshAgent agent;
-    private GameObject player;
+    private Camera player;
     private Animator anim;
 
     private bool attack = false;
@@ -25,13 +25,16 @@ public class Enemy : MonoBehaviour
     public GameObject prefabAmmo, prefabDeath;
     public Transform ammoStart;
     [SerializeField] private int health;
-    public float distAgent, distVector;
-
+    public float distAgent;
+    public Vector3 target;
     public Canvas canvas;
+
+    public delegate void AttackCooldown();
+    public static event AttackCooldown OnAttackCooldown;
 
     private void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = Camera.main;
         MonsterDestroyer.OnMonsterClicked += MonsterDestroyer_OnMonsterClicked;
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
@@ -46,6 +49,7 @@ public class Enemy : MonoBehaviour
             transform.LookAt(player.transform, Vector3.up);
             anim.SetBool(ANIM_ATTACKMODE, true);
             canvas.enabled = false;
+            Idle();
         }
     }
 
@@ -68,11 +72,14 @@ public class Enemy : MonoBehaviour
         {
             yield return new WaitUntil(() => (transform.position - agent.destination).sqrMagnitude < 1);
         }
+        transform.LookAt(player.transform);
         anim.SetTrigger(ANIM_BATTLE);
     }
 
     private void Update()
     {
+        //Debug.DrawLine(transform.position, agent.destination, Color.green);
+        //Debug.DrawLine(player.transform.position, agent.destination, Color.red);
         if (health > 0 && anim.GetBool(ANIM_ATTACKMODE))
         {
             if (attack)
@@ -80,18 +87,12 @@ public class Enemy : MonoBehaviour
                 attack = false;
                 anim.SetTrigger(ANIM_ATTACK);
             }
-            distVector = Vector3.Distance(transform.position, player.transform.position);
-            /*if (Vector3.Distance(transform.position, player.transform.position) > 50)
-            {
-                anim.SetTrigger(ANIM_REPOSITION);
-                Idle();
-            } */
         }
     }
 
     private void SetDestination()
-    {       
-        var target = player.transform.position + Vector3.forward * 50f + transform.position;
+    {
+        target = Camera.main.transform.position + Camera.main.transform.forward * 50;
         if (agent.isOnNavMesh)
         {
             agent.destination = target;
@@ -113,6 +114,18 @@ public class Enemy : MonoBehaviour
             agent.isStopped = true;
             anim.SetTrigger(ANIM_DEAD);
         }
+        else
+        {
+            StartCoroutine(FightBack());
+        }
+    }
+
+    public IEnumerator FightBack()
+    {
+        yield return new WaitForSeconds(3);
+        attack = true;
+        yield return new WaitForSeconds(3);
+        FindObjectOfType<AmmoShieldController>().isPlayerTurn = true;
     }
 
     public void EnemyWon()

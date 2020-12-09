@@ -8551,7 +8551,7 @@ GameObject:
   - component: {fileID: 1601428026}
   - component: {fileID: 1601428025}
   m_Layer: 0
-  m_Name: SpawnTreeOnMap
+  m_Name: SpawnOnMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8572,6 +8572,8 @@ MonoBehaviour:
   map: {fileID: 1056364538}
   spawnScale: 1
   treePrefab: {fileID: 183886, guid: 46d69f622d1354ee0820b7921e262b38, type: 3}
+  particlePrefab: {fileID: 1748286941879678514, guid: 645bbe27bdd3a8446805b3781d988915,
+    type: 3}
 --- !u!4 &1601428026
 Transform:
   m_ObjectHideFlags: 0
@@ -9728,6 +9730,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1971962582}
   - component: {fileID: 1971962581}
+  - component: {fileID: 1971962584}
   m_Layer: 0
   m_Name: ScavengerHunt
   m_TagString: Untagged
@@ -9750,7 +9753,6 @@ MonoBehaviour:
   enemiesAdded: []
   prefabTutorialMessageBox: {fileID: 9079831943757490200, guid: 98ce2277414dfac43a196f0b59ecb552,
     type: 3}
-  battlePanel: {fileID: 287290853}
   prefabObjectives: {fileID: 1188259363568427312, guid: bebd1f14435a323499aa5ff06c138cbc,
     type: 3}
   mainPanel: {fileID: 287290853}
@@ -9768,6 +9770,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1971962584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1971962580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba1204eb2f950114fb2b42a51d02db64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1975019375 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1975019375, guid: c84c46120c9494044be440dc84e265ed,

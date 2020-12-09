@@ -558,7 +558,7 @@ MonoBehaviour:
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 1
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -619,6 +619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c30b25b69d82ef74ba80518f837628ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ammoShield: {fileID: 2142087246270057685}
   prefabShield: {fileID: 4787044222430048588, guid: 5325b0dc5c3a38a4eb35a7503881a71f,
     type: 3}
 --- !u!1 &86504426
@@ -3320,7 +3321,7 @@ MonoBehaviour:
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 1
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -3394,6 +3395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabAttack: {fileID: 1456790699859046096, guid: 9ed823030f320a649abbd65a85ef4dc2,
     type: 3}
+  ammoShield: {fileID: 2142087246270057685}
 --- !u!1 &828536985
 GameObject:
   m_ObjectHideFlags: 0
@@ -6776,8 +6778,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e2a77571a4eb4847b8ef35262e5dae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shieldButton: {fileID: 73001476}
+  attackButton: {fileID: 811635021}
   shieldAmount: {fileID: 2018052280}
   attackAmount: {fileID: 6363048}
+  isPlayerTurn: 0
 --- !u!1 &1985343886
 GameObject:
   m_ObjectHideFlags: 0

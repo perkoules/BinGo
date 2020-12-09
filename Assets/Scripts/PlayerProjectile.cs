@@ -12,4 +12,8 @@ public class PlayerProjectile : MonoBehaviour
     {
         transform.localPosition += transform.forward * 10f * Time.deltaTime;
     }
+    private void OnDestroy()
+    {
+        FindObjectOfType<AmmoShieldController>().isPlayerTurn = true;
+    }
 }

@@ -152,11 +152,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         fillerImage.fillAmount = 0;
         yield return new WaitForSeconds(2);
 
-        // If rubbish location (name) == Middlesbrough Tower
-        // Unlock treasure hunt 
-        // Open AR camera
-        // Get/collect clue & ammo
-        // Go to next place
+        FindObjectOfType<SpawnOnMap>().BatEffect(); //Bat appeared on map - effect
 
         messageText.text = "Please scan another rubbish!!!";
         barcodeDetected = false;
@@ -222,7 +218,9 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     }
 
     #region PlayfabCommunications
-    public TextMeshProUGUI shieldAmount, attackAmount;
+    public delegate void AdjustValues(int recycle, int waste, int coins, int level);
+    public static event AdjustValues OnValuesAdjusted;
+
     public void SetRubbishCollection(string typeOfRubbish)
     {
         GetLocationDataOfRubbish();
@@ -247,8 +245,6 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
             coinsAvailable += 2;
             playerDataSaver.SetRecycleCollected(recycleCollected);
         }
-        shieldAmount.text = recycleCollected.ToString();
-        attackAmount.text = wasteCollected.ToString();
         achievementsController.wasteToUnlockCounter = wasteCollected;
         achievementsController.recycleToUnlockCounter = recycleCollected;
         rubbishCollected = wasteCollected + recycleCollected;
@@ -316,10 +312,10 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
                 {
                     GameObject obj = Instantiate(nextLevelAnimator, parent);
                     Destroy(obj, 4f);
-                    FindObjectOfType<PlayfabManager>().ReInitialize();
                 }
             }
-        }        
+        }
+        OnValuesAdjusted(recycleCollected, wasteCollected, coinsAvailable, progressLevel);
     }
 
     public void UpdatePlayerStats()

@@ -6,11 +6,12 @@ using System.Linq;
 
 public class ScavengerHunt : MonoBehaviour
 {
+    private PlayerDataSaver playerDataSaver;
     public List<GameObject> enemiesAdded;
     public static ScavengerHunt Instance { get; private set; }
     public Dictionary<string, bool> taskCompletion;
 
-    public GameObject prefabTutorialMessageBox, battlePanel;
+    public GameObject prefabTutorialMessageBox;
     public GameObject prefabObjectives, mainPanel;
 
     private void OnEnable()
@@ -27,6 +28,18 @@ public class ScavengerHunt : MonoBehaviour
     private void Awake()
     {
         enemiesAdded = new List<GameObject>();
+        playerDataSaver = GetComponent<PlayerDataSaver>();
+        if(playerDataSaver.GetScavHunt() == 1)
+        {
+            StartCoroutine(InitializeScavengerHunt());
+        }
+    }
+
+    IEnumerator InitializeScavengerHunt()
+    {
+        yield return new WaitUntil(() => enemiesAdded.Count > 4);
+        ShowObjectives();
+        InitializieEnemies();
     }
 
     public void AddEnemy(GameObject go)
@@ -66,6 +79,14 @@ public class ScavengerHunt : MonoBehaviour
 
     public void StartHunting()
     {
+        InitializieEnemies();
+        StartTutorial();
+        ShowObjectives();
+    }
+
+    public void InitializieEnemies()
+    {
+        Debug.Log("Start Hunting");
         foreach (var go in enemiesAdded)
         {
             go.SetActive(true);
@@ -78,11 +99,9 @@ public class ScavengerHunt : MonoBehaviour
             { "Golem", false },
             { "EvilMage", false }
         };
-        StartTutorial();
-        ShowObjectives();
     }
 
-    private void ShowObjectives()
+    public void ShowObjectives()
     {
         Instantiate(prefabObjectives, mainPanel.transform);
         //Paint road/directions red(or each?) on map
@@ -91,6 +110,11 @@ public class ScavengerHunt : MonoBehaviour
     public void StartTutorial()
     {
         MonsterDestroyer.Instance.BattlePanelController(true);
-        Instantiate(prefabTutorialMessageBox, battlePanel.transform);
+        Instantiate(prefabTutorialMessageBox, mainPanel.transform);
+    }
+    
+    public void AmmoShieldholder()
+    {
+
     }
 }

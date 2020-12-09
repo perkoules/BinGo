@@ -198,6 +198,6 @@ public class MonsterDestroyer : MonoBehaviour
         double x = double.Parse(locArray[0]);
         double y = double.Parse(locArray[1]);
         Vector2d location = new Vector2d(x, y);
-        FindObjectOfType<SpawnTreeOnMap>().Tree(location);
+        FindObjectOfType<SpawnOnMap>().Tree(location);
     }
 }

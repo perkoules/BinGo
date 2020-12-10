@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class EnemyProjectile : MonoBehaviour
 {
-    private Rigidbody rb;
-    private void Awake()
+    private bool hit = false;
+    private void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        Destroy(gameObject, 5f);
     }
 
     private void Update()
@@ -20,11 +20,17 @@ public class EnemyProjectile : MonoBehaviour
         if(other.tag == "Player" || other.tag == "MainCamera")
         {
             Destroy(gameObject);
+            hit = true;
         }
         else if (other.tag == "ShieldTag")
         {
             Destroy(gameObject);
             Destroy(other.gameObject);
+            hit = true;
         }
+    }
+    private void OnDestroy()
+    {
+        BattleController.Instance.EnemyAttackHitResult(true, hit);
     }
 }

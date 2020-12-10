@@ -1,10 +1,7 @@
-﻿using UnityEngine;
-using UnityEngine.AI;
-using Mapbox.Unity.Utilities;
+﻿using System;
 using System.Collections;
-using System;
-using Random = UnityEngine.Random;
-using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class Enemy : MonoBehaviour
@@ -13,7 +10,6 @@ public class Enemy : MonoBehaviour
     private Camera player;
     private Animator anim;
 
-    private bool attack = false;
     private const string ANIM_DEAD = "IsDead";
     private const string ANIM_GOTHIT = "GotHit";
     private const string ANIM_ATTACKMODE = "AttackMode";
@@ -21,36 +17,21 @@ public class Enemy : MonoBehaviour
     private const string ANIM_ATTACK = "Attack";
     private const string ANIM_REPOSITION = "Reposition";
     private const string ANIM_WON = "Won";
+    private Vector3 target;
 
     public GameObject prefabAmmo, prefabDeath;
     public Transform ammoStart;
-    [SerializeField] private int health;
-    public float distAgent;
-    public Vector3 target;
+    public int health;
+    public float agentDistance;
+    public bool isReadyToBattle = false;
     public Canvas canvas;
-
-    public delegate void AttackCooldown();
-    public static event AttackCooldown OnAttackCooldown;
 
     private void Awake()
     {
         player = Camera.main;
-        MonsterDestroyer.OnMonsterClicked += MonsterDestroyer_OnMonsterClicked;
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         StartCoroutine(EnableAgent());
-    }
-
-    private void MonsterDestroyer_OnMonsterClicked(string rayTag)
-    {
-        if(gameObject.CompareTag(rayTag))
-        {
-            MonsterDestroyer.Instance.BattlePanelController(true);
-            transform.LookAt(player.transform, Vector3.up);
-            anim.SetBool(ANIM_ATTACKMODE, true);
-            canvas.enabled = false;
-            Idle();
-        }
     }
 
     private IEnumerator EnableAgent()
@@ -58,38 +39,53 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         agent.enabled = true;
     }
+
+    public void PrepareEnemyForBattle()
+    {
+        transform.LookAt(player.transform, Vector3.up);
+        anim.SetBool(ANIM_ATTACKMODE, true);
+        canvas.enabled = false;
+        Idle();
+    }
+
     private void Idle()
     {
         SetDestination();
         StartCoroutine(WalkingToPosition());
     }
-
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(Camera.main.transform.position, Camera.main.transform.position + Camera.main.transform.forward * 50);
+    }
     public IEnumerator WalkingToPosition()
     {
         agent.speed = 15;
-        distAgent = (transform.position - agent.destination).sqrMagnitude;
-        if ((transform.position - agent.destination).sqrMagnitude > 1)
+        agentDistance = (transform.position - agent.destination).sqrMagnitude;
+        if (agentDistance > 1)
         {
-            yield return new WaitUntil(() => (transform.position - agent.destination).sqrMagnitude < 1);
+            yield return new WaitUntil(() => agentDistance < 1);
         }
         transform.LookAt(player.transform);
         anim.SetTrigger(ANIM_BATTLE);
+        isReadyToBattle = true;
     }
-
     private void Update()
     {
-        //Debug.DrawLine(transform.position, agent.destination, Color.green);
-        //Debug.DrawLine(player.transform.position, agent.destination, Color.red);
-        if (health > 0 && anim.GetBool(ANIM_ATTACKMODE))
+        if (agent.hasPath)
         {
-            if (attack)
-            {
-                attack = false;
-                anim.SetTrigger(ANIM_ATTACK);
-            }
+            agentDistance = (transform.position - agent.destination).sqrMagnitude;
         }
     }
-
+    /*public bool Reposition()
+    {
+        if (!agent.hasPath)
+        {
+            anim.SetTrigger(ANIM_REPOSITION);
+            Idle();
+            return true;
+        }
+        return false;
+    }*/
     private void SetDestination()
     {
         target = Camera.main.transform.position + Camera.main.transform.forward * 50;
@@ -102,69 +98,47 @@ public class Enemy : MonoBehaviour
     public void AttackAmmo()
     {
         GameObject go = Instantiate(prefabAmmo, ammoStart.position, Quaternion.identity, ammoStart);
-        Destroy(go, 10f);
     }
 
-    public void CheckHealth()
+    public bool TakeDamage()
     {
+        anim.SetTrigger(ANIM_GOTHIT);
         health--;
         if (health <= 0)
         {
             agent.speed = 0;
             agent.isStopped = true;
-            anim.SetTrigger(ANIM_DEAD);
+            return true;
         }
-        else
-        {
-            StartCoroutine(FightBack());
-        }
+        return false;
     }
-
-    public IEnumerator FightBack()
-    {
-        yield return new WaitForSeconds(3);
-        attack = true;
-        yield return new WaitForSeconds(3);
-        FindObjectOfType<AmmoShieldController>().isPlayerTurn = true;
-    }
-
+    
     public void EnemyWon()
     {
         anim.SetTrigger(ANIM_WON);
+        anim.SetBool(ANIM_ATTACKMODE, false);
+        canvas.enabled = true;
     }
-    //Enemy Lost
+
+    public void EnemyLost()
+    {
+        anim.SetTrigger(ANIM_DEAD);
+    }
+
     public void DestroyObject()
     {
         Instantiate(prefabDeath, gameObject.transform);
         ScavengerHunt.Instance.CompleteHuntTask(gameObject, true);
         //Sent Ammo used to the cloud
-        MonsterDestroyer.Instance.BattlePanelController(false);
 
-        gameObject.SetActive(false); 
+        gameObject.SetActive(false);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.tag == "PlayerProjectileTag")
-        {
-            Destroy(other.gameObject);
-            anim.SetTrigger(ANIM_GOTHIT);
-        }
-    }
-
-    private void OnDestroy()
-    {
-        MonsterDestroyer.OnMonsterClicked -= MonsterDestroyer_OnMonsterClicked;
-    }
-
-    //Player Defeated
     public void BattleEnded()
     {
         anim.SetBool(ANIM_ATTACKMODE, false);
         canvas.enabled = true;
-        MonsterDestroyer.OnMonsterClicked -= MonsterDestroyer_OnMonsterClicked;
-        //Sent Ammo used to the cloud
 
-        MonsterDestroyer.Instance.BattlePanelController(false);
+        //Sent Ammo used to the cloud
     }
 }

@@ -5,11 +5,9 @@ using UnityEngine;
 public class Attack : MonoBehaviour
 {
     public GameObject prefabAttack;
-    public AmmoShieldController ammoShield;
+
     public void InitiateAttack()
     {
-        GameObject go = Instantiate(prefabAttack, Camera.main.transform.position, Camera.main.transform.rotation);
-        StartCoroutine(ammoShield.AmmoShieldCooldown());
-        Destroy(go, 10f);
+        Instantiate(prefabAttack, Camera.main.transform.position, Camera.main.transform.rotation);
     }
 }

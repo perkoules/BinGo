@@ -6,20 +6,20 @@ using UnityEngine.UI;
 
 public class Shield : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    public AmmoShieldController ammoShield;
-    public GameObject prefabShield;
+    public GameObject prefabShield, shieldPoint;
     private GameObject go;
     bool holding = false;
-
+    
     public void OnPointerDown(PointerEventData eventData)
     {
-        go = Instantiate(prefabShield, Camera.main.transform.position + Vector3.forward * 5, Quaternion.identity, Camera.main.transform);
+        go = Instantiate(prefabShield, shieldPoint.transform.position, Quaternion.identity, shieldPoint.transform);
+        Destroy(go, 10f);
         holding = true;
     }
     private void Update()
     {
         if (go != null)
-        {
+        {                
             if (holding && go.transform.localScale.x < 5)
             {
                 go.transform.localScale += Vector3.one * 0.05f;
@@ -28,12 +28,10 @@ public class Shield : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             {
                 go.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
             }
-
         }
     }
     public void OnPointerUp(PointerEventData eventData)
     {
         holding = false;
-        StartCoroutine(ammoShield.AmmoShieldCooldown());
     }
 }

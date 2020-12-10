@@ -28,7 +28,7 @@ public class RoamingMonster : MonoBehaviour
         StartCoroutine(EnableAgent());
     }
 
-    private void MonsterDestroyer_OnMonsterClicked(string rayTag)
+    private void MonsterDestroyer_OnMonsterClicked(string rayTag, GameObject go)
     {
         if(gameObject.CompareTag(rayTag))
         {

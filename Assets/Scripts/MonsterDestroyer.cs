@@ -12,7 +12,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(PlayerDataSaver))]
 public class MonsterDestroyer : MonoBehaviour
 {
-    public static MonsterDestroyer Instance;
+    public static MonsterDestroyer Instance { get; set; }
     public DeviceLocationProvider locationProvider;
     private PlayerDataSaver playerDataSaver;
     public TextMeshProUGUI monstersText, amountText;
@@ -61,7 +61,7 @@ public class MonsterDestroyer : MonoBehaviour
 #endif
     }
 
-    public delegate void MonsterClicked(string rayTag);
+    public delegate void MonsterClicked(string rayTag, GameObject go);
     public static event MonsterClicked OnMonsterClicked;
     
     public void BattlePanelController(bool en)
@@ -76,7 +76,7 @@ public class MonsterDestroyer : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(position);
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
             {
-                OnMonsterClicked(hit.transform.gameObject.tag);
+                OnMonsterClicked(hit.transform.gameObject.tag, hit.transform.gameObject);
             }
         }
     }

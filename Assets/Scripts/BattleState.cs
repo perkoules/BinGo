@@ -1,9 +1,9 @@
 ﻿public enum BattleState
 {
-    BattleStart,
+    Idle,
+    Start,
     PlayerTurn,
     EnemyTurn,
-    DamageControl,
-    PlayerWon,
-    EnemyWon
+    Won,
+    Lost
 }

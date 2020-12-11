@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using GoogleARCore;
+using UnityEngine.SpatialTracking;
 
 [RequireComponent(typeof(PlayerDataSaver))]
 public class MonsterDestroyer : MonoBehaviour

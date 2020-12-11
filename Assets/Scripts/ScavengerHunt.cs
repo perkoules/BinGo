@@ -65,7 +65,7 @@ public class ScavengerHunt : MonoBehaviour
         OnTaskCompleted(task);
     }
 
-    public int CurrentHuntTask()
+    /*public int CurrentHuntTask()
     {
         for (int i = 0; i < taskCompletion.Count; i++)
         {
@@ -75,18 +75,19 @@ public class ScavengerHunt : MonoBehaviour
             }
         }
         return -1;
-    }
+    }*/
 
     public void StartHunting()
     {
+        playerDataSaver.SetShieldUsed(0);
+        playerDataSaver.SetProjectileUsed(0);
         InitializieEnemies();
         StartTutorial();
         ShowObjectives();
     }
 
     public void InitializieEnemies()
-    {
-        Debug.Log("Start Hunting");
+    {        
         foreach (var go in enemiesAdded)
         {
             go.SetActive(true);
@@ -112,9 +113,6 @@ public class ScavengerHunt : MonoBehaviour
         MonsterDestroyer.Instance.BattlePanelController(true);
         Instantiate(prefabTutorialMessageBox, mainPanel.transform);
     }
-    
-    public void AmmoShieldholder()
-    {
 
-    }
+    
 }

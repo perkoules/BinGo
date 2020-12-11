@@ -53,10 +53,6 @@ public class Enemy : MonoBehaviour
         SetDestination();
         StartCoroutine(WalkingToPosition());
     }
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawLine(Camera.main.transform.position, Camera.main.transform.position + Camera.main.transform.forward * 50);
-    }
     public IEnumerator WalkingToPosition()
     {
         agent.speed = 15;
@@ -76,7 +72,7 @@ public class Enemy : MonoBehaviour
             agentDistance = (transform.position - agent.destination).sqrMagnitude;
         }
     }
-    /*public bool Reposition()
+    public bool Reposition()
     {
         if (!agent.hasPath)
         {
@@ -85,7 +81,7 @@ public class Enemy : MonoBehaviour
             return true;
         }
         return false;
-    }*/
+    }
     private void SetDestination()
     {
         target = Camera.main.transform.position + Camera.main.transform.forward * 50;
@@ -115,7 +111,7 @@ public class Enemy : MonoBehaviour
     
     public void EnemyWon()
     {
-        anim.SetTrigger(ANIM_WON);
+        anim.SetTrigger(ANIM_WON);        
         anim.SetBool(ANIM_ATTACKMODE, false);
         canvas.enabled = true;
     }
@@ -129,16 +125,7 @@ public class Enemy : MonoBehaviour
     {
         Instantiate(prefabDeath, gameObject.transform);
         ScavengerHunt.Instance.CompleteHuntTask(gameObject, true);
-        //Sent Ammo used to the cloud
 
         gameObject.SetActive(false);
-    }
-
-    public void BattleEnded()
-    {
-        anim.SetBool(ANIM_ATTACKMODE, false);
-        canvas.enabled = true;
-
-        //Sent Ammo used to the cloud
-    }
+    }    
 }

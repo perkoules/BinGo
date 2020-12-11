@@ -8,17 +8,27 @@ using UnityEngine.UI;
 
 public class BattleController : MonoBehaviour
 {
+    public static BattleController Instance { get; set; }
+    public delegate void BattleCompleted(int shieldAvailable, int projectileAvailable);
+    public static event BattleCompleted OnBattleCompleted;
+
+
     public BattleState currentState;
+    public TextMeshProUGUI shieldAmount, attackAmount;
     public GameObject prefabAttack, prefabPlayerDeath, enemy, battlePanel;
     public Button shieldBtn, attackBtn;
     public TextMeshProUGUI battleText;
+
+    private PlayerDataSaver playerDataSaver;
     private Camera player;
     private Enemy enemyScript;
-
     public bool playerProjectileDead, playerProjectileHit = false;
     public bool enemyProjectileDead, enemyProjectileHit = false;
 
-    public static BattleController Instance { get; set; }
+    private int shieldAvailable, projectileAvailable = 0;
+    private int shieldUsed, projectileUsed = 0;
+
+
     private void OnEnable()
     {
         if (Instance != null && Instance != this)
@@ -29,6 +39,11 @@ public class BattleController : MonoBehaviour
         {
             Instance = this;
         }
+        playerDataSaver = GetComponent<PlayerDataSaver>();
+        shieldUsed = playerDataSaver.GetShieldUsed();
+        shieldAvailable = Convert.ToInt32(shieldAmount) - shieldUsed;
+        projectileUsed = playerDataSaver.GetProjectileUsed();
+        projectileAvailable = Convert.ToInt32(attackAmount) - projectileUsed;
     }
     private void Awake()
     {
@@ -64,7 +79,10 @@ public class BattleController : MonoBehaviour
     private void PlayerTurn()
     {
         battleText.text = "Your turn to attack...";
-        attackBtn.interactable = true;
+        if (ProjectileAvailable() > 0)
+        {
+            attackBtn.interactable = true;
+        }
     }
 
     public void OnPlayerAttack()
@@ -73,13 +91,14 @@ public class BattleController : MonoBehaviour
         {
             return;
         }
+        projectileUsed++;
+        attackAmount.text = ProjectileAvailable().ToString();
         attackBtn.interactable = false;
         Instantiate(prefabAttack, player.transform.position, player.transform.rotation);
         StartCoroutine(PlayerAttack());
     }
     IEnumerator PlayerAttack()
-    {
-        
+    {        
         battleText.text = "You attacked!";
         yield return new WaitForSeconds(5f);
         if (playerProjectileHit)
@@ -101,10 +120,20 @@ public class BattleController : MonoBehaviour
             StartCoroutine(EnemyTurn());
         }
     }    
+
+    public void ShieldPressed()
+    {
+        shieldUsed++;
+        shieldAmount.text = ShieldAvailable().ToString();
+    }
+
     IEnumerator EnemyTurn()
     {
         battleText.text = "Enemy's turn. Shield yourself.";
-        shieldBtn.interactable = true;
+        if (ShieldAvailable() > 0)
+        {
+            shieldBtn.interactable = true;
+        }
         yield return new WaitForSeconds(3);
         enemyScript.AttackAmmo();
         if (enemyProjectileHit)
@@ -130,11 +159,13 @@ public class BattleController : MonoBehaviour
         else if(currentState == BattleState.Lost)
         {
             enemyScript.EnemyWon();
-            battleText.text = "You lost. Try again Loser!";
+            battleText.text = "You lost, losing Loser!";
             GameObject plDeath = Instantiate(prefabPlayerDeath, player.transform.position + Vector3.forward * 5, Quaternion.identity);
             Destroy(plDeath, 3f);
         }
-        //battlePanel.SetActive(true);
+        battlePanel.SetActive(true);
+        playerDataSaver.SetShieldUsed(shieldUsed);
+        playerDataSaver.SetProjectileUsed(projectileUsed);
     }
 
     public void PlayerAttackHitResult(bool isProjDead, bool didHit)
@@ -147,5 +178,16 @@ public class BattleController : MonoBehaviour
     {
         enemyProjectileDead = isEnProjDead;
         enemyProjectileHit = didEnHit;
+    }
+    public int ShieldAvailable()
+    {
+        shieldAvailable -= shieldUsed;
+        return shieldAvailable;
+    }
+
+    public int ProjectileAvailable()
+    {
+        projectileAvailable -= projectileUsed;
+        return projectileAvailable;
     }
 }

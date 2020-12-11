@@ -250,6 +250,7 @@ MonoBehaviour:
   monstersKilled: 0
   treeImg: {fileID: 0}
   waterCan: {fileID: 0}
+  battlePanel: {fileID: 0}
   canRaycast: 0
 --- !u!114 &615537504
 MonoBehaviour:
@@ -289,7 +290,6 @@ GameObject:
   - component: {fileID: 623438914}
   - component: {fileID: 623438913}
   - component: {fileID: 623438912}
-  - component: {fileID: 623438911}
   m_Layer: 5
   m_Name: Button (1)
   m_TagString: Untagged
@@ -317,20 +317,6 @@ RectTransform:
   m_AnchoredPosition: {x: 171.03, y: -404.9}
   m_SizeDelta: {x: 160, y: 94}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &623438911
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 623438909}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d63e6d37a8c493478daf5c75aeeb374, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefabAttack: {fileID: 1456790699859046096, guid: 9ed823030f320a649abbd65a85ef4dc2,
-    type: 3}
 --- !u!114 &623438912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -374,8 +360,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 623438911}
-        m_MethodName: InitiateAttack
+      - m_Target: {fileID: 627916103}
+        m_MethodName: Next
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -466,12 +452,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FirstPersonCamera: {fileID: 896679035}
-  GameObjectVerticalPlanePrefab: {fileID: 110196668202874556, guid: 464ce2d41c350e54da8c5812ef59b3fc,
-    type: 3}
-  GameObjectHorizontalPlanePrefab: {fileID: 110196668202874556, guid: 464ce2d41c350e54da8c5812ef59b3fc,
-    type: 3}
-  GameObjectPointPrefab: {fileID: 110196668202874556, guid: 464ce2d41c350e54da8c5812ef59b3fc,
-    type: 3}
+  GameObjectHorizontalPlanePrefab:
+  - {fileID: 110196668202874556, guid: 464ce2d41c350e54da8c5812ef59b3fc, type: 3}
+  - {fileID: 6705669642234610529, guid: c44098224873bd2498b8f255c6b9961e, type: 3}
+  - {fileID: 4362681210239251776, guid: 7445c4d2fc81eef419573a93342f89af, type: 3}
+  - {fileID: 1560561995077686330, guid: af05359d914743f47a88867ba9f85872, type: 3}
+  - {fileID: 659208463702784473, guid: 21946a5227c156245b5ec27480938400, type: 3}
+  - {fileID: 1930710770878149106, guid: e88d8d320ef8af740b7a9a58886bd3c1, type: 3}
+  index: -1
 --- !u!1001 &688001843
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -643,7 +631,6 @@ GameObject:
   - component: {fileID: 1452758109}
   - component: {fileID: 1452758108}
   - component: {fileID: 1452758107}
-  - component: {fileID: 1452758106}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -671,21 +658,6 @@ RectTransform:
   m_AnchoredPosition: {x: -2.16, y: -404.9}
   m_SizeDelta: {x: 160, y: 94}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1452758106
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1452758104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c30b25b69d82ef74ba80518f837628ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefabShield: {fileID: 4787044222430048588, guid: 5325b0dc5c3a38a4eb35a7503881a71f,
-    type: 3}
-  go: {fileID: 0}
 --- !u!114 &1452758107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -728,7 +700,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1452758108}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 627916103}
+        m_MethodName: Des
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1452758108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -914,7 +897,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Next
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1053,7 +1036,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Destroy
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

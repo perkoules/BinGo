@@ -42,20 +42,14 @@ namespace GoogleARCore.Examples.HelloAR
         /// </summary>
         public Camera FirstPersonCamera;
 
-        /// <summary>
-        /// A prefab to place when a raycast from a user touch hits a vertical plane.
-        /// </summary>
-        public GameObject GameObjectVerticalPlanePrefab;
+        
 
         /// <summary>
         /// A prefab to place when a raycast from a user touch hits a horizontal plane.
         /// </summary>
-        public GameObject GameObjectHorizontalPlanePrefab;
+        public GameObject[] GameObjectHorizontalPlanePrefab;
 
-        /// <summary>
-        /// A prefab to place when a raycast from a user touch hits a feature point.
-        /// </summary>
-        public GameObject GameObjectPointPrefab;
+        
 
         /// <summary>
         /// The rotation in degrees need to apply to prefab when it is placed.
@@ -77,7 +71,23 @@ namespace GoogleARCore.Examples.HelloAR
             // Note, Application.targetFrameRate is ignored when QualitySettings.vSyncCount != 0.
             Application.targetFrameRate = 60;
         }
-
+        public int index = -1;
+        public void Des()
+        {
+            foreach (var item in FindObjectsOfType<Enemy>())
+            {
+                Destroy(item.gameObject);
+            }
+            
+        }
+        public void Next()
+        {
+            index++;
+            if(index >= GameObjectHorizontalPlanePrefab.Length)
+            {
+                index = 0;
+            }
+        }
         /// <summary>
         /// The Unity Update() method.
         /// </summary>
@@ -117,25 +127,17 @@ namespace GoogleARCore.Examples.HelloAR
                 {
                     // Choose the prefab based on the Trackable that got hit.
                     GameObject prefab;
-                    if (hit.Trackable is FeaturePoint)
-                    {
-                        prefab = GameObjectPointPrefab;
-                    }
-                    else if (hit.Trackable is DetectedPlane)
+                    
+                    if (hit.Trackable is DetectedPlane)
                     {
                         DetectedPlane detectedPlane = hit.Trackable as DetectedPlane;
-                        if (detectedPlane.PlaneType == DetectedPlaneType.Vertical)
-                        {
-                            prefab = GameObjectVerticalPlanePrefab;
-                        }
-                        else
-                        {
-                            prefab = GameObjectHorizontalPlanePrefab;
-                        }
+                        
+                        prefab = GameObjectHorizontalPlanePrefab[index];
+                        
                     }
                     else
                     {
-                        prefab = GameObjectHorizontalPlanePrefab;
+                        prefab = GameObjectHorizontalPlanePrefab[index];
                     }
 
                     var gameObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);

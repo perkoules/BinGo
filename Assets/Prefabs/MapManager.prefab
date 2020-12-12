@@ -1,5 +1,57 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!136 &766386781
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567712745}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1.86
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.93, z: 0}
+--- !u!81 &766386782
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567712745}
+  m_Enabled: 1
+--- !u!1 &709013340
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 709013341}
+  m_Layer: 0
+  m_Name: ShieldPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &709013341
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 709013340}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 567712750}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3887955446587437159
 GameObject:
   m_ObjectHideFlags: 0
@@ -258,6 +310,7 @@ MonoBehaviour:
         - Bins
         - building
         - country_label
+        - Enemies
         - housenum_label
         - landuse
         - landuse_overlay
@@ -279,7 +332,7 @@ MonoBehaviour:
         isActive: 1
         layerSource:
           Name: Mapbox Streets
-          Id: mapbox.mapbox-streets-v7,mapbox.mapbox-streets-v7,perkoules.cke8ggc8g1gf029o6l6c914f8-2at9l
+          Id: mapbox.mapbox-streets-v7,mapbox.mapbox-streets-v7,perkoules.cke8ggc8g1gf029o6l6c914f8-2at9l,perkoules.cki0o2pc6114j2dp2y60cro37-125mf
           Modified: 
           UserName: 
       useOptimizedStyle: 0
@@ -439,7 +492,7 @@ MonoBehaviour:
       - coreOptions:
           sourceId: 
           isActive: 1
-          sublayerName: Parks
+          sublayerName: SpidersParks
           geometryType: 2
           layerName: landuse
           snapToTerrain: 1
@@ -464,12 +517,12 @@ MonoBehaviour:
           combinerType: 1
         extrusionOptions:
           _selectedLayerName: landuse
-          extrusionType: 5
+          extrusionType: 0
           extrusionGeometryType: 0
           propertyName: height
           propertyDescription: Unavailable in Selected Layer.
           minimumHeight: 1.89
-          maximumHeight: 1
+          maximumHeight: 0.2
           extrusionScaleFactor: 1
         colliderOptions:
           colliderType: 2
@@ -516,24 +569,30 @@ MonoBehaviour:
       - coreOptions:
           sourceId: 
           isActive: 0
-          sublayerName: Roads
-          geometryType: 1
-          layerName: road
+          sublayerName: TU
+          geometryType: 3
+          layerName: Enemies
           snapToTerrain: 1
           combineMeshes: 0
         lineGeometryOptions:
-          Width: 9
+          Width: 1
           MiterLimit: 0.2
           RoundLimit: 1.05
           JoinType: 1
           CapType: 1
         filterOptions:
-          _selectedLayerName: road
-          filters: []
+          _selectedLayerName: Enemies
+          filters:
+          - Key: name
+            KeyDescription: String
+            PropertyValue: BusinessSchool
+            Min: 0
+            Max: 0
+            filterOperator: 0
           combinerType: 0
         extrusionOptions:
-          _selectedLayerName: road
-          extrusionType: 5
+          _selectedLayerName: landuse
+          extrusionType: 0
           extrusionGeometryType: 0
           propertyName: height
           propertyDescription: Unavailable in Selected Layer.
@@ -541,16 +600,16 @@ MonoBehaviour:
           maximumHeight: 1
           extrusionScaleFactor: 1
         colliderOptions:
-          colliderType: 2
+          colliderType: 0
         materialOptions:
-          style: 7
+          style: 0
           texturingType: 2
           materials:
           - Materials:
             - {fileID: 0}
           - Materials:
             - {fileID: 0}
-          atlasInfo: {fileID: 11400000, guid: 05066a15aa3b24c6493cc83636625fe3, type: 2}
+          atlasInfo: {fileID: 0}
           lightStyleOpacity: 1
           darkStyleOpacity: 1
           colorStyleColor: {r: 0.1764706, g: 0.8509805, b: 1, a: 1}
@@ -570,15 +629,445 @@ MonoBehaviour:
         performanceOptions:
           isEnabled: 0
           entityPerCoroutine: 0
-        honorBuildingIdSetting: 0
+        honorBuildingIdSetting: 1
         buildingsWithUniqueIds: 1
         moveFeaturePositionTo: 0
         MeshModifiers: []
         GoModifiers:
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 11400000, guid: 5e0270a34222afc4699eadd2b973ca59, type: 2}
-        presetFeatureType: 1
+        - {fileID: 11400000, guid: daa8ae72ac18b5947b54df0199acbedf, type: 2}
+        presetFeatureType: 4
+        _maskValue: 0
+        selectedTypes: 
+      - coreOptions:
+          sourceId: 
+          isActive: 0
+          sublayerName: Bottle
+          geometryType: 3
+          layerName: Enemies
+          snapToTerrain: 1
+          combineMeshes: 0
+        lineGeometryOptions:
+          Width: 1
+          MiterLimit: 0.2
+          RoundLimit: 1.05
+          JoinType: 1
+          CapType: 1
+        filterOptions:
+          _selectedLayerName: Enemies
+          filters:
+          - Key: name
+            KeyDescription: String
+            PropertyValue: BottleOfNotes
+            Min: 0
+            Max: 0
+            filterOperator: 0
+          combinerType: 0
+        extrusionOptions:
+          _selectedLayerName: landuse
+          extrusionType: 0
+          extrusionGeometryType: 0
+          propertyName: height
+          propertyDescription: Unavailable in Selected Layer.
+          minimumHeight: 1.89
+          maximumHeight: 1
+          extrusionScaleFactor: 1
+        colliderOptions:
+          colliderType: 0
+        materialOptions:
+          style: 0
+          texturingType: 2
+          materials:
+          - Materials:
+            - {fileID: 0}
+          - Materials:
+            - {fileID: 0}
+          atlasInfo: {fileID: 0}
+          lightStyleOpacity: 1
+          darkStyleOpacity: 1
+          colorStyleColor: {r: 0.1764706, g: 0.8509805, b: 1, a: 1}
+          samplePalettes: 0
+          colorPalette: {fileID: 0}
+          customStyleOptions:
+            texturingType: 0
+            materials:
+            - Materials:
+              - {fileID: 0}
+            - Materials:
+              - {fileID: 0}
+            atlasInfo: {fileID: 11400000, guid: 414754d7155df47beb52ca117a774f21,
+              type: 2}
+            colorPalette: {fileID: 11400000, guid: 57bdfa37edf7a4f7f999d19443497554,
+              type: 2}
+        performanceOptions:
+          isEnabled: 0
+          entityPerCoroutine: 0
+        honorBuildingIdSetting: 1
+        buildingsWithUniqueIds: 0
+        moveFeaturePositionTo: 0
+        MeshModifiers: []
+        GoModifiers:
+        - {fileID: 11400000, guid: 4485e00681b86454fa298def2b1d26fc, type: 2}
+        presetFeatureType: 4
+        _maskValue: 0
+        selectedTypes: 
+      - coreOptions:
+          sourceId: 
+          isActive: 0
+          sublayerName: Stadium
+          geometryType: 3
+          layerName: Enemies
+          snapToTerrain: 1
+          combineMeshes: 0
+        lineGeometryOptions:
+          Width: 1
+          MiterLimit: 0.2
+          RoundLimit: 1.05
+          JoinType: 1
+          CapType: 1
+        filterOptions:
+          _selectedLayerName: Enemies
+          filters:
+          - Key: name
+            KeyDescription: String
+            PropertyValue: RiversideStadium
+            Min: 0
+            Max: 0
+            filterOperator: 0
+          combinerType: 0
+        extrusionOptions:
+          _selectedLayerName: landuse
+          extrusionType: 0
+          extrusionGeometryType: 0
+          propertyName: height
+          propertyDescription: Unavailable in Selected Layer.
+          minimumHeight: 1.89
+          maximumHeight: 1
+          extrusionScaleFactor: 1
+        colliderOptions:
+          colliderType: 0
+        materialOptions:
+          style: 0
+          texturingType: 2
+          materials:
+          - Materials:
+            - {fileID: 0}
+          - Materials:
+            - {fileID: 0}
+          atlasInfo: {fileID: 0}
+          lightStyleOpacity: 1
+          darkStyleOpacity: 1
+          colorStyleColor: {r: 0.1764706, g: 0.8509805, b: 1, a: 1}
+          samplePalettes: 0
+          colorPalette: {fileID: 0}
+          customStyleOptions:
+            texturingType: 0
+            materials:
+            - Materials:
+              - {fileID: 0}
+            - Materials:
+              - {fileID: 0}
+            atlasInfo: {fileID: 11400000, guid: 414754d7155df47beb52ca117a774f21,
+              type: 2}
+            colorPalette: {fileID: 11400000, guid: 57bdfa37edf7a4f7f999d19443497554,
+              type: 2}
+        performanceOptions:
+          isEnabled: 0
+          entityPerCoroutine: 0
+        honorBuildingIdSetting: 1
+        buildingsWithUniqueIds: 1
+        moveFeaturePositionTo: 0
+        MeshModifiers: []
+        GoModifiers:
+        - {fileID: 11400000, guid: 9abf1cc83c5b43248954c352c6df58c2, type: 2}
+        presetFeatureType: 4
+        _maskValue: 0
+        selectedTypes: 
+      - coreOptions:
+          sourceId: 
+          isActive: 0
+          sublayerName: Bridge
+          geometryType: 3
+          layerName: Enemies
+          snapToTerrain: 1
+          combineMeshes: 0
+        lineGeometryOptions:
+          Width: 1
+          MiterLimit: 0.2
+          RoundLimit: 1.05
+          JoinType: 1
+          CapType: 1
+        filterOptions:
+          _selectedLayerName: Enemies
+          filters:
+          - Key: name
+            KeyDescription: String
+            PropertyValue: TransporterBridge
+            Min: 0
+            Max: 0
+            filterOperator: 0
+          combinerType: 0
+        extrusionOptions:
+          _selectedLayerName: landuse
+          extrusionType: 0
+          extrusionGeometryType: 0
+          propertyName: height
+          propertyDescription: Unavailable in Selected Layer.
+          minimumHeight: 1.89
+          maximumHeight: 1
+          extrusionScaleFactor: 1
+        colliderOptions:
+          colliderType: 0
+        materialOptions:
+          style: 0
+          texturingType: 2
+          materials:
+          - Materials:
+            - {fileID: 0}
+          - Materials:
+            - {fileID: 0}
+          atlasInfo: {fileID: 0}
+          lightStyleOpacity: 1
+          darkStyleOpacity: 1
+          colorStyleColor: {r: 0.1764706, g: 0.8509805, b: 1, a: 1}
+          samplePalettes: 0
+          colorPalette: {fileID: 0}
+          customStyleOptions:
+            texturingType: 0
+            materials:
+            - Materials:
+              - {fileID: 0}
+            - Materials:
+              - {fileID: 0}
+            atlasInfo: {fileID: 11400000, guid: 414754d7155df47beb52ca117a774f21,
+              type: 2}
+            colorPalette: {fileID: 11400000, guid: 57bdfa37edf7a4f7f999d19443497554,
+              type: 2}
+        performanceOptions:
+          isEnabled: 0
+          entityPerCoroutine: 0
+        honorBuildingIdSetting: 1
+        buildingsWithUniqueIds: 1
+        moveFeaturePositionTo: 0
+        MeshModifiers: []
+        GoModifiers:
+        - {fileID: 11400000, guid: 66ae03580fd97554d8f7c51b01d1001e, type: 2}
+        presetFeatureType: 4
+        _maskValue: 0
+        selectedTypes: 
+      - coreOptions:
+          sourceId: 
+          isActive: 0
+          sublayerName: AlbertPark
+          geometryType: 3
+          layerName: Enemies
+          snapToTerrain: 1
+          combineMeshes: 0
+        lineGeometryOptions:
+          Width: 1
+          MiterLimit: 0.2
+          RoundLimit: 1.05
+          JoinType: 1
+          CapType: 1
+        filterOptions:
+          _selectedLayerName: Enemies
+          filters:
+          - Key: name
+            KeyDescription: String
+            PropertyValue: AlbertParkFountain
+            Min: 0
+            Max: 0
+            filterOperator: 0
+          combinerType: 0
+        extrusionOptions:
+          _selectedLayerName: landuse
+          extrusionType: 0
+          extrusionGeometryType: 0
+          propertyName: height
+          propertyDescription: Unavailable in Selected Layer.
+          minimumHeight: 1.89
+          maximumHeight: 1
+          extrusionScaleFactor: 1
+        colliderOptions:
+          colliderType: 0
+        materialOptions:
+          style: 0
+          texturingType: 2
+          materials:
+          - Materials:
+            - {fileID: 0}
+          - Materials:
+            - {fileID: 0}
+          atlasInfo: {fileID: 0}
+          lightStyleOpacity: 1
+          darkStyleOpacity: 1
+          colorStyleColor: {r: 0.1764706, g: 0.8509805, b: 1, a: 1}
+          samplePalettes: 0
+          colorPalette: {fileID: 0}
+          customStyleOptions:
+            texturingType: 0
+            materials:
+            - Materials:
+              - {fileID: 0}
+            - Materials:
+              - {fileID: 0}
+            atlasInfo: {fileID: 11400000, guid: 414754d7155df47beb52ca117a774f21,
+              type: 2}
+            colorPalette: {fileID: 11400000, guid: 57bdfa37edf7a4f7f999d19443497554,
+              type: 2}
+        performanceOptions:
+          isEnabled: 0
+          entityPerCoroutine: 0
+        honorBuildingIdSetting: 1
+        buildingsWithUniqueIds: 1
+        moveFeaturePositionTo: 0
+        MeshModifiers: []
+        GoModifiers:
+        - {fileID: 11400000, guid: f765ab0157cd8b84185ef6e98df9c074, type: 2}
+        presetFeatureType: 4
+        _maskValue: 0
+        selectedTypes: 
+      - coreOptions:
+          sourceId: 
+          isActive: 1
+          sublayerName: Clues
+          geometryType: 3
+          layerName: Enemies
+          snapToTerrain: 1
+          combineMeshes: 0
+        lineGeometryOptions:
+          Width: 1
+          MiterLimit: 0.2
+          RoundLimit: 1.05
+          JoinType: 1
+          CapType: 1
+        filterOptions:
+          _selectedLayerName: Enemies
+          filters:
+          - Key: name
+            KeyDescription: String
+            PropertyValue: BatTest
+            Min: 0
+            Max: 0
+            filterOperator: 0
+          combinerType: 0
+        extrusionOptions:
+          _selectedLayerName: landuse
+          extrusionType: 0
+          extrusionGeometryType: 0
+          propertyName: height
+          propertyDescription: Unavailable in Selected Layer.
+          minimumHeight: 1.89
+          maximumHeight: 1
+          extrusionScaleFactor: 1
+        colliderOptions:
+          colliderType: 0
+        materialOptions:
+          style: 0
+          texturingType: 2
+          materials:
+          - Materials:
+            - {fileID: 0}
+          - Materials:
+            - {fileID: 0}
+          atlasInfo: {fileID: 0}
+          lightStyleOpacity: 1
+          darkStyleOpacity: 1
+          colorStyleColor: {r: 0.1764706, g: 0.8509805, b: 1, a: 1}
+          samplePalettes: 0
+          colorPalette: {fileID: 0}
+          customStyleOptions:
+            texturingType: 0
+            materials:
+            - Materials:
+              - {fileID: 0}
+            - Materials:
+              - {fileID: 0}
+            atlasInfo: {fileID: 11400000, guid: 414754d7155df47beb52ca117a774f21,
+              type: 2}
+            colorPalette: {fileID: 11400000, guid: 57bdfa37edf7a4f7f999d19443497554,
+              type: 2}
+        performanceOptions:
+          isEnabled: 0
+          entityPerCoroutine: 0
+        honorBuildingIdSetting: 1
+        buildingsWithUniqueIds: 1
+        moveFeaturePositionTo: 0
+        MeshModifiers: []
+        GoModifiers:
+        - {fileID: 11400000, guid: e0e83aefd637d764ab57487323348995, type: 2}
+        presetFeatureType: 4
+        _maskValue: 0
+        selectedTypes: 
+      - coreOptions:
+          sourceId: 
+          isActive: 1
+          sublayerName: Ammo
+          geometryType: 3
+          layerName: Enemies
+          snapToTerrain: 1
+          combineMeshes: 0
+        lineGeometryOptions:
+          Width: 1
+          MiterLimit: 0.2
+          RoundLimit: 1.05
+          JoinType: 1
+          CapType: 1
+        filterOptions:
+          _selectedLayerName: Enemies
+          filters:
+          - Key: name
+            KeyDescription: String
+            PropertyValue: TowerAmmo
+            Min: 0
+            Max: 0
+            filterOperator: 0
+          combinerType: 0
+        extrusionOptions:
+          _selectedLayerName: landuse
+          extrusionType: 0
+          extrusionGeometryType: 0
+          propertyName: height
+          propertyDescription: Unavailable in Selected Layer.
+          minimumHeight: 1.89
+          maximumHeight: 1
+          extrusionScaleFactor: 1
+        colliderOptions:
+          colliderType: 0
+        materialOptions:
+          style: 0
+          texturingType: 2
+          materials:
+          - Materials:
+            - {fileID: 0}
+          - Materials:
+            - {fileID: 0}
+          atlasInfo: {fileID: 0}
+          lightStyleOpacity: 1
+          darkStyleOpacity: 1
+          colorStyleColor: {r: 0.1764706, g: 0.8509805, b: 1, a: 1}
+          samplePalettes: 0
+          colorPalette: {fileID: 0}
+          customStyleOptions:
+            texturingType: 0
+            materials:
+            - Materials:
+              - {fileID: 0}
+            - Materials:
+              - {fileID: 0}
+            atlasInfo: {fileID: 11400000, guid: 414754d7155df47beb52ca117a774f21,
+              type: 2}
+            colorPalette: {fileID: 11400000, guid: 57bdfa37edf7a4f7f999d19443497554,
+              type: 2}
+        performanceOptions:
+          isEnabled: 0
+          entityPerCoroutine: 0
+        honorBuildingIdSetting: 1
+        buildingsWithUniqueIds: 1
+        moveFeaturePositionTo: 0
+        MeshModifiers: []
+        GoModifiers:
+        - {fileID: 11400000, guid: 3e043be6fcc758a47b1818d84ce43765, type: 2}
+        presetFeatureType: 4
         _maskValue: 0
         selectedTypes: 
       locationPrefabList: []
@@ -597,7 +1086,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5e4bbf13fb4b4b8185ca3a5fa3d140e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _arPositionReference: {fileID: 2977491661348758858}
+  _arPositionReference: {fileID: 567712750}
   _map: {fileID: 6617651570160494515}
   _useAutomaticSynchronizationBias: 1
   _alignmentStrategy: {fileID: 6617651570160494517}
@@ -784,10 +1273,10 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1500
+  far clip plane: 500
   field of view: 60
   orthographic: 1
-  orthographic size: 100
+  orthographic size: 1500
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -1202,6 +1691,26 @@ PrefabInstance:
       propertyPath: locationProvider
       value: 
       objectReference: {fileID: 6617651571807322214}
+    - target: {fileID: 6590789027822763992, guid: ad73c2f288bb73b41bd07833541372a6,
+        type: 3}
+      propertyPath: far clip plane
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 6590789027822763996, guid: ad73c2f288bb73b41bd07833541372a6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 6590789027822763999, guid: ad73c2f288bb73b41bd07833541372a6,
+        type: 3}
+      propertyPath: m_Device
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6590789027822763999, guid: ad73c2f288bb73b41bd07833541372a6,
+        type: 3}
+      propertyPath: m_PoseSource
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8224983937436675891, guid: ad73c2f288bb73b41bd07833541372a6,
         type: 3}
       propertyPath: m_Name
@@ -1262,17 +1771,28 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8224983938113629105, guid: ad73c2f288bb73b41bd07833541372a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad73c2f288bb73b41bd07833541372a6, type: 3}
---- !u!4 &2977491661348758859 stripped
+--- !u!4 &567712750 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 8224983938026504569, guid: ad73c2f288bb73b41bd07833541372a6,
+  m_CorrespondingSourceObject: {fileID: 6590789027822763996, guid: ad73c2f288bb73b41bd07833541372a6,
     type: 3}
   m_PrefabInstance: {fileID: 6590789028364969010}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &2977491661348758858 stripped
+--- !u!1 &567712745 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6590789027822763995, guid: ad73c2f288bb73b41bd07833541372a6,
+    type: 3}
+  m_PrefabInstance: {fileID: 6590789028364969010}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2977491661348758859 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 8224983938026504568, guid: ad73c2f288bb73b41bd07833541372a6,
+  m_CorrespondingSourceObject: {fileID: 8224983938026504569, guid: ad73c2f288bb73b41bd07833541372a6,
     type: 3}
   m_PrefabInstance: {fileID: 6590789028364969010}
   m_PrefabAsset: {fileID: 0}

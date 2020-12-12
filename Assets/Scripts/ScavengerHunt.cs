@@ -102,10 +102,21 @@ public class ScavengerHunt : MonoBehaviour
         };
     }
 
+    public delegate void ShowDirections();
+    public static event ShowDirections OnShowDirections;
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            OnShowDirections();//colors
+        }
+    }
+
     public void ShowObjectives()
     {
         Instantiate(prefabObjectives, mainPanel.transform);
-        //Paint road/directions red(or each?) on map
+        //OnShowDirections();
     }
 
     public void StartTutorial()

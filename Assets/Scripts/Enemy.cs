@@ -125,7 +125,7 @@ public class Enemy : MonoBehaviour
     {
         Instantiate(prefabDeath, gameObject.transform);
         ScavengerHunt.Instance.CompleteHuntTask(gameObject, true);
-
-        gameObject.SetActive(false);
+        Destroy(gameObject);
+        //gameObject.SetActive(false);
     }    
 }

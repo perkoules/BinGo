@@ -49,7 +49,7 @@ public class HuntTasksController : MonoBehaviour
     }
 
 
-    private void ScavengerHunt_OnTaskCompleted(string obj)
+    private void ScavengerHunt_OnTaskCompleted(string obj, bool done)
     {
         int index = Array.FindIndex(taskImages, i => i.gameObject.name.Contains(obj));
         taskImages[index].interactable = false;
@@ -57,16 +57,7 @@ public class HuntTasksController : MonoBehaviour
         {
             warning.gameObject.SetActive(false);
             tick.gameObject.SetActive(true);
+            Destroy(gameObject, 10f);
         }
-        else
-        {
-            ShowDirectionsToPoint(index);
-        }
-    }
-
-    public void ShowDirectionsToPoint(int task)
-    {
-        //task++
-        //get directions On Map
     }
 }

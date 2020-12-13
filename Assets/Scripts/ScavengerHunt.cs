@@ -55,27 +55,22 @@ public class ScavengerHunt : MonoBehaviour
         }
     }
 
-    public delegate void TaskCompleted(string obj);
+    public delegate void TaskCompleted(string obj, bool done);
     public static event TaskCompleted OnTaskCompleted;
 
     public void CompleteHuntTask(GameObject go, bool completed)
     {
         string task = go.name.Replace(" Variant", "");
         taskCompletion[task] = completed;
-        OnTaskCompleted(task);
-    }
-
-    /*public int CurrentHuntTask()
-    {
-        for (int i = 0; i < taskCompletion.Count; i++)
+        if (taskCompletion.Values.All(val => val == true))
         {
-            if (!taskCompletion.ElementAt(i).Value)
-            {
-                return i;
-            }
+            OnTaskCompleted(task, true);
         }
-        return -1;
-    }*/
+        else
+        {
+            OnTaskCompleted(task, false);
+        }
+    }
 
     public void StartHunting()
     {
@@ -102,21 +97,33 @@ public class ScavengerHunt : MonoBehaviour
         };
     }
 
-    public delegate void ShowDirections();
+    public delegate void ShowDirections(GameObject player, List<Transform> enemies);
     public static event ShowDirections OnShowDirections;
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(2))
         {
-            OnShowDirections();//colors
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            List<Transform> enemiesForDirections = new List<Transform>();
+            for (int i = 0; i < enemiesAdded.Count; i++)
+            {
+                enemiesForDirections.Add(enemiesAdded[i].transform);
+            }
+            OnShowDirections(player, enemiesForDirections);
         }
     }
 
     public void ShowObjectives()
     {
         Instantiate(prefabObjectives, mainPanel.transform);
-        //OnShowDirections();
+        /*GameObject player = GameObject.FindGameObjectWithTag("Player");
+        List<Transform> enemiesForDirections = new List<Transform>();
+        for (int i = 0; i < enemiesAdded.Count; i++)
+        {
+            enemiesForDirections.Add(enemiesAdded[i].transform);
+        }
+        OnShowDirections(player, enemiesForDirections);*/
     }
 
     public void StartTutorial()

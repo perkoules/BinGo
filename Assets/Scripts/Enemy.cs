@@ -121,11 +121,14 @@ public class Enemy : MonoBehaviour
         anim.SetTrigger(ANIM_DEAD);
     }
 
+    public static event Action<int> CheckClicks;
+
     public void DestroyObject()
     {
         Instantiate(prefabDeath, gameObject.transform);
         ScavengerHunt.Instance.CompleteHuntTask(gameObject, true);
         Destroy(gameObject);
+        CheckClicks?.Invoke(health);
         //gameObject.SetActive(false);
     }    
 }

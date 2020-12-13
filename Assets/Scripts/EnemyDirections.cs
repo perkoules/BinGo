@@ -45,12 +45,24 @@
             }
             _directions = MapboxAccess.Instance.Directions;
             ScavengerHunt.OnShowDirections += ScavengerHunt_OnShowDirections;
+            ScavengerHunt.OnTaskCompleted += ScavengerHunt_OnTaskCompleted;
         }
 
-        private void ScavengerHunt_OnShowDirections()
+        private void ScavengerHunt_OnTaskCompleted(string obj, bool done)
+        {
+            if (!done)
+            {
+                _waypoints = _waypoints.Where(en => !en.gameObject.name.Contains(obj)).ToArray();
+            }
+        }
+
+        private void ScavengerHunt_OnShowDirections(GameObject player, List<Transform> enemies)
         {
             _map.OnInitialized += Query;
             _map.OnUpdated += Query;
+            _waypoints = new Transform[enemies.Count + 1];
+            _waypoints[0] = player.transform;
+            enemies.CopyTo(_waypoints, 1);
             _cachedWaypoints = new List<Vector3>(_waypoints.Length);
             foreach (var item in _waypoints)
             {
@@ -80,7 +92,7 @@
             {
                 wp[i] = _waypoints[i].GetGeoPosition(_map.CenterMercator, _map.WorldRelativeScale);
             }
-            var _directionResource = new DirectionResource(wp, RoutingProfile.Driving);
+            var _directionResource = new DirectionResource(wp, RoutingProfile.Walking);
             _directionResource.Steps = true;
             _directions.Query(_directionResource, HandleDirectionsResponse);
         }

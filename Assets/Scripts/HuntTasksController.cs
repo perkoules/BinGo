@@ -30,8 +30,8 @@ public class HuntTasksController : MonoBehaviour
     private void Awake()
     {
         myButton = GetComponent<Button>();
-        ScavengerHunt.OnTaskCompleted += ScavengerHunt_OnTaskCompleted;
         myButton.onClick.AddListener(TogglePanel);
+        ScavengerHunt.OnTaskCompleted += ScavengerHunt_OnTaskCompleted;
     }
 
     public void TogglePanel()
@@ -49,10 +49,16 @@ public class HuntTasksController : MonoBehaviour
     }
 
 
-    private void ScavengerHunt_OnTaskCompleted(string obj, bool done)
+    private void ScavengerHunt_OnTaskCompleted(GameObject obj, string tasks, bool done)
     {
-        int index = Array.FindIndex(taskImages, i => i.gameObject.name.Contains(obj));
-        taskImages[index].interactable = false;
+        char[] tasksArray = tasks.ToCharArray();
+        for (int i = 0; i < tasksArray.Length; i++)
+        {
+            if (tasksArray[i] == '1')
+            {
+                taskImages[i].interactable = false;
+            }
+        }
         if(taskImages.All(img => img.interactable == false))
         {
             warning.gameObject.SetActive(false);

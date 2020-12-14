@@ -9,12 +9,22 @@ public class Shield : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public GameObject prefabShield, shieldPoint;
     private GameObject go;
     bool holding = false;
-    
+
+    private Button btn;
+
+    private void Awake()
+    {
+        btn = GetComponent<Button>();
+    }
+
     public void OnPointerDown(PointerEventData eventData)
     {
-        go = Instantiate(prefabShield, shieldPoint.transform.position, Quaternion.identity, shieldPoint.transform);
-        Destroy(go, 10f);
-        holding = true;
+        if (btn.interactable)
+        {
+            go = Instantiate(prefabShield, shieldPoint.transform.position, Quaternion.identity, shieldPoint.transform);
+            Destroy(go, 10f);
+            holding = true;
+        }
     }
     private void Update()
     {
@@ -22,7 +32,7 @@ public class Shield : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         {                
             if (holding && go.transform.localScale.x < 5)
             {
-                go.transform.localScale += Vector3.one * 0.05f;
+                go.transform.localScale += Vector3.one * 0.1f;
             }
             else if (!holding)
             {

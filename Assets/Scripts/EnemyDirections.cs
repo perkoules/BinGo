@@ -48,11 +48,17 @@
             ScavengerHunt.OnTaskCompleted += ScavengerHunt_OnTaskCompleted;
         }
 
-        private void ScavengerHunt_OnTaskCompleted(string obj, bool done)
+        private void ScavengerHunt_OnTaskCompleted(GameObject obj, string tasks, bool done)
         {
             if (!done)
             {
-                _waypoints = _waypoints.Where(en => !en.gameObject.name.Contains(obj)).ToArray();
+                _waypoints = _waypoints.Where(en => en.gameObject != obj).ToArray();
+                obj.SetActive(false);
+            }
+            else
+            {
+                ScavengerHunt.OnShowDirections -= ScavengerHunt_OnShowDirections;
+                ScavengerHunt.OnTaskCompleted -= ScavengerHunt_OnTaskCompleted;
             }
         }
 

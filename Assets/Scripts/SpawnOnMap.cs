@@ -19,38 +19,40 @@ public class SpawnOnMap : MonoBehaviour
     public Dictionary<string, GameObject> enemiesAndLocations;
     public Vector2d[] locations;
     public List<GameObject> spawnedEnemies;
-
+    public static SpawnOnMap Instance { get; private set; }
+    private void OnEnable()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
 
     private void Start()
     {
-        enemiesAndLocations = new Dictionary<string, GameObject>()
+        /*enemiesAndLocations = new Dictionary<string, GameObject>()
         {
             { "54.570785, -1.235899",   enemiesToSpawn[0] },
             { "54.574730, -1.231823",   enemiesToSpawn[1] },
             { "54.577917, -1.218668",   enemiesToSpawn[2] },
             { "54.583581, -1.229148",   enemiesToSpawn[3] },
             { "54.564898, -1.235498",   enemiesToSpawn[4] }
-        };
-        ////////////////////////////
-        ///For Testing
-        /*enemiesAndLocations = new Dictionary<string, GameObject>()
+        };*/
+
+        //For Testing
+        enemiesAndLocations = new Dictionary<string, GameObject>()
         {
             { "54.571749, -1.232586",   enemiesToSpawn[0] },
             { "54.571546, -1.232641",   enemiesToSpawn[1] },
             { "54.571235, -1.232696",   enemiesToSpawn[2] },
             { "54.571409, -1.232756",   enemiesToSpawn[3] },
             { "54.571654, -1.232690",   enemiesToSpawn[4] }
-        };*/
+        };
     }
-
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(1))
-        {
-            SpawnEnemies();
-        }
-    }
-
     public void Tree(Vector2d latlon)
     {
         var instance = Instantiate(treePrefab);
@@ -66,19 +68,22 @@ public class SpawnOnMap : MonoBehaviour
         instance.transform.localScale = new Vector3(spawnScale, spawnScale, spawnScale);
         instance.gameObject.name = "Bat effect";
     }
-    public void SpawnEnemies()
+    public void SpawnEnemies(string en)
     {
-        Debug.Log("Enemies Spawned");
+        char[] enArray = en.ToCharArray();
         locations = new Vector2d[enemiesToSpawn.Length];
         spawnedEnemies = new List<GameObject>();
         for (int i = 0; i < enemiesToSpawn.Length; i++)
         {
-            var locationString = enemiesAndLocations.ElementAt(i).Key;
-            locations[i] = Conversions.StringToLatLon(locationString);
-            var instance = Instantiate(enemiesToSpawn[i]);
-            instance.transform.localPosition = map.GeoToWorldPosition(locations[i], true);
-            instance.transform.localScale = new Vector3(spawnScale, spawnScale, spawnScale);
-            spawnedEnemies.Add(instance);
+            if (enArray[i] == '0')
+            {
+                var locationString = enemiesAndLocations.ElementAt(i).Key;
+                locations[i] = Conversions.StringToLatLon(locationString);
+                var instance = Instantiate(enemiesToSpawn[i]);
+                instance.transform.localPosition = map.GeoToWorldPosition(locations[i], true);
+                instance.transform.localScale = new Vector3(spawnScale, spawnScale, spawnScale);
+                spawnedEnemies.Add(instance);
+            }
         }
     }
 }

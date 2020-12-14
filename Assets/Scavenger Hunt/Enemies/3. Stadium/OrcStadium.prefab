@@ -58,7 +58,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8761960363611607353}
-  - {fileID: 4957465986286192074}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -93,7 +92,7 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 529022221, guid: d8d2d94dcbc8983459cd40c9d35384bc, type: 3}
       propertyPath: health
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 529022221, guid: d8d2d94dcbc8983459cd40c9d35384bc, type: 3}
       propertyPath: ammoStart
@@ -161,22 +160,27 @@ PrefabInstance:
     - target: {fileID: 3657456214424337483, guid: d8d2d94dcbc8983459cd40c9d35384bc,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 5
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3657456214424337483, guid: d8d2d94dcbc8983459cd40c9d35384bc,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 5
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3657456214424337483, guid: d8d2d94dcbc8983459cd40c9d35384bc,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 5
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3660388099177069173, guid: d8d2d94dcbc8983459cd40c9d35384bc,
         type: 3}
       propertyPath: m_Name
       value: Orc Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 3660388099177069173, guid: d8d2d94dcbc8983459cd40c9d35384bc,
+        type: 3}
+      propertyPath: m_TagString
+      value: MonsterHuntTag
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8d2d94dcbc8983459cd40c9d35384bc, type: 3}
@@ -197,7 +201,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 4431654564053006055}
+    m_TransformParent: {fileID: 8761960363611607353}
     m_Modifications:
     - target: {fileID: 2905556364344226506, guid: d6a7668253e63ef4e8219f2be378db15,
         type: 3}
@@ -247,7 +251,7 @@ PrefabInstance:
     - target: {fileID: 3087560319657115903, guid: d6a7668253e63ef4e8219f2be378db15,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3087560319657115903, guid: d6a7668253e63ef4e8219f2be378db15,
         type: 3}
@@ -272,7 +276,7 @@ PrefabInstance:
     - target: {fileID: 3087560319657115903, guid: d6a7668253e63ef4e8219f2be378db15,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 12.22
+      value: 2.4440002
       objectReference: {fileID: 0}
     - target: {fileID: 3087560319657115903, guid: d6a7668253e63ef4e8219f2be378db15,
         type: 3}
@@ -314,6 +318,21 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3087560319657115903, guid: d6a7668253e63ef4e8219f2be378db15,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3087560319657115903, guid: d6a7668253e63ef4e8219f2be378db15,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3087560319657115903, guid: d6a7668253e63ef4e8219f2be378db15,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 3798308577666549387, guid: d6a7668253e63ef4e8219f2be378db15,
         type: 3}
       propertyPath: m_Name
@@ -321,12 +340,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6a7668253e63ef4e8219f2be378db15, type: 3}
---- !u!224 &4957465986286192074 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3087560319657115903, guid: d6a7668253e63ef4e8219f2be378db15,
-    type: 3}
-  m_PrefabInstance: {fileID: 7932319766674048309}
-  m_PrefabAsset: {fileID: 0}
 --- !u!223 &8579985275661125312 stripped
 Canvas:
   m_CorrespondingSourceObject: {fileID: 1803544224746406901, guid: d6a7668253e63ef4e8219f2be378db15,

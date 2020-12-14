@@ -25,8 +25,8 @@ public class BattleController : MonoBehaviour
     public bool playerProjectileDead, playerProjectileHit = false;
     public bool enemyProjectileDead, enemyProjectileHit = false;
 
-    private int shieldAvailable, projectileAvailable = 0;
-    private int shieldUsed, projectileUsed = 0;
+    public int shieldAvailable, projectileAvailable = 0;
+    public int shieldUsed, projectileUsed = 0;
 
 
     private void OnEnable()
@@ -38,15 +38,11 @@ public class BattleController : MonoBehaviour
         else
         {
             Instance = this;
-        }
-        playerDataSaver = GetComponent<PlayerDataSaver>();
-        shieldUsed = playerDataSaver.GetShieldUsed();
-        shieldAvailable = Convert.ToInt32(shieldAmount) - shieldUsed;
-        projectileUsed = playerDataSaver.GetProjectileUsed();
-        projectileAvailable = Convert.ToInt32(attackAmount) - projectileUsed;
+        }        
     }
     private void Awake()
     {
+        playerDataSaver = GetComponent<PlayerDataSaver>();
         MonsterDestroyer.OnMonsterClicked += MonsterDestroyer_OnMonsterClicked;
         player = Camera.main;
         battleText.text = "Battle info...";
@@ -71,7 +67,12 @@ public class BattleController : MonoBehaviour
         battleText.text = "Prepare to battle...";
         yield return new WaitUntil(() => enemyScript.isReadyToBattle == true);
 
-        
+
+        shieldUsed = playerDataSaver.GetShieldUsed();
+        shieldAvailable = playerDataSaver.GetRecycleCollected() - shieldUsed;
+        projectileUsed = playerDataSaver.GetProjectileUsed();
+        projectileAvailable = playerDataSaver.GetWasteCollected() - projectileUsed;
+
         currentState = BattleState.PlayerTurn;
         PlayerTurn();
     }
@@ -79,12 +80,17 @@ public class BattleController : MonoBehaviour
     private void PlayerTurn()
     {
         battleText.text = "Your turn to attack...";
-        if (ProjectileAvailable() > 0)
+        shieldBtn.interactable = false;
+        if (projectileAvailable > 0)
         {
             attackBtn.interactable = true;
         }
     }
 
+    /// <summary>
+    /// What happens when player is attacking. (Triggered from
+    /// a button onclick event in the editor)
+    /// </summary>
     public void OnPlayerAttack()
     {
         if(currentState != BattleState.PlayerTurn)
@@ -92,7 +98,9 @@ public class BattleController : MonoBehaviour
             return;
         }
         projectileUsed++;
-        attackAmount.text = ProjectileAvailable().ToString();
+        projectileAvailable = projectileAvailable - projectileUsed;
+        playerDataSaver.SetProjectileUsed(projectileUsed);
+        attackAmount.text = projectileAvailable.ToString();
         attackBtn.interactable = false;
         Instantiate(prefabAttack, player.transform.position, player.transform.rotation);
         StartCoroutine(PlayerAttack());
@@ -100,7 +108,8 @@ public class BattleController : MonoBehaviour
     IEnumerator PlayerAttack()
     {        
         battleText.text = "You attacked!";
-        yield return new WaitForSeconds(5f);
+        yield return new WaitUntil(() => playerProjectileDead == true);
+        playerProjectileDead = false;
         if (playerProjectileHit)
         {
             bool enemyIsDead = enemyScript.TakeDamage();
@@ -124,18 +133,22 @@ public class BattleController : MonoBehaviour
     public void ShieldPressed()
     {
         shieldUsed++;
-        shieldAmount.text = ShieldAvailable().ToString();
+        shieldAvailable = shieldAvailable - shieldUsed;
+        playerDataSaver.SetShieldUsed(shieldUsed);
+        shieldAmount.text = shieldAvailable.ToString();
     }
 
     IEnumerator EnemyTurn()
     {
         battleText.text = "Enemy's turn. Shield yourself.";
-        if (ShieldAvailable() > 0)
+        if (shieldAvailable > 0)
         {
             shieldBtn.interactable = true;
         }
-        yield return new WaitForSeconds(3);
-        enemyScript.AttackAmmo();
+        yield return new WaitForSeconds(2);
+        enemyScript.TriggerAttack();
+        yield return new WaitUntil(() => enemyProjectileDead == true); 
+        enemyProjectileDead = false;
         if (enemyProjectileHit)
         {
             currentState = BattleState.Lost;
@@ -151,8 +164,11 @@ public class BattleController : MonoBehaviour
 
     private void EndBattle()
     {
+        shieldBtn.interactable = false;
+        attackBtn.interactable = false;
         if(currentState == BattleState.Won)
         {
+            enemy = null;
             enemyScript.EnemyLost();
             battleText.text = "You WON. That's not good for my Lord!";
         }
@@ -163,7 +179,8 @@ public class BattleController : MonoBehaviour
             GameObject plDeath = Instantiate(prefabPlayerDeath, player.transform.position + Vector3.forward * 5, Quaternion.identity);
             Destroy(plDeath, 3f);
         }
-        battlePanel.SetActive(true);
+        currentState = BattleState.Idle;
+        battlePanel.SetActive(false);
         playerDataSaver.SetShieldUsed(shieldUsed);
         playerDataSaver.SetProjectileUsed(projectileUsed);
     }
@@ -178,16 +195,5 @@ public class BattleController : MonoBehaviour
     {
         enemyProjectileDead = isEnProjDead;
         enemyProjectileHit = didEnHit;
-    }
-    public int ShieldAvailable()
-    {
-        shieldAvailable -= shieldUsed;
-        return shieldAvailable;
-    }
-
-    public int ProjectileAvailable()
-    {
-        projectileAvailable -= projectileUsed;
-        return projectileAvailable;
     }
 }

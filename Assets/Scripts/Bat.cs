@@ -6,6 +6,7 @@ public class Bat : MonoBehaviour
 {
     private PlayerDataSaver playerDataSaver;
     public GameObject prefabDeath;
+    private MonsterDestroyer cam;
     public static Bat Instance { get; set; }
 
     private void OnEnable()
@@ -21,13 +22,29 @@ public class Bat : MonoBehaviour
     }
     private void Awake()
     {
+        /////////////////////////
+        ResetScav.OnResetHun += ResetScav_OnResetHun;
+        //////////////////////////
+        cam = Camera.main.GetComponent<MonsterDestroyer>();
         playerDataSaver = GetComponent<PlayerDataSaver>();
         if (playerDataSaver.GetScavHunt() == 1)
         {
-            gameObject.SetActive(false);
+            gameObject.SetActive(false); 
+            ScavengerHunt.Instance.ContinueHunting();
             Deactivation();
         }
     }
+    /// <summary>
+    /// For Testingn purposes
+    /// </summary>
+    private void ResetScav_OnResetHun()
+    {
+        if (!gameObject.activeSelf)
+        {
+            gameObject.SetActive(true);
+        }
+    }
+
     private void Start()
     {
         MonsterDestroyer.OnMonsterClicked += MonsterDestroyer_OnMonsterClicked;
@@ -42,13 +59,12 @@ public class Bat : MonoBehaviour
             gameObject.SetActive(false);
             Deactivation(); 
             Destroy(GameObject.FindGameObjectWithTag("BatEffectTag"));
-            playerDataSaver.SetScavHunt(1);
         }
     }
 
     private void Update()
     {
-        if (Camera.main.isActiveAndEnabled)
+        if (cam.canRaycast)
         {
             transform.LookAt(Camera.main.transform, Vector3.up);
         }

@@ -21,6 +21,18 @@ public class PlayerDataSaver : MonoBehaviour
     private const string SCAVENGER_HUNT = "ScavengerHunt";
     private const string PROJECTILE_AVAILABLE = "ProjectileAvailable";
     private const string SHIELD_AVAILABLE = "ShieldAvailable";
+    private const string HUNT_PROGRESS = "HuntProgress";
+
+
+    public void SetHuntProgress(string tasks)
+    {
+        PlayerPrefs.SetString(HUNT_PROGRESS,tasks);
+    }
+
+    public string GetHuntProgress()
+    {
+        return PlayerPrefs.GetString(HUNT_PROGRESS);
+    }
 
     public void SetProjectileUsed(int proj)
     {

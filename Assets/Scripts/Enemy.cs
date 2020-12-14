@@ -42,12 +42,13 @@ public class Enemy : MonoBehaviour
 
     public void PrepareEnemyForBattle()
     {
-        transform.LookAt(player.transform, Vector3.up);
+        LookAtPlayer();
         anim.SetBool(ANIM_ATTACKMODE, true);
         canvas.enabled = false;
-        Idle();
     }
-
+    /// <summary>
+    /// Trigger at the end of Taunt Animation
+    /// </summary>
     private void Idle()
     {
         SetDestination();
@@ -61,7 +62,7 @@ public class Enemy : MonoBehaviour
         {
             yield return new WaitUntil(() => agentDistance < 1);
         }
-        transform.LookAt(player.transform);
+        LookAtPlayer();
         anim.SetTrigger(ANIM_BATTLE);
         isReadyToBattle = true;
     }
@@ -91,9 +92,17 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void AttackAmmo()
+    public void TriggerAttack()
     {
-        GameObject go = Instantiate(prefabAmmo, ammoStart.position, Quaternion.identity, ammoStart);
+        anim.SetTrigger(ANIM_ATTACK);
+    }
+    public void LookAtPlayer()
+    {
+        transform.LookAt(Camera.main.transform, Vector3.up);
+    }
+    public void AttackAtPlayer()
+    {
+        Instantiate(prefabAmmo, ammoStart.position, Quaternion.identity, ammoStart);
     }
 
     public bool TakeDamage()
@@ -121,14 +130,9 @@ public class Enemy : MonoBehaviour
         anim.SetTrigger(ANIM_DEAD);
     }
 
-    public static event Action<int> CheckClicks;
-
     public void DestroyObject()
     {
         Instantiate(prefabDeath, gameObject.transform);
         ScavengerHunt.Instance.CompleteHuntTask(gameObject, true);
-        Destroy(gameObject);
-        CheckClicks?.Invoke(health);
-        //gameObject.SetActive(false);
     }    
 }

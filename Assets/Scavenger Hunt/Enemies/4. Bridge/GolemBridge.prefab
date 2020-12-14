@@ -58,7 +58,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2062631197975411845}
-  - {fileID: 4982468897009886059}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -93,7 +92,7 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 1817559354, guid: b03b6a1a01d60084baa1108454cc3572, type: 3}
       propertyPath: health
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1817559354, guid: b03b6a1a01d60084baa1108454cc3572, type: 3}
       propertyPath: ammoStart
@@ -656,17 +655,17 @@ PrefabInstance:
     - target: {fileID: 3942090492677905795, guid: b03b6a1a01d60084baa1108454cc3572,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 5
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3942090492677905795, guid: b03b6a1a01d60084baa1108454cc3572,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 5
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3942090492677905795, guid: b03b6a1a01d60084baa1108454cc3572,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 5
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3942096445617431655, guid: b03b6a1a01d60084baa1108454cc3572,
         type: 3}
@@ -838,6 +837,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Golem Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 3945114928979241395, guid: b03b6a1a01d60084baa1108454cc3572,
+        type: 3}
+      propertyPath: m_TagString
+      value: MonsterHuntTag
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b03b6a1a01d60084baa1108454cc3572, type: 3}
 --- !u!1 &2059608958616815797 stripped
@@ -857,7 +861,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 4265263101111806144}
+    m_TransformParent: {fileID: 2062631197975411845}
     m_Modifications:
     - target: {fileID: 2905556364344226506, guid: d6a7668253e63ef4e8219f2be378db15,
         type: 3}
@@ -907,7 +911,7 @@ PrefabInstance:
     - target: {fileID: 3087560319657115903, guid: d6a7668253e63ef4e8219f2be378db15,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3087560319657115903, guid: d6a7668253e63ef4e8219f2be378db15,
         type: 3}
@@ -932,7 +936,7 @@ PrefabInstance:
     - target: {fileID: 3087560319657115903, guid: d6a7668253e63ef4e8219f2be378db15,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 14.57
+      value: 2.9139996
       objectReference: {fileID: 0}
     - target: {fileID: 3087560319657115903, guid: d6a7668253e63ef4e8219f2be378db15,
         type: 3}
@@ -974,6 +978,21 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3087560319657115903, guid: d6a7668253e63ef4e8219f2be378db15,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3087560319657115903, guid: d6a7668253e63ef4e8219f2be378db15,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3087560319657115903, guid: d6a7668253e63ef4e8219f2be378db15,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 3798308577666549387, guid: d6a7668253e63ef4e8219f2be378db15,
         type: 3}
       propertyPath: m_Name
@@ -981,12 +1000,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6a7668253e63ef4e8219f2be378db15, type: 3}
---- !u!224 &4982468897009886059 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3087560319657115903, guid: d6a7668253e63ef4e8219f2be378db15,
-    type: 3}
-  m_PrefabInstance: {fileID: 8069464067606438804}
-  m_PrefabAsset: {fileID: 0}
 --- !u!223 &8573454263362150497 stripped
 Canvas:
   m_CorrespondingSourceObject: {fileID: 1803544224746406901, guid: d6a7668253e63ef4e8219f2be378db15,

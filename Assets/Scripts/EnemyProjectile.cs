@@ -26,7 +26,7 @@ public class EnemyProjectile : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("ShieldTag"))
         {
-            //OnShieldDestroyed();
+            OnShieldDestroyed();
             Destroy(gameObject);
             Destroy(other.gameObject);
         }

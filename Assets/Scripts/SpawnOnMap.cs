@@ -34,24 +34,24 @@ public class SpawnOnMap : MonoBehaviour
 
     private void Start()
     {
-        /*enemiesAndLocations = new Dictionary<string, GameObject>()
+        enemiesAndLocations = new Dictionary<string, GameObject>()
         {
             { "54.570785, -1.235899",   enemiesToSpawn[0] },
             { "54.574730, -1.231823",   enemiesToSpawn[1] },
             { "54.577917, -1.218668",   enemiesToSpawn[2] },
             { "54.583581, -1.229148",   enemiesToSpawn[3] },
             { "54.564898, -1.235498",   enemiesToSpawn[4] }
-        };*/
+        };
 
         //For Testing
-        enemiesAndLocations = new Dictionary<string, GameObject>()
+        /*enemiesAndLocations = new Dictionary<string, GameObject>()
         {
             { "54.571749, -1.232586",   enemiesToSpawn[0] },
             { "54.571546, -1.232641",   enemiesToSpawn[1] },
             { "54.571235, -1.232696",   enemiesToSpawn[2] },
             { "54.571409, -1.232756",   enemiesToSpawn[3] },
             { "54.571654, -1.232690",   enemiesToSpawn[4] }
-        };
+        };*/
     }
     public void Tree(Vector2d latlon)
     {

@@ -14,7 +14,6 @@ public class ScavengerHunt : MonoBehaviour
 
     public GameObject prefabTutorialMessageBox;
     public GameObject prefabObjectives, mainPanel;
-    public TextMeshProUGUI scav;
 
     private string taskCompleted = "";
 
@@ -33,7 +32,6 @@ public class ScavengerHunt : MonoBehaviour
     {
         enemiesAdded = new List<GameObject>();
         playerDataSaver = GetComponent<PlayerDataSaver>();
-        scav.text = playerDataSaver.GetScavHunt().ToString();
     }
     public void AddEnemy(GameObject go)
     {
@@ -102,8 +100,9 @@ public class ScavengerHunt : MonoBehaviour
         StartCoroutine(ShowObjectives());
     }
 
-    public void ContinueHunting()
+    public IEnumerator ContinueHunting()
     {
+        yield return new WaitForSeconds(5);
         taskCompletion = new Dictionary<string, bool>()
         {
             { "MonsterPlant", false },

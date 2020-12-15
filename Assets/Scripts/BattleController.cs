@@ -92,7 +92,7 @@ public class BattleController : MonoBehaviour
 
     /// <summary>
     /// What happens when player is attacking. (Triggered from
-    /// a button onclick event in the editor)
+    /// a button click event in the editor)
     /// </summary>
     public void OnPlayerAttack()
     {

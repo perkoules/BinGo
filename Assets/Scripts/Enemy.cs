@@ -85,7 +85,7 @@ public class Enemy : MonoBehaviour
     }
     private void SetDestination()
     {
-        target = Camera.main.transform.position + Camera.main.transform.forward * 50;
+        target = player.transform.position + player.transform.forward * 50;
         if (agent.isOnNavMesh)
         {
             agent.destination = target;
@@ -96,10 +96,16 @@ public class Enemy : MonoBehaviour
     {
         anim.SetTrigger(ANIM_ATTACK);
     }
+    /// <summary>
+    /// Triggered at the start of Attack Animation
+    /// </summary>
     public void LookAtPlayer()
     {
-        transform.LookAt(Camera.main.transform, Vector3.up);
+        transform.LookAt(player.transform, Vector3.up);
     }
+    /// <summary>
+    /// Triggered at a keyframe of Attack Animation
+    /// </summary>
     public void AttackAtPlayer()
     {
         Instantiate(prefabAmmo, ammoStart.position, Quaternion.identity, ammoStart);

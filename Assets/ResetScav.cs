@@ -1,22 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ResetScav : MonoBehaviour
 {
-    private PlayerDataSaver playerDataSaver;
-    private Button btn;
-    public delegate void ResetScHun();
-    public static event ResetScHun OnResetHun;
-    private void Awake()
+    public TextMeshProUGUI txt;    
+
+    public void Minus()
     {
-        btn = GetComponent<Button>();
-        playerDataSaver = GetComponent<PlayerDataSaver>();
-        btn.onClick.AddListener(ResetHunt);
+        GameObject go = FindObjectOfType<BattleController>().enemy;
+        go.gameObject.transform.localScale -= Vector3.one * 0.05f;
+        txt.text = go.transform.localScale.x.ToString();
     }
-    private void ResetHunt()
+    public void Plus()
     {
-        OnResetHun();
+        GameObject go = FindObjectOfType<BattleController>().enemy;
+        go.gameObject.transform.localScale += Vector3.one * 0.05f;
+        txt.text = go.transform.localScale.x.ToString();
     }
 }

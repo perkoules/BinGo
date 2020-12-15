@@ -22,26 +22,13 @@ public class Bat : MonoBehaviour
     }
     private void Awake()
     {
-        /////////////////////////
-        ResetScav.OnResetHun += ResetScav_OnResetHun;
-        //////////////////////////
         cam = Camera.main.GetComponent<MonsterDestroyer>();
         playerDataSaver = GetComponent<PlayerDataSaver>();
         if (playerDataSaver.GetScavHunt() == 1)
         {
-            gameObject.SetActive(false); 
-            ScavengerHunt.Instance.ContinueHunting();
+            gameObject.SetActive(false);
+            StartCoroutine(ScavengerHunt.Instance.ContinueHunting());
             Deactivation();
-        }
-    }
-    /// <summary>
-    /// For Testingn purposes
-    /// </summary>
-    private void ResetScav_OnResetHun()
-    {
-        if (!gameObject.activeSelf)
-        {
-            gameObject.SetActive(true);
         }
     }
 

@@ -100,9 +100,8 @@ public class ScavengerHunt : MonoBehaviour
         StartCoroutine(ShowObjectives());
     }
 
-    public IEnumerator ContinueHunting()
+    public void ContinueHunting()
     {
-        yield return new WaitForSeconds(5);
         taskCompletion = new Dictionary<string, bool>()
         {
             { "MonsterPlant", false },

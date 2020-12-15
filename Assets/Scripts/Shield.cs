@@ -6,9 +6,6 @@ using UnityEngine.UI;
 
 public class Shield : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    public delegate void ButtonReleased();
-    public static event ButtonReleased OnButtonReleased;
-
     public GameObject prefabShield, shieldPoint;
     private GameObject go;
     bool holding = false;
@@ -42,14 +39,9 @@ public class Shield : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 go.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
             }
         }
-        if (!btn.interactable)
-        {
-            OnButtonReleased?.Invoke();
-        }
     }
     public void OnPointerUp(PointerEventData eventData)
     {
         holding = false;
-        OnButtonReleased?.Invoke();
     }
 }

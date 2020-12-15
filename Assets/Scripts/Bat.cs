@@ -26,10 +26,15 @@ public class Bat : MonoBehaviour
         playerDataSaver = GetComponent<PlayerDataSaver>();
         if (playerDataSaver.GetScavHunt() == 1)
         {
-            gameObject.SetActive(false);
-            StartCoroutine(ScavengerHunt.Instance.ContinueHunting());
-            Deactivation();
+            StartCoroutine(ResumeScavengerHunt());
         }
+    }
+
+    private IEnumerator ResumeScavengerHunt()
+    {
+        ScavengerHunt.Instance.ContinueHunting();
+        yield return new WaitForSeconds(0.5f);
+        Deactivation();
     }
 
     private void Start()
@@ -43,9 +48,8 @@ public class Bat : MonoBehaviour
         {
             Instantiate(prefabDeath, gameObject.transform);
             ScavengerHunt.Instance.StartHunting();
-            gameObject.SetActive(false);
-            Deactivation(); 
             Destroy(GameObject.FindGameObjectWithTag("BatEffectTag"));
+            Deactivation(); 
         }
     }
 
@@ -58,6 +62,7 @@ public class Bat : MonoBehaviour
     }
     private void Deactivation()
     {
+        gameObject.SetActive(false);
         MonsterDestroyer.OnMonsterClicked -= MonsterDestroyer_OnMonsterClicked;
     }
     private void OnDestroy()

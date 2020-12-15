@@ -81,7 +81,7 @@ public class BattleController : MonoBehaviour
 
     private void PlayerTurn()
     {
-        Shield.OnButtonReleased -= Shielding;
+        ShieldObject.OnButtonReleased -= Shielding;
         battleText.text = "Your turn to attack...";
         shieldBtn.interactable = false;
         if (projectileAvailable > 0)
@@ -136,8 +136,7 @@ public class BattleController : MonoBehaviour
     IEnumerator EnemyTurn()
     {
         battleText.text = "Enemy's turn. Shield yourself.";
-        Shield.OnButtonReleased += Shielding;
-        EnemyProjectile.OnShieldDestroyed += Shielding;
+        ShieldObject.OnButtonReleased += Shielding;
         if (shieldAvailable > 0)
         {
             shieldBtn.interactable = true;
@@ -205,5 +204,12 @@ public class BattleController : MonoBehaviour
         battlePanel.SetActive(false);
         playerDataSaver.SetShieldUsed(shieldUsed);
         playerDataSaver.SetProjectileUsed(projectileUsed);
+    }
+
+
+    public void SetPlFab()
+    {
+        playerDataSaver.SetRecycleCollected(50);
+        playerDataSaver.SetWasteCollected(50);
     }
 }

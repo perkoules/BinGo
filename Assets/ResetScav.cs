@@ -15,10 +15,6 @@ public class ResetScav : MonoBehaviour
         playerDataSaver = GetComponent<PlayerDataSaver>();
         btn.onClick.AddListener(ResetHunt);
     }
-    private void Start()
-    {
-        Debug.Log(playerDataSaver.GetScavHunt().ToString());
-    }
     private void ResetHunt()
     {
         OnResetHun();

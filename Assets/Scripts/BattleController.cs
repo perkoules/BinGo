@@ -72,6 +72,8 @@ public class BattleController : MonoBehaviour
         shieldAvailable = playerDataSaver.GetRecycleCollected() - shieldUsed;
         projectileUsed = playerDataSaver.GetProjectileUsed();
         projectileAvailable = playerDataSaver.GetWasteCollected() - projectileUsed;
+        attackAmount.text = projectileAvailable.ToString();
+        shieldAmount.text = shieldAvailable.ToString();
 
         currentState = BattleState.PlayerTurn;
         PlayerTurn();
@@ -79,6 +81,7 @@ public class BattleController : MonoBehaviour
 
     private void PlayerTurn()
     {
+        Shield.OnButtonReleased -= Shielding;
         battleText.text = "Your turn to attack...";
         shieldBtn.interactable = false;
         if (projectileAvailable > 0)
@@ -98,7 +101,7 @@ public class BattleController : MonoBehaviour
             return;
         }
         projectileUsed++;
-        projectileAvailable = projectileAvailable - projectileUsed;
+        projectileAvailable = playerDataSaver.GetWasteCollected() - projectileUsed;
         playerDataSaver.SetProjectileUsed(projectileUsed);
         attackAmount.text = projectileAvailable.ToString();
         attackBtn.interactable = false;
@@ -130,17 +133,11 @@ public class BattleController : MonoBehaviour
         }
     }    
 
-    public void ShieldPressed()
-    {
-        shieldUsed++;
-        shieldAvailable = shieldAvailable - shieldUsed;
-        playerDataSaver.SetShieldUsed(shieldUsed);
-        shieldAmount.text = shieldAvailable.ToString();
-    }
-
     IEnumerator EnemyTurn()
     {
         battleText.text = "Enemy's turn. Shield yourself.";
+        Shield.OnButtonReleased += Shielding;
+        EnemyProjectile.OnShieldDestroyed += Shielding;
         if (shieldAvailable > 0)
         {
             shieldBtn.interactable = true;
@@ -162,10 +159,16 @@ public class BattleController : MonoBehaviour
 
     }
 
+    private void Shielding()
+    {
+        shieldUsed++;
+        shieldAvailable = playerDataSaver.GetRecycleCollected() - shieldUsed;
+        playerDataSaver.SetShieldUsed(shieldUsed);
+        shieldAmount.text = shieldAvailable.ToString();
+    }
+
     private void EndBattle()
     {
-        shieldBtn.interactable = false;
-        attackBtn.interactable = false;
         if(currentState == BattleState.Won)
         {
             enemy = null;
@@ -179,10 +182,7 @@ public class BattleController : MonoBehaviour
             GameObject plDeath = Instantiate(prefabPlayerDeath, player.transform.position + Vector3.forward * 5, Quaternion.identity);
             Destroy(plDeath, 3f);
         }
-        currentState = BattleState.Idle;
-        battlePanel.SetActive(false);
-        playerDataSaver.SetShieldUsed(shieldUsed);
-        playerDataSaver.SetProjectileUsed(projectileUsed);
+        Forfeit();
     }
 
     public void PlayerAttackHitResult(bool isProjDead, bool didHit)
@@ -195,5 +195,15 @@ public class BattleController : MonoBehaviour
     {
         enemyProjectileDead = isEnProjDead;
         enemyProjectileHit = didEnHit;
+    }
+
+    public void Forfeit()
+    {
+        shieldBtn.interactable = false;
+        attackBtn.interactable = false;
+        currentState = BattleState.Idle;
+        battlePanel.SetActive(false);
+        playerDataSaver.SetShieldUsed(shieldUsed);
+        playerDataSaver.SetProjectileUsed(projectileUsed);
     }
 }

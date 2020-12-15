@@ -14,8 +14,9 @@ public class ScavengerHunt : MonoBehaviour
 
     public GameObject prefabTutorialMessageBox;
     public GameObject prefabObjectives, mainPanel;
-
     public TextMeshProUGUI scav;
+
+    private string taskCompleted = "";
 
     private void OnEnable()
     {
@@ -84,7 +85,7 @@ public class ScavengerHunt : MonoBehaviour
 
     public void StartHunting()
     {
-        //playerDataSaver.SetScavHunt(1);
+        playerDataSaver.SetScavHunt(1);
         playerDataSaver.SetShieldUsed(0);
         playerDataSaver.SetProjectileUsed(0);
         playerDataSaver.SetHuntProgress("00000");
@@ -124,7 +125,8 @@ public class ScavengerHunt : MonoBehaviour
             {
                 taskCompletion[taskCompletion.ElementAt(i).Key] = false;
             }
-        }        
+        }
+        taskCompleted = new string(taskSaverArray);
         StartCoroutine(ShowObjectives());
     }
 
@@ -134,6 +136,10 @@ public class ScavengerHunt : MonoBehaviour
     public IEnumerator ShowObjectives()
     {
         Instantiate(prefabObjectives, mainPanel.transform);
+        if (playerDataSaver.GetScavHunt() == 1)
+        {
+            HuntTasksController.Instance.ResumeHuntingInitialization(taskCompleted);
+        }
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         yield return new WaitForSeconds(2);
         List<Transform> enemiesForDirections = new List<Transform>();

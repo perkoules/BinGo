@@ -47,7 +47,17 @@ public class HuntTasksController : MonoBehaviour
             anim.SetTrigger("CloseTask");
         }
     }
-
+    public void ResumeHuntingInitialization(string tasks)
+    {
+        char[] tasksArray = tasks.ToCharArray();
+        for (int i = 0; i < tasksArray.Length; i++)
+        {
+            if (tasksArray[i] == '1')
+            {
+                taskImages[i].interactable = false;
+            }
+        }
+    }
 
     private void ScavengerHunt_OnTaskCompleted(GameObject obj, string tasks, bool done)
     {

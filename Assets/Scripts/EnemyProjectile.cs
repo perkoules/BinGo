@@ -15,7 +15,8 @@ public class EnemyProjectile : MonoBehaviour
     {
         transform.localPosition += transform.forward * 5f * Time.deltaTime;
     }
-
+    public delegate void ShieldDestroyed();
+    public static event ShieldDestroyed OnShieldDestroyed;
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("MainCamera"))
@@ -25,6 +26,7 @@ public class EnemyProjectile : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("ShieldTag"))
         {
+            //OnShieldDestroyed();
             Destroy(gameObject);
             Destroy(other.gameObject);
         }

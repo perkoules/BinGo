@@ -6,7 +6,16 @@ using UnityEngine.UI;
 
 public class ResetScav : MonoBehaviour
 {
-    public TextMeshProUGUI txt;    
+    public TextMeshProUGUI txt, tasks;
+
+    public PlayerDataSaver pl;
+    private void Start()
+    {
+        if (tasks != null)
+        {
+            tasks.text = pl.GetScavHunt() + " =>  " + pl.GetHuntProgress();
+        }
+    }
 
     public void Minus()
     {
@@ -19,5 +28,11 @@ public class ResetScav : MonoBehaviour
         GameObject go = FindObjectOfType<BattleController>().enemy;
         go.gameObject.transform.localScale += Vector3.one * 0.05f;
         txt.text = go.transform.localScale.x.ToString();
+    }
+
+    public void SetToZero()
+    {
+        var pl = GetComponent<PlayerDataSaver>();
+        pl.SetScavHunt(0);
     }
 }

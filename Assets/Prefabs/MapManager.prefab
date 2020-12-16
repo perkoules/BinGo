@@ -46,7 +46,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 709013340}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalPosition: {x: 0, y: 1, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 567712750}
@@ -79,7 +79,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 768245061}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 20}
+  m_LocalPosition: {x: 0, y: 1, z: 20}
   m_LocalScale: {x: 1, y: 1, z: 40}
   m_Children: []
   m_Father: {fileID: 567712750}
@@ -173,7 +173,7 @@ Transform:
   m_GameObject: {fileID: 3887955446587437159}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4240222654516114841}
   m_Father: {fileID: 6617651570897513817}
@@ -192,7 +192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _map: {fileID: 6617651570160494515}
-  _positionFollowFactor: 30
+  _positionFollowFactor: 2
   _useTransformLocationProvider: 0
 --- !u!114 &3887955446587437160
 MonoBehaviour:
@@ -334,10 +334,10 @@ MonoBehaviour:
           visibleBuffer: 0
           disposeBuffer: 0
         rangeAroundCenterOptions:
-          west: 1
-          north: 1
-          east: 1
-          south: 1
+          west: 2
+          north: 2
+          east: 2
+          south: 2
         rangeAroundTransformOptions:
           targetTransform: {fileID: 3887955446587437161}
           visibleBuffer: 1
@@ -347,7 +347,7 @@ MonoBehaviour:
       snapMapToZero: 0
     scalingOptions:
       scalingType: 0
-      unityTileSize: 100
+      unityTileSize: -44.04
     loadingTexture: {fileID: 0}
     tileMaterial: {fileID: 0}
   _initializeOnStart: 1
@@ -1038,7 +1038,7 @@ MonoBehaviour:
           filters:
           - Key: name
             KeyDescription: String
-            PropertyValue: BatTest
+            PropertyValue: TowerClue
             Min: 0
             Max: 0
             filterOperator: 0
@@ -1160,6 +1160,78 @@ MonoBehaviour:
         MeshModifiers: []
         GoModifiers:
         - {fileID: 11400000, guid: 3e043be6fcc758a47b1818d84ce43765, type: 2}
+        presetFeatureType: 4
+        _maskValue: 0
+        selectedTypes: 
+      - coreOptions:
+          sourceId: 
+          isActive: 1
+          sublayerName: EnemyArea
+          geometryType: 3
+          layerName: Enemies
+          snapToTerrain: 1
+          combineMeshes: 0
+        lineGeometryOptions:
+          Width: 1
+          MiterLimit: 0.2
+          RoundLimit: 1.05
+          JoinType: 1
+          CapType: 1
+        filterOptions:
+          _selectedLayerName: Enemies
+          filters:
+          - Key: type
+            KeyDescription: String
+            PropertyValue: EnemyArea
+            Min: 0
+            Max: 0
+            filterOperator: 0
+          combinerType: 0
+        extrusionOptions:
+          _selectedLayerName: landuse
+          extrusionType: 0
+          extrusionGeometryType: 0
+          propertyName: height
+          propertyDescription: Unavailable in Selected Layer.
+          minimumHeight: 1.89
+          maximumHeight: 1
+          extrusionScaleFactor: 1
+        colliderOptions:
+          colliderType: 0
+        materialOptions:
+          style: 0
+          texturingType: 2
+          materials:
+          - Materials:
+            - {fileID: 0}
+          - Materials:
+            - {fileID: 0}
+          atlasInfo: {fileID: 0}
+          lightStyleOpacity: 1
+          darkStyleOpacity: 1
+          colorStyleColor: {r: 0.1764706, g: 0.8509805, b: 1, a: 1}
+          samplePalettes: 0
+          colorPalette: {fileID: 0}
+          customStyleOptions:
+            texturingType: 0
+            materials:
+            - Materials:
+              - {fileID: 0}
+            - Materials:
+              - {fileID: 0}
+            atlasInfo: {fileID: 11400000, guid: 414754d7155df47beb52ca117a774f21,
+              type: 2}
+            colorPalette: {fileID: 11400000, guid: 57bdfa37edf7a4f7f999d19443497554,
+              type: 2}
+        performanceOptions:
+          isEnabled: 0
+          entityPerCoroutine: 0
+        honorBuildingIdSetting: 1
+        buildingsWithUniqueIds: 1
+        moveFeaturePositionTo: 0
+        MeshModifiers: []
+        GoModifiers:
+        - {fileID: 11400000, guid: 7d1fad488908ba74b99bd55423aa891e, type: 2}
         presetFeatureType: 4
         _maskValue: 0
         selectedTypes: 
@@ -1495,9 +1567,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a38712e93231418a84665190b8473d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _desiredAccuracyInMeters: 1
-  _updateDistanceInMeters: 0.5
-  _updateTimeInMilliSeconds: 500
+  _desiredAccuracyInMeters: 5
+  _updateDistanceInMeters: 5
+  _updateTimeInMilliSeconds: 1000
   _userHeadingSmoothing: {fileID: 0}
   _deviceOrientationSmoothing: {fileID: 0}
   _editorDebuggingOnly:
@@ -1712,17 +1784,17 @@ PrefabInstance:
     - target: {fileID: 2079006382547572688, guid: 7b95a2d25e3694540acc95a230faceb4,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2079006382547572688, guid: 7b95a2d25e3694540acc95a230faceb4,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.7069834
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 2079006382547572688, guid: 7b95a2d25e3694540acc95a230faceb4,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.7072302
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 2079006382547572688, guid: 7b95a2d25e3694540acc95a230faceb4,
         type: 3}
@@ -1737,7 +1809,7 @@ PrefabInstance:
     - target: {fileID: 2079006382547572688, guid: 7b95a2d25e3694540acc95a230faceb4,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -89.98
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 2079006382547572688, guid: 7b95a2d25e3694540acc95a230faceb4,
         type: 3}
@@ -1752,17 +1824,17 @@ PrefabInstance:
     - target: {fileID: 2079006382547572688, guid: 7b95a2d25e3694540acc95a230faceb4,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2079006382547572688, guid: 7b95a2d25e3694540acc95a230faceb4,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.10000001
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2079006382547572688, guid: 7b95a2d25e3694540acc95a230faceb4,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.10000001
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b95a2d25e3694540acc95a230faceb4, type: 3}
@@ -1802,7 +1874,7 @@ PrefabInstance:
     - target: {fileID: 6590789027822763996, guid: ad73c2f288bb73b41bd07833541372a6,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.86
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6590789027822763999, guid: ad73c2f288bb73b41bd07833541372a6,
         type: 3}
@@ -1813,6 +1885,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_PoseSource
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6590789027822763999, guid: ad73c2f288bb73b41bd07833541372a6,
+        type: 3}
+      propertyPath: m_TrackingType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8224983937436675891, guid: ad73c2f288bb73b41bd07833541372a6,
         type: 3}

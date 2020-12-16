@@ -112,7 +112,6 @@ public class ScavengerHunt : MonoBehaviour
         };
         string taskSaver = playerDataSaver.GetHuntProgress();
         char[] taskSaverArray = taskSaver.ToCharArray();
-        SpawnOnMap.Instance.SpawnEnemies(taskSaver);
         for (int i = 0; i < taskSaverArray.Length; i++)
         {
             if(taskSaverArray[i] == '1')
@@ -124,6 +123,7 @@ public class ScavengerHunt : MonoBehaviour
                 taskCompletion[taskCompletion.ElementAt(i).Key] = false;
             }
         }
+        SpawnOnMap.Instance.SpawnEnemies(taskSaver);
         taskCompleted = new string(taskSaverArray);
         StartCoroutine(ShowObjectives());
     }

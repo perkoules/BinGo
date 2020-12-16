@@ -22,7 +22,7 @@ public class Bat : MonoBehaviour
     }
     private void Awake()
     {
-        cam = Camera.main.GetComponent<MonsterDestroyer>();
+        cam = FindObjectOfType<MonsterDestroyer>();
         playerDataSaver = GetComponent<PlayerDataSaver>();
         if (playerDataSaver.GetScavHunt() == 1)
         {
@@ -33,7 +33,7 @@ public class Bat : MonoBehaviour
     private IEnumerator ResumeScavengerHunt()
     {
         ScavengerHunt.Instance.ContinueHunting();
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         Deactivation();
     }
 

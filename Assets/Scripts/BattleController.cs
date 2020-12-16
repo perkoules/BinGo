@@ -206,10 +206,14 @@ public class BattleController : MonoBehaviour
         playerDataSaver.SetProjectileUsed(projectileUsed);
     }
 
-
+    /// <summary>
+    /// For Testing
+    /// </summary>
     public void SetPlFab()
     {
         playerDataSaver.SetRecycleCollected(50);
         playerDataSaver.SetWasteCollected(50);
+        playerDataSaver.SetProjectileUsed(0);
+        playerDataSaver.SetShieldUsed(0);
     }
 }

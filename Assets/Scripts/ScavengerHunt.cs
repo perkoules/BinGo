@@ -168,5 +168,14 @@ public class ScavengerHunt : MonoBehaviour
         Instantiate(prefabTutorialMessageBox, mainPanel.transform);
     }
 
+    /// <summary>
+    /// Trigger from button
+    /// </summary>
+    public void SpawnEnemiesByButton()
+    {
+        string taskSaver = playerDataSaver.GetHuntProgress();
+        SpawnOnMap.Instance.SpawnEnemies(taskSaver);
+    }
+
     
 }

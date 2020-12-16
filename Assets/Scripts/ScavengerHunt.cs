@@ -8,7 +8,7 @@ using TMPro;
 public class ScavengerHunt : MonoBehaviour
 {
     private PlayerDataSaver playerDataSaver;
-    public List<GameObject> enemiesAdded;
+    public List<GameObject> enemiesAdded, cluesAdded;
     public static ScavengerHunt Instance { get; private set; }
     public Dictionary<string, bool> taskCompletion;
 
@@ -42,6 +42,20 @@ public class ScavengerHunt : MonoBehaviour
         else
         {
             Destroy(go);
+        }
+    }
+    public void AddEnemy(GameObject go, string str)
+    {
+        if (!string.IsNullOrEmpty(str))
+        {
+            if (!cluesAdded.Exists(g => g.name == go.name))
+            {
+                cluesAdded.Add(go);
+            }
+            else
+            {
+                Destroy(go);
+            } 
         }
     }
 

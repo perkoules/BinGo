@@ -34,5 +34,6 @@ public class ResetScav : MonoBehaviour
     {
         var pl = GetComponent<PlayerDataSaver>();
         pl.SetScavHunt(0);
+        pl.SetHuntProgress("00000");
     }
 }

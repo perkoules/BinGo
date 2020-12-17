@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using TMPro;
+using Mapbox.Unity.Map;
 
 public class ScavengerHunt : MonoBehaviour
 {
@@ -160,6 +161,7 @@ public class ScavengerHunt : MonoBehaviour
             enemiesForDirections.Add(enemiesAdded[i].transform);
         }
         OnShowDirections(player, enemiesForDirections);
+
     }
 
     public void StartTutorial()
@@ -173,9 +175,8 @@ public class ScavengerHunt : MonoBehaviour
     /// </summary>
     public void SpawnEnemiesByButton()
     {
-        string taskSaver = playerDataSaver.GetHuntProgress();
+        string taskSaver = "00000";
         SpawnOnMap.Instance.SpawnEnemies(taskSaver);
     }
-
     
 }

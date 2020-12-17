@@ -30,7 +30,7 @@ public class RoamingMonster : MonoBehaviour
 
     private void MonsterDestroyer_OnMonsterClicked(string rayTag, GameObject go)
     {
-        if(gameObject.CompareTag(rayTag))
+        if(gameObject.CompareTag(rayTag) && go == this.gameObject)
         {
             agent.speed = 0;
             agent.isStopped = true;

@@ -44,7 +44,7 @@ public class SpawnOnMap : MonoBehaviour
         };
 
         //For Testing
-        /*enemiesAndLocations = new Dictionary<string, GameObject>()
+       /* enemiesAndLocations = new Dictionary<string, GameObject>()
         {
             { "54.571749, -1.232586",   enemiesToSpawn[0] },
             { "54.571546, -1.232641",   enemiesToSpawn[1] },

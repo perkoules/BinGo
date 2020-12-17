@@ -147,15 +147,15 @@ namespace GoogleARCore.Examples.HelloAR
                 Application.Quit();
             }
 
-            // Only allow the screen to sleep when not tracking.
+                Screen.sleepTimeout = SleepTimeout.NeverSleep;
+            /*// Only allow the screen to sleep when not tracking.
             if (Session.Status != SessionStatus.Tracking)
             {
                 Screen.sleepTimeout = SleepTimeout.SystemSetting;
             }
             else
             {
-                Screen.sleepTimeout = SleepTimeout.NeverSleep;
-            }
+            }*/
 
             if (m_IsQuitting)
             {

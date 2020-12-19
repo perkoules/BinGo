@@ -151,6 +151,9 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         messageText.text = "WELL DONE! You helped the environment!!!";
         fillerImage.fillAmount = 0;
         yield return new WaitForSeconds(2);
+
+        FindObjectOfType<SpawnOnMap>().BatEffect(); //Bat appeared on map - effect
+
         messageText.text = "Please scan another rubbish!!!";
         barcodeDetected = false;
         timeLeft = 10f;
@@ -215,6 +218,8 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     }
 
     #region PlayfabCommunications
+    public delegate void AdjustValues(int recycle, int waste, int coins, int level);
+    public static event AdjustValues OnValuesAdjusted;
 
     public void SetRubbishCollection(string typeOfRubbish)
     {
@@ -307,10 +312,10 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
                 {
                     GameObject obj = Instantiate(nextLevelAnimator, parent);
                     Destroy(obj, 4f);
-                    FindObjectOfType<PlayfabManager>().ReInitialize();
                 }
             }
-        }        
+        }
+        OnValuesAdjusted(recycleCollected, wasteCollected, coinsAvailable, progressLevel);
     }
 
     public void UpdatePlayerStats()

@@ -10,7 +10,7 @@ public class AddFriend : MonoBehaviour
     public TextMeshProUGUI username, level;
     public Image countryImage, avatarImage, levelBadge;
     public TMP_InputField friendToFind;
-    public Container flagSelection, avatarSelection, levelBadgeSelection;
+    public Images selection;
     public GameObject objectToHide;
     private Button button;
     public FriendListController friendListController;
@@ -120,34 +120,33 @@ public class AddFriend : MonoBehaviour
 
     private Sprite FindImageFlag(string imageToSearch)
     {
-        foreach (var img in flagSelection.imageContainer)
+        foreach (var spr in selection.flagContainer)
         {
-            if (img.sprite.name == imageToSearch)
+            if (spr.name == imageToSearch)
             {
-                return img.sprite;
+                return spr;
             }
         }
         return null;
     }
     private Sprite FindImageAvatar(string imageToSearch)
     {
-        foreach (var img in avatarSelection.imageContainer)
+        foreach (var spr in selection.avatarContainer)
         {
-            if (img.sprite.name == imageToSearch)
+            if (spr.name == imageToSearch)
             {
-                return img.sprite;
+                return spr;
             }
         }
         return null;
     }
     private Sprite FindImageLevel(string imageToSearch)
     {
-        foreach (var img in levelBadgeSelection.imageContainer)
+        foreach (var spr in selection.levelBadgeContainer)
         {
-            string imgObj = img.name.Remove(0, 10);
-            if (imgObj == imageToSearch)
+            if (spr.name == imageToSearch)
             {
-                return img.sprite;
+                return spr;
             }
         }
         return null;

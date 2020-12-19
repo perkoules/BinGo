@@ -8,17 +8,32 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using GoogleARCore;
+using UnityEngine.SpatialTracking;
 
 [RequireComponent(typeof(PlayerDataSaver))]
 public class MonsterDestroyer : MonoBehaviour
 {
+    public static MonsterDestroyer Instance { get; set; }
     public DeviceLocationProvider locationProvider;
     private PlayerDataSaver playerDataSaver;
     public TextMeshProUGUI monstersText, amountText;
     private bool monsterGotHit = false;
     public int monstersKilled = 0;
-    public GameObject treeImg, waterCan;
+    public GameObject treeImg, waterCan, battlePanel;
     public bool canRaycast = false;
+
+    private void OnEnable()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
 
     private void Awake()
     {
@@ -48,6 +63,14 @@ public class MonsterDestroyer : MonoBehaviour
 #endif
     }
 
+    public delegate void MonsterClicked(string rayTag, GameObject go);
+    public static event MonsterClicked OnMonsterClicked;
+    
+    public void BattlePanelController(bool en)
+    {
+        battlePanel.SetActive(en);
+    }
+
     private void Raycasting(Vector3 position)
     {
         if (canRaycast) 
@@ -55,23 +78,13 @@ public class MonsterDestroyer : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(position);
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
             {
-                GameObject go = hit.transform.gameObject;
-                if (go.name.Contains("Monster") && !monsterGotHit)
-                {
-                    monsterGotHit = true;
-                    go.GetComponent<Animator>().SetTrigger("IsDead");
-                    StartCoroutine(Death(go));
-                }
+                OnMonsterClicked(hit.transform.gameObject.tag, hit.transform.gameObject);
             }
         }
     }
 
-    private IEnumerator Death(GameObject go)
-    {
-        yield return new WaitForSeconds(4f); 
-        monsterGotHit = false;
-        Destroy(go);
-        TaskChecker.Instance.CheckTaskDone();
+    public void ChangeMonsterText()
+    {        
         monstersKilled++;
         monstersText.text = monstersKilled.ToString();
         if (waterCan.activeSelf)
@@ -187,6 +200,6 @@ public class MonsterDestroyer : MonoBehaviour
         double x = double.Parse(locArray[0]);
         double y = double.Parse(locArray[1]);
         Vector2d location = new Vector2d(x, y);
-        FindObjectOfType<SpawnTreeOnMap>().Tree(location);
+        FindObjectOfType<SpawnOnMap>().Tree(location);
     }
 }

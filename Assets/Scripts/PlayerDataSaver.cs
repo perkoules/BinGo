@@ -18,6 +18,50 @@ public class PlayerDataSaver : MonoBehaviour
     private const string MONSTERS_KILLED = "MonstersKilled";
     private const string TREE_LOCATION = "MonstersKilled";
     private const string AUTOLOGIN = "Autologin";
+    private const string SCAVENGER_HUNT = "ScavengerHunt";
+    private const string PROJECTILE_AVAILABLE = "ProjectileAvailable";
+    private const string SHIELD_AVAILABLE = "ShieldAvailable";
+    private const string HUNT_PROGRESS = "HuntProgress";
+
+
+    public void SetHuntProgress(string tasks)
+    {
+        PlayerPrefs.SetString(HUNT_PROGRESS,tasks);
+    }
+
+    public string GetHuntProgress()
+    {
+        return PlayerPrefs.GetString(HUNT_PROGRESS);
+    }
+
+    public void SetProjectileUsed(int proj)
+    {
+        PlayerPrefs.SetInt(PROJECTILE_AVAILABLE, proj);
+    }
+
+    public int GetProjectileUsed()
+    {
+        return PlayerPrefs.GetInt(PROJECTILE_AVAILABLE);
+    }
+    public void SetShieldUsed(int sh)
+    {
+        PlayerPrefs.SetInt(SHIELD_AVAILABLE, sh);
+    }
+
+    public int GetShieldUsed()
+    {
+        return PlayerPrefs.GetInt(SHIELD_AVAILABLE);
+    }
+
+    public void SetScavHunt(int sc)
+    {
+        PlayerPrefs.SetInt(SCAVENGER_HUNT, sc);
+    }
+
+    public int GetScavHunt()
+    {
+        return PlayerPrefs.GetInt(SCAVENGER_HUNT);
+    }
 
     public void SetShouldAutologin(int auto)
     {

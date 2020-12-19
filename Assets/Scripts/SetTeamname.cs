@@ -13,7 +13,8 @@ public class SetTeamname : MonoBehaviour
     public Button setWindowButton;
     public FriendListController listController;
     private Button button;
-
+    public delegate void AdjustNames(string team, bool on);
+    public static event AdjustNames OnNamesAdjusted;
     private void Start()
     {
         button = GetComponent<Button>();
@@ -33,6 +34,7 @@ public class SetTeamname : MonoBehaviour
         {
             Debug.Log(error.GenerateErrorReport());
         });
+        OnNamesAdjusted(nameToSet.text, true);
         teamnameText.text = nameToSet.text;
         SetNameToFriends(nameToSet.text);
         setWindowButton.gameObject.SetActive(false);

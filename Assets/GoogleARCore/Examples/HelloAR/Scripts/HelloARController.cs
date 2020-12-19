@@ -42,20 +42,14 @@ namespace GoogleARCore.Examples.HelloAR
         /// </summary>
         public Camera FirstPersonCamera;
 
-        /// <summary>
-        /// A prefab to place when a raycast from a user touch hits a vertical plane.
-        /// </summary>
-        public GameObject GameObjectVerticalPlanePrefab;
+        
 
         /// <summary>
         /// A prefab to place when a raycast from a user touch hits a horizontal plane.
         /// </summary>
-        public GameObject GameObjectHorizontalPlanePrefab;
+        public GameObject prefabToPlace;
 
-        /// <summary>
-        /// A prefab to place when a raycast from a user touch hits a feature point.
-        /// </summary>
-        public GameObject GameObjectPointPrefab;
+        
 
         /// <summary>
         /// The rotation in degrees need to apply to prefab when it is placed.
@@ -77,7 +71,7 @@ namespace GoogleARCore.Examples.HelloAR
             // Note, Application.targetFrameRate is ignored when QualitySettings.vSyncCount != 0.
             Application.targetFrameRate = 60;
         }
-
+        
         /// <summary>
         /// The Unity Update() method.
         /// </summary>
@@ -117,39 +111,27 @@ namespace GoogleARCore.Examples.HelloAR
                 {
                     // Choose the prefab based on the Trackable that got hit.
                     GameObject prefab;
-                    if (hit.Trackable is FeaturePoint)
-                    {
-                        prefab = GameObjectPointPrefab;
-                    }
-                    else if (hit.Trackable is DetectedPlane)
+
+                    if (hit.Trackable is DetectedPlane)
                     {
                         DetectedPlane detectedPlane = hit.Trackable as DetectedPlane;
-                        if (detectedPlane.PlaneType == DetectedPlaneType.Vertical)
-                        {
-                            prefab = GameObjectVerticalPlanePrefab;
-                        }
-                        else
-                        {
-                            prefab = GameObjectHorizontalPlanePrefab;
-                        }
+
+                        prefab = prefabToPlace;
+
+
+                        var gameObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
+
+                        // Compensate for the hitPose rotation facing away from the raycast (i.e.
+                        // camera).
+                        gameObject.transform.Rotate(0, k_PrefabRotation, 0, Space.Self);
+
+                        // Create an anchor to allow ARCore to track the hitpoint as understanding of
+                        // the physical world evolves.
+                        var anchor = hit.Trackable.CreateAnchor(hit.Pose);
+
+                        // Make game object a child of the anchor.
+                        gameObject.transform.parent = anchor.transform;
                     }
-                    else
-                    {
-                        prefab = GameObjectHorizontalPlanePrefab;
-                    }
-
-                    var gameObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
-                    
-                    // Compensate for the hitPose rotation facing away from the raycast (i.e.
-                    // camera).
-                    gameObject.transform.Rotate(0, k_PrefabRotation, 0, Space.Self);
-
-                    // Create an anchor to allow ARCore to track the hitpoint as understanding of
-                    // the physical world evolves.
-                    var anchor = hit.Trackable.CreateAnchor(hit.Pose);
-
-                    // Make game object a child of the anchor.
-                    gameObject.transform.parent = anchor.transform;
                 }
             }
         }
@@ -165,15 +147,15 @@ namespace GoogleARCore.Examples.HelloAR
                 Application.Quit();
             }
 
-            // Only allow the screen to sleep when not tracking.
+                Screen.sleepTimeout = SleepTimeout.NeverSleep;
+            /*// Only allow the screen to sleep when not tracking.
             if (Session.Status != SessionStatus.Tracking)
             {
                 Screen.sleepTimeout = SleepTimeout.SystemSetting;
             }
             else
             {
-                Screen.sleepTimeout = SleepTimeout.NeverSleep;
-            }
+            }*/
 
             if (m_IsQuitting)
             {

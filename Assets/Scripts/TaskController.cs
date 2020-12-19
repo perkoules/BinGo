@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 public class TaskController : MonoBehaviour, IPointerClickHandler
 {
     private Animator anim;
-    private bool isOn = true;
+    public bool isOn = true;
 
     private void OnEnable()
     {
@@ -19,18 +19,12 @@ public class TaskController : MonoBehaviour, IPointerClickHandler
         {
             isOn = false;
             anim.SetTrigger("OpenTask");
-            anim.ResetTrigger("CloseTask");
         }
         else
         {
             isOn = true;
             anim.SetTrigger("CloseTask");
-            anim.ResetTrigger("OpenTask");
         }
     }
 
-    private void OnDestroy()
-    {
-        
-    }
 }

@@ -15,7 +15,7 @@ public class BattleController : MonoBehaviour
 
     public BattleState currentState;
     public TextMeshProUGUI shieldAmount, attackAmount;
-    public GameObject prefabAttack, prefabPlayerDeath, enemy, battlePanel;
+    public GameObject prefabAttack, prefabPlayerDeath, enemy, battlePanel, shieldPoint;
     public Button shieldBtn, attackBtn;
     public TextMeshProUGUI battleText;
 
@@ -105,7 +105,7 @@ public class BattleController : MonoBehaviour
         playerDataSaver.SetProjectileUsed(projectileUsed);
         attackAmount.text = projectileAvailable.ToString();
         attackBtn.interactable = false;
-        Instantiate(prefabAttack, player.transform.position, player.transform.rotation);
+        Instantiate(prefabAttack, shieldPoint.transform.position, Quaternion.identity);
         StartCoroutine(PlayerAttack());
     }
     IEnumerator PlayerAttack()

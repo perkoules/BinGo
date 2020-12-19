@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     private NavMeshAgent agent;
-    private GameObject player;
+    private Camera player;
     private Animator anim;
 
     private const string ANIM_DEAD = "IsDead";
@@ -28,7 +28,7 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = Camera.main;
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         StartCoroutine(EnableAgent());

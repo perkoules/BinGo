@@ -22,6 +22,22 @@ public class BatTextControl : MonoBehaviour
     {
         textToShow.text = intro[index].TextToShow;
     }
+    private void Update()
+    {
+        if(index == 0)
+        {
+            prev.gameObject.SetActive(false);
+        }
+        else if (index == 9)
+        {
+            nxt.gameObject.SetActive(false);
+        }
+        else
+        {
+            prev.gameObject.SetActive(true);
+            nxt.gameObject.SetActive(true);
+        }
+    }
     private void ButtonDestruction()
     {
         Destroy(gameObject);

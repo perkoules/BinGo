@@ -8,7 +8,7 @@ public class PlayerProjectile : MonoBehaviour
     private void Start()
     {
         hit = false;
-        transform.position = Camera.main.transform.forward;
+        //transform.position = Camera.main.transform.forward;
         Destroy(gameObject, 5f);
     }
     private void Update()

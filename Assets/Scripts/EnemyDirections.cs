@@ -177,6 +177,7 @@
 
             mesh.RecalculateNormals();
             _directionsGO.AddComponent<MeshRenderer>().material = _material;
+            _directionsGO.layer = LayerMask.NameToLayer("Player");
             return _directionsGO;
         }
     }

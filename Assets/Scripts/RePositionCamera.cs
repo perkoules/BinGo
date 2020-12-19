@@ -8,7 +8,7 @@ public class RePositionCamera : MonoBehaviour
 
     public void ReCenter()
     {
-        arcoreDevice.position = arPlayer.position;
+        arcoreDevice.position = arPlayer.position + Vector3.up * 5;
         arcoreDevice.rotation = arPlayer.rotation;
     }
 

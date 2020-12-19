@@ -105,7 +105,7 @@ public class BattleController : MonoBehaviour
         playerDataSaver.SetProjectileUsed(projectileUsed);
         attackAmount.text = projectileAvailable.ToString();
         attackBtn.interactable = false;
-        Instantiate(prefabAttack, shieldPoint.transform.position, Quaternion.identity);
+        Instantiate(prefabAttack, shieldPoint.transform.position, Quaternion.identity, shieldPoint.transform);
         StartCoroutine(PlayerAttack());
     }
     IEnumerator PlayerAttack()

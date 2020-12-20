@@ -9,16 +9,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
+using Michsky.UI.ModernUIPack;
 
 public class RegisterManager : MonoBehaviour
 {
-    public TMP_Dropdown countryDropdown, avatarDropdown;
+    public CustomDropdown countryDropdown, avatarDropdown;
     public TMP_InputField usernameInputField, passwordInputField, repeatPasswordInputField, emailInputField;
-    public Color32 colorDefault;
-    public MessageController messageController;
     private PlayerDataSaver playerDataSaver;
-    public Image userValidImg, passValidImg, repPassValidImg, emailValidImg;
-    public Sprite greenLeaf, redLeaf;
     private string email = "";
     private string password = "";
     private string username = "";
@@ -31,7 +28,6 @@ public class RegisterManager : MonoBehaviour
     private void Awake()
     {
         currentBuildLevel = SceneManager.GetActiveScene().buildIndex;
-        colorDefault = new Color32(90, 216, 98, 255);
         usernameInputField = usernameInputField.GetComponent<TMP_InputField>();
         passwordInputField = passwordInputField.GetComponent<TMP_InputField>();
         repeatPasswordInputField = repeatPasswordInputField.GetComponent<TMP_InputField>();
@@ -53,14 +49,10 @@ public class RegisterManager : MonoBehaviour
         if (usernameInputField.text.Length < 5)
         {
             //usernameInputField.image.color = Color.red;
-            userValidImg.gameObject.SetActive(true);
-            userValidImg.sprite = redLeaf;
         }
         else
         {
             //usernameInputField.image.color = colorDefault;
-            userValidImg.gameObject.SetActive(true);
-            userValidImg.sprite = greenLeaf;
         }
     }
 
@@ -70,19 +62,11 @@ public class RegisterManager : MonoBehaviour
         {
             //passwordInputField.image.color = colorDefault;
             //repeatPasswordInputField.image.color = colorDefault;
-            passValidImg.gameObject.SetActive(true);
-            repPassValidImg.gameObject.SetActive(true);
-            passValidImg.sprite = greenLeaf;
-            repPassValidImg.sprite = greenLeaf;
         }
         else
         {
             //passwordInputField.image.color = Color.red;
             //repeatPasswordInputField.image.color = Color.red;
-            passValidImg.gameObject.SetActive(true);
-            repPassValidImg.gameObject.SetActive(true);
-            passValidImg.sprite = redLeaf;
-            repPassValidImg.sprite = redLeaf;
         }
     }
 
@@ -106,11 +90,11 @@ public class RegisterManager : MonoBehaviour
                 Debug.LogError(error.GenerateErrorReport());
                 if (currentBuildLevel == 0)
                 {
-                    messageController.messages[2].SetActive(true);
+                    //messageController.messages[2].SetActive(true);
                 }
                 else
                 {
-                    messageController.messages[1].SetActive(true);
+                    //messageController.messages[1].SetActive(true);
                 }
             });
     }
@@ -120,8 +104,8 @@ public class RegisterManager : MonoBehaviour
         playerDataSaver.SetUsername(username);
         playerDataSaver.SetEmail(email);
         playerDataSaver.SetPassword(password);
-        playerDataSaver.SetCountry(countryDropdown.captionText.text);
-        playerDataSaver.SetAvatar(avatarDropdown.captionText.text);
+        playerDataSaver.SetCountry(countryDropdown.selectedText.text);
+        playerDataSaver.SetAvatar(avatarDropdown.selectedText.text);
         PlayFabClientAPI.UpdateUserTitleDisplayName(
             new UpdateUserTitleDisplayNameRequest
             {
@@ -137,11 +121,11 @@ public class RegisterManager : MonoBehaviour
                 Debug.LogError(error.GenerateErrorReport());
                 if (currentBuildLevel == 0)
                 {
-                    messageController.messages[2].SetActive(true);
+                    //messageController.messages[2].SetActive(true);
                 }
                 else
                 {
-                    messageController.messages[0].SetActive(true);
+                    //messageController.messages[0].SetActive(true);
                 }
             });
         playerDataSaver.SetIsGuest(0);
@@ -153,7 +137,7 @@ public class RegisterManager : MonoBehaviour
         myID = result.PlayFabId;
         if (currentBuildLevel == 0)
         {
-            messageController.messages[0].SetActive(true);
+            //messageController.messages[0].SetActive(true);
             StartCoroutine(LoggingProcessSucceeded());
         }
     }
@@ -175,7 +159,7 @@ public class RegisterManager : MonoBehaviour
             OnRegisterGuestSuccess,
             error =>
             {
-                messageController.messages[1].SetActive(true);
+                //messageController.messages[1].SetActive(true);
                 Debug.LogError(error.GenerateErrorReport());
             });
     }
@@ -199,15 +183,15 @@ public class RegisterManager : MonoBehaviour
                 Debug.LogError(error.GenerateErrorReport());
                 if (currentBuildLevel == 0)
                 {
-                    messageController.messages[2].SetActive(true);
+                    //messageController.messages[2].SetActive(true);
                     StartCoroutine(LoggingProcessSucceeded());
                 }
             });
-        playerDataSaver.SetCountry(countryDropdown.captionText.text);
-        playerDataSaver.SetAvatar(avatarDropdown.captionText.text);
+        playerDataSaver.SetCountry(countryDropdown.selectedText.text);
+        playerDataSaver.SetAvatar(avatarDropdown.selectedText.text);
         SetPlayerData();
         playerDataSaver.SetIsGuest(0);
-        messageController.messages[0].SetActive(true);
+        //messageController.messages[0].SetActive(true);
     }
 
     public void SetPlayerData()
@@ -237,12 +221,22 @@ public class RegisterManager : MonoBehaviour
 
         if (currentBuildLevel == 0)
         {
-            if (messageController.messages[0].activeSelf)
+            /*if (messageController.messages[0].activeSelf)
             {
                 messageController.messages[0].SetActive(false);
                 SceneManager.LoadScene(1);
-            }
+            }*/
         }
+    }
+
+    public void DisplayAll()
+    {
+        Debug.Log(countryDropdown.selectedText.text);
+        Debug.Log(avatarDropdown.selectedText.text);
+        Debug.Log(usernameInputField.text);
+        Debug.Log(passwordInputField.text);
+        Debug.Log(repeatPasswordInputField.text);
+        Debug.Log(emailInputField.text);
     }
 
 }

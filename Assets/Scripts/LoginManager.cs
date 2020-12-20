@@ -10,11 +10,10 @@ using UnityEngine.UI;
 [RequireComponent(typeof(PlayerDataSaver))]
 public class LoginManager : MonoBehaviour
 {
-    public MessageController messageController;
     public TMP_InputField email, password;
     public Button loginBtn;
 
-    public PlayerDataSaver playerDataSaver;
+    private PlayerDataSaver playerDataSaver;
     private string myID = "";
     private bool isGuest = false;
     public static LoginManager LM;
@@ -94,7 +93,7 @@ public class LoginManager : MonoBehaviour
         playerDataSaver.SetPassword(password.text);
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
-            messageController.messages[0].SetActive(true);
+            //messageController.messages[0].SetActive(true);
             if (!isGuest)
             {
                 playerDataSaver.SetIsGuest(0); 
@@ -111,7 +110,7 @@ public class LoginManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
-            messageController.messages[1].SetActive(true);
+            //messageController.messages[1].SetActive(true);
             StartCoroutine(LoggingProcessFailed());
         }
     }
@@ -130,16 +129,16 @@ public class LoginManager : MonoBehaviour
     { 
         StopAllCoroutines();
         ShouldAutologin(false);
-        if (messageController.messages[0].activeSelf)
+        /*if (messageController.messages[0].activeSelf)
         {
             messageController.messages[0].SetActive(false);
-        }
+        }*/
     }
 
     private IEnumerator LoggingProcessSucceeded()
     {
         yield return new WaitForSeconds(2f);  
-        if (messageController.messages[0].activeSelf)
+        /*if (messageController.messages[0].activeSelf)
         {
             AsyncOperation operation = SceneManager.LoadSceneAsync(1);
             if (!operation.isDone)
@@ -147,7 +146,7 @@ public class LoginManager : MonoBehaviour
                 yield return new WaitUntil(() => operation.isDone);
             }
             messageController.messages[0].SetActive(false);
-        }
+        }*/
         
     }
 

@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Michsky.UI.ModernUIPack;
 public class DisplayPos : MonoBehaviour
 {
-    public TextMeshProUGUI txt;
-    
+    public NotificationManager noti;
 
-    // Update is called once per frame
-    void Update()
+    public void Check()
     {
-        txt.text = string.Format($"x: {0} , y: {1} , z: {2} ", gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
+        noti.OpenNotification();
     }
+
+
 }

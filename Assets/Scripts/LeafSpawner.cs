@@ -5,10 +5,10 @@ using UnityEngine;
 public class LeafSpawner : MonoBehaviour
 {
     public GameObject leavesHolder, leafPrefab;
-    private BoxCollider2D col;
+    private PolygonCollider2D col;
     private void Awake()
     {
-        col = leavesHolder.GetComponent<BoxCollider2D>();
+        col = leavesHolder.GetComponent<PolygonCollider2D>();
     }
 
     void Start()

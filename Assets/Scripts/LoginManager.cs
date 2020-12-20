@@ -6,10 +6,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Michsky.UI.ModernUIPack;
 
 [RequireComponent(typeof(PlayerDataSaver))]
 public class LoginManager : MonoBehaviour
 {
+    public NotificationManager success, failure;
+
     public TMP_InputField email, password;
     public Button loginBtn;
 
@@ -93,7 +96,7 @@ public class LoginManager : MonoBehaviour
         playerDataSaver.SetPassword(password.text);
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
-            //messageController.messages[0].SetActive(true);
+            success.OpenNotification();
             if (!isGuest)
             {
                 playerDataSaver.SetIsGuest(0); 
@@ -110,7 +113,7 @@ public class LoginManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
-            //messageController.messages[1].SetActive(true);
+            failure.OpenNotification();
             StartCoroutine(LoggingProcessFailed());
         }
     }
@@ -125,29 +128,18 @@ public class LoginManager : MonoBehaviour
           error => Debug.LogError(error.GenerateErrorReport()));
     }
 
-    public void CancelLogIn()
-    { 
-        StopAllCoroutines();
-        ShouldAutologin(false);
-        /*if (messageController.messages[0].activeSelf)
-        {
-            messageController.messages[0].SetActive(false);
-        }*/
-    }
-
     private IEnumerator LoggingProcessSucceeded()
     {
-        yield return new WaitForSeconds(2f);  
-        /*if (messageController.messages[0].activeSelf)
+        yield return new WaitForSeconds(2f);
+        success.OpenNotification();
+        if (success.isActiveAndEnabled)
         {
             AsyncOperation operation = SceneManager.LoadSceneAsync(1);
-            if (!operation.isDone)
+            while (!operation.isDone)
             {
-                yield return new WaitUntil(() => operation.isDone);
+                yield return null;
             }
-            messageController.messages[0].SetActive(false);
-        }*/
-        
+        }
     }
 
     private IEnumerator LoggingProcessFailed()

@@ -13,6 +13,7 @@ using Michsky.UI.ModernUIPack;
 
 public class RegisterManager : MonoBehaviour
 {
+    public NotificationManager success, failure, userExist;
     public CustomDropdown countryDropdown, avatarDropdown;
     public TMP_InputField usernameInputField, passwordInputField, repeatPasswordInputField, emailInputField;
     private PlayerDataSaver playerDataSaver;
@@ -90,7 +91,7 @@ public class RegisterManager : MonoBehaviour
                 Debug.LogError(error.GenerateErrorReport());
                 if (currentBuildLevel == 0)
                 {
-                    //messageController.messages[2].SetActive(true);
+                    userExist.OpenNotification();
                 }
                 else
                 {

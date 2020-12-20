@@ -16,6 +16,7 @@ public class RegisterManager : MonoBehaviour
     public NotificationManager success, failure, userExist;
     public CustomDropdown countryDropdown, avatarDropdown;
     public TMP_InputField usernameInputField, passwordInputField, repeatPasswordInputField, emailInputField;
+    public Image tickP, tickRepP;
     private PlayerDataSaver playerDataSaver;
     private string email = "";
     private string password = "";
@@ -38,36 +39,47 @@ public class RegisterManager : MonoBehaviour
 
     private void Start()
     {
-        usernameInputField.onValueChanged.AddListener(CheckLength);
-        passwordInputField.onValueChanged.AddListener(CheckLength);
         repeatPasswordInputField.onValueChanged.AddListener(CheckPasswordSimilarity);
     }
 
     #region Validity
 
-    private void CheckLength(string str)
+    public void CheckLength(Image img)
     {
-        if (usernameInputField.text.Length < 5)
+        if (usernameInputField.text.Length >= 5)
         {
-            //usernameInputField.image.color = Color.red;
+            img.color = Color.green;
         }
         else
         {
-            //usernameInputField.image.color = colorDefault;
+            img.color = Color.red;
         }
     }
 
-    private void CheckPasswordSimilarity(string str)
+    public void CheckPasswordSimilarity(string str)
     {
         if (passwordInputField.text.Length >= 8 && passwordInputField.text.Equals(repeatPasswordInputField.text))
         {
-            //passwordInputField.image.color = colorDefault;
-            //repeatPasswordInputField.image.color = colorDefault;
+            tickP.color = Color.green;
+            tickRepP.color = Color.green;
         }
         else
         {
-            //passwordInputField.image.color = Color.red;
-            //repeatPasswordInputField.image.color = Color.red;
+            tickP.color = Color.red;
+            tickRepP.color = Color.red;
+        }
+    }
+
+    public void CheckEmailValidity(Image img)
+    {
+        string e = emailInputField.text;
+        if (e.EndsWith("@gmail.com") || e.EndsWith("@outlook.com") || e.EndsWith("@yahoo.com"))
+        {
+            img.color = Color.green;
+        }
+        else
+        {
+            img.color = Color.red;
         }
     }
 
@@ -95,7 +107,7 @@ public class RegisterManager : MonoBehaviour
                 }
                 else
                 {
-                    //messageController.messages[1].SetActive(true);
+                    //failed to login
                 }
             });
     }
@@ -122,11 +134,11 @@ public class RegisterManager : MonoBehaviour
                 Debug.LogError(error.GenerateErrorReport());
                 if (currentBuildLevel == 0)
                 {
-                    //messageController.messages[2].SetActive(true);
+                    userExist.OpenNotification();
                 }
                 else
                 {
-                    //messageController.messages[0].SetActive(true);
+                    //Registration Successful
                 }
             });
         playerDataSaver.SetIsGuest(0);
@@ -138,7 +150,7 @@ public class RegisterManager : MonoBehaviour
         myID = result.PlayFabId;
         if (currentBuildLevel == 0)
         {
-            //messageController.messages[0].SetActive(true);
+            success.OpenNotification();
             StartCoroutine(LoggingProcessSucceeded());
         }
     }
@@ -160,7 +172,7 @@ public class RegisterManager : MonoBehaviour
             OnRegisterGuestSuccess,
             error =>
             {
-                //messageController.messages[1].SetActive(true);
+                //failed to login
                 Debug.LogError(error.GenerateErrorReport());
             });
     }
@@ -184,7 +196,7 @@ public class RegisterManager : MonoBehaviour
                 Debug.LogError(error.GenerateErrorReport());
                 if (currentBuildLevel == 0)
                 {
-                    //messageController.messages[2].SetActive(true);
+                    success.OpenNotification();
                     StartCoroutine(LoggingProcessSucceeded());
                 }
             });
@@ -192,7 +204,7 @@ public class RegisterManager : MonoBehaviour
         playerDataSaver.SetAvatar(avatarDropdown.selectedText.text);
         SetPlayerData();
         playerDataSaver.SetIsGuest(0);
-        //messageController.messages[0].SetActive(true);
+        success.OpenNotification();
     }
 
     public void SetPlayerData()
@@ -219,25 +231,10 @@ public class RegisterManager : MonoBehaviour
     private IEnumerator LoggingProcessSucceeded()
     {
         yield return new WaitForSeconds(3f);
-
         if (currentBuildLevel == 0)
         {
-            /*if (messageController.messages[0].activeSelf)
-            {
-                messageController.messages[0].SetActive(false);
-                SceneManager.LoadScene(1);
-            }*/
+            success.OpenNotification();
+            SceneManager.LoadScene(1);
         }
     }
-
-    public void DisplayAll()
-    {
-        Debug.Log(countryDropdown.selectedText.text);
-        Debug.Log(avatarDropdown.selectedText.text);
-        Debug.Log(usernameInputField.text);
-        Debug.Log(passwordInputField.text);
-        Debug.Log(repeatPasswordInputField.text);
-        Debug.Log(emailInputField.text);
-    }
-
 }

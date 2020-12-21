@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class LeafSpawner : MonoBehaviour
 {
-    public GameObject leavesHolder, leafPrefab;
+    public GameObject leavesHolder;
+    public List<GameObject> leaves;
     private PolygonCollider2D col;
     private void Awake()
     {
@@ -20,7 +21,7 @@ public class LeafSpawner : MonoBehaviour
     {
         for (int i = 0; i < 2; i++)
         {
-            GameObject go = Instantiate(leafPrefab, WhereToSpawn(col.bounds), Quaternion.identity, leavesHolder.transform);
+            GameObject go = Instantiate(leaves[Random.Range(0, leaves.Count)], WhereToSpawn(col.bounds), Quaternion.identity, leavesHolder.transform);
         }
     }
 

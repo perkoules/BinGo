@@ -10,7 +10,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
 using Michsky.UI.ModernUIPack;
+using System;
 
+[RequireComponent(typeof(PlayerDataSaver))]
 public class RegisterManager : MonoBehaviour
 {
     public NotificationManager success, failure, userExist;
@@ -119,40 +121,45 @@ public class RegisterManager : MonoBehaviour
         playerDataSaver.SetPassword(password);
         playerDataSaver.SetCountry(countryDropdown.selectedText.text);
         playerDataSaver.SetAvatar(avatarDropdown.selectedText.text);
-        PlayFabClientAPI.UpdateUserTitleDisplayName(
-            new UpdateUserTitleDisplayNameRequest
-            {
-                DisplayName = playerDataSaver.GetUsername()
-            },
-            resultSuccess =>
-            {
-                string capitalFirst = resultSuccess.DisplayName.Replace(resultSuccess.DisplayName.First(), char.ToUpper(resultSuccess.DisplayName.First()));
-                playerDataSaver.SetUsername(capitalFirst);
-            },
-            error =>
-            {
-                Debug.LogError(error.GenerateErrorReport());
-                if (currentBuildLevel == 0)
-                {
-                    userExist.OpenNotification();
-                }
-                else
-                {
-                    //Registration Successful
-                }
-            });
         playerDataSaver.SetIsGuest(0);
         playerDataSaver.SetProgressLevel(1);
         playerDataSaver.SetWasteCollected(0);
         playerDataSaver.SetRecycleCollected(0);
         playerDataSaver.SetCoinsAvailable(0);        
+        SetInitialPlayerStats();
         SetPlayerData();
         myID = result.PlayFabId;
         if (currentBuildLevel == 0)
         {
-            success.OpenNotification();
             StartCoroutine(LoggingProcessSucceeded());
         }
+    }
+
+    private void SetInitialPlayerStats()
+    {
+        PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
+        {
+            FunctionName = "UpdatePlayerStats",
+            FunctionParameter = new
+            {
+                cloudProgressLevel = 1,
+                cloudWasteCollected = 0,
+                cloudRubbishCollected = 0,
+                cloudRecycleCollected = 0,
+                cloudStatisticNamePlace = " isPlace",
+                cloudStatisticNameDistrict =" isDistrict",
+                cloudStatisticNameRegion = " isRegion",
+                cloudStatisticNameCountry = " isCountry",
+                cloudRubbishCollectedInPlace = 0,
+                cloudRubbishCollectedInDistrict = 0,
+                cloudRubbishCollectedInRegion = 0,
+                cloudRubbishCollectedInCountry = 0,
+                cloudCoinsAvailable = 0
+            },
+            GeneratePlayStreamEvent = true,
+        },
+        result => Debug.Log(result.FunctionResult),
+        error => Debug.Log(error.GenerateErrorReport()));
     }
 
     public void ClickToRegisterGuest()

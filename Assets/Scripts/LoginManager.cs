@@ -6,15 +6,17 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Michsky.UI.ModernUIPack;
 
 [RequireComponent(typeof(PlayerDataSaver))]
 public class LoginManager : MonoBehaviour
 {
-    public MessageController messageController;
+    public NotificationManager success, failure;
+    public SwitchManager autologinSwitch;
     public TMP_InputField email, password;
     public Button loginBtn;
 
-    public PlayerDataSaver playerDataSaver;
+    private PlayerDataSaver playerDataSaver;
     private string myID = "";
     private bool isGuest = false;
     public static LoginManager LM;
@@ -34,14 +36,10 @@ public class LoginManager : MonoBehaviour
 
     private void Awake()
     {
-        playerDataSaver = GetComponent<PlayerDataSaver>();
-        if (playerDataSaver.GetShouldAutologin() == 1)
-        {
-            StartCoroutine(AttemptAutoLogin());
-        }
+        playerDataSaver = GetComponent<PlayerDataSaver>();        
     }
 
-    public void ShouldAutologin(bool isOn)
+    /*public void ShouldAutologin(bool isOn)
     {
         if (isOn)
         {
@@ -53,14 +51,29 @@ public class LoginManager : MonoBehaviour
         }
     }
 
-    IEnumerator AttemptAutoLogin()
+    public void CheckAutologin()
     {
-        yield return new WaitForSeconds(1f);
+        if (playerDataSaver.GetShouldAutologin() == 1)
+        {
+            Debug.Log("IN");
+            //email.text = 
+            autologinSwitch.isOn = true;
+        }
+        else
+        {
+            Debug.Log("0");
+        }
+    }
+
+    public void AttemptAutoLogin()
+    {
         if (!string.IsNullOrEmpty(playerDataSaver.GetUsername()) && !string.IsNullOrEmpty(playerDataSaver.GetPassword()))
         {
             loginBtn.onClick.Invoke();
         }
-    }
+    }*/
+
+
     public void GuestMode()
     {
         isGuest = true;
@@ -94,7 +107,6 @@ public class LoginManager : MonoBehaviour
         playerDataSaver.SetPassword(password.text);
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
-            messageController.messages[0].SetActive(true);
             if (!isGuest)
             {
                 playerDataSaver.SetIsGuest(0); 
@@ -102,6 +114,14 @@ public class LoginManager : MonoBehaviour
             else if (isGuest)
             {
                 playerDataSaver.SetIsGuest(1);
+            }
+            if (autologinSwitch.isOn)
+            {
+                playerDataSaver.SetShouldAutologin(1);
+            }
+            else if(!autologinSwitch.isOn)
+            {
+                playerDataSaver.SetShouldAutologin(0);
             }
             StartCoroutine(LoggingProcessSucceeded());
         }
@@ -111,8 +131,7 @@ public class LoginManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
-            messageController.messages[1].SetActive(true);
-            StartCoroutine(LoggingProcessFailed());
+            failure.OpenNotification();
         }
     }
 
@@ -126,33 +145,17 @@ public class LoginManager : MonoBehaviour
           error => Debug.LogError(error.GenerateErrorReport()));
     }
 
-    public void CancelLogIn()
-    { 
-        StopAllCoroutines();
-        ShouldAutologin(false);
-        if (messageController.messages[0].activeSelf)
-        {
-            messageController.messages[0].SetActive(false);
-        }
-    }
-
     private IEnumerator LoggingProcessSucceeded()
     {
-        yield return new WaitForSeconds(2f);  
-        if (messageController.messages[0].activeSelf)
+        yield return new WaitForSeconds(2f);
+        success.OpenNotification();
+        if (success.isActiveAndEnabled)
         {
             AsyncOperation operation = SceneManager.LoadSceneAsync(1);
-            if (!operation.isDone)
+            while (!operation.isDone)
             {
-                yield return new WaitUntil(() => operation.isDone);
+                yield return null;
             }
-            messageController.messages[0].SetActive(false);
         }
-        
-    }
-
-    private IEnumerator LoggingProcessFailed()
-    {
-        yield return new WaitForSeconds(1);
     }
 }

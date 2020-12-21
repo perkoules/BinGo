@@ -25,7 +25,7 @@ public class AutologinController : MonoBehaviour
     {
         if (isOn)
         {
-            LoginManager.LM.ShouldAutologin(isOn);
+            //LoginManager.LM.ShouldAutologin(isOn);
         }
     }
 }

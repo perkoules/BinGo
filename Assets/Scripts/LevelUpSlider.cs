@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Michsky.UI.ModernUIPack;
 
 [RequireComponent(typeof(PlayerDataSaver))]
 public class LevelUpSlider : MonoBehaviour

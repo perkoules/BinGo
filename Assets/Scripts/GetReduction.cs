@@ -12,25 +12,22 @@ public class GetReduction : MonoBehaviour
     public SliderController sliderController;
     public TextMeshProUGUI coinsAvailable;
     public TextMeshProUGUI codeText;
-    public GameObject prefabNotification;
-    public RectTransform parent;
 
-    private TextMeshProUGUI myText;
     private PlayerDataSaver playerDataSaver;
-    private Button voucher;
+    private Button btn;
     private int coins = 0;
     private const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
     private void Awake()
     {
         playerDataSaver = GetComponent<PlayerDataSaver>();
-        voucher = GetComponent<Button>();
+        btn = GetComponent<Button>();
         coins = playerDataSaver.GetCoinsAvailable();
     }
 
     private void Start()
     {
-        voucher.onClick.AddListener(GenerateCode);
+        btn.onClick.AddListener(GenerateCode);
     }
 
     private void GenerateCode()
@@ -45,11 +42,6 @@ public class GetReduction : MonoBehaviour
             }
             codeText.text = sb.ToString();
             CopyText(codeText);
-
-            myText = prefabNotification.GetComponentInChildren<TextMeshProUGUI>();
-            myText.text = "Code copied to clipboard";
-            GameObject go = Instantiate(prefabNotification, parent);
-            Destroy(go, 2f);
         }       
         ReductionUsed();
     }

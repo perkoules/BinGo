@@ -13,7 +13,6 @@ using UnityEngine.SceneManagement;
 public class PlayfabManager : MonoBehaviour
 {
     private PlayerDataSaver playerDataSaver;
-    private MessageController messageController;
     private GetCurrentLocation currentLocation;
     private int currentBuildIndex = -1;
 
@@ -51,7 +50,6 @@ public class PlayfabManager : MonoBehaviour
     public void Awake()
     {
         playerDataSaver = GetComponent<PlayerDataSaver>();
-        messageController = FindObjectOfType<MessageController>();
         currentBuildIndex = SceneManager.GetActiveScene().buildIndex;
         if (string.IsNullOrEmpty(PlayFabSettings.TitleId))
         {
@@ -65,20 +63,17 @@ public class PlayfabManager : MonoBehaviour
 
     public void Start()
     {
-        if (messageController != null)
+        if (currentBuildIndex == 0)
         {
-            if (currentBuildIndex == 0)
-            {
-                PlayerPrefs.DeleteKey(playerDataSaver.GetIsGuest().ToString());
-                playerDataSaver.SetIsGuest(0);
-                emailInput.text = playerDataSaver.GetEmail();
-                passwordInput.text = playerDataSaver.GetPassword();
-            }
-            if (currentBuildIndex == 1 && playerDataSaver.GetIsGuest() == 0)
-            {
-                IsFirstTime();
-                StartCoroutine(Initialization());
-            }
+            PlayerPrefs.DeleteKey(playerDataSaver.GetIsGuest().ToString());
+            playerDataSaver.SetIsGuest(0);
+            emailInput.text = playerDataSaver.GetEmail();
+            passwordInput.text = playerDataSaver.GetPassword();
+        }
+        if (currentBuildIndex == 1 && playerDataSaver.GetIsGuest() == 0)
+        {
+            IsFirstTime();
+            StartCoroutine(Initialization());
         }
     }
 

@@ -144,8 +144,8 @@ public class LoginManager : MonoBehaviour
 
     private IEnumerator LoggingProcessSucceeded()
     {
-        yield return new WaitForSeconds(2f);
         success.OpenNotification();
+        yield return new WaitForSeconds(2f);
         if (success.isActiveAndEnabled)
         {
             AsyncOperation operation = SceneManager.LoadSceneAsync(1);

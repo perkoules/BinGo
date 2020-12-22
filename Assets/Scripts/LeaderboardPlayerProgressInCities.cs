@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using Michsky.UI.ModernUIPack;
+using System.Collections;
 using UnityEngine;
 
 public class LeaderboardPlayerProgressInCities : MonoBehaviour
 {
     private LeaderboardManager leaderboardManager;
-    public GameObject leaderboardHolder, gettingDataMessage;
+    public GameObject leaderboardHolder;
+    public NotificationManager gettingDataMessage;
 
     private void OnEnable()
     {
@@ -12,7 +14,7 @@ public class LeaderboardPlayerProgressInCities : MonoBehaviour
         {
             leaderboardManager = GetComponent<LeaderboardManager>();
             leaderboardManager.PlayersProgressInWorldAndCities("cities");
-            StartCoroutine(GettingDataMessage());
+            gettingDataMessage.OpenNotification();
         }
         else
         {
@@ -37,12 +39,5 @@ public class LeaderboardPlayerProgressInCities : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-    }
-
-    private IEnumerator GettingDataMessage()
-    {
-        gettingDataMessage.SetActive(true);
-        yield return new WaitForSeconds(3);
-        gettingDataMessage.SetActive(false);
     }
 }

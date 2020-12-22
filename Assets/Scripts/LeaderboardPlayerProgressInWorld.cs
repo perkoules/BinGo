@@ -1,18 +1,19 @@
-﻿using System.Collections;
+﻿using Michsky.UI.ModernUIPack;
+using System.Collections;
 using UnityEngine;
 
 public class LeaderboardPlayerProgressInWorld : MonoBehaviour
 {
     private LeaderboardManager leaderboardManager;
-    public GameObject leaderboardHolder, gettingDataMessage;
+    public GameObject leaderboardHolder;
 
+    
     private void OnEnable()
     {
         if (leaderboardHolder.transform.childCount == 0)
         {
             leaderboardManager = GetComponent<LeaderboardManager>();
             leaderboardManager.PlayersProgressInWorldAndCities("world");
-            StartCoroutine(GettingDataMessage());
         }
         else
         {
@@ -37,12 +38,5 @@ public class LeaderboardPlayerProgressInWorld : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-    }
-
-    private IEnumerator GettingDataMessage()
-    {
-        gettingDataMessage.SetActive(true);
-        yield return new WaitForSeconds(3);
-        gettingDataMessage.SetActive(false);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Michsky.UI.ModernUIPack;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,36 +18,32 @@ public class SettingsController : MonoBehaviour
 
     
 
-    public void RegisterTemporaryAccount()
+    public void RegisterTemporaryAccount(Button btn)
     {
-        /*int index = toggles.FindIndex(t => t.name.Contains("Register") == true);
-        if (playerDataSaver.GetIsGuest() == 0) //if user is NOT guest, disable registration button cause he already did it
+        //if user is NOT guest, disable registration button cause he already did it
+        if (playerDataSaver.GetIsGuest() == 0) 
         {
-            toggles[index].image.color = enabledColor;
-            toggles[index].interactable = false;
+            btn.interactable = false;
         }
         else
         {
-            toggles[index].image.color = Color.red;
-        }*/
+            btn.interactable = true;
+        }
     }
 
 
     public void Music(bool isOn)
     {
-        Debug.Log("Music = " + isOn);
         musicController.IsMusicOn(isOn);
     }
 
     public void SFX(bool isOn)
     {
-        Debug.Log("SFX = " + isOn);
         collectRubbish.isSfxOn = isOn;
     }
 
     public void Vibration(bool isOn)
     {
-        Debug.Log("Vibration = " + isOn);
         collectRubbish.isVibrationOn = isOn;
     }
 

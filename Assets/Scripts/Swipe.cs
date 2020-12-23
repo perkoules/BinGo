@@ -11,8 +11,6 @@ public class Swipe : MonoBehaviour
     private Vector3 fp;  
     private Vector3 lp;  
     private float dragDistance;
-    public Button[] buttons;
-    public TabGroup tabGroup;
 
     void Start()
     {
@@ -41,22 +39,13 @@ public class Swipe : MonoBehaviour
                 {
                     if (Mathf.Abs(lp.x - fp.x) > Mathf.Abs(lp.y - fp.y))
                     {
-                        int current = Array.FindIndex(buttons, btn => btn.GetComponent<Image>().color == tabGroup.pressedColor);
                         if ((lp.x > fp.x)) 
-                        {
-                            if(current == 0)
-                            {
-                                current = buttons.Length;
-                            }
-                            ExecuteEvents.Execute<IPointerClickHandler>(buttons[current - 1].gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.pointerClickHandler);
+                        {                            
+                            
                         }
                         else
                         {
-                            if(current == buttons.Length - 1)
-                            {
-                                current = -1;
-                            }
-                            ExecuteEvents.Execute<IPointerClickHandler>(buttons[current + 1].gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.pointerClickHandler);
+                            
                         }
                     }
                     else

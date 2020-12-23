@@ -6,9 +6,9 @@ using System.Linq;
 
 public class Images : MonoBehaviour
 {
-    public List<Sprite> flagContainer, avatarContainer, levelBadgeContainer;
     public Sprite anonymous;
     public Image tm1, tm2, tm3;
+    public List<Sprite> flagContainer, avatarContainer, levelBadgeContainer;
     public List<Image> playerAvatar;
     public List<Image> flag;
     public List<Image> badge;

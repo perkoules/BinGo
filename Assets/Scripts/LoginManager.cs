@@ -7,14 +7,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Michsky.UI.ModernUIPack;
+using System;
 
 [RequireComponent(typeof(PlayerDataSaver))]
 public class LoginManager : MonoBehaviour
 {
-    public NotificationManager success, failure;
+    public ModalWindowManager success, failure;
     public SwitchManager autologinSwitch;
     public TMP_InputField email, password;
-    public Button loginBtn;
 
     private PlayerDataSaver playerDataSaver;
     private string myID = "";
@@ -32,16 +32,34 @@ public class LoginManager : MonoBehaviour
             Destroy(LM);
         }
     }
-
-
     private void Awake()
     {
-        playerDataSaver = GetComponent<PlayerDataSaver>();        
+        playerDataSaver = GetComponent<PlayerDataSaver>();
     }
 
-    /*public void ShouldAutologin(bool isOn)
+    public void CheckIfPlayerExistsInMemory()
     {
-        if (isOn)
+        if (!string.IsNullOrEmpty(playerDataSaver.GetUsername()) && !string.IsNullOrEmpty(playerDataSaver.GetPassword()))
+        {
+            email.text = playerDataSaver.GetEmail();
+            password.text = playerDataSaver.GetPassword();
+            CheckAutologin();
+        }
+    }
+    public void CheckAutologin()
+    {
+        if (playerDataSaver.GetShouldAutologin() == 1)
+        {
+            Button btn = autologinSwitch.GetComponent<Button>();
+            btn.onClick.Invoke();
+            ClickToLogin();
+        }
+    }
+
+    public void RememberMe()
+    {
+        //When pressed is still off (inverted-logic if)
+        if (!autologinSwitch.isOn)
         {
             playerDataSaver.SetShouldAutologin(1);
         }
@@ -49,29 +67,8 @@ public class LoginManager : MonoBehaviour
         {
             playerDataSaver.SetShouldAutologin(0);
         }
+        
     }
-
-    public void CheckAutologin()
-    {
-        if (playerDataSaver.GetShouldAutologin() == 1)
-        {
-            Debug.Log("IN");
-            //email.text = 
-            autologinSwitch.isOn = true;
-        }
-        else
-        {
-            Debug.Log("0");
-        }
-    }
-
-    public void AttemptAutoLogin()
-    {
-        if (!string.IsNullOrEmpty(playerDataSaver.GetUsername()) && !string.IsNullOrEmpty(playerDataSaver.GetPassword()))
-        {
-            loginBtn.onClick.Invoke();
-        }
-    }*/
 
 
     public void GuestMode()
@@ -131,7 +128,7 @@ public class LoginManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
-            failure.OpenNotification();
+            failure.OpenWindow();
         }
     }
 
@@ -147,8 +144,8 @@ public class LoginManager : MonoBehaviour
 
     private IEnumerator LoggingProcessSucceeded()
     {
+        success.OpenWindow();
         yield return new WaitForSeconds(2f);
-        success.OpenNotification();
         if (success.isActiveAndEnabled)
         {
             AsyncOperation operation = SceneManager.LoadSceneAsync(1);

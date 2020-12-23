@@ -15,7 +15,7 @@ using System;
 [RequireComponent(typeof(PlayerDataSaver))]
 public class RegisterManager : MonoBehaviour
 {
-    public NotificationManager success, failure, userExist;
+    public ModalWindowManager success, userExist;
     public CustomDropdown countryDropdown, avatarDropdown;
     public TMP_InputField usernameInputField, passwordInputField, repeatPasswordInputField, emailInputField;
     public Image tickP, tickRepP;
@@ -102,15 +102,8 @@ public class RegisterManager : MonoBehaviour
             OnRegisterSuccess,
             error =>
             {
+                userExist.OpenWindow();
                 Debug.LogError(error.GenerateErrorReport());
-                if (currentBuildLevel == 0)
-                {
-                    userExist.OpenNotification();
-                }
-                else
-                {
-                    //failed to login
-                }
             });
     }
 
@@ -179,7 +172,7 @@ public class RegisterManager : MonoBehaviour
             OnRegisterGuestSuccess,
             error =>
             {
-                //failed to login
+                userExist.OpenWindow();
                 Debug.LogError(error.GenerateErrorReport());
             });
     }
@@ -203,7 +196,7 @@ public class RegisterManager : MonoBehaviour
                 Debug.LogError(error.GenerateErrorReport());
                 if (currentBuildLevel == 0)
                 {
-                    success.OpenNotification();
+                    success.OpenWindow();
                     StartCoroutine(LoggingProcessSucceeded());
                 }
             });
@@ -211,7 +204,7 @@ public class RegisterManager : MonoBehaviour
         playerDataSaver.SetAvatar(avatarDropdown.selectedText.text);
         SetPlayerData();
         playerDataSaver.SetIsGuest(0);
-        success.OpenNotification();
+        success.OpenWindow();
     }
 
     public void SetPlayerData()
@@ -240,7 +233,7 @@ public class RegisterManager : MonoBehaviour
         yield return new WaitForSeconds(3f);
         if (currentBuildLevel == 0)
         {
-            success.OpenNotification();
+            success.OpenWindow();
             SceneManager.LoadScene(1);
         }
     }

@@ -3,16 +3,7 @@ using UnityEngine;
 
 public class CodeCopy : MonoBehaviour
 {
-    private TextMeshProUGUI textToCopy;
-    private TextMeshProUGUI myText;
-    public GameObject prefabNotification;
-    public RectTransform parent;
-    private void Start()
-    {
-        textToCopy = GetComponent<TextMeshProUGUI>();
-    }
-
-    public void CopyText()
+    public void CopyTextToClipboard(TextMeshProUGUI textToCopy)
     {
         TextEditor editor = new TextEditor
         {
@@ -20,9 +11,5 @@ public class CodeCopy : MonoBehaviour
         };
         editor.SelectAll();
         editor.Copy();
-        myText = prefabNotification.GetComponentInChildren<TextMeshProUGUI>();
-        myText.text = "Code copied to clipboard";
-        GameObject go = Instantiate(prefabNotification, parent);
-        Destroy(go, 2f);
     }
 }

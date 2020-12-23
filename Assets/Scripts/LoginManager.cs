@@ -12,7 +12,7 @@ using System;
 [RequireComponent(typeof(PlayerDataSaver))]
 public class LoginManager : MonoBehaviour
 {
-    public NotificationManager success, failure;
+    public ModalWindowManager success, failure;
     public SwitchManager autologinSwitch;
     public TMP_InputField email, password;
 
@@ -128,7 +128,7 @@ public class LoginManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
-            failure.OpenNotification();
+            failure.OpenWindow();
         }
     }
 
@@ -144,7 +144,7 @@ public class LoginManager : MonoBehaviour
 
     private IEnumerator LoggingProcessSucceeded()
     {
-        success.OpenNotification();
+        success.OpenWindow();
         yield return new WaitForSeconds(2f);
         if (success.isActiveAndEnabled)
         {

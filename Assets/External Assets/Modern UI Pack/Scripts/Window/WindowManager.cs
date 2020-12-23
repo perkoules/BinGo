@@ -36,6 +36,11 @@ namespace Michsky.UI.ModernUIPack
             public GameObject buttonObject;
         }
 
+        private void OnEnable()
+        {
+            OpenFirstTab();
+        }
+
         void Start()
         {
             currentButton = windows[currentWindowIndex].buttonObject;

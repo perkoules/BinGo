@@ -1,4 +1,5 @@
 ﻿using Mapbox.Geocoding;
+using Michsky.UI.ModernUIPack;
 using PlayFab;
 using PlayFab.AdminModels;
 using PlayFab.ClientModels;
@@ -15,7 +16,6 @@ public class LeaderboardManager : MonoBehaviour
     private PlayerInfo playerInfo;
     public GameObject leaderboardPanel, listingPrefab;
     private string playerID, playerName;
-    public Color32 evenColor, oddColor;
 
     public bool worldCountries = false;
     public bool worldPlayer = false;
@@ -90,7 +90,7 @@ public class LeaderboardManager : MonoBehaviour
                 PlayersCountryLeaderboardResults(result.Data["Country"].Value + " isCountry");
             }
         },
-        error => Debug.LogError(error.GenerateErrorReport()));
+        error => Debug.LogError(error.GenerateErrorReport()));        
     }
 
     public void PlayersCountryLeaderboardResults(string playerCountry)
@@ -124,7 +124,8 @@ public class LeaderboardManager : MonoBehaviour
                 leaderboardListing.countryText.text = playerCountry.Replace(" isCountry", "");
                 leaderboardListing.rubbishText.text = player.StatValue.ToString();
             }
-        }, error => Debug.LogError(error.GenerateErrorReport()));
+        }, 
+        error => Debug.LogError(error.GenerateErrorReport()));
     }
 
     public void PlayersProgressInWorldAndCities(string whatToLookFor)
@@ -177,7 +178,8 @@ public class LeaderboardManager : MonoBehaviour
                     }
                 }
             }
-        }, error => Debug.LogError(error.GenerateErrorReport()));
+        }, 
+        error => Debug.LogError(error.GenerateErrorReport()));        
     }
 
     public string GetCountryFromPlace(string toSearch)
@@ -360,5 +362,61 @@ public class LeaderboardManager : MonoBehaviour
         }
         worldTeam = true;
     }
+
+    #region CallForLeaderboards
+
+    public void GetProgressInCities()
+    {
+        if (leaderboardPanel.transform.childCount == 0)
+        {
+            PlayersProgressInWorldAndCities("cities");
+        }
+        else
+        {
+            foreach (Transform child in leaderboardPanel.transform)
+            {
+                child.gameObject.SetActive(true);
+            }
+        }
+    }
+    public void GetProgressInWorld()
+    {
+        if (leaderboardPanel.transform.childCount == 0)
+        {
+            PlayersProgressInWorldAndCities("world");
+        }
+        else
+        {
+            foreach (Transform child in leaderboardPanel.transform)
+            {
+                child.gameObject.SetActive(true);
+            }
+        }
+    }
+
+    public void GetProgressInCountry()
+    {
+        if (leaderboardPanel.transform.childCount == 0)
+        {
+            PlayersCountryLeaderboard();
+        }
+        else
+        {
+            foreach (Transform child in leaderboardPanel.transform)
+            {
+                child.gameObject.SetActive(true);
+            }
+        }
+    }
+    public void ClearLeaderboard(GameObject panel)
+    {
+        foreach (Transform child in panel.transform)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+    #endregion
+
+
 }
 

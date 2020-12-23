@@ -126,6 +126,7 @@ public class LeaderboardManager : MonoBehaviour
             }
         }, 
         error => Debug.LogError(error.GenerateErrorReport()));
+        OnDataRetrieved();
     }
 
     public void PlayersProgressInWorldAndCities(string whatToLookFor)
@@ -143,6 +144,7 @@ public class LeaderboardManager : MonoBehaviour
             }
         },
         error => Debug.LogError(error.GenerateErrorReport()));
+        OnDataRetrieved();
     }
 
     private IEnumerator PlayersProgressInWorldAndCitiesResults(string statName, string place, string whatToLookFor)
@@ -187,9 +189,10 @@ public class LeaderboardManager : MonoBehaviour
         string country = "";
         fgr = new ForwardGeocodeResource(toSearch) { };
         string locationUrl = fgr.GetUrl();
+        Debug.Log("url = " + locationUrl);
         var jsonLocationData = new WebClient().DownloadString(locationUrl);
         MyResult myResult = JsonUtility.FromJson<MyResult>(jsonLocationData);
-        string[] tt = myResult.features[0].place_name.Split(',');
+        string[] tt = myResult.features[0].place_name.Split(','); 
         country = tt.Last();
         return country;
     }
@@ -363,6 +366,9 @@ public class LeaderboardManager : MonoBehaviour
         worldTeam = true;
     }
 
+
+
+
     #region CallForLeaderboards
 
     public void GetProgressInCities()
@@ -416,7 +422,10 @@ public class LeaderboardManager : MonoBehaviour
         }
     }
     #endregion
-
+    
+    
+    public delegate void DataRetrieved();
+    public static event DataRetrieved OnDataRetrieved;
 
 }
 

@@ -35,7 +35,6 @@ namespace Michsky.UI.ModernUIPack
             public GameObject windowObject;
             public GameObject buttonObject;
         }
-
         private void OnEnable()
         {
             OpenFirstTab();

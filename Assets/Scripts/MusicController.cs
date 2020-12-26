@@ -15,7 +15,6 @@ public class MusicController : MonoBehaviour
     {
         globalAudioSource.Play();
     }
-
     public void IsMusicOn(bool isMusicOn)
     {
         if (isMusicOn)

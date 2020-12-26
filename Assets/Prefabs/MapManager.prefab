@@ -11,9 +11,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 1.86
+  m_Height: 8.78
   m_Direction: 1
-  m_Center: {x: 0, y: 0.93, z: 0}
+  m_Center: {x: 0, y: -0.63, z: 0}
 --- !u!81 &766386782
 AudioListener:
   m_ObjectHideFlags: 0
@@ -52,99 +52,6 @@ Transform:
   m_Father: {fileID: 567712750}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &768245061
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 768245062}
-  - component: {fileID: 768245065}
-  - component: {fileID: 768245064}
-  - component: {fileID: 768245063}
-  m_Layer: 9
-  m_Name: Cube
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &768245062
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 768245061}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 20}
-  m_LocalScale: {x: 1, y: 1, z: 40}
-  m_Children: []
-  m_Father: {fileID: 567712750}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &768245065
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 768245061}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &768245064
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 768245061}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!65 &768245063
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 768245061}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3887955446587437159
 GameObject:
   m_ObjectHideFlags: 0
@@ -1038,7 +945,7 @@ MonoBehaviour:
           filters:
           - Key: name
             KeyDescription: String
-            PropertyValue: TowerClue
+            PropertyValue: BatTest
             Min: 0
             Max: 0
             filterOperator: 0
@@ -1167,7 +1074,7 @@ MonoBehaviour:
           sourceId: 
           isActive: 1
           sublayerName: EnemyArea
-          geometryType: 3
+          geometryType: 2
           layerName: Enemies
           snapToTerrain: 1
           combineMeshes: 0
@@ -1183,6 +1090,80 @@ MonoBehaviour:
           - Key: type
             KeyDescription: String
             PropertyValue: EnemyArea
+            Min: 0
+            Max: 0
+            filterOperator: 0
+          combinerType: 0
+        extrusionOptions:
+          _selectedLayerName: Enemies
+          extrusionType: 0
+          extrusionGeometryType: 0
+          propertyName: height
+          propertyDescription: Unavailable in Selected Layer.
+          minimumHeight: 1.89
+          maximumHeight: 1
+          extrusionScaleFactor: 1
+        colliderOptions:
+          colliderType: 2
+        materialOptions:
+          style: 0
+          texturingType: 2
+          materials:
+          - Materials:
+            - {fileID: 0}
+          - Materials:
+            - {fileID: 0}
+          atlasInfo: {fileID: 0}
+          lightStyleOpacity: 1
+          darkStyleOpacity: 1
+          colorStyleColor: {r: 0.1764706, g: 0.8509805, b: 1, a: 1}
+          samplePalettes: 0
+          colorPalette: {fileID: 0}
+          customStyleOptions:
+            texturingType: 0
+            materials:
+            - Materials:
+              - {fileID: 0}
+            - Materials:
+              - {fileID: 0}
+            atlasInfo: {fileID: 11400000, guid: 414754d7155df47beb52ca117a774f21,
+              type: 2}
+            colorPalette: {fileID: 11400000, guid: 57bdfa37edf7a4f7f999d19443497554,
+              type: 2}
+        performanceOptions:
+          isEnabled: 0
+          entityPerCoroutine: 0
+        honorBuildingIdSetting: 1
+        buildingsWithUniqueIds: 1
+        moveFeaturePositionTo: 0
+        MeshModifiers: []
+        GoModifiers:
+        - {fileID: 11400000, guid: 7d1fad488908ba74b99bd55423aa891e, type: 2}
+        - {fileID: 11400000, guid: 0e10dd898f56a604abf7df4c78edccb0, type: 2}
+        - {fileID: 11400000, guid: 5e0270a34222afc4699eadd2b973ca59, type: 2}
+        presetFeatureType: 4
+        _maskValue: 0
+        selectedTypes: 
+      - coreOptions:
+          sourceId: 
+          isActive: 1
+          sublayerName: Portal
+          geometryType: 3
+          layerName: Enemies
+          snapToTerrain: 1
+          combineMeshes: 0
+        lineGeometryOptions:
+          Width: 1
+          MiterLimit: 0.2
+          RoundLimit: 1.05
+          JoinType: 1
+          CapType: 1
+        filterOptions:
+          _selectedLayerName: Enemies
+          filters:
+          - Key: name
+            KeyDescription: String
+            PropertyValue: Portal
             Min: 0
             Max: 0
             filterOperator: 0
@@ -1231,7 +1212,7 @@ MonoBehaviour:
         moveFeaturePositionTo: 0
         MeshModifiers: []
         GoModifiers:
-        - {fileID: 11400000, guid: 7d1fad488908ba74b99bd55423aa891e, type: 2}
+        - {fileID: 11400000, guid: b8ef88ef2b1be1b448cd8ed4371c9fa2, type: 2}
         presetFeatureType: 4
         _maskValue: 0
         selectedTypes: 
@@ -1392,6 +1373,7 @@ GameObject:
   - component: {fileID: 6617651571526324956}
   - component: {fileID: 6617651571526324954}
   - component: {fileID: 1283901598}
+  - component: {fileID: 1618731938}
   m_Layer: 12
   m_Name: MapCamera
   m_TagString: Untagged
@@ -1470,6 +1452,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targetTransform: {fileID: 3887955446587437161}
+--- !u!114 &1618731938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6617651571526324953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b0a978add2279846a0aa67cf9112bd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapCamera: {fileID: 6617651571526324954}
+  speed: 1
+  minZoom: 100
+  maxZoom: 600
 --- !u!1 &6617651571632281066
 GameObject:
   m_ObjectHideFlags: 0
@@ -1569,7 +1567,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _desiredAccuracyInMeters: 5
   _updateDistanceInMeters: 5
-  _updateTimeInMilliSeconds: 1000
+  _updateTimeInMilliSeconds: 500
   _userHeadingSmoothing: {fileID: 0}
   _deviceOrientationSmoothing: {fileID: 0}
   _editorDebuggingOnly:
@@ -1756,6 +1754,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3887955446587437161}
     m_Modifications:
+    - target: {fileID: 1500035008, guid: 7b95a2d25e3694540acc95a230faceb4, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 905559522970135743, guid: 7b95a2d25e3694540acc95a230faceb4,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d7ecf0db77bdbef4ca37f584e21c6517, type: 2}
     - target: {fileID: 1698364925161033066, guid: 7b95a2d25e3694540acc95a230faceb4,
         type: 3}
       propertyPath: m_Name
@@ -1824,17 +1831,17 @@ PrefabInstance:
     - target: {fileID: 2079006382547572688, guid: 7b95a2d25e3694540acc95a230faceb4,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2079006382547572688, guid: 7b95a2d25e3694540acc95a230faceb4,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2079006382547572688, guid: 7b95a2d25e3694540acc95a230faceb4,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b95a2d25e3694540acc95a230faceb4, type: 3}
@@ -1904,7 +1911,7 @@ PrefabInstance:
     - target: {fileID: 8224983938026504569, guid: ad73c2f288bb73b41bd07833541372a6,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8224983938026504569, guid: ad73c2f288bb73b41bd07833541372a6,
         type: 3}

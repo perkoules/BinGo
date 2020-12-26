@@ -34,6 +34,14 @@ public class ScavengerHunt : MonoBehaviour
         enemiesAdded = new List<GameObject>();
         playerDataSaver = GetComponent<PlayerDataSaver>();
     }
+    private void Start()
+    {
+        if (playerDataSaver.GetScavHunt() == 1)
+        {
+            //ContinueHunting();
+            SpawnOnMap.Instance.map.OnInitialized += ContinueHunting;
+        }
+    }
     public void AddEnemy(GameObject go)
     {
         if (!enemiesAdded.Exists(g => g.name == go.name))
@@ -101,8 +109,9 @@ public class ScavengerHunt : MonoBehaviour
         playerDataSaver.SetScavHunt(1);
         playerDataSaver.SetShieldUsed(0);
         playerDataSaver.SetProjectileUsed(0);
-        playerDataSaver.SetHuntProgress("00000");
+        playerDataSaver.SetHuntProgress("00000");        
         SpawnOnMap.Instance.SpawnEnemies(playerDataSaver.GetHuntProgress());
+        SpawnOnMap.Instance.map.UpdateMap();
         taskCompletion = new Dictionary<string, bool>()
         {
             { "MonsterPlant", false },
@@ -117,6 +126,7 @@ public class ScavengerHunt : MonoBehaviour
 
     public void ContinueHunting()
     {
+        SpawnOnMap.Instance.map.OnInitialized -= ContinueHunting;
         taskCompletion = new Dictionary<string, bool>()
         {
             { "MonsterPlant", false },
@@ -139,6 +149,7 @@ public class ScavengerHunt : MonoBehaviour
             }
         }
         SpawnOnMap.Instance.SpawnEnemies(taskSaver);
+        SpawnOnMap.Instance.map.UpdateMap();
         taskCompleted = new string(taskSaverArray);
         StartCoroutine(ShowObjectives());
     }

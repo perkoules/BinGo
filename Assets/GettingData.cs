@@ -7,16 +7,21 @@ using UnityEngine;
 public class GettingData : MonoBehaviour
 {
     public ModalWindowManager gettingDataMessage;
-    
-    public void FocusWindowChanged()
+    private void OnEnable()
     {
         LeaderboardManager.OnDataRetrieved += CloseWindow;
-        gettingDataMessage.OpenWindow();        
+    }
+    private void OnDisable()
+    {
+        LeaderboardManager.OnDataRetrieved -= CloseWindow;
+    }
+    public void FocusWindowChanged()
+    {
+        gettingDataMessage.OpenWindow();
     }
 
     private void CloseWindow()
     {
-        LeaderboardManager.OnDataRetrieved -= CloseWindow;
         gettingDataMessage.CloseWindow();
     }
 }

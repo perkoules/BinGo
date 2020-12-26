@@ -189,11 +189,21 @@ public class LeaderboardManager : MonoBehaviour
         string country = "";
         fgr = new ForwardGeocodeResource(toSearch) { };
         string locationUrl = fgr.GetUrl();
-        Debug.Log("url = " + locationUrl);
-        var jsonLocationData = new WebClient().DownloadString(locationUrl);
-        MyResult myResult = JsonUtility.FromJson<MyResult>(jsonLocationData);
-        string[] tt = myResult.features[0].place_name.Split(','); 
-        country = tt.Last();
+        try
+        {
+            var jsonLocationData = new WebClient().DownloadString(locationUrl);
+            MyResult myResult = JsonUtility.FromJson<MyResult>(jsonLocationData);
+            string[] tt = myResult.features[0].place_name.Split(',');
+            country = tt.Last();
+        }
+        catch (WebException we)
+        {
+            HttpWebResponse errorResponse = we.Response as HttpWebResponse;
+            if (errorResponse.StatusCode == HttpStatusCode.NotFound)
+            {
+                OnDataRetrieved?.Invoke();
+            }
+        }
         return country;
     }
 
@@ -414,6 +424,54 @@ public class LeaderboardManager : MonoBehaviour
             }
         }
     }
+
+    public void GetProgressInWorldByCountry()
+    {
+        if (leaderboardPanel.transform.childCount == 0)
+        {
+            StartCoroutine(GetWorldLeaderboardByCountry());
+        }
+        else
+        {
+            foreach (Transform child in leaderboardPanel.transform)
+            {
+                child.gameObject.SetActive(true);
+            }
+        }
+    }
+    public void GetProgressInWorldByTeam()
+    {
+        if (leaderboardPanel.transform.childCount == 0)
+        {
+            StartCoroutine(GetWorldLeaderboardByTeam());
+        }
+        else
+        {
+            foreach (Transform child in leaderboardPanel.transform)
+            {
+                child.gameObject.SetActive(true);
+            }
+        }
+    }
+    public void GetProgressInWorldByPlayer()
+    {
+        if (leaderboardPanel.transform.childCount == 0)
+        {
+            WorldLeaderboardForRubbish();
+        }
+        else
+        {
+            foreach (Transform child in leaderboardPanel.transform)
+            {
+                child.gameObject.SetActive(true);
+            }
+        }
+    }
+
+
+
+
+
     public void ClearLeaderboard(GameObject panel)
     {
         foreach (Transform child in panel.transform)

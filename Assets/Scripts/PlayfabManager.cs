@@ -102,8 +102,8 @@ public class PlayfabManager : MonoBehaviour
         GetPlayerStats();
         yield return new WaitForSeconds(0.5f);
         GetPlayerData();
-        yield return new WaitForSeconds(5f);
-        StartCoroutine(Leaderboards.Instance.GetWorldLeaderboardByCountry());
+        /*yield return new WaitForSeconds(5f);
+        StartCoroutine(Leaderboards.Instance.GetWorldLeaderboardByCountry());*/
     }
 
     public void GetLocationDataOfRubbish()

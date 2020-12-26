@@ -6,24 +6,18 @@ using UnityEngine.UI;
 using TMPro;
 public class SliderCam : MonoBehaviour
 {
-    public TextMeshProUGUI txt, txt2;
+    public TextMeshProUGUI txt;
     public Camera Arcam;
-    public Slider slider, slider2;
+    public Slider slider;
 
     private void Awake()
     {
         slider.onValueChanged.AddListener(Zoom);
-        slider2.onValueChanged.AddListener(ZoomSize);
     }
 
     private void Zoom(float val)
     {
         txt.text = val.ToString();
         Arcam.farClipPlane = val;
-    }
-    private void ZoomSize(float val)
-    {
-        txt2.text = val.ToString();
-        Arcam.orthographicSize = val;
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine.AI;
 
 public class RoamingMonster : MonoBehaviour
 {
+    public GameObject prefabDeath;
     private NavMeshAgent agent;
     private GameObject player;
     private Animator anim;
@@ -108,6 +109,7 @@ public class RoamingMonster : MonoBehaviour
     }
     private void OnDestroy()
     {
+        Instantiate(prefabDeath, gameObject.transform);
         MonsterDestroyer.OnMonsterClicked -= MonsterDestroyer_OnMonsterClicked;
     }
 }

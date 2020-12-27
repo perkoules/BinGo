@@ -26,15 +26,8 @@ public class Bat : MonoBehaviour
         playerDataSaver = GetComponent<PlayerDataSaver>();
         if (playerDataSaver.GetScavHunt() == 1)
         {
-            StartCoroutine(ResumeScavengerHunt());
+            Deactivation();
         }
-    }
-
-    private IEnumerator ResumeScavengerHunt()
-    {
-        ScavengerHunt.Instance.ContinueHunting();
-        yield return new WaitForSeconds(1f);
-        Deactivation();
     }
 
     private void Start()

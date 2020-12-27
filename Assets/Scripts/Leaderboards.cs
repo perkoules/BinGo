@@ -13,13 +13,13 @@ public class Leaderboards : MonoBehaviour
     public ForwardGeocodeResource fgr;
     public GameObject leaderboardHolderTeam, listingPrefabTeam;
     public GameObject leaderboardHolder, listingPrefab;
-    public Color32 evenColor, oddColor;
     public List<string> allPlayers;
 
     public static Leaderboards Instance { get; private set; }
 
 
     public Trictionary idTeamnameRubbish;
+
 
     private void OnEnable()
     {
@@ -35,13 +35,13 @@ public class Leaderboards : MonoBehaviour
 
     private void Start()
     {
-        GetAllPlayers();
+        //GetAllPlayers();
     }
 
     public void ReSyncData()
     {
-        GetAllPlayers();
-        StartCoroutine(GetWorldLeaderboardByCountry());
+        //GetAllPlayers();
+        //StartCoroutine(GetWorldLeaderboardByCountry());
     }
 
     public void GetAllPlayers()
@@ -74,7 +74,7 @@ public class Leaderboards : MonoBehaviour
                 {
 
                     idCountry.Add(id, result.Data["Country"].Value);
-                    
+
                 },
                 error => Debug.LogError(error.GenerateErrorReport()));
         }
@@ -134,10 +134,10 @@ public class Leaderboards : MonoBehaviour
         StartCoroutine(GetWorldLeaderboardByTeam());
     }
 
-    
+
     public IEnumerator GetWorldLeaderboardByTeam()
     {
-        idTeamnameRubbish = new Trictionary();        
+        idTeamnameRubbish = new Trictionary();
         yield return new WaitForSeconds(6);
         foreach (var id in allPlayers)
         {
@@ -207,21 +207,5 @@ public class Leaderboards : MonoBehaviour
             leaderboardListing.playerNameText.text = orderResults.ElementAt(i).Key;
             leaderboardListing.rubbishText.text = orderResults.ElementAt(i).Value.ToString();
         }
-    }
-}
-
-public struct TeamNameRubbish
-{
-    public string Value1;
-    public int Value2;
-}
-public class Trictionary : Dictionary<string, TeamNameRubbish>
-{
-    public void Add(string key, string teamname, int rubbishCollected)
-    {
-        TeamNameRubbish t;
-        t.Value1 = teamname;
-        t.Value2 = rubbishCollected;
-        Add(key, t);
     }
 }

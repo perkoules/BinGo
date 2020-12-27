@@ -1,5 +1,4 @@
 ﻿using Mapbox.Geocoding;
-using Michsky.UI.ModernUIPack;
 using PlayFab;
 using PlayFab.AdminModels;
 using PlayFab.ClientModels;
@@ -9,24 +8,48 @@ using System.Linq;
 using System.Net;
 using UnityEngine;
 using UnityEngine.UI;
-
-public class LeaderboardManager : MonoBehaviour
+public class LeaderboardRetriever : MonoBehaviour
 {
-    public ForwardGeocodeResource fgr;
-    private PlayerInfo playerInfo;
-    public GameObject leaderboardPanel, listingPrefab;
+    private PlayerInfo playerInfo; 
+    public List<string> allPlayers;
     private string playerID, playerName;
-
-    public bool worldCountries = false;
-    public bool worldPlayer = false;
-    public bool worldTeam = false;
-
+    public Trictionary idTeamnameRubbish;
+    public static LeaderboardRetriever Instance { get; private set; }
+    //public delegate void DataRetrieved();
+    //public static event DataRetrieved OnDataRetrieved;
+    private void OnEnable()
+    {
+        if(Instance != null & Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
 
     private void Start()
     {
         GetPlayerID();
+        GetAllPlayers();
     }
-
+    public void GetAllPlayers()
+    {
+        PlayFabAdminAPI.GetPlayersInSegment(
+                    new GetPlayersInSegmentRequest { SegmentId = "CAD8FCF4CF87AD8E" },
+                    result =>
+                    {
+                        foreach (var item in result.PlayerProfiles)
+                        {
+                            if (!allPlayers.Contains(item.PlayerId))
+                            {
+                                allPlayers.Add(item.PlayerId);
+                            }
+                        }
+                    },
+                    error => Debug.LogError(error.GenerateErrorReport()));
+    }
     private void GetPlayerID()
     {
         var idrequest = new GetAccountInfoRequest { };
@@ -39,7 +62,7 @@ public class LeaderboardManager : MonoBehaviour
         , error => Debug.LogError(error.GenerateErrorReport()));
     }
 
-    public void WorldLeaderboardForRubbish()
+    public void WorldLeaderboardForRubbish(GameObject listingPrefab, GameObject leaderboardPanel)
     {
         PlayFabClientAPI.GetLeaderboard(new GetLeaderboardRequest { StartPosition = 0, StatisticName = "RubbishCollected", MaxResultsCount = 10 },
             result =>
@@ -64,7 +87,6 @@ public class LeaderboardManager : MonoBehaviour
                 }
             },
             error => Debug.LogError(error.GenerateErrorReport()));
-        worldPlayer = true;
     }
 
     public void GetPlayersCountry(string playerId, LeaderboardListing ll)
@@ -80,21 +102,22 @@ public class LeaderboardManager : MonoBehaviour
         error => Debug.LogError(error.GenerateErrorReport()));
     }
 
-    public void PlayersCountryLeaderboard()
+    public void PlayersCountryLeaderboard(GameObject listingPrefab, GameObject leaderboardPanel)
     {
         PlayFabClientAPI.GetUserData(new PlayFab.ClientModels.GetUserDataRequest() { PlayFabId = playerID },
         result =>
         {
             if (result.Data.ContainsKey("Country"))
             {
-                PlayersCountryLeaderboardResults(result.Data["Country"].Value + " isCountry");
+                StartCoroutine(PlayersCountryLeaderboardResults(result.Data["Country"].Value + " isCountry", listingPrefab, leaderboardPanel));
             }
         },
-        error => Debug.LogError(error.GenerateErrorReport()));        
+        error => Debug.LogError(error.GenerateErrorReport()));
     }
 
-    public void PlayersCountryLeaderboardResults(string playerCountry)
+    IEnumerator PlayersCountryLeaderboardResults(string playerCountry, GameObject listingPrefab, GameObject leaderboardPanel)
     {
+        yield return new WaitForSeconds(0.2f);
         var requestLeaderboard = new GetLeaderboardRequest { StartPosition = 0, StatisticName = playerCountry, MaxResultsCount = 10 };
         PlayFabClientAPI.GetLeaderboard(requestLeaderboard, result =>
         {
@@ -124,12 +147,12 @@ public class LeaderboardManager : MonoBehaviour
                 leaderboardListing.countryText.text = playerCountry.Replace(" isCountry", "");
                 leaderboardListing.rubbishText.text = player.StatValue.ToString();
             }
-        }, 
+        },
         error => Debug.LogError(error.GenerateErrorReport()));
-        OnDataRetrieved();
+        //OnDataRetrieved();
     }
 
-    public void PlayersProgressInWorldAndCities(string whatToLookFor)
+    public void PlayersProgressInWorldAndCities(string whatToLookFor, GameObject listingPrefab, GameObject leaderboardPanel)
     {
         var getPlayerStatisticNames = new GetPlayerStatisticsRequest { };
         PlayFabClientAPI.GetPlayerStatistics(getPlayerStatisticNames, result =>
@@ -139,15 +162,18 @@ public class LeaderboardManager : MonoBehaviour
                 if (stat.StatisticName.Contains(" isPlace"))
                 {
                     string place = stat.StatisticName.Replace(" isPlace", "");
-                    StartCoroutine(PlayersProgressInWorldAndCitiesResults(stat.StatisticName, place, whatToLookFor));
+                    if (!string.IsNullOrEmpty(place))
+                    {
+                        StartCoroutine(PlayersProgressInWorldAndCitiesResults(stat.StatisticName, place, whatToLookFor, listingPrefab, leaderboardPanel));
+                    }
                 }
             }
         },
         error => Debug.LogError(error.GenerateErrorReport()));
-        OnDataRetrieved();
+        //OnDataRetrieved();
     }
 
-    private IEnumerator PlayersProgressInWorldAndCitiesResults(string statName, string place, string whatToLookFor)
+    IEnumerator PlayersProgressInWorldAndCitiesResults(string statName, string place, string whatToLookFor, GameObject listingPrefab, GameObject leaderboardPanel)
     {
         yield return new WaitForSeconds(0.1f);
         int i = 0;
@@ -180,14 +206,14 @@ public class LeaderboardManager : MonoBehaviour
                     }
                 }
             }
-        }, 
-        error => Debug.LogError(error.GenerateErrorReport()));        
+        },
+        error => Debug.LogError(error.GenerateErrorReport()));
     }
 
     public string GetCountryFromPlace(string toSearch)
     {
         string country = "";
-        fgr = new ForwardGeocodeResource(toSearch) { };
+        ForwardGeocodeResource fgr = new ForwardGeocodeResource(toSearch) { };
         string locationUrl = fgr.GetUrl();
         try
         {
@@ -201,38 +227,32 @@ public class LeaderboardManager : MonoBehaviour
             HttpWebResponse errorResponse = we.Response as HttpWebResponse;
             if (errorResponse.StatusCode == HttpStatusCode.NotFound)
             {
-                OnDataRetrieved?.Invoke();
+                //OnDataRetrieved?.Invoke();
             }
         }
         return country;
     }
 
-    public IEnumerator GetWorldLeaderboardByCountry()
+
+    #region Teams And Countries
+    public void GetWorldLeaderboardByCountry(GameObject listingPrefab, GameObject leaderboardPanel)
     {
+        StartCoroutine(GetWorldLeaderboardByCountryCoroutine(listingPrefab, leaderboardPanel));
+    }
+    public IEnumerator GetWorldLeaderboardByCountryCoroutine(GameObject listingPrefab, GameObject leaderboardPanel)
+    {
+        yield return new WaitForSeconds(2);
         Dictionary<string, string> idCountry = new Dictionary<string, string>();
 
-        PlayFabAdminAPI.GetPlayersInSegment(
-            new GetPlayersInSegmentRequest { SegmentId = "CAD8FCF4CF87AD8E" },
-            result =>
-            {
-                foreach (var item in result.PlayerProfiles)
-                {
-                    idCountry.Add(item.PlayerId, "");
-                }
-            },
-            error => Debug.LogError(error.GenerateErrorReport()));
-
-        yield return new WaitForSeconds(3);
-        foreach (var id in idCountry.Keys)
+        foreach (var id in allPlayers)
         {
             PlayFabClientAPI.GetUserData(
                 new PlayFab.ClientModels.GetUserDataRequest { PlayFabId = id },
                 result =>
                 {
-                    if (idCountry.ContainsKey(id))
-                    {
-                        idCountry[id] = result.Data["Country"].Value;
-                    }
+
+                    idCountry.Add(id, result.Data["Country"].Value);
+
                 },
                 error => Debug.LogError(error.GenerateErrorReport()));
         }
@@ -288,24 +308,16 @@ public class LeaderboardManager : MonoBehaviour
             leaderboardListing.countryText.text = val.ToString();
             leaderboardListing.rubbishText.text = orderCountryRubbish.ElementAt(i).Value.ToString();
         }
-        worldCountries = true;
     }
-
-    public IEnumerator GetWorldLeaderboardByTeam()
+    public void GetWorldLeaderboardByTeam(GameObject listingPrefab, GameObject leaderboardPanel)
     {
-        var idTeamnameRubbish = new Trictionary();
-        PlayFabAdminAPI.GetPlayersInSegment(
-            new GetPlayersInSegmentRequest { SegmentId = "CAD8FCF4CF87AD8E" },
-            result =>
-            {
-                foreach (var item in result.PlayerProfiles)
-                {
-                    idTeamnameRubbish.Add(item.PlayerId, "-", 0);
-                }
-            },
-            error => Debug.LogError(error.GenerateErrorReport()));
+        StartCoroutine(GetWorldLeaderboardByTeamCoroutine(listingPrefab, leaderboardPanel));
+    }
+    public IEnumerator GetWorldLeaderboardByTeamCoroutine(GameObject listingPrefab, GameObject leaderboardPanel)
+    {
+        idTeamnameRubbish = new Trictionary();
         yield return new WaitForSeconds(6);
-        foreach (var id in idTeamnameRubbish.Keys)
+        foreach (var id in allPlayers)
         {
 
             PlayFabClientAPI.GetUserData(
@@ -373,117 +385,7 @@ public class LeaderboardManager : MonoBehaviour
             leaderboardListing.playerNameText.text = orderResults.ElementAt(i).Key;
             leaderboardListing.rubbishText.text = orderResults.ElementAt(i).Value.ToString();
         }
-        worldTeam = true;
-    }
-
-
-
-
-    #region CallForLeaderboards
-
-    public void GetProgressInCities()
-    {
-        if (leaderboardPanel.transform.childCount == 0)
-        {
-            PlayersProgressInWorldAndCities("cities");
-        }
-        else
-        {
-            foreach (Transform child in leaderboardPanel.transform)
-            {
-                child.gameObject.SetActive(true);
-            }
-        }
-    }
-    public void GetProgressInWorld()
-    {
-        if (leaderboardPanel.transform.childCount == 0)
-        {
-            PlayersProgressInWorldAndCities("world");
-        }
-        else
-        {
-            foreach (Transform child in leaderboardPanel.transform)
-            {
-                child.gameObject.SetActive(true);
-            }
-        }
-    }
-
-    public void GetProgressInCountry()
-    {
-        if (leaderboardPanel.transform.childCount == 0)
-        {
-            PlayersCountryLeaderboard();
-        }
-        else
-        {
-            foreach (Transform child in leaderboardPanel.transform)
-            {
-                child.gameObject.SetActive(true);
-            }
-        }
-    }
-
-    public void GetProgressInWorldByCountry()
-    {
-        if (leaderboardPanel.transform.childCount == 0)
-        {
-            StartCoroutine(GetWorldLeaderboardByCountry());
-        }
-        else
-        {
-            foreach (Transform child in leaderboardPanel.transform)
-            {
-                child.gameObject.SetActive(true);
-            }
-        }
-    }
-    public void GetProgressInWorldByTeam()
-    {
-        if (leaderboardPanel.transform.childCount == 0)
-        {
-            StartCoroutine(GetWorldLeaderboardByTeam());
-        }
-        else
-        {
-            foreach (Transform child in leaderboardPanel.transform)
-            {
-                child.gameObject.SetActive(true);
-            }
-        }
-    }
-    public void GetProgressInWorldByPlayer()
-    {
-        if (leaderboardPanel.transform.childCount == 0)
-        {
-            WorldLeaderboardForRubbish();
-        }
-        else
-        {
-            foreach (Transform child in leaderboardPanel.transform)
-            {
-                child.gameObject.SetActive(true);
-            }
-        }
-    }
-
-
-
-
-
-    public void ClearLeaderboard(GameObject panel)
-    {
-        foreach (Transform child in panel.transform)
-        {
-            Destroy(child.gameObject);
-        }
     }
     #endregion
-    
-    
-    public delegate void DataRetrieved();
-    public static event DataRetrieved OnDataRetrieved;
 
 }
-

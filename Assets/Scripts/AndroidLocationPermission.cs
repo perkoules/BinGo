@@ -20,12 +20,8 @@ public class AndroidLocationPermission : MonoBehaviour
     void OnGUI()
     {
 #if PLATFORM_ANDROID
-        if (!Permission.HasUserAuthorizedPermission(Permission.Microphone))
+        if (!Permission.HasUserAuthorizedPermission(Permission.FineLocation))
         {
-            // The user denied permission to use the microphone.
-            // Display a message explaining why you need it with Yes/No buttons.
-            // If the user says yes then present the request again
-            // Display a dialog here.
             dialog.AddComponent<AndroidPermissionPermissionsRationaleDialog>();
             return;
         }
@@ -35,7 +31,7 @@ public class AndroidLocationPermission : MonoBehaviour
         }
 #endif
 
-        // Now you can do things with the microphone
+        
     }
 
 }

@@ -9,11 +9,11 @@ public class GettingData : MonoBehaviour
     public ModalWindowManager gettingDataMessage;
     private void OnEnable()
     {
-        LeaderboardManager.OnDataRetrieved += CloseWindow;
+        //LeaderboardRetriever.OnDataRetrieved += CloseWindow;
     }
     private void OnDisable()
     {
-        LeaderboardManager.OnDataRetrieved -= CloseWindow;
+        //LeaderboardRetriever.OnDataRetrieved -= CloseWindow;
     }
     public void FocusWindowChanged()
     {

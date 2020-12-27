@@ -724,6 +724,17 @@ MonoBehaviour:
           m_StringArgument: Countries
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 753325354}
+        m_MethodName: RetrieveLeaderboard
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &26543018
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9275,7 +9286,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 258304615}
-  - component: {fileID: 258304616}
   - component: {fileID: 258304617}
   m_Layer: 0
   m_Name: PlayfabInitCaller
@@ -9298,25 +9308,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &258304616
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 258304614}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac78212063e4f2d4b8b08bcb110a13df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leaderboardHolderTeam: {fileID: 1145089374}
-  listingPrefabTeam: {fileID: 2295465983306898196, guid: 62df253737831a5489661f0eb0af1a0b,
-    type: 3}
-  leaderboardHolder: {fileID: 2014656994}
-  listingPrefab: {fileID: 2295465983306898196, guid: e347ed4abfa510745a4b547796e15913,
-    type: 3}
-  allPlayers: []
 --- !u!114 &258304617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10895,12 +10886,12 @@ MonoBehaviour:
           m_StringArgument: Players
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 892681209}
-        m_MethodName: 
+      - m_Target: {fileID: 2096302665}
+        m_MethodName: RetrieveLeaderboard
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -12345,7 +12336,7 @@ GameObject:
   - component: {fileID: 341969231}
   - component: {fileID: 341969235}
   - component: {fileID: 341969234}
-  - component: {fileID: 341969233}
+  - component: {fileID: 341969232}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -12376,7 +12367,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &341969233
+--- !u!114 &341969232
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -12385,15 +12376,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 341969230}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba716db6d9cb71e40b9833885855dc00, type: 3}
+  m_Script: {fileID: 11500000, guid: cea88fc16e40a7849be3c7c56756d426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  windowManager: {fileID: 1511796270}
+  leaderboard: {fileID: 11400000, guid: a783af6977b2d4b4c8499c53a2ed7494, type: 2}
   leaderboardPanel: {fileID: 1145089374}
-  listingPrefab: {fileID: 2295465983306898196, guid: 62df253737831a5489661f0eb0af1a0b,
-    type: 3}
-  worldCountries: 0
-  worldPlayer: 0
-  worldTeam: 0
 --- !u!114 &341969234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15950,6 +15938,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 409588359}
   m_CullTransparentMesh: 0
+--- !u!1 &410347497
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 410347499}
+  - component: {fileID: 410347498}
+  m_Layer: 0
+  m_Name: LeaderboardManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &410347498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410347497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f582232473b7304fb2e5bf6cf1a076d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allPlayers: []
+--- !u!4 &410347499
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410347497}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 312.73862, y: 433.73068, z: -158.6382}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &419046780
 GameObject:
   m_ObjectHideFlags: 0
@@ -21771,6 +21803,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Close Button
       objectReference: {fileID: 0}
+    - target: {fileID: 4096969791042607828, guid: 7f8ea118d1111974abecee7f7326eb8b,
+        type: 3}
+      propertyPath: buttonEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4096969791042607828, guid: 7f8ea118d1111974abecee7f7326eb8b,
+        type: 3}
+      propertyPath: buttonEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4096969791042607828, guid: 7f8ea118d1111974abecee7f7326eb8b,
+        type: 3}
+      propertyPath: buttonEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4096969791042607830, guid: 7f8ea118d1111974abecee7f7326eb8b,
         type: 3}
       propertyPath: panels.Array.data[0]
@@ -23020,6 +23067,17 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: World
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1881462326}
+        m_MethodName: RetrieveLeaderboard
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!222 &665035612
@@ -26534,7 +26592,7 @@ GameObject:
   - component: {fileID: 753325351}
   - component: {fileID: 753325353}
   - component: {fileID: 753325352}
-  - component: {fileID: 753325355}
+  - component: {fileID: 753325354}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -26603,7 +26661,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 753325350}
   m_CullTransparentMesh: 0
---- !u!114 &753325355
+--- !u!114 &753325354
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -26612,15 +26670,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 753325350}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba716db6d9cb71e40b9833885855dc00, type: 3}
+  m_Script: {fileID: 11500000, guid: cea88fc16e40a7849be3c7c56756d426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  windowManager: {fileID: 1511796270}
+  leaderboard: {fileID: 11400000, guid: 1902d47863b11d240aa180e752672201, type: 2}
   leaderboardPanel: {fileID: 2014656994}
-  listingPrefab: {fileID: 2295465983306898196, guid: e347ed4abfa510745a4b547796e15913,
-    type: 3}
-  worldCountries: 0
-  worldPlayer: 0
-  worldTeam: 0
 --- !u!1 &757080647
 GameObject:
   m_ObjectHideFlags: 0
@@ -47978,7 +48033,7 @@ GameObject:
   - component: {fileID: 1307257460}
   - component: {fileID: 1307257464}
   - component: {fileID: 1307257463}
-  - component: {fileID: 1307257462}
+  - component: {fileID: 1307257461}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -48010,7 +48065,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1307257462
+--- !u!114 &1307257461
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -48019,15 +48074,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1307257459}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba716db6d9cb71e40b9833885855dc00, type: 3}
+  m_Script: {fileID: 11500000, guid: cea88fc16e40a7849be3c7c56756d426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  windowManager: {fileID: 1217464658}
+  leaderboard: {fileID: 11400000, guid: b4d621b4e202b234fa7ad633163d6f74, type: 2}
   leaderboardPanel: {fileID: 388802311}
-  listingPrefab: {fileID: 2295465983306898196, guid: e347ed4abfa510745a4b547796e15913,
-    type: 3}
-  worldCountries: 0
-  worldPlayer: 0
-  worldTeam: 0
 --- !u!114 &1307257463
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50350,6 +50402,17 @@ MonoBehaviour:
           m_StringArgument: Teams
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 341969232}
+        m_MethodName: RetrieveLeaderboard
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &1375035330
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -50666,6 +50729,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6617651571632281068, guid: 7f3f3596612df1d4e945d90591f82bf7,
+        type: 3}
+      propertyPath: _editorLocationProvider
+      value: 
+      objectReference: {fileID: 1377180109}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f3f3596612df1d4e945d90591f82bf7, type: 3}
 --- !u!1 &1377180108 stripped
@@ -66744,17 +66812,17 @@ PrefabInstance:
         type: 3}
       propertyPath: buttonEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1307257462}
+      objectReference: {fileID: 0}
     - target: {fileID: 4096969791042607828, guid: 7f8ea118d1111974abecee7f7326eb8b,
         type: 3}
       propertyPath: buttonEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1799367091}
+      objectReference: {fileID: 0}
     - target: {fileID: 4096969791042607828, guid: 7f8ea118d1111974abecee7f7326eb8b,
         type: 3}
       propertyPath: buttonEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 1881462327}
+      objectReference: {fileID: 0}
     - target: {fileID: 4096969791042607828, guid: 7f8ea118d1111974abecee7f7326eb8b,
         type: 3}
       propertyPath: buttonEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -67924,6 +67992,17 @@ MonoBehaviour:
           m_StringArgument: City
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1307257461}
+        m_MethodName: RetrieveLeaderboard
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &1791481522
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -68165,7 +68244,7 @@ GameObject:
   - component: {fileID: 1799367089}
   - component: {fileID: 1799367093}
   - component: {fileID: 1799367092}
-  - component: {fileID: 1799367091}
+  - component: {fileID: 1799367090}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -68197,7 +68276,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1799367091
+--- !u!114 &1799367090
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -68206,15 +68285,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1799367088}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba716db6d9cb71e40b9833885855dc00, type: 3}
+  m_Script: {fileID: 11500000, guid: cea88fc16e40a7849be3c7c56756d426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  windowManager: {fileID: 1217464658}
+  leaderboard: {fileID: 11400000, guid: 16232aa7104a09640968a7e60b48889b, type: 2}
   leaderboardPanel: {fileID: 64801491}
-  listingPrefab: {fileID: 2295465983306898196, guid: e347ed4abfa510745a4b547796e15913,
-    type: 3}
-  worldCountries: 0
-  worldPlayer: 0
-  worldTeam: 0
 --- !u!114 &1799367092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71233,7 +71309,7 @@ GameObject:
   - component: {fileID: 1881462325}
   - component: {fileID: 1881462329}
   - component: {fileID: 1881462328}
-  - component: {fileID: 1881462327}
+  - component: {fileID: 1881462326}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -71265,7 +71341,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1881462327
+--- !u!114 &1881462326
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -71274,15 +71350,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1881462324}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba716db6d9cb71e40b9833885855dc00, type: 3}
+  m_Script: {fileID: 11500000, guid: cea88fc16e40a7849be3c7c56756d426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  windowManager: {fileID: 1217464658}
+  leaderboard: {fileID: 11400000, guid: 886219daf50eced49b88c60c1487d6ab, type: 2}
   leaderboardPanel: {fileID: 362169356}
-  listingPrefab: {fileID: 2295465983306898196, guid: e347ed4abfa510745a4b547796e15913,
-    type: 3}
-  worldCountries: 0
-  worldPlayer: 0
-  worldTeam: 0
 --- !u!114 &1881462328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78724,6 +78797,17 @@ MonoBehaviour:
           m_StringArgument: Country
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1799367090}
+        m_MethodName: RetrieveLeaderboard
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &2061969321
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -80105,7 +80189,7 @@ GameObject:
   - component: {fileID: 2096302664}
   - component: {fileID: 2096302668}
   - component: {fileID: 2096302667}
-  - component: {fileID: 2096302666}
+  - component: {fileID: 2096302665}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -80137,7 +80221,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2096302666
+--- !u!114 &2096302665
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -80146,15 +80230,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2096302663}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba716db6d9cb71e40b9833885855dc00, type: 3}
+  m_Script: {fileID: 11500000, guid: cea88fc16e40a7849be3c7c56756d426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  windowManager: {fileID: 1511796270}
+  leaderboard: {fileID: 11400000, guid: 061c5052e8289924e945bcb6c15e2d2a, type: 2}
   leaderboardPanel: {fileID: 218665874}
-  listingPrefab: {fileID: 2295465983306898196, guid: e347ed4abfa510745a4b547796e15913,
-    type: 3}
-  worldCountries: 0
-  worldPlayer: 0
-  worldTeam: 0
 --- !u!114 &2096302667
 MonoBehaviour:
   m_ObjectHideFlags: 0

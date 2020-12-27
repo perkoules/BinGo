@@ -209,20 +209,3 @@ public class Leaderboards : MonoBehaviour
         }
     }
 }
-
-
-public struct TeamNameRubbish
-{
-    public string Value1;
-    public int Value2;
-}
-public class Trictionary : Dictionary<string, TeamNameRubbish>
-{
-    public void Add(string key, string teamname, int rubbishCollected)
-    {
-        TeamNameRubbish t;
-        t.Value1 = teamname;
-        t.Value2 = rubbishCollected;
-        Add(key, t);
-    }
-}

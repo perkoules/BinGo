@@ -4,14 +4,14 @@
 public class LeaderboardSO : ScriptableObject
 {
     public GameObject listingPrefab;
+    public GameObject message;
     private GameObject leaderboardPanel;
-
-    public bool autoDelete;
-
+    private RectTransform windowPanel;
     public LeaderboardToGet whichLeaderboard;
 
-    public void GetRankings(LeaderboardToGet which, GameObject panel)
+    public void GetRankings(LeaderboardToGet which, GameObject panel, RectTransform window)
     {
+        windowPanel = window;
         leaderboardPanel = panel;
         switch (which)
         {
@@ -52,6 +52,7 @@ public class LeaderboardSO : ScriptableObject
     {
         if (leaderboardPanel.transform.childCount == 0)
         {
+            Instantiate(message, windowPanel);
             LeaderboardRetriever.Instance.PlayersProgressInWorldAndCities("cities", listingPrefab, leaderboardPanel);
         }
         else
@@ -67,6 +68,7 @@ public class LeaderboardSO : ScriptableObject
     {
         if (leaderboardPanel.transform.childCount == 0)
         {
+            Instantiate(message, windowPanel);
             LeaderboardRetriever.Instance.PlayersProgressInWorldAndCities("world", listingPrefab, leaderboardPanel);
         }
         else
@@ -82,6 +84,8 @@ public class LeaderboardSO : ScriptableObject
     {
         if (leaderboardPanel.transform.childCount == 0)
         {
+            GameObject msg = Instantiate(message, windowPanel);
+            Destroy(msg, 5f);
             LeaderboardRetriever.Instance.PlayersCountryLeaderboard(listingPrefab, leaderboardPanel);
         }
         else
@@ -97,6 +101,8 @@ public class LeaderboardSO : ScriptableObject
     {
         if (leaderboardPanel.transform.childCount == 0)
         {
+            GameObject msg = Instantiate(message, windowPanel);
+            Destroy(msg, 8f);
             LeaderboardRetriever.Instance.WorldLeaderboardForRubbish(listingPrefab, leaderboardPanel);
         }
         else
@@ -112,6 +118,7 @@ public class LeaderboardSO : ScriptableObject
     {
         if (leaderboardPanel.transform.childCount == 0)
         {
+            Instantiate(message, windowPanel);
             LeaderboardRetriever.Instance.GetWorldLeaderboardByTeam(listingPrefab, leaderboardPanel);
         }
         else
@@ -127,6 +134,7 @@ public class LeaderboardSO : ScriptableObject
     {
         if (leaderboardPanel.transform.childCount == 0)
         {
+            Instantiate(message, windowPanel);
             LeaderboardRetriever.Instance.GetWorldLeaderboardByCountry(listingPrefab, leaderboardPanel);
         }
         else

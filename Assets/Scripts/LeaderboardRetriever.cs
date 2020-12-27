@@ -15,8 +15,8 @@ public class LeaderboardRetriever : MonoBehaviour
     private string playerID, playerName;
     public Trictionary idTeamnameRubbish;
     public static LeaderboardRetriever Instance { get; private set; }
-    //public delegate void DataRetrieved();
-    //public static event DataRetrieved OnDataRetrieved;
+    public delegate void DataRetrieved();
+    public static event DataRetrieved OnDataRetrieved;
     private void OnEnable()
     {
         if(Instance != null & Instance != this)
@@ -87,6 +87,7 @@ public class LeaderboardRetriever : MonoBehaviour
                 }
             },
             error => Debug.LogError(error.GenerateErrorReport()));
+        OnDataRetrieved();
     }
 
     public void GetPlayersCountry(string playerId, LeaderboardListing ll)
@@ -149,7 +150,7 @@ public class LeaderboardRetriever : MonoBehaviour
             }
         },
         error => Debug.LogError(error.GenerateErrorReport()));
-        //OnDataRetrieved();
+        OnDataRetrieved?.Invoke();
     }
 
     public void PlayersProgressInWorldAndCities(string whatToLookFor, GameObject listingPrefab, GameObject leaderboardPanel)
@@ -170,7 +171,7 @@ public class LeaderboardRetriever : MonoBehaviour
             }
         },
         error => Debug.LogError(error.GenerateErrorReport()));
-        //OnDataRetrieved();
+        OnDataRetrieved?.Invoke();
     }
 
     IEnumerator PlayersProgressInWorldAndCitiesResults(string statName, string place, string whatToLookFor, GameObject listingPrefab, GameObject leaderboardPanel)
@@ -227,7 +228,7 @@ public class LeaderboardRetriever : MonoBehaviour
             HttpWebResponse errorResponse = we.Response as HttpWebResponse;
             if (errorResponse.StatusCode == HttpStatusCode.NotFound)
             {
-                //OnDataRetrieved?.Invoke();
+                OnDataRetrieved?.Invoke();
             }
         }
         return country;
@@ -308,6 +309,7 @@ public class LeaderboardRetriever : MonoBehaviour
             leaderboardListing.countryText.text = val.ToString();
             leaderboardListing.rubbishText.text = orderCountryRubbish.ElementAt(i).Value.ToString();
         }
+        OnDataRetrieved?.Invoke();
     }
     public void GetWorldLeaderboardByTeam(GameObject listingPrefab, GameObject leaderboardPanel)
     {
@@ -385,6 +387,7 @@ public class LeaderboardRetriever : MonoBehaviour
             leaderboardListing.playerNameText.text = orderResults.ElementAt(i).Key;
             leaderboardListing.rubbishText.text = orderResults.ElementAt(i).Value.ToString();
         }
+        OnDataRetrieved?.Invoke();
     }
     #endregion
 

@@ -21,6 +21,7 @@
 namespace GoogleARCore.Examples.AugmentedImage
 {
     using GoogleARCore;
+    using System;
     using UnityEngine;
 
     /// <summary>
@@ -32,79 +33,34 @@ namespace GoogleARCore.Examples.AugmentedImage
         /// The AugmentedImage to visualize.
         /// </summary>
         public AugmentedImage Image;
-        /*
-        #region Four corners
-
-        /// <summary>
-        /// A model for the lower left corner of the frame to place when an image is detected.
-        /// </summary>
-        public GameObject FrameLowerLeft;
-
-        /// <summary>
-        /// A model for the lower right corner of the frame to place when an image is detected.
-        /// </summary>
-        public GameObject FrameLowerRight;
-
-        /// <summary>
-        /// A model for the upper left corner of the frame to place when an image is detected.
-        /// </summary>
-        public GameObject FrameUpperLeft;
-
-        /// <summary>
-        /// A model for the upper right corner of the frame to place when an image is detected.
-        /// </summary>
-        public GameObject FrameUpperRight;
-
-        /// <summary>
-        /// The Unity Update method.
-        /// </summary>
-        ///
-
-        public void Update()
-        {
-            if (Image == null || Image.TrackingMethod != AugmentedImageTrackingMethod.FullTracking)
-            {
-                FrameLowerLeft.SetActive(false);
-                FrameLowerRight.SetActive(false);
-                FrameUpperLeft.SetActive(false);
-                FrameUpperRight.SetActive(false);
-                return;
-            }
-
-            float halfWidth = Image.ExtentX / 2;
-            float halfHeight = Image.ExtentZ / 2;
-            FrameLowerLeft.transform.localPosition =
-                (halfWidth * Vector3.left) + (halfHeight * Vector3.back);
-            FrameLowerRight.transform.localPosition =
-                (halfWidth * Vector3.right) + (halfHeight * Vector3.back);
-            FrameUpperLeft.transform.localPosition =
-                (halfWidth * Vector3.left) + (halfHeight * Vector3.forward);
-            FrameUpperRight.transform.localPosition =
-                (halfWidth * Vector3.right) + (halfHeight * Vector3.forward);
-
-            FrameLowerLeft.SetActive(true);
-            FrameLowerRight.SetActive(true);
-            FrameUpperLeft.SetActive(true);
-            FrameUpperRight.SetActive(true);
-        } 
-        #endregion
-
-        */
-
         public GameObject objToSpawn;
+        private bool canTrack = true;
+
+        private void Start()
+        {
+            LogoPoints.OnLogoFound += StopTracking;
+        }
+
+        private void StopTracking()
+        {
+            canTrack = false;
+            LogoPoints.OnLogoFound -= StopTracking;
+        }
+
         public void Update()
         {
-            if (Image == null || Image.TrackingMethod != AugmentedImageTrackingMethod.FullTracking)
+            if (canTrack)
             {
-                objToSpawn.SetActive(false);
-                return;
+                if (Image == null || Image.TrackingMethod != AugmentedImageTrackingMethod.FullTracking)
+                {
+                    objToSpawn.SetActive(false);
+                    return;
+                }
+                float halfWidth = Image.ExtentX / 2;
+                float halfHeight = Image.ExtentZ / 2;
+                objToSpawn.transform.localPosition = new Vector3(halfWidth / 2, 0, halfHeight / 2);
+                objToSpawn.SetActive(true); 
             }
-
-
-            float halfWidth = Image.ExtentX / 2;
-            float halfHeight = Image.ExtentZ / 2;
-            objToSpawn.transform.localPosition = new Vector3(halfWidth, 0, halfHeight);
-            objToSpawn.SetActive(true);
         }
 
     }

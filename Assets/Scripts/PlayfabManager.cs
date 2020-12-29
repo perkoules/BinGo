@@ -102,8 +102,6 @@ public class PlayfabManager : MonoBehaviour
         GetPlayerStats();
         yield return new WaitForSeconds(0.5f);
         GetPlayerData();
-        /*yield return new WaitForSeconds(5f);
-        StartCoroutine(Leaderboards.Instance.GetWorldLeaderboardByCountry());*/
     }
 
     public void GetLocationDataOfRubbish()
@@ -235,16 +233,16 @@ public class PlayfabManager : MonoBehaviour
                 myCountry = result.Data["Country"].Value;
                 myAvatar = result.Data["Avatar"].Value;
                 myTeamname = result.Data["TeamName"].Value;
-                myTasks = result.Data["Achievements"].Value;                
+                myTasks = result.Data["Achievements"].Value;
+                playerDataSaver.SetCountry(myCountry);
+                playerDataSaver.SetAvatar(myAvatar);
+                playerDataSaver.SetTeamname(myTeamname);
+                playerDataSaver.SetTasks(myTasks);
+                OnNamesAdjusted(myTeamname, playerDataSaver.GetUsername());
+                OnImageAdjusted(myAvatar, myCountry, progressLevel);
             }
         },
-        error => Debug.Log(error.GenerateErrorReport()));
-        playerDataSaver.SetCountry(myCountry);
-        playerDataSaver.SetAvatar(myAvatar);
-        playerDataSaver.SetTeamname(myTeamname);
-        playerDataSaver.SetTasks(myTasks);
-        OnNamesAdjusted(myTeamname, playerDataSaver.GetUsername());
-        OnImageAdjusted(myAvatar, myCountry, progressLevel);
+        error => Debug.Log(error.GenerateErrorReport()));        
     }
 
     public void Logout()

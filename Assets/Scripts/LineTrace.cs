@@ -7,10 +7,9 @@ using UnityEngine;
 public class LineTrace : MonoBehaviour
 {
     private LineRenderer lineRenderer;
+    public ModalWindowManager windowManager;
     public delegate void BookObtained();
     public static event BookObtained OnBookObtained;
-    private float timeToHold = 2f;
-    public ModalWindowManager windowManager;
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
@@ -35,7 +34,7 @@ public class LineTrace : MonoBehaviour
     }
 
     private void LineTracing(Vector3 pos)
-    {        
+    {
         Ray ray = Camera.main.ScreenPointToRay(pos);
         if (Physics.Raycast(ray, out RaycastHit outHit, Mathf.Infinity))
         {
@@ -47,13 +46,8 @@ public class LineTrace : MonoBehaviour
             {
                 lineRenderer.SetPosition(0, transform.position);
                 lineRenderer.SetPosition(1, outHit.transform.position);
-                timeToHold -= Time.deltaTime;
-                if (timeToHold <= 0)
-                {
-                    timeToHold = 2f;
-                    OnBookObtained();
-                    windowManager.OpenWindow();
-                }
+                OnBookObtained();
+                windowManager.OpenWindow();
             }
         }
     }

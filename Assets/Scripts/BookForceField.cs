@@ -14,6 +14,7 @@ public class BookForceField : MonoBehaviour
 
     private void LineTrace_OnBookObtained()
     {
+        //Maybe dissolve
         Destroy(portalRoot);
     }
 

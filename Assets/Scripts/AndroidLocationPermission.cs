@@ -16,7 +16,7 @@ public class AndroidLocationPermission : MonoBehaviour
             dialog = new GameObject();
         }
 #endif
-    }
+    }/*
     void OnGUI()
     {
 #if PLATFORM_ANDROID
@@ -33,5 +33,5 @@ public class AndroidLocationPermission : MonoBehaviour
 
         
     }
-
+*/
 }

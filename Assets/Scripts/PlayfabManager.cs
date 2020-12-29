@@ -102,8 +102,6 @@ public class PlayfabManager : MonoBehaviour
         GetPlayerStats();
         yield return new WaitForSeconds(0.5f);
         GetPlayerData();
-        /*yield return new WaitForSeconds(5f);
-        StartCoroutine(Leaderboards.Instance.GetWorldLeaderboardByCountry());*/
     }
 
     public void GetLocationDataOfRubbish()
@@ -222,21 +220,29 @@ public class PlayfabManager : MonoBehaviour
     public static event AdjustImage OnImageAdjusted;
     private void GetPlayerData()
     {
+        string myCountry = "";
+        string myAvatar = "";
+        string myTeamname = "";
+        string myTasks = "";
         PlayFabClientAPI.GetUserData(new GetUserDataRequest() { },
         result =>
         {
             if (result.Data == null) Debug.Log("No Data");
             else
             {
-                playerDataSaver.SetCountry(result.Data["Country"].Value);
-                playerDataSaver.SetAvatar(result.Data["Avatar"].Value);
-                playerDataSaver.SetTeamname(result.Data["TeamName"].Value);
-                playerDataSaver.SetTasks(result.Data["Achievements"].Value);
+                myCountry = result.Data["Country"].Value;
+                myAvatar = result.Data["Avatar"].Value;
+                myTeamname = result.Data["TeamName"].Value;
+                myTasks = result.Data["Achievements"].Value;
+                playerDataSaver.SetCountry(myCountry);
+                playerDataSaver.SetAvatar(myAvatar);
+                playerDataSaver.SetTeamname(myTeamname);
+                playerDataSaver.SetTasks(myTasks);
+                OnNamesAdjusted(myTeamname, playerDataSaver.GetUsername());
+                OnImageAdjusted(myAvatar, myCountry, progressLevel);
             }
         },
-        error => Debug.Log(error.GenerateErrorReport()));
-        OnNamesAdjusted(playerDataSaver.GetTeamname(), playerDataSaver.GetUsername());
-        OnImageAdjusted(playerDataSaver.GetAvatar(), playerDataSaver.GetCountry(), progressLevel);
+        error => Debug.Log(error.GenerateErrorReport()));        
     }
 
     public void Logout()

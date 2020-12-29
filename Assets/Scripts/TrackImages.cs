@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class TrackImages : MonoBehaviour
 {
     public AugmentedImageVisualizer AugmentedImageVisualizerPrefab;
-    public Image frames;
+    //public RawImage frames;
 
     private Dictionary<int, AugmentedImageVisualizer> m_Visualizers = new Dictionary<int, AugmentedImageVisualizer>();
     private List<AugmentedImage> m_TempAugmentedImages = new List<AugmentedImage>();
@@ -43,13 +43,14 @@ public class TrackImages : MonoBehaviour
         {
             if (visualizer.Image.TrackingMethod == AugmentedImageTrackingMethod.FullTracking)
             {
-                frames.color = Color.green;
+                Debug.LogFormat("Tracking", Color.green);
+                //frames.color = Color.green;
             }
             else
             {
-                frames.color = Color.white;
+                Debug.LogFormat("Not Tracking", Color.blue);
+                //frames.color = Color.white;
             }
         }
-        
     }
 }

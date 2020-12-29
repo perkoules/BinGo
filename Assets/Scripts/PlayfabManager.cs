@@ -222,21 +222,29 @@ public class PlayfabManager : MonoBehaviour
     public static event AdjustImage OnImageAdjusted;
     private void GetPlayerData()
     {
+        string myCountry = "";
+        string myAvatar = "";
+        string myTeamname = "";
+        string myTasks = "";
         PlayFabClientAPI.GetUserData(new GetUserDataRequest() { },
         result =>
         {
             if (result.Data == null) Debug.Log("No Data");
             else
             {
-                playerDataSaver.SetCountry(result.Data["Country"].Value);
-                playerDataSaver.SetAvatar(result.Data["Avatar"].Value);
-                playerDataSaver.SetTeamname(result.Data["TeamName"].Value);
-                playerDataSaver.SetTasks(result.Data["Achievements"].Value);
+                myCountry = result.Data["Country"].Value;
+                myAvatar = result.Data["Avatar"].Value;
+                myTeamname = result.Data["TeamName"].Value;
+                myTasks = result.Data["Achievements"].Value;                
             }
         },
         error => Debug.Log(error.GenerateErrorReport()));
-        OnNamesAdjusted(playerDataSaver.GetTeamname(), playerDataSaver.GetUsername());
-        OnImageAdjusted(playerDataSaver.GetAvatar(), playerDataSaver.GetCountry(), progressLevel);
+        playerDataSaver.SetCountry(myCountry);
+        playerDataSaver.SetAvatar(myAvatar);
+        playerDataSaver.SetTeamname(myTeamname);
+        playerDataSaver.SetTasks(myTasks);
+        OnNamesAdjusted(myTeamname, playerDataSaver.GetUsername());
+        OnImageAdjusted(myAvatar, myCountry, progressLevel);
     }
 
     public void Logout()

@@ -32,6 +32,8 @@ namespace GoogleARCore.Examples.AugmentedImage
         /// The AugmentedImage to visualize.
         /// </summary>
         public AugmentedImage Image;
+        /*
+        #region Four corners
 
         /// <summary>
         /// A model for the lower left corner of the frame to place when an image is detected.
@@ -84,6 +86,26 @@ namespace GoogleARCore.Examples.AugmentedImage
             FrameLowerRight.SetActive(true);
             FrameUpperLeft.SetActive(true);
             FrameUpperRight.SetActive(true);
+        } 
+        #endregion
+
+        */
+
+        public GameObject objToSpawn;
+        public void Update()
+        {
+            if (Image == null || Image.TrackingMethod != AugmentedImageTrackingMethod.FullTracking)
+            {
+                objToSpawn.SetActive(false);
+                return;
+            }
+
+
+            float halfWidth = Image.ExtentX / 2;
+            float halfHeight = Image.ExtentZ / 2;
+            objToSpawn.transform.localPosition = new Vector3(halfWidth, 0, halfHeight);
+            objToSpawn.SetActive(true);
         }
+
     }
 }

@@ -73,14 +73,6 @@ public class SpawnOnMap : MonoBehaviour
         instance.transform.localScale = new Vector3(spawnScale, spawnScale, spawnScale);
         instance.gameObject.name = "My Planted Tree";
     }
-    public void BatEffect()
-    {
-        Vector2d latlon = new Vector2d(54.572142, -1.235557);
-        var instance = Instantiate(particlePrefab);
-        instance.transform.localPosition = map.GeoToWorldPosition(latlon, true);
-        instance.transform.localScale = new Vector3(spawnScale, spawnScale, spawnScale);
-        instance.gameObject.name = "Bat effect";
-    }
     public void SpawnEnemies(string en)
     {
         char[] enArray = en.ToCharArray();

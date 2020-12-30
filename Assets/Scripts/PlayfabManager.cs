@@ -272,4 +272,11 @@ public class PlayfabManager : MonoBehaviour
             error => Debug.LogError(error.GenerateErrorReport()));
     }
 
+    public void OnGuestRegistered()
+    {
+        playerDataSaver.SetIsGuest(0);
+        IsFirstTime();
+        StartCoroutine(Initialization());
+    }
+
 }

@@ -145,11 +145,11 @@ public class Enemy : MonoBehaviour
     public void EnemyLost()
     {
         anim.SetTrigger(ANIM_DEAD);
+        Instantiate(prefabDeath, gameObject.transform);
     }
 
     public void DestroyObject()
     {
-        Instantiate(prefabDeath, gameObject.transform);
         ScavengerHunt.Instance.CompleteHuntTask(gameObject, true);
     }    
 }

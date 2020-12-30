@@ -95,6 +95,7 @@ public class MonsterDestroyer : MonoBehaviour
         {
             amountText.text = "1";
         }
+        SetMonstersStats();
     }
 
     public void SetMonstersStats()

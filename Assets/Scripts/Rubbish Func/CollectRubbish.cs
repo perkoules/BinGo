@@ -151,9 +151,6 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         messageText.text = "WELL DONE! You helped the environment!!!";
         fillerImage.fillAmount = 0;
         yield return new WaitForSeconds(2);
-
-        FindObjectOfType<SpawnOnMap>().BatEffect(); //Bat appeared on map - effect
-
         messageText.text = "Please scan another rubbish!!!";
         barcodeDetected = false;
         timeLeft = 10f;

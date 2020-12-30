@@ -97,7 +97,8 @@ public class RegisterManager : MonoBehaviour
             {
                 Email = email,
                 Password = password,
-                Username = username
+                Username = username,
+                DisplayName = username
             },
             OnRegisterSuccess,
             error =>
@@ -182,6 +183,11 @@ public class RegisterManager : MonoBehaviour
         playerDataSaver.SetUsername(username);
         playerDataSaver.SetEmail(email);
         playerDataSaver.SetPassword(password);
+        playerDataSaver.SetIsGuest(0);
+        playerDataSaver.SetProgressLevel(1);
+        playerDataSaver.SetWasteCollected(0);
+        playerDataSaver.SetRecycleCollected(0);
+        playerDataSaver.SetCoinsAvailable(0);
         PlayFabClientAPI.UpdateUserTitleDisplayName(
             new UpdateUserTitleDisplayNameRequest
             {

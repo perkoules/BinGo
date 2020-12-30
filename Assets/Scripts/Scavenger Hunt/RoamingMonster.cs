@@ -33,6 +33,7 @@ public class RoamingMonster : MonoBehaviour
     {
         if(gameObject.CompareTag(rayTag) && go == this.gameObject)
         {
+            Instantiate(prefabDeath, gameObject.transform);
             agent.speed = 0;
             agent.isStopped = true;
             anim.SetTrigger(ANIM_DEAD);
@@ -109,7 +110,6 @@ public class RoamingMonster : MonoBehaviour
     }
     private void OnDestroy()
     {
-        Instantiate(prefabDeath, gameObject.transform);
         MonsterDestroyer.OnMonsterClicked -= MonsterDestroyer_OnMonsterClicked;
     }
 }

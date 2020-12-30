@@ -38,7 +38,6 @@ public class ScavengerHunt : MonoBehaviour
     {
         if (playerDataSaver.GetScavHunt() == 1)
         {
-            //ContinueHunting();
             SpawnOnMap.Instance.map.OnInitialized += ContinueHunting;
         }
     }
@@ -149,9 +148,16 @@ public class ScavengerHunt : MonoBehaviour
             }
         }
         SpawnOnMap.Instance.SpawnEnemies(taskSaver);
-        SpawnOnMap.Instance.map.UpdateMap();
         taskCompleted = new string(taskSaverArray);
-        StartCoroutine(ShowObjectives());
+        if (taskSaver != "11111")
+        {
+            StartCoroutine(ShowObjectives());
+        }
+        else if (taskSaver == "11111")
+        {
+            Debug.Log("NO SHOW");
+        }
+        SpawnOnMap.Instance.map.UpdateMap();
     }
 
     public delegate void ShowDirections(GameObject player, List<Transform> enemies);
@@ -181,13 +187,4 @@ public class ScavengerHunt : MonoBehaviour
         Instantiate(prefabTutorialMessageBox, mainPanel.transform);
     }
 
-    /// <summary>
-    /// Trigger from button
-    /// </summary>
-    public void SpawnEnemiesByButton()
-    {
-        string taskSaver = "00000";
-        SpawnOnMap.Instance.SpawnEnemies(taskSaver);
-    }
-    
 }

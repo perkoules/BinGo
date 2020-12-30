@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -20,6 +21,7 @@ public class Texts : MonoBehaviour
         CollectRubbish.OnValuesAdjusted += AdjustAllTexts;
         GiftCardEnabler.OnValuesAdjusted += AdjustCoins;
         GetReduction.OnValuesAdjusted += AdjustCoins;
+        LineTrace.OnValuesAdjusted += AdjustCoinsByLogo;
     }
 
     private void AdjustTeamName(string team, bool on)
@@ -56,6 +58,13 @@ public class Texts : MonoBehaviour
     }
     private void AdjustCoins(int coi)
     {
+        coins.ForEach(t => t.text = coi.ToString());
+        float voucher = coi / 100.0f;
+        vouchers.ForEach(t => t.text = voucher.ToString(("F2")) + " £");
+    }
+    private void AdjustCoinsByLogo(int coi)
+    {
+        LineTrace.OnValuesAdjusted -= AdjustCoinsByLogo;
         coins.ForEach(t => t.text = coi.ToString());
         float voucher = coi / 100.0f;
         vouchers.ForEach(t => t.text = voucher.ToString(("F2")) + " £");

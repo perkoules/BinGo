@@ -1,4 +1,6 @@
 ﻿using Michsky.UI.ModernUIPack;
+using PlayFab;
+using PlayFab.ClientModels;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,13 +9,24 @@ using UnityEngine;
 public class LineTrace : MonoBehaviour
 {
     private LineRenderer lineRenderer;
-    public ModalWindowManager windowManager;
+    public ModalWindowManager windowManager, logoMessage;
     public delegate void BookObtained();
     public static event BookObtained OnBookObtained;
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
     }
+    private void Start()
+    {
+        LogoPoints.OnLogoFound += LogoObtained;
+    }
+
+    private void LogoObtained()
+    {
+        logoMessage.OpenWindow();
+        LogoPoints.OnLogoFound -= LogoObtained;
+    }
+
     void Update()
     {
 
@@ -50,5 +63,27 @@ public class LineTrace : MonoBehaviour
                 windowManager.OpenWindow();
             }
         }
+    }
+
+    public delegate void AdjustValues(int coins);
+    public static event AdjustValues OnValuesAdjusted;
+    public PlayerDataSaver playerDataSaver;
+
+    public void SendCoins(int coinsGained)
+    {
+        int newCoins = playerDataSaver.GetCoinsAvailable() - coinsGained;
+        playerDataSaver.SetCoinsAvailable(newCoins);
+        PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
+        {
+            FunctionName = "UpdatePlayerCoins",
+            FunctionParameter = new
+            {
+                cloudCoinsAvailable = newCoins
+            },
+            GeneratePlayStreamEvent = true,
+        },
+        result => Debug.Log("Sent " + playerDataSaver.GetCoinsAvailable() + " coins to cloudscript"),
+        error => Debug.Log(error.GenerateErrorReport()));
+        OnValuesAdjusted(newCoins);
     }
 }

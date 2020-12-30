@@ -53,10 +53,21 @@ public class Enemy : MonoBehaviour
     {
         SetDestination();
         StartCoroutine(WalkingToPosition());
+        StartCoroutine(TimeTowalk());
     }
+
+    IEnumerator TimeTowalk()
+    {
+        yield return new WaitForSeconds(5f);
+        StopAllCoroutines();
+        LookAtPlayer();
+        anim.SetTrigger(ANIM_BATTLE);
+        isReadyToBattle = true;
+    }
+
     public IEnumerator WalkingToPosition()
     {
-        agent.speed = 15;
+        agent.speed = 25;
         agentDistance = (transform.position - agent.destination).sqrMagnitude;
         if (agentDistance > 1)
         {

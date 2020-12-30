@@ -14,12 +14,11 @@ public class BookForceField : MonoBehaviour
 
     private void LineTrace_OnBookObtained()
     {
-        //Maybe dissolve
         Destroy(portalRoot);
     }
 
     private void OnDestroy()
     {
-        LineTrace.OnBookObtained += LineTrace_OnBookObtained;
+        LineTrace.OnBookObtained -= LineTrace_OnBookObtained;
     }
 }

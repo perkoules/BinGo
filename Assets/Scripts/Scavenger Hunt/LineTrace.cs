@@ -1,21 +1,29 @@
 ﻿using Michsky.UI.ModernUIPack;
 using PlayFab;
 using PlayFab.ClientModels;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LineTrace : MonoBehaviour
 {
     private LineRenderer lineRenderer;
     public ModalWindowManager windowManager, logoMessage;
+    public Camera myCamera;
+
     public delegate void BookObtained();
+
     public static event BookObtained OnBookObtained;
+
+    public delegate void AdjustValues(int coins);
+
+    public static event AdjustValues OnValuesAdjusted;
+
+    public PlayerDataSaver playerDataSaver;
+
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
     }
+
     private void Start()
     {
         LogoPoints.OnLogoFound += LogoObtained;
@@ -27,9 +35,8 @@ public class LineTrace : MonoBehaviour
         LogoPoints.OnLogoFound -= LogoObtained;
     }
 
-    void Update()
+    private void Update()
     {
-
 #if UNITY_EDITOR || UNITY_STANDALONE
         if (Input.GetMouseButton(0))
         {
@@ -37,8 +44,8 @@ public class LineTrace : MonoBehaviour
 #elif UNITY_ANDROID
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
-            LineTracing(Input.GetTouch(0).position);        
-#endif            
+            LineTracing(Input.GetTouch(0).position);
+#endif
         }
         else
         {
@@ -48,7 +55,7 @@ public class LineTrace : MonoBehaviour
 
     private void LineTracing(Vector3 pos)
     {
-        Ray ray = Camera.main.ScreenPointToRay(pos);
+        Ray ray = myCamera.ScreenPointToRay(pos);
         if (Physics.Raycast(ray, out RaycastHit outHit, Mathf.Infinity))
         {
             if (!lineRenderer.enabled)
@@ -65,10 +72,10 @@ public class LineTrace : MonoBehaviour
         }
     }
 
-    public delegate void AdjustValues(int coins);
-    public static event AdjustValues OnValuesAdjusted;
-    public PlayerDataSaver playerDataSaver;
-
+    /// <summary>
+    /// Triggerde by logoMessage modal window
+    /// </summary>
+    /// <param name="coinsGained"></param>
     public void SendCoins(int coinsGained)
     {
         int newCoins = playerDataSaver.GetCoinsAvailable() - coinsGained;

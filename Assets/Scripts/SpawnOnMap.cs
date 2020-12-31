@@ -19,7 +19,6 @@ public class SpawnOnMap : MonoBehaviour
     [SerializeField]
     private float spawnScale = 1f;
     public GameObject treePrefab, particlePrefab;
-
     public GameObject[] enemiesToSpawn;
     public Dictionary<string, GameObject> enemiesAndLocations;
     public Vector2d[] locations;

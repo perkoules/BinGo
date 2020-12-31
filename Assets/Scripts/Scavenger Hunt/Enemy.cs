@@ -96,7 +96,7 @@ public class Enemy : MonoBehaviour
     }
     private void SetDestination()
     {
-        target = player.transform.position + player.transform.forward * 50;
+        target = player.transform.position + player.transform.forward * 30;
         if (agent.isOnNavMesh)
         {
             agent.destination = target;

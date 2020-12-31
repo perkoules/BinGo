@@ -5,6 +5,7 @@ using UnityEngine;
 using System.Linq;
 using TMPro;
 using Mapbox.Unity.Map;
+using UnityEngine.UI;
 
 public class ScavengerHunt : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class ScavengerHunt : MonoBehaviour
     public GameObject prefabObjectives, mainPanel;
 
     private string taskCompleted = "";
+
 
     private void OnEnable()
     {
@@ -102,15 +104,12 @@ public class ScavengerHunt : MonoBehaviour
             Debug.Log(item.Key + " - " + item.Value + " =>>>>>>> " + taskSaver);
         }
     }
-
     public void StartHunting()
     {
         playerDataSaver.SetScavHunt(1);
         playerDataSaver.SetShieldUsed(0);
         playerDataSaver.SetProjectileUsed(0);
-        playerDataSaver.SetHuntProgress("00000");        
-        SpawnOnMap.Instance.SpawnEnemies(playerDataSaver.GetHuntProgress());
-        SpawnOnMap.Instance.map.UpdateMap();
+        SpawnOnMap.Instance.map.OnUpdated += Spawn;  
         taskCompletion = new Dictionary<string, bool>()
         {
             { "MonsterPlant", false },
@@ -120,6 +119,14 @@ public class ScavengerHunt : MonoBehaviour
             { "EvilMage", false }
         };
         StartTutorial();
+    }
+
+    private void Spawn()
+    {
+        SpawnOnMap.Instance.map.OnUpdated -= Spawn;
+        SpawnOnMap.Instance.SpawnEnemies("00000");
+        playerDataSaver.SetHuntProgress("00000");
+        SpawnOnMap.Instance.map.UpdateMap();
         StartCoroutine(ShowObjectives());
     }
 

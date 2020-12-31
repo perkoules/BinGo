@@ -41,8 +41,7 @@ public class Bat : MonoBehaviour
         {
             Instantiate(prefabDeath, gameObject.transform);
             ScavengerHunt.Instance.StartHunting();
-            Destroy(GameObject.FindGameObjectWithTag("BatEffectTag"));
-            Deactivation(); 
+            Deactivation();
         }
     }
 

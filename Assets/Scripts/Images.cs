@@ -14,8 +14,6 @@ public class Images : MonoBehaviour
     public List<Image> flag;
     public List<Image> badge;
 
-    
-    public Sprite av, fl, bdg;
     private void Start()
     {
         PlayfabManager.OnImageAdjusted += AdjustImages;        
@@ -23,9 +21,9 @@ public class Images : MonoBehaviour
 
     private void AdjustImages(string player, string country, int level)
     {
-        av = avatarContainer.Find(spr => spr.name == player);
-        fl = flagContainer.Find(spr => spr.name == country);
-        bdg = levelBadgeContainer.Find(spr => spr.name == level.ToString());
+        Sprite av = avatarContainer.Find(spr => spr.name == player);
+        Sprite fl = flagContainer.Find(spr => spr.name == country);
+        Sprite bdg = levelBadgeContainer.Find(spr => spr.name == level.ToString());
         StartCoroutine(Delay(av, fl, bdg));
     }
 

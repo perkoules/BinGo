@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Michsky.UI.ModernUIPack;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -18,6 +19,7 @@ public class BattleController : MonoBehaviour
     public GameObject prefabAttack, prefabPlayerDeath, enemy, battlePanel, shieldPoint;
     public Button shieldBtn, attackBtn;
     public TextMeshProUGUI battleText;
+    public ModalWindowManager loseWindow;
 
     private PlayerDataSaver playerDataSaver;
     private Camera player;
@@ -88,6 +90,19 @@ public class BattleController : MonoBehaviour
         {
             attackBtn.interactable = true;
         }
+        StartCoroutine(PlayerAttackWaiting());
+    }
+
+    private IEnumerator PlayerAttackWaiting()
+    {
+        float timeToWait = 5f;
+        while(timeToWait > 0)
+        {
+            timeToWait -= Time.deltaTime;
+            yield return null;
+        }
+        currentState = BattleState.EnemyTurn;
+        StartCoroutine(EnemyTurn());
     }
 
     /// <summary>
@@ -177,9 +192,7 @@ public class BattleController : MonoBehaviour
         else if(currentState == BattleState.Lost)
         {
             enemyScript.EnemyWon();
-            battleText.text = "You lost, losing Loser!";
-            GameObject plDeath = Instantiate(prefabPlayerDeath, player.transform.position + Vector3.forward * 5, Quaternion.identity);
-            Destroy(plDeath, 3f);
+            loseWindow.OpenWindow();
         }
         Forfeit();
     }

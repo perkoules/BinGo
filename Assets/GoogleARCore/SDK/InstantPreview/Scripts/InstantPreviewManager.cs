@@ -634,11 +634,11 @@ namespace GoogleARCoreInternal
             }
 
             version = versionStringBuilder.ToString();
-            Debug.LogFormat(
+            /*Debug.LogFormat(
                 "Instant Preview version {0}\n" +
                 "To disable Instant Preview in this project, uncheck 'Instant Preview Enabled' " +
                 "under 'Edit > Project Settings > ARCore'.",
-                version);
+                version);*/
             return true;
         }
 

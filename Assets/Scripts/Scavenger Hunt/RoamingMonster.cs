@@ -39,7 +39,9 @@ public class RoamingMonster : MonoBehaviour
             anim.SetTrigger(ANIM_DEAD);
         }
     }
-    //Triggered from Animation
+    /// <summary>
+    /// Triggered from Animation
+    /// </summary>
     private void MonsterDestruction()
     {
         gameObject.GetComponentInChildren<Dissolve>().dying = true;
@@ -51,6 +53,7 @@ public class RoamingMonster : MonoBehaviour
     private IEnumerator EnableAgent()
     {
         yield return new WaitForSeconds(0.1f);
+        //Wait for navmesh
         agent.enabled = true;
         Idle();
     }
@@ -62,7 +65,6 @@ public class RoamingMonster : MonoBehaviour
 
     public IEnumerator Walking()
     {
-        //Debug.DrawLine(transform.position, agent.destination, Color.red);  // Destination
         anim.SetBool(ANIM_WALKING, true);
         if ((transform.position - agent.destination).sqrMagnitude > 1)
         {

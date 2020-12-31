@@ -43,7 +43,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     private int rubbishInRegion = 0;
     private int rubbishInCountry = 0;
     private int currentLevel = 0;
-    private int distanceAcceptable = 5;
+    private int distanceAcceptable = 5000;
     private string place, district, region, country;
     private string rubbishScanned = "";
     private float timeLeft = 20;
@@ -155,7 +155,6 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         barcodeDetected = false;
         timeLeft = 10f;
         anim.SetBool("fill", true);
-        scanRubbish.Play();
     }
 
     public void QrScanFinished(string dataText)
@@ -220,6 +219,8 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     public void SetRubbishCollection(string typeOfRubbish)
     {
+        wasteCollected = playerDataSaver.GetWasteCollected();
+        recycleCollected = playerDataSaver.GetRecycleCollected();
         GetLocationDataOfRubbish();
 
         if (typeOfRubbish == "waste")
@@ -245,11 +246,12 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         achievementsController.wasteToUnlockCounter = wasteCollected;
         achievementsController.recycleToUnlockCounter = recycleCollected;
         rubbishCollected = wasteCollected + recycleCollected;
+        playerDataSaver.SetRubbishCollected(rubbishCollected);
         TaskChecker.Instance.CheckTaskDone();
-        ProgressLevelCheck();
-        UpdatePlayerStats();
-        StartCoroutine(achievementsController.CheckAchievementUnlockability());
         UpdatePlayerInfo();
+        ProgressLevelCheck();
+        StartCoroutine(achievementsController.CheckAchievementUnlockability());
+        UpdatePlayerStats();
     }
 
     private void UpdatePlayerInfo()
@@ -423,6 +425,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
                     }
                 }
             }, error => Debug.LogError(error.GenerateErrorReport()));
+        scanRubbish.Play();
     }
 
     public void GetLocationDataOfRubbish()

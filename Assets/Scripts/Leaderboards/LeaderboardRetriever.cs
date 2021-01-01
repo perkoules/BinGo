@@ -10,7 +10,6 @@ using UnityEngine;
 using UnityEngine.UI;
 public class LeaderboardRetriever : MonoBehaviour
 {
-    private PlayerInfo playerInfo; 
     public List<string> allPlayers;
     private string playerID, playerName;
     public Trictionary idTeamnameRubbish;
@@ -129,7 +128,7 @@ public class LeaderboardRetriever : MonoBehaviour
                 leaderboardListing.positionText.text = "1";
                 leaderboardListing.playerNameText.text = playerName;
                 leaderboardListing.countryText.text = playerCountry.Replace(" isCountry", "");
-                leaderboardListing.rubbishText.text = playerInfo.PlayerRubbish.ToString();
+                leaderboardListing.rubbishText.text = "----";  // playerInfo.PlayerRubbish.ToString();
             }
             foreach (PlayerLeaderboardEntry player in result.Leaderboard)
             {

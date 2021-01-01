@@ -53,7 +53,7 @@ public class RoamingMonster : MonoBehaviour
     private IEnumerator EnableAgent()
     {
         yield return new WaitForSeconds(0.1f);
-        //Wait for navmesh
+        //Wait for navmesh        
         agent.enabled = true;
         Idle();
     }

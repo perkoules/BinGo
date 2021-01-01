@@ -249,9 +249,9 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         playerDataSaver.SetRubbishCollected(rubbishCollected);
         TaskChecker.Instance.CheckTaskDone();
         UpdatePlayerInfo();
-        ProgressLevelCheck();
-        StartCoroutine(achievementsController.CheckAchievementUnlockability());
         UpdatePlayerStats();
+        StartCoroutine(achievementsController.CheckAchievementUnlockability());
+        ProgressLevelCheck();
     }
 
     private void UpdatePlayerInfo()
@@ -346,9 +346,13 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
                 cloudRubbishCollectedInCountry = rubbishInCountry,
                 cloudCoinsAvailable = coinsAvailable
             },
-            GeneratePlayStreamEvent = true,
+            GeneratePlayStreamEvent = true
         },
-        result => GetPlayerStats(),
+        result => 
+        {
+            Debug.Log(result.FunctionResult);
+            GetPlayerStats(); 
+        },
         error => Debug.Log(error.GenerateErrorReport()));
     }
 

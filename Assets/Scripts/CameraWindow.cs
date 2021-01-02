@@ -25,4 +25,10 @@ public class CameraWindow : MonoBehaviour
         yield return new WaitForSeconds(2);
         scanRubbish.Play();
     }
+
+    public void StopWork()
+    {
+        scanRubbish.Stop();
+    }
+
 }

@@ -21,10 +21,8 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public AchievementsController achievementsController;
     public PlayfabManager playfabManager;
     public DeviceLocationProvider locationProvider;
-    public CalculateDistance calculateDistance;
     public Image frames;
     public TextMeshProUGUI messageText;
-    public PlayerInfo playerInfo;
     public Animator anim;
     public GameObject nextLevelAnimator;
     public RectTransform parent;
@@ -38,13 +36,8 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     private int wasteCollected = 0;
     private int recycleCollected = 0;
     private int coinsAvailable = 0;
-    private int rubbishInPlace = 0;
-    private int rubbishInDistrict = 0;
-    private int rubbishInRegion = 0;
-    private int rubbishInCountry = 0;
     private int currentLevel = 0;
-    private int distanceAcceptable = 5;
-    private string place, district, region, country;
+    private int distanceAcceptable = 5000;
     private string rubbishScanned = "";
     private float timeLeft = 20;
     private bool pointerDown = false;
@@ -53,7 +46,10 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public bool isSfxOn = true;
     public bool isVibrationOn = true;
 
-    [HideInInspector] public Image fillerImage;    
+    public RubbishDataHandler dataHandler;
+    private string place, district, region, country;
+
+    [HideInInspector] public Image fillerImage;
     private IEnumerator rubbishCoroutine;
 
     private void OnEnable()
@@ -66,19 +62,10 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         {
             Instance = this;
         }
-        playerInfo = playfabManager.playerInfo;
-        rubbishInPlace = playerInfo.RubbishInPlace;
-        rubbishInDistrict = playerInfo.RubbishInDistrict;
-        rubbishInRegion = playerInfo.RubbishInRegion;
-        rubbishInCountry = playerInfo.RubbishInCountry;
     }
 
     private void Awake()
     {
-        if(calculateDistance == null)
-        {
-            calculateDistance = FindObjectOfType<CalculateDistance>();
-        }
         scanRubbish = GetComponent<ScanRubbish>();
         fillerImage = GetComponent<Image>();
         playerDataSaver = GetComponent<PlayerDataSaver>();
@@ -105,7 +92,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
             fillerImage.fillAmount += Time.deltaTime;
         }
     }
-
+                                
     public void OnPointerDown(PointerEventData eventData)
     {
         pointerDown = true;
@@ -114,27 +101,24 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public void OnPointerUp(PointerEventData eventData)
     {
         pointerDown = false;
-        if (fillerImage.fillAmount == 1 && calculateDistance.distances[calculateDistance.minIndex] <= distanceAcceptable)
+        if (fillerImage.fillAmount == 1 && CalculateDistance.Instance.MinDistance() <= distanceAcceptable)
         {
             frames.color = Color.white;
             StopCoroutine(rubbishCoroutine);
             StartCoroutine(ShowTextMessage());
-            string typeOfRubbish = "";
-            if (calculateDistance.bins[calculateDistance.minIndex].transform.parent.name.Contains("Waste"))
-            {
-                typeOfRubbish = "waste";
+
+
+            string typeOfRubbish = CalculateDistance.Instance.GetClosestBinData();
+            if (!string.IsNullOrEmpty(typeOfRubbish))
+            {                
+                SetRubbishCollection(typeOfRubbish);
             }
-            else if (calculateDistance.bins[calculateDistance.minIndex].transform.parent.name.Contains("Recycle"))
-            {
-                typeOfRubbish = "recycle";
-            }
-            SetRubbishCollection(typeOfRubbish);
             anim.SetBool("fill", false);
         }
         else
         {
             messageText.text = "After scanning, hold the button until full.";
-        }        
+        }
         fillerImage.fillAmount = 0;
     }
 
@@ -155,7 +139,6 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         barcodeDetected = false;
         timeLeft = 10f;
         anim.SetBool("fill", true);
-        scanRubbish.Play();
     }
 
     public void QrScanFinished(string dataText)
@@ -170,8 +153,8 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
             string comparer = "";
             comparer = rubbishScanned;
             rubbishScanned = dataText;
-            
-            if(rubbishScanned == comparer && ! string.IsNullOrEmpty(rubbishScanned))
+
+            if (rubbishScanned == comparer && !string.IsNullOrEmpty(rubbishScanned))
             {
                 messageText.text = "Please scan a different rubbish!!!";
                 barcodeDetected = false;
@@ -186,13 +169,13 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
                 {
                     scanRubbish.scanLineObj.SetActive(false);
                 }
-            }            
+            }
         }
     }
 
-    IEnumerator DataTextCooldown()
+    private IEnumerator DataTextCooldown()
     {
-        yield return new WaitForSeconds(10f);        
+        yield return new WaitForSeconds(10f);
         rubbishScanned = "";
     }
 
@@ -215,71 +198,44 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     }
 
     #region PlayfabCommunications
+
     public delegate void AdjustValues(int recycle, int waste, int coins, int level);
+
     public static event AdjustValues OnValuesAdjusted;
 
     public void SetRubbishCollection(string typeOfRubbish)
     {
         GetLocationDataOfRubbish();
 
-        if (typeOfRubbish == "waste")
+        dataHandler.placeRubbishPair[place]++;
+        dataHandler.districtRubbishPair[district]++;
+        dataHandler.regionRubbishPair[region]++;
+        dataHandler.countryRubbishPair[country]++;
+        if (typeOfRubbish == "Waste")
         {
             wasteCollected++;
-            rubbishInPlace++;
-            rubbishInDistrict++;
-            rubbishInRegion++;
-            rubbishInCountry++;
             coinsAvailable++;
             playerDataSaver.SetWasteCollected(wasteCollected);
         }
-        else if (typeOfRubbish == "recycle")
+        else if (typeOfRubbish == "Recycle")
         {
             recycleCollected++;
-            rubbishInPlace++;
-            rubbishInDistrict++;
-            rubbishInRegion++;
-            rubbishInCountry++;
             coinsAvailable += 2;
             playerDataSaver.SetRecycleCollected(recycleCollected);
         }
         achievementsController.wasteToUnlockCounter = wasteCollected;
         achievementsController.recycleToUnlockCounter = recycleCollected;
         rubbishCollected = wasteCollected + recycleCollected;
+        playerDataSaver.SetRubbishCollected(rubbishCollected);
+        playerDataSaver.SetCoinsAvailable(coinsAvailable);
         TaskChecker.Instance.CheckTaskDone();
-        ProgressLevelCheck();
         UpdatePlayerStats();
         StartCoroutine(achievementsController.CheckAchievementUnlockability());
-        UpdatePlayerInfo();
-    }
-
-    private void UpdatePlayerInfo()
-    {
-        playerInfo = new PlayerInfo
-        {
-            PlayerUsername = playerDataSaver.GetUsername(),
-            PlayerPassword = playerDataSaver.GetPassword(),
-            PlayerEmail = playerDataSaver.GetEmail(),
-            PlayerTeamName = playerDataSaver.GetTeamname(),
-            PlayerWaste = playerDataSaver.GetWasteCollected(),
-            PlayerRecycle = playerDataSaver.GetRecycleCollected(),
-            PlayerRubbish = playerDataSaver.GetRubbishCollected(),
-            PlayerCoins = playerDataSaver.GetCoinsAvailable(),
-            PlayerCurrentLevel = playerDataSaver.GetProgressLevel(),
-            RubbishInPlace = rubbishInPlace,
-            RubbishInDistrict = rubbishInDistrict,
-            RubbishInRegion = rubbishInRegion,
-            RubbishInCountry = rubbishInCountry,
-            RubbishPlace = place,
-            RubbishDistrict = district,
-            RubbishRegion = region,
-            RubbishCountry = country
-        };
+        ProgressLevelCheck();
     }
 
     public void ProgressLevelCheck()
     {
-        int allRubbish = playerDataSaver.GetWasteCollected() + playerDataSaver.GetRecycleCollected();
-        playerDataSaver.SetRubbishCollected(allRubbish);
         Dictionary<int, int> progressByRubbish = new Dictionary<int, int>()
         {
             {1, 20},
@@ -300,30 +256,30 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         };
         for (int i = 1; i < progressByRubbish.Count; i++)
         {
-            if (progressByRubbish.ElementAt(i - 1).Value <= allRubbish && allRubbish <= progressByRubbish.ElementAt(i).Value)
+            if (progressByRubbish.ElementAt(i - 1).Value <= rubbishCollected && rubbishCollected <= progressByRubbish.ElementAt(i).Value)
             {
                 currentLevel = playerDataSaver.GetProgressLevel();
                 progressLevel = progressByRubbish.ElementAt(i - 1).Key;
                 playerDataSaver.SetProgressLevel(progressLevel);
-                if(currentLevel != progressLevel)
+                if (currentLevel != progressLevel)
                 {
                     GameObject obj = Instantiate(nextLevelAnimator, parent);
                     Destroy(obj, 4f);
                 }
             }
         }
-        OnValuesAdjusted(recycleCollected, wasteCollected, coinsAvailable, progressLevel);
+        OnValuesAdjusted?.Invoke(recycleCollected, wasteCollected, coinsAvailable, progressLevel);
     }
 
     public void UpdatePlayerStats()
     {
-        if (playerInfo.RubbishDistrict == null)                     //For places with no districts
+        if (dataHandler.districtRubbishPair.ContainsKey(""))                     //For places with no districts
         {
-            playerInfo.RubbishDistrict = "NullDistricts";
+            dataHandler.districtRubbishPair.Add("NullDistricts", 0);
         }
-        if (playerInfo.RubbishRegion == null)                       //For places with no regions
+        if (dataHandler.regionRubbishPair.ContainsKey(""))                       //For places with no regions
         {
-            playerInfo.RubbishRegion = "NullRegions";
+            dataHandler.districtRubbishPair.Add("NullRegions", 0);
         }
         PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
         {
@@ -334,95 +290,23 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
                 cloudWasteCollected = wasteCollected,
                 cloudRubbishCollected = rubbishCollected,
                 cloudRecycleCollected = recycleCollected,
-                cloudStatisticNamePlace = playerInfo.RubbishPlace + " isPlace",
-                cloudStatisticNameDistrict = playerInfo.RubbishDistrict + " isDistrict",
-                cloudStatisticNameRegion = playerInfo.RubbishRegion + " isRegion",
-                cloudStatisticNameCountry = playerInfo.RubbishCountry + " isCountry",
-                cloudRubbishCollectedInPlace = rubbishInPlace,
-                cloudRubbishCollectedInDistrict = rubbishInDistrict,
-                cloudRubbishCollectedInRegion = rubbishInRegion,
-                cloudRubbishCollectedInCountry = rubbishInCountry,
+                cloudStatisticNamePlace = place + " isPlace",
+                cloudStatisticNameDistrict = district + " isDistrict",
+                cloudStatisticNameRegion = region + " isRegion",
+                cloudStatisticNameCountry = country + " isCountry",
+                cloudRubbishCollectedInPlace = dataHandler.placeRubbishPair[place],
+                cloudRubbishCollectedInDistrict = dataHandler.districtRubbishPair[district],
+                cloudRubbishCollectedInRegion = dataHandler.regionRubbishPair[region],
+                cloudRubbishCollectedInCountry = dataHandler.countryRubbishPair[country],
                 cloudCoinsAvailable = coinsAvailable
             },
-            GeneratePlayStreamEvent = true,
+            GeneratePlayStreamEvent = true
         },
-        result => GetPlayerStats(),
+        result =>
+        {
+            Debug.Log(result.FunctionResult);
+        },
         error => Debug.Log(error.GenerateErrorReport()));
-    }
-
-    public void GetPlayerStats()
-    {
-        PlayFabClientAPI.GetPlayerStatistics(
-            new GetPlayerStatisticsRequest(),
-            result =>
-            {
-                foreach (var eachStat in result.Statistics)
-                {
-                    switch (eachStat.StatisticName)
-                    {
-                        case "ProgressLevel":
-                            progressLevel = eachStat.Value;
-                            playerInfo.PlayerCurrentLevel = progressLevel;
-                            playerDataSaver.SetProgressLevel(progressLevel);
-                            break;
-
-                        case "WasteCollected":
-                            wasteCollected = eachStat.Value;
-                            playerInfo.PlayerWaste = wasteCollected;
-                            playerDataSaver.SetWasteCollected(wasteCollected);
-                            break;
-
-                        case "RecycleCollected":
-                            recycleCollected = eachStat.Value;
-                            playerInfo.PlayerRecycle = recycleCollected;
-                            playerDataSaver.SetRecycleCollected(recycleCollected);
-                            break;
-
-                        case "RubbishCollected":
-                            rubbishCollected = eachStat.Value;
-                            playerInfo.PlayerRubbish = rubbishCollected;
-                            playerDataSaver.SetRubbishCollected(rubbishCollected);
-                            break;
-
-                        case "CoinsAvailable":
-                            coinsAvailable = eachStat.Value;
-                            playerInfo.PlayerCoins = coinsAvailable;
-                            playerDataSaver.SetCoinsAvailable(coinsAvailable);
-                            break;
-
-                        default:
-                            break;
-                    }
-                    if (playerInfo.RubbishPlace != null)
-                    {
-                        if (eachStat.StatisticName == (playerInfo.RubbishPlace + " isPlace"))
-                        {
-                            rubbishInPlace = eachStat.Value;
-                            playerInfo.RubbishInPlace = eachStat.Value;
-                        }
-                        else if (eachStat.StatisticName == playerInfo.RubbishDistrict + " isDistrict")
-                        {
-                            rubbishInDistrict = eachStat.Value;
-                            playerInfo.RubbishInDistrict = eachStat.Value;
-                        }
-                        else if (eachStat.StatisticName == playerInfo.RubbishRegion + " isRegion")
-                        {
-                            rubbishInRegion = eachStat.Value;
-                            playerInfo.RubbishInRegion = eachStat.Value;
-                        }
-                        else if (eachStat.StatisticName == (playerInfo.RubbishCountry) + " isCountry")
-                        {
-                            rubbishInCountry = eachStat.Value;
-                            playerInfo.RubbishInCountry = eachStat.Value;
-                        }
-                    }
-                    else
-                    {
-                        GetLocationDataOfRubbish();
-                        GetPlayerStats();
-                    }
-                }
-            }, error => Debug.LogError(error.GenerateErrorReport()));
     }
 
     public void GetLocationDataOfRubbish()
@@ -444,18 +328,34 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         if (p >= 0)
         {
             place = myResult.features[p].text;
+            if (!dataHandler.placeRubbishPair.ContainsKey(place))
+            {
+                dataHandler.placeRubbishPair.Add(place, 0);
+            }
         }
         if (d >= 0)
         {
             district = myResult.features[d].text;
+            if (!dataHandler.districtRubbishPair.ContainsKey(district))
+            {
+                dataHandler.districtRubbishPair.Add(district, 0);
+            }
         }
         if (r >= 0)
         {
             region = myResult.features[r].text;
+            if (!dataHandler.regionRubbishPair.ContainsKey(region))
+            {
+                dataHandler.regionRubbishPair.Add(region, 0);
+            }
         }
         if (c >= 0)
         {
             country = myResult.features[c].text;
+            if (!dataHandler.countryRubbishPair.ContainsKey(country))
+            {
+                dataHandler.countryRubbishPair.Add(country, 0);
+            }
         }
     }
 

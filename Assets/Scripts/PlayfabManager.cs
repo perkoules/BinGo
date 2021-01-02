@@ -5,6 +5,7 @@ using PlayFab;
 using PlayFab.ClientModels;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Net;
 using TMPro;
 using UnityEngine;
@@ -12,27 +13,35 @@ using UnityEngine.SceneManagement;
 
 public class PlayfabManager : MonoBehaviour
 {
+    public static PlayfabManager Instance { get; private set; }
+
     private PlayerDataSaver playerDataSaver;
     private GetCurrentLocation currentLocation;
     private int currentBuildIndex = -1;
 
     public GameObject tutorialWindow;
-    public PlayerInfo playerInfo;
     public DeviceLocationProvider locationProvider;
     public TMP_InputField emailInput, passwordInput;
-
-    public static PlayfabManager Instance { get; private set; }
 
     private int progressLevel = 1;
     private int rubbishCollected = 0;
     private int wasteCollected = 0;
     private int recycleCollected = 0;
-    private int rubbishInPlace = 0;
-    private int rubbishInDistrict = 0;
-    private int rubbishInRegion = 0;
-    private int rubbishInCountry = 0;
     private int coinsAvailable = 0;
+
     private string place, district, region, country;
+
+    //<-----------------           Events             ------------------------------->
+    public delegate void AdjustValues(int recycle, int waste, int coins, int level);
+    public delegate void AdjustNames(string team, string user); 
+    public delegate void AdjustImage(string player, string country, int level);
+
+    public static event AdjustImage OnImageAdjusted;
+    public static event AdjustValues OnValuesAdjusted;
+    public static event AdjustNames OnNamesAdjusted;
+
+    //<-----------------           Data holders       ------------------------------->
+    public RubbishDataHandler dataHandler;
 
     private void OnEnable()
     {
@@ -63,6 +72,7 @@ public class PlayfabManager : MonoBehaviour
 
     public void Start()
     {
+        dataHandler = GetComponent<RubbishDataHandler>();
         if (currentBuildIndex == 0)
         {
             PlayerPrefs.DeleteKey(playerDataSaver.GetIsGuest().ToString());
@@ -80,31 +90,14 @@ public class PlayfabManager : MonoBehaviour
     public IEnumerator Initialization()
     {
         yield return new WaitForSeconds(1.5f);
-        GetLocationDataOfRubbish();
+        GetLocationData();
         yield return new WaitForSeconds(0.5f);
-        playerInfo = new PlayerInfo
-        {
-            PlayerUsername = playerDataSaver.GetUsername(),
-            PlayerPassword = playerDataSaver.GetPassword(),
-            PlayerEmail = playerDataSaver.GetEmail(),
-            PlayerCountry = playerDataSaver.GetCountry(),
-            PlayerAvatar = playerDataSaver.GetAvatar(),
-            PlayerRubbish = playerDataSaver.GetWasteCollected(),
-            PlayerRecycle = playerDataSaver.GetRecycleCollected(),
-            PlayerTeamName = playerDataSaver.GetTeamname(),
-            PlayerCoins = playerDataSaver.GetCoinsAvailable(),
-            PlayerCurrentLevel = playerDataSaver.GetProgressLevel(),
-            RubbishPlace = place,
-            RubbishDistrict = district,
-            RubbishRegion = region,
-            RubbishCountry = country,
-        };
         GetPlayerStats();
         yield return new WaitForSeconds(0.5f);
         GetPlayerData();
     }
 
-    public void GetLocationDataOfRubbish()
+    public void GetLocationData()
     {
         Vector2d latlon = locationProvider.CurrentLocation.LatitudeLongitude;
         currentLocation = new GetCurrentLocation(latlon)
@@ -123,24 +116,25 @@ public class PlayfabManager : MonoBehaviour
         if (p >= 0)
         {
             place = myResult.features[p].text;
+            dataHandler.placeRubbishPair.Add(place, 0);
         }
         if (d >= 0)
         {
             district = myResult.features[d].text;
+            dataHandler.districtRubbishPair.Add(district, 0);
         }
         if (r >= 0)
         {
             region = myResult.features[r].text;
+            dataHandler.regionRubbishPair.Add(region, 0);
         }
         if (c >= 0)
         {
             country = myResult.features[c].text;
+            dataHandler.countryRubbishPair.Add(country, 0);
         }
     }
-    public delegate void AdjustValues(int recycle, int waste, int coins, int level);
-    public delegate void AdjustNames(string team, string user);
-    public static event AdjustValues OnValuesAdjusted;
-    public static event AdjustNames OnNamesAdjusted;
+    
     public void GetPlayerStats()
     {
         PlayFabClientAPI.GetPlayerStatistics(
@@ -153,71 +147,62 @@ public class PlayfabManager : MonoBehaviour
                     {
                         case "ProgressLevel":
                             progressLevel = eachStat.Value;
-                            playerInfo.PlayerCurrentLevel = progressLevel;
                             playerDataSaver.SetProgressLevel(progressLevel);
                             break;
 
                         case "WasteCollected":
                             wasteCollected = eachStat.Value;
-                            playerInfo.PlayerWaste = wasteCollected;
                             playerDataSaver.SetWasteCollected(wasteCollected);
                             break;
 
                         case "RecycleCollected":
                             recycleCollected = eachStat.Value;
-                            playerInfo.PlayerRecycle = recycleCollected;
                             playerDataSaver.SetRecycleCollected(recycleCollected);
                             break;
 
                         case "RubbishCollected":
                             rubbishCollected = eachStat.Value;
-                            playerInfo.PlayerRubbish = rubbishCollected;
                             playerDataSaver.SetRubbishCollected(rubbishCollected);
                             break;
 
                         case "CoinsAvailable":
                             coinsAvailable = eachStat.Value;
-                            playerInfo.PlayerCoins = coinsAvailable;
                             playerDataSaver.SetCoinsAvailable(coinsAvailable);
                             break;
 
                         default:
                             break;
                     }
-                    OnValuesAdjusted(recycleCollected, wasteCollected, coinsAvailable, progressLevel);
-                    if (playerInfo.RubbishPlace != null)
+                    if (place != null)
                     {
-                        if (eachStat.StatisticName == (playerInfo.RubbishPlace + " isPlace"))
+                        if (eachStat.StatisticName == (place + " isPlace"))
                         {
-                            rubbishInPlace = eachStat.Value;
-                            playerInfo.RubbishInPlace = eachStat.Value;
+                            dataHandler.placeRubbishPair[place] = eachStat.Value;
                         }
-                        else if (eachStat.StatisticName == playerInfo.RubbishDistrict + " isDistrict")
+                        else if (eachStat.StatisticName == district + " isDistrict")
                         {
-                            rubbishInDistrict = eachStat.Value;
-                            playerInfo.RubbishInDistrict = eachStat.Value;
+                            dataHandler.districtRubbishPair[district] = eachStat.Value;
                         }
-                        else if (eachStat.StatisticName == playerInfo.RubbishRegion + " isRegion")
+                        else if (eachStat.StatisticName == region + " isRegion")
                         {
-                            rubbishInRegion = eachStat.Value;
-                            playerInfo.RubbishInRegion = eachStat.Value;
+                            dataHandler.regionRubbishPair[region] = eachStat.Value;
                         }
-                        else if (eachStat.StatisticName == (playerInfo.RubbishCountry) + " isCountry")
+                        else if (eachStat.StatisticName == country + " isCountry")
                         {
-                            rubbishInCountry = eachStat.Value;
-                            playerInfo.RubbishInCountry = eachStat.Value;
+                            dataHandler.countryRubbishPair[country] = eachStat.Value;
                         }
                     }
                     else
                     {
-                        GetLocationDataOfRubbish();
+                        GetLocationData();
                         GetPlayerStats();
                     }
                 }
-            }, error => Debug.LogError(error.GenerateErrorReport()));
+                OnValuesAdjusted(recycleCollected, wasteCollected, coinsAvailable, progressLevel);
+            }, 
+            error => Debug.LogError(error.GenerateErrorReport()));
     }
-    public delegate void AdjustImage(string player, string country, int level);
-    public static event AdjustImage OnImageAdjusted;
+    
     private void GetPlayerData()
     {
         string myCountry = "";

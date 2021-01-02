@@ -10,11 +10,11 @@ public class Rankings : MonoBehaviour
     public WindowManager windowManager;
     public LeaderboardSO leaderboard;
     public GameObject leaderboardPanel;
-    public RectTransform window;
+    public RectTransform messagePanel;
 
     public void RetrieveLeaderboard()
     {
-        leaderboard.GetRankings(leaderboard.whichLeaderboard, leaderboardPanel, window);
+        leaderboard.GetRankings(leaderboard.whichLeaderboard, leaderboardPanel, messagePanel);
     }
 
     public void ResyncLeaderboard()
@@ -26,6 +26,6 @@ public class Rankings : MonoBehaviour
     {
         leaderboard.ClearLeaderboard(leaderboardPanel);
         yield return new WaitForSeconds(1);
-        leaderboard.GetRankings(leaderboard.whichLeaderboard, leaderboardPanel, window);
+        leaderboard.GetRankings(leaderboard.whichLeaderboard, leaderboardPanel, messagePanel);
     }
 }

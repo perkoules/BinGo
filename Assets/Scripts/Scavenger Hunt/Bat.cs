@@ -47,7 +47,7 @@ public class Bat : MonoBehaviour
 
     private void Update()
     {
-        if (cam.canRaycast)
+        if (cam != null && cam.canRaycast)
         {
             transform.LookAt(Camera.main.transform, Vector3.up);
         }

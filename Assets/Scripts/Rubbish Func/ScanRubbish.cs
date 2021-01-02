@@ -8,7 +8,6 @@ public class ScanRubbish : MonoBehaviour
 {
     public QRController barcodeController;
     public GameObject scanLineObj, torchOff, torchOn;
-    public Button exitButton;
 
 
 #if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR

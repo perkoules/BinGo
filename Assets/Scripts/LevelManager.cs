@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
@@ -41,6 +43,12 @@ public class LevelManager : MonoBehaviour
     public void QuitGame()
     {
         Debug.Log("Closing...");
+        StartCoroutine(ClosingDelay());        
+    }
+
+    private IEnumerator ClosingDelay()
+    {
+        yield return new WaitForSeconds(3f);
         Application.Quit();
     }
 }

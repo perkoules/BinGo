@@ -16,7 +16,14 @@ public class Images : MonoBehaviour
 
     private void Start()
     {
-        PlayfabManager.OnImageAdjusted += AdjustImages;        
+        PlayfabManager.OnImageAdjusted += AdjustImages;
+        CollectRubbish.OnImageAdjusted += AdhustNewLevelImage;
+    }
+
+    private void AdhustNewLevelImage(int level)
+    {
+        Sprite bdg = levelBadgeContainer.Find(spr => spr.name == level.ToString()); 
+        badge.ForEach(img => img.sprite = bdg);
     }
 
     private void AdjustImages(string player, string country, int level)

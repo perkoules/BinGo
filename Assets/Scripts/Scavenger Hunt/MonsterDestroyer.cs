@@ -84,14 +84,13 @@ public class MonsterDestroyer : MonoBehaviour
     }
 
     public void ChangeMonsterText()
-    {        
+    {
         monstersKilled++;
-        monstersText.text = monstersKilled.ToString();
         if (waterCan.activeSelf)
         {
             amountText.text = Mathf.FloorToInt((monstersKilled / 50)).ToString();
         }
-        else
+        else if (treeImg.activeSelf)
         {
             amountText.text = "1";
         }
@@ -100,6 +99,7 @@ public class MonsterDestroyer : MonoBehaviour
 
     public void SetMonstersStats()
     {
+        monstersText.text = monstersKilled.ToString();
         playerDataSaver.SetMonstersKilled(monstersKilled);
         PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
         {
@@ -149,32 +149,37 @@ public class MonsterDestroyer : MonoBehaviour
                 {
                     if (monstersKilled >= 50)
                     {
-                        amountText.text = "1";
+                        amountText.text = Mathf.FloorToInt((monstersKilled / 50)).ToString();
                     }
                 }
             }
         },
         error => Debug.Log(error.GenerateErrorReport()));
     }
-
+    /// <summary>
+    /// Triggered by button
+    /// </summary>
     public void PlantTree()
     {
         if (monstersKilled >= 50)
         {
-            if (treeImg.activeSelf)
-            {
-                Vector2d latlon = locationProvider.CurrentLocation.LatitudeLongitude;
-                monstersKilled -= 50;
-                PlantedTreeLocationToCloud(latlon);
-            }
-            else
-            {
-                Debug.Log("Water it");
-                //monstersKilled -= 50;
-                amountText.text = Mathf.FloorToInt((monstersKilled / 50)).ToString();
-            }
+            Vector2d latlon = locationProvider.CurrentLocation.LatitudeLongitude;
+            monstersKilled -= 50;
+            PlantedTreeLocationToCloud(latlon);
+            playerDataSaver.SetMonstersKilled(monstersKilled);
             SetMonstersStats();
-        }        
+        }
+    }
+
+    public void WaterTree()
+    {
+        if (monstersKilled >= 50)
+        {
+            monstersKilled -= 50;
+            amountText.text = Mathf.FloorToInt((monstersKilled / 50)).ToString();
+            playerDataSaver.SetMonstersKilled(monstersKilled);
+            SetMonstersStats();
+        }
     }
 
     private void PlantedTreeLocationToCloud(Vector2d latlon)
@@ -201,6 +206,6 @@ public class MonsterDestroyer : MonoBehaviour
         double x = double.Parse(locArray[0]);
         double y = double.Parse(locArray[1]);
         Vector2d location = new Vector2d(x, y);
-        FindObjectOfType<SpawnOnMap>().Tree(location);
+        SpawnOnMap.Instance.Tree(location);
     }
 }

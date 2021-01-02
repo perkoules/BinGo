@@ -236,10 +236,10 @@ public class RegisterManager : MonoBehaviour
     }
     private IEnumerator LoggingProcessSucceeded()
     {
+        success.OpenWindow();
         yield return new WaitForSeconds(3f);
         if (currentBuildLevel == 0)
         {
-            success.OpenWindow();
             SceneManager.LoadScene(1);
         }
     }

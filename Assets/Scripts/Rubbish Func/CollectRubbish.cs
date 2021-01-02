@@ -200,8 +200,9 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     #region PlayfabCommunications
 
     public delegate void AdjustValues(int recycle, int waste, int coins, int level);
-
     public static event AdjustValues OnValuesAdjusted;
+    public delegate void AdjustImage(int level);
+    public static event AdjustImage OnImageAdjusted;
 
     public void SetRubbishCollection(string typeOfRubbish)
     {
@@ -264,7 +265,8 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
                 if (currentLevel != progressLevel)
                 {
                     GameObject obj = Instantiate(nextLevelAnimator, parent);
-                    Destroy(obj, 4f);
+                    Destroy(obj, 6f);
+                    OnImageAdjusted(progressLevel);
                 }
             }
         }

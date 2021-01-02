@@ -44,7 +44,6 @@ public class Texts : MonoBehaviour
 
     private void AdjustAllTexts(int recycle, int waste, int coi, int lev)
     {
-        Debug.Log("Values adjusted as: " + recycle + " " + waste + " " + coi + " " + lev + " =======================================================================================");
         int rub = recycle + waste;
         rec.text = recycle.ToString();
         shieldAmount.text = recycle.ToString();

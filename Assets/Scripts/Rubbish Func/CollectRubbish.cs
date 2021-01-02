@@ -37,7 +37,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     private int recycleCollected = 0;
     private int coinsAvailable = 0;
     private int currentLevel = 0;
-    private int distanceAcceptable = 5000;
+    private int distanceAcceptable = 5;
     private string rubbishScanned = "";
     private float timeLeft = 20;
     private bool pointerDown = false;

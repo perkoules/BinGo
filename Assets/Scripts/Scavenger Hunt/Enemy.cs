@@ -26,6 +26,7 @@ public class Enemy : MonoBehaviour
     public bool isReadyToBattle = false;
     public Canvas canvas;
 
+
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -33,7 +34,6 @@ public class Enemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         StartCoroutine(EnableAgent());
     }
-
     private IEnumerator EnableAgent()
     {
         yield return new WaitForSeconds(0.1f);
@@ -55,14 +55,12 @@ public class Enemy : MonoBehaviour
         StartCoroutine(WalkingToPosition());
         StartCoroutine(TimeTowalk());
     }
-
+    bool doneWaiting = false;
     IEnumerator TimeTowalk()
     {
+        doneWaiting = false;
         yield return new WaitForSeconds(5f);
-        StopAllCoroutines();
-        LookAtPlayer();
-        anim.SetTrigger(ANIM_BATTLE);
-        isReadyToBattle = true;
+        doneWaiting = true;
     }
 
     public IEnumerator WalkingToPosition()
@@ -71,7 +69,7 @@ public class Enemy : MonoBehaviour
         agentDistance = (transform.position - agent.destination).sqrMagnitude;
         if (agentDistance > 1)
         {
-            yield return new WaitUntil(() => agentDistance < 1);
+            yield return new WaitUntil(() => agentDistance < 1 || doneWaiting == true);
         }
         LookAtPlayer();
         anim.SetTrigger(ANIM_BATTLE);

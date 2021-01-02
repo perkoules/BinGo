@@ -26,6 +26,7 @@ public class BattleController : MonoBehaviour
     private Enemy enemyScript;
     public bool playerProjectileDead, playerProjectileHit = false;
     public bool enemyProjectileDead, enemyProjectileHit = false;
+    private bool playerAttacked = false;
 
     public int shieldAvailable, projectileAvailable = 0;
     public int shieldUsed, projectileUsed = 0;
@@ -83,6 +84,7 @@ public class BattleController : MonoBehaviour
 
     private void PlayerTurn()
     {
+        playerAttacked = false;
         ShieldObject.OnButtonReleased -= Shielding;
         battleText.text = "Your turn to attack...";
         shieldBtn.interactable = false;
@@ -92,7 +94,7 @@ public class BattleController : MonoBehaviour
         }
         StartCoroutine(PlayerAttackWaiting());
     }
-
+    
     private IEnumerator PlayerAttackWaiting()
     {
         float timeToWait = 5f;
@@ -101,8 +103,11 @@ public class BattleController : MonoBehaviour
             timeToWait -= Time.deltaTime;
             yield return null;
         }
-        currentState = BattleState.EnemyTurn;
-        StartCoroutine(EnemyTurn());
+        if (!playerAttacked)
+        {
+            currentState = BattleState.EnemyTurn;
+            StartCoroutine(EnemyTurn()); 
+        }
     }
 
     /// <summary>
@@ -111,6 +116,7 @@ public class BattleController : MonoBehaviour
     /// </summary>
     public void OnPlayerAttack()
     {
+        playerAttacked = true;
         if(currentState != BattleState.PlayerTurn)
         {
             return;
@@ -217,16 +223,5 @@ public class BattleController : MonoBehaviour
         battlePanel.SetActive(false);
         playerDataSaver.SetShieldUsed(shieldUsed);
         playerDataSaver.SetProjectileUsed(projectileUsed);
-    }
-
-    /// <summary>
-    /// For Testing
-    /// </summary>
-    public void SetPlFab()
-    {
-        playerDataSaver.SetRecycleCollected(50);
-        playerDataSaver.SetWasteCollected(50);
-        playerDataSaver.SetProjectileUsed(0);
-        playerDataSaver.SetShieldUsed(0);
     }
 }

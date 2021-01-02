@@ -363,8 +363,6 @@ namespace Mapbox.Unity.Map
                 return;
             }
 
-            StartCoroutine(CalculateDistance.Instance.FindAllBinsInMap(2));
-
             //so map will be snapped to zero using next new tile loaded
             _worldHeightFixed = false;
             float differenceInZoom = 0.0f;

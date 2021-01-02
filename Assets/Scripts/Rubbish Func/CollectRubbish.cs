@@ -21,7 +21,6 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public AchievementsController achievementsController;
     public PlayfabManager playfabManager;
     public DeviceLocationProvider locationProvider;
-    public CalculateDistance calculateDistance;
     public Image frames;
     public TextMeshProUGUI messageText;
     public Animator anim;
@@ -67,10 +66,6 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     private void Awake()
     {
-        if (calculateDistance == null)
-        {
-            calculateDistance = FindObjectOfType<CalculateDistance>();
-        }
         scanRubbish = GetComponent<ScanRubbish>();
         fillerImage = GetComponent<Image>();
         playerDataSaver = GetComponent<PlayerDataSaver>();
@@ -97,7 +92,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
             fillerImage.fillAmount += Time.deltaTime;
         }
     }
-
+                                
     public void OnPointerDown(PointerEventData eventData)
     {
         pointerDown = true;
@@ -106,21 +101,18 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public void OnPointerUp(PointerEventData eventData)
     {
         pointerDown = false;
-        if (fillerImage.fillAmount == 1 && calculateDistance.distances[calculateDistance.minIndex] <= distanceAcceptable)
+        if (fillerImage.fillAmount == 1 && CalculateDistance.Instance.MinDistance() <= distanceAcceptable)
         {
             frames.color = Color.white;
             StopCoroutine(rubbishCoroutine);
             StartCoroutine(ShowTextMessage());
-            string typeOfRubbish = "";
-            if (calculateDistance.bins[calculateDistance.minIndex].transform.parent.name.Contains("Waste"))
-            {
-                typeOfRubbish = "waste";
+
+
+            string typeOfRubbish = CalculateDistance.Instance.GetClosestBinData();
+            if (!string.IsNullOrEmpty(typeOfRubbish))
+            {                
+                SetRubbishCollection(typeOfRubbish);
             }
-            else if (calculateDistance.bins[calculateDistance.minIndex].transform.parent.name.Contains("Recycle"))
-            {
-                typeOfRubbish = "recycle";
-            }
-            SetRubbishCollection(typeOfRubbish);
             anim.SetBool("fill", false);
         }
         else
@@ -213,24 +205,19 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     public void SetRubbishCollection(string typeOfRubbish)
     {
-        wasteCollected = playerDataSaver.GetWasteCollected();
-        recycleCollected = playerDataSaver.GetRecycleCollected();
         GetLocationDataOfRubbish();
 
-        if (!string.IsNullOrEmpty(typeOfRubbish))
-        {
-            dataHandler.placeRubbishPair[place]++;
-            dataHandler.districtRubbishPair[district]++;
-            dataHandler.regionRubbishPair[region]++;
-            dataHandler.countryRubbishPair[country]++;
-        }
-        if (typeOfRubbish == "waste")
+        dataHandler.placeRubbishPair[place]++;
+        dataHandler.districtRubbishPair[district]++;
+        dataHandler.regionRubbishPair[region]++;
+        dataHandler.countryRubbishPair[country]++;
+        if (typeOfRubbish == "Waste")
         {
             wasteCollected++;
             coinsAvailable++;
             playerDataSaver.SetWasteCollected(wasteCollected);
         }
-        else if (typeOfRubbish == "recycle")
+        else if (typeOfRubbish == "Recycle")
         {
             recycleCollected++;
             coinsAvailable += 2;
@@ -242,7 +229,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         playerDataSaver.SetRubbishCollected(rubbishCollected);
         playerDataSaver.SetCoinsAvailable(coinsAvailable);
         TaskChecker.Instance.CheckTaskDone();
-        //UpdatePlayerStats();
+        UpdatePlayerStats();
         StartCoroutine(achievementsController.CheckAchievementUnlockability());
         ProgressLevelCheck();
     }
@@ -351,7 +338,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
             district = myResult.features[d].text;
             if (!dataHandler.districtRubbishPair.ContainsKey(district))
             {
-                dataHandler.districtRubbishPair.Add(district, 0); 
+                dataHandler.districtRubbishPair.Add(district, 0);
             }
         }
         if (r >= 0)

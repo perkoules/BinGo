@@ -197,8 +197,8 @@ public class PlayfabManager : MonoBehaviour
                         GetLocationData();
                         GetPlayerStats();
                     }
-                    OnValuesAdjusted(recycleCollected, wasteCollected, coinsAvailable, progressLevel);
                 }
+                OnValuesAdjusted(recycleCollected, wasteCollected, coinsAvailable, progressLevel);
             }, 
             error => Debug.LogError(error.GenerateErrorReport()));
     }

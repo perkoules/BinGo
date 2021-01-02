@@ -1,16 +1,19 @@
-﻿using System;
+﻿using Mapbox.Unity.Map;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
 
 public class CalculateDistance : MonoBehaviour
 {
-    public GameObject[] bins;
-    public float[] distances;
-    public int minIndex;
+    public static CalculateDistance Instance { get; set; }
 
-    public static CalculateDistance Instance { get; private set; }
+    public List<GameObject> bins;
+    public float[] distances;
+    [SerializeField]private int minIndex;
+
 
     private void OnEnable()
     {
@@ -24,32 +27,51 @@ public class CalculateDistance : MonoBehaviour
         }
     }
 
+
     private void Start()
     {
-        StartCoroutine(FindAllBinsInMap(4.5f));
+        SpawnOnMap.Instance.map.OnTileFinished += Map_OnTileFinished;
+        SpawnOnMap.Instance.map.OnTilesDisposing += Map_OnTilesDisposing;
         InvokeRepeating("GetAllDistances", 5.0f, 3.0f);
     }
 
-    public IEnumerator FindAllBinsInMap(float timeToWait)
+    private void Map_OnTilesDisposing(List<Mapbox.Map.UnwrappedTileId> obj)
     {
-        yield return new WaitForSeconds(timeToWait);
-        bins = GameObject.FindGameObjectsWithTag("BinTag");
-        distances = new float[bins.Length];
+        StartCoroutine(FindAgain());
+    }
+
+    IEnumerator FindAgain()
+    {
+        yield return new WaitForSeconds(1f);
+        bins = GameObject.FindGameObjectsWithTag("BinTag").ToList();
+        distances = new float[bins.Count];
+    }
+
+    private void Map_OnTileFinished(Mapbox.Unity.MeshGeneration.Data.UnityTile obj)
+    {
+        bins = GameObject.FindGameObjectsWithTag("BinTag").ToList();
+        distances = new float[bins.Count];
     }
 
     private void GetAllDistances()
     {
-        if (bins.Length > 0)
+        if (bins.Count > 0)
         {
-            for (int i = 0; i < bins.Length; i++)
+            for (int i = 0; i < bins.Count; i++)
             {
                 distances[i] = Vector3.Distance(gameObject.transform.position, bins[i].transform.position);
             }
+
             minIndex = Array.IndexOf(distances, distances.Min());
         }
-        else
-        {
-            StartCoroutine(FindAllBinsInMap(2f));
-        }
     }
+    public string GetClosestBinData()
+    {
+        return bins[minIndex].name;
+    }
+    public float MinDistance()
+    {
+        return distances[minIndex];
+    }
+
 }

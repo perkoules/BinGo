@@ -1,4 +1,5 @@
-﻿using Michsky.UI.ModernUIPack;
+﻿using GoogleARCore.Examples.AugmentedImage;
+using Michsky.UI.ModernUIPack;
 using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine;
@@ -27,12 +28,14 @@ public class LineTrace : MonoBehaviour
     private void Start()
     {
         LogoPoints.OnLogoFound += LogoObtained;
+        AugmentedImageVisualizer.OnImageFound += LogoObtained;
     }
 
     private void LogoObtained()
     {
         logoMessage.OpenWindow();
         LogoPoints.OnLogoFound -= LogoObtained;
+        AugmentedImageVisualizer.OnImageFound -= LogoObtained;
     }
 
     private void Update()
@@ -52,7 +55,7 @@ public class LineTrace : MonoBehaviour
             lineRenderer.enabled = false;
         }
     }
-
+    float timer = 3f;
     private void LineTracing(Vector3 pos)
     {
         Ray ray = myCamera.ScreenPointToRay(pos);
@@ -66,8 +69,12 @@ public class LineTrace : MonoBehaviour
             {
                 lineRenderer.SetPosition(0, transform.position);
                 lineRenderer.SetPosition(1, outHit.transform.position);
-                OnBookObtained();
-                windowManager.OpenWindow();
+                timer -= Time.deltaTime;
+                if (timer < 0)
+                {
+                    OnBookObtained();
+                    windowManager.OpenWindow();
+                }
             }
         }
     }

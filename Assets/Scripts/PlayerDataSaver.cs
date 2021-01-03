@@ -22,8 +22,17 @@ public class PlayerDataSaver : MonoBehaviour
     private const string PROJECTILE_AVAILABLE = "ProjectileAvailable";
     private const string SHIELD_AVAILABLE = "ShieldAvailable";
     private const string HUNT_PROGRESS = "HuntProgress";
+    private const string BOOK_OBTAINED = "BookObtained";
 
+    public void SetBookObtained(int yes)
+    {
+        PlayerPrefs.SetInt(BOOK_OBTAINED, yes);
+    }
 
+    public int GetBookObtained()
+    {
+        return PlayerPrefs.GetInt(BOOK_OBTAINED);
+    }
     public void SetHuntProgress(string tasks)
     {
         PlayerPrefs.SetString(HUNT_PROGRESS,tasks);

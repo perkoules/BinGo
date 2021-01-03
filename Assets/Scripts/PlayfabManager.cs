@@ -1,4 +1,5 @@
-﻿using Mapbox.Geocoding;
+﻿using GoogleARCore;
+using Mapbox.Geocoding;
 using Mapbox.Unity.Location;
 using Mapbox.Utils;
 using PlayFab;
@@ -19,7 +20,7 @@ public class PlayfabManager : MonoBehaviour
     private GetCurrentLocation currentLocation;
     private int currentBuildIndex = -1;
 
-    public GameObject tutorialWindow;
+    public GameObject tutorialWindow, trackingModeObject;
     public DeviceLocationProvider locationProvider;
     public TMP_InputField emailInput, passwordInput;
 
@@ -67,6 +68,10 @@ public class PlayfabManager : MonoBehaviour
         if (locationProvider == null)
         {
             locationProvider = FindObjectOfType<DeviceLocationProvider>();
+        }
+        if(playerDataSaver.GetBookObtained() == 1 && currentBuildIndex == 1)
+        {
+            trackingModeObject.SetActive(true);
         }
     }
 

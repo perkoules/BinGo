@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        player = Camera.main.transform;
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         StartCoroutine(EnableAgent());
@@ -94,7 +94,7 @@ public class Enemy : MonoBehaviour
     }
     private void SetDestination()
     {
-        target = player.transform.position + player.transform.forward * 30;
+        target = player.transform.position + player.transform.forward * 50;
         if (agent.isOnNavMesh)
         {
             agent.destination = target;

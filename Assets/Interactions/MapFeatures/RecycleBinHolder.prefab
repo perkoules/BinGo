@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1216140314095764169}
-  m_Layer: 8
+  m_Layer: 13
   m_Name: RecycleBinHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,7 @@ PrefabInstance:
     - target: {fileID: 7254616453399686753, guid: bf3d8b7c282ea264cb68147b7dd81611,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.5
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7254616453399686753, guid: bf3d8b7c282ea264cb68147b7dd81611,
         type: 3}
@@ -93,10 +93,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7254616453399686753, guid: bf3d8b7c282ea264cb68147b7dd81611,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7254616453399686753, guid: bf3d8b7c282ea264cb68147b7dd81611,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7254616453399686753, guid: bf3d8b7c282ea264cb68147b7dd81611,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8063206497936995547, guid: bf3d8b7c282ea264cb68147b7dd81611,
         type: 3}
       propertyPath: m_Name
       value: Recycle
+      objectReference: {fileID: 0}
+    - target: {fileID: 8063206497936995547, guid: bf3d8b7c282ea264cb68147b7dd81611,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf3d8b7c282ea264cb68147b7dd81611, type: 3}

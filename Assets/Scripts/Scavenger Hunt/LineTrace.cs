@@ -1,4 +1,5 @@
-﻿using Michsky.UI.ModernUIPack;
+﻿using GoogleARCore.Examples.AugmentedImage;
+using Michsky.UI.ModernUIPack;
 using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine;
@@ -27,12 +28,14 @@ public class LineTrace : MonoBehaviour
     private void Start()
     {
         LogoPoints.OnLogoFound += LogoObtained;
+        AugmentedImageVisualizer.OnImageFound += LogoObtained;
     }
 
     private void LogoObtained()
     {
         logoMessage.OpenWindow();
         LogoPoints.OnLogoFound -= LogoObtained;
+        AugmentedImageVisualizer.OnImageFound -= LogoObtained;
     }
 
     private void Update()

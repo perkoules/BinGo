@@ -33,6 +33,11 @@ public class PPDeleter : MonoBehaviour
     }
     public void ResetBookPortal()
     {
-        playerDataSaver.SetBookObtained(0);
+        playerDataSaver.SetBookObtained(1);
+    }
+
+    public void All()
+    {
+        PlayerPrefs.DeleteAll();
     }
 }

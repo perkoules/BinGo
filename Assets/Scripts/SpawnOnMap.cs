@@ -16,7 +16,6 @@ public enum Condition
 public class SpawnOnMap : MonoBehaviour
 {
     public AbstractMap map;
-    [SerializeField]
     private float spawnScale = 1f;
     public GameObject treePrefab, particlePrefab;
     public GameObject[] enemiesToSpawn;
@@ -52,7 +51,6 @@ public class SpawnOnMap : MonoBehaviour
                 { "54.564913, -1.235464",   enemiesToSpawn[4] }
             };
         }
-
         else if (con == Condition.Testing)
         {
             enemiesAndLocations = new Dictionary<string, GameObject>()

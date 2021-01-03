@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class TrackImages : MonoBehaviour
 {
     public AugmentedImageVisualizer AugmentedImageVisualizerPrefab;
-    private bool canTrack = true;
+    [SerializeField] bool canTrack = true;
 
     private Dictionary<int, AugmentedImageVisualizer> m_Visualizers = new Dictionary<int, AugmentedImageVisualizer>();
     private List<AugmentedImage> m_TempAugmentedImages = new List<AugmentedImage>();
@@ -40,7 +40,7 @@ public class TrackImages : MonoBehaviour
                 {
                     // Create an anchor to ensure that ARCore keeps tracking this augmented image.
                     Anchor anchor = image.CreateAnchor(image.CenterPose);
-                    visualizer = (AugmentedImageVisualizer)Instantiate(AugmentedImageVisualizerPrefab, anchor.transform);
+                    visualizer = Instantiate(AugmentedImageVisualizerPrefab, anchor.transform);
                     visualizer.Image = image;
                     m_Visualizers.Add(image.DatabaseIndex, visualizer);
                 }
@@ -54,13 +54,7 @@ public class TrackImages : MonoBehaviour
             {
                 if (visualizer.Image.TrackingMethod == AugmentedImageTrackingMethod.FullTracking)
                 {
-                    Debug.LogFormat("Tracking", Color.green);
-                    //frames.color = Color.green;
-                }
-                else
-                {
-                    Debug.LogFormat("Not Tracking", Color.blue);
-                    //frames.color = Color.white;
+                    //Debug.LogFormat("Tracking", Color.green);
                 }
             } 
         }

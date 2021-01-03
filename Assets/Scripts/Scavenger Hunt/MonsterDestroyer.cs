@@ -144,6 +144,7 @@ public class MonsterDestroyer : MonoBehaviour
                 if (playerDataSaver.GetTreeLocation() != "-")
                 {
                     SpawnTreeOnMap(playerDataSaver.GetTreeLocation());
+                    amountText.text = Mathf.FloorToInt((monstersKilled / 50)).ToString();
                 }
                 else
                 {

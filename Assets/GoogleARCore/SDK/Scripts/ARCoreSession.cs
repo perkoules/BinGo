@@ -88,7 +88,6 @@ namespace GoogleARCore
                 Debug.Log("Light Estimation may not work properly when EnvironmentalLight is not" +
                     " attached to the scene.");
             }
-
             LifecycleManager.Instance.CreateSession(this);
         }
 

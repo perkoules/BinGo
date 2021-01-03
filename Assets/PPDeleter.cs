@@ -31,4 +31,8 @@ public class PPDeleter : MonoBehaviour
             result => Debug.Log("Successfully planted a tree at " + treeLoc + " location"),
             error => Debug.Log(error.GenerateErrorReport())); ;
     }
+    public void ResetBookPortal()
+    {
+        playerDataSaver.SetBookObtained(0);
+    }
 }

@@ -19,6 +19,8 @@ public class RegisterManager : MonoBehaviour
     public CustomDropdown countryDropdown, avatarDropdown;
     public TMP_InputField usernameInputField, passwordInputField, repeatPasswordInputField, emailInputField;
     public Image tickP, tickRepP;
+    public MusicController musicController;
+
     private PlayerDataSaver playerDataSaver;
     private string email = "";
     private string password = "";
@@ -103,6 +105,7 @@ public class RegisterManager : MonoBehaviour
             OnRegisterSuccess,
             error =>
             {
+                musicController.PlayFailedSound();
                 userExist.OpenWindow();
                 Debug.LogError(error.GenerateErrorReport());
             });
@@ -173,6 +176,7 @@ public class RegisterManager : MonoBehaviour
             OnRegisterGuestSuccess,
             error =>
             {
+                musicController.PlayFailedSound();
                 userExist.OpenWindow();
                 Debug.LogError(error.GenerateErrorReport());
             });
@@ -202,7 +206,6 @@ public class RegisterManager : MonoBehaviour
                 Debug.LogError(error.GenerateErrorReport());
                 if (currentBuildLevel == 0)
                 {
-                    success.OpenWindow();
                     StartCoroutine(LoggingProcessSucceeded());
                 }
             });
@@ -211,6 +214,7 @@ public class RegisterManager : MonoBehaviour
         SetPlayerData();
         playerDataSaver.SetIsGuest(0);
         success.OpenWindow();
+        musicController.PlaySuccessSound();
     }
 
     public void SetPlayerData()
@@ -236,6 +240,7 @@ public class RegisterManager : MonoBehaviour
     }
     private IEnumerator LoggingProcessSucceeded()
     {
+        musicController.PlaySuccessSound();
         success.OpenWindow();
         yield return new WaitForSeconds(3f);
         if (currentBuildLevel == 0)

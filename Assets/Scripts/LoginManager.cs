@@ -15,6 +15,7 @@ public class LoginManager : MonoBehaviour
     public ModalWindowManager success, failure;
     public SwitchManager autologinSwitch;
     public TMP_InputField email, password;
+    public MusicController musicController;
 
     private PlayerDataSaver playerDataSaver;
     private string myID = "";
@@ -128,6 +129,7 @@ public class LoginManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
+            musicController.PlayFailedSound();
             failure.OpenWindow();
         }
     }
@@ -144,6 +146,7 @@ public class LoginManager : MonoBehaviour
 
     private IEnumerator LoggingProcessSucceeded()
     {
+        musicController.PlaySuccessSound();
         success.OpenWindow();
         yield return new WaitForSeconds(2f);
         if (success.isActiveAndEnabled)

@@ -29,15 +29,18 @@ public class SetTeamname : MonoBehaviour
             Data = new Dictionary<string, string>() {
             {"TeamName", nameToSet.text} }
         },
-        result => Debug.Log(nameToSet.text + " added"),
+        result => 
+        {
+            Debug.Log(nameToSet.text + " added");
+            teamnameText.text = nameToSet.text;
+            OnNamesAdjusted(nameToSet.text, true);
+            SetNameToFriends(nameToSet.text);
+            setWindowButton.gameObject.SetActive(false);
+        },
         error =>
         {
             Debug.Log(error.GenerateErrorReport());
         });
-        OnNamesAdjusted(nameToSet.text, true);
-        teamnameText.text = nameToSet.text;
-        SetNameToFriends(nameToSet.text);
-        setWindowButton.gameObject.SetActive(false);
     }
     
     private void SetNameToFriends(string nameText)

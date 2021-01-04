@@ -57,6 +57,7 @@
             }
             else
             {
+                obj.SetActive(false);
                 ScavengerHunt.OnShowDirections -= ScavengerHunt_OnShowDirections;
                 ScavengerHunt.OnTaskCompleted -= ScavengerHunt_OnTaskCompleted;
             }

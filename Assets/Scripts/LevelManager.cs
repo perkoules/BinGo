@@ -5,41 +5,31 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    private static LevelManager _instance;
 
-    public static LevelManager Instance
+    public static LevelManager Instance { get; set; }
+
+    private void OnEnable()
     {
-        get
+        if(Instance !=null && Instance != this)
         {
-            if (_instance == null)
-            {
-                GameObject go = new GameObject("Level Manager");
-                go.AddComponent<LevelManager>();
-            }
-            return _instance;
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
         }
     }
-
-    private void Awake()
+    public void UnloadSceneAsync(string name)
     {
-        _instance = this;
+        SceneManager.UnloadSceneAsync(name);
     }
-
-    public void LoadSceneByBuildIndex(int index)
+    public void LoadSceneAsyncByName(string name)
     {
-        SceneManager.LoadScene(index, LoadSceneMode.Single);
+        SceneManager.LoadSceneAsync(name);
     }
-
-    public void LoadSceneByName(string name)
-    {
-        SceneManager.LoadSceneAsync(name, LoadSceneMode.Single);
-    }
-
-    public void LoadAdditive(int index)
-    {
-        SceneManager.LoadScene(index, LoadSceneMode.Additive);
-    }
-
+    /// <summary>
+    /// Triggered by Button
+    /// </summary>
     public void QuitGame()
     {
         Debug.Log("Closing...");

@@ -245,7 +245,7 @@ public class RegisterManager : MonoBehaviour
         yield return new WaitForSeconds(3f);
         if (currentBuildLevel == 0)
         {
-            SceneManager.LoadScene(1);
+            LevelManager.Instance.LoadSceneAsyncByName("MainScreen");
         }
     }
 }

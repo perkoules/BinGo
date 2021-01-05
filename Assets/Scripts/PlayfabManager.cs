@@ -18,11 +18,9 @@ public class PlayfabManager : MonoBehaviour
 
     private PlayerDataSaver playerDataSaver;
     private GetCurrentLocation currentLocation;
-    private int currentBuildIndex = -1;
 
     public GameObject tutorialWindow, trackingModeObject;
     public DeviceLocationProvider locationProvider;
-    public TMP_InputField emailInput, passwordInput;
 
     private int progressLevel = 1;
     private int rubbishCollected = 0;
@@ -60,7 +58,6 @@ public class PlayfabManager : MonoBehaviour
     public void Awake()
     {
         playerDataSaver = GetComponent<PlayerDataSaver>();
-        currentBuildIndex = SceneManager.GetActiveScene().buildIndex;
         if (string.IsNullOrEmpty(PlayFabSettings.TitleId))
         {
             PlayFabSettings.TitleId = "F86EF";
@@ -69,7 +66,7 @@ public class PlayfabManager : MonoBehaviour
         {
             locationProvider = FindObjectOfType<DeviceLocationProvider>();
         }
-        if(playerDataSaver.GetBookObtained() == 1 && currentBuildIndex == 1)
+        if(playerDataSaver.GetBookObtained() == 1)
         {
             trackingModeObject.SetActive(true);
         }
@@ -78,14 +75,7 @@ public class PlayfabManager : MonoBehaviour
     public void Start()
     {
         dataHandler = GetComponent<RubbishDataHandler>();
-        if (currentBuildIndex == 0)
-        {
-            PlayerPrefs.DeleteKey(playerDataSaver.GetIsGuest().ToString());
-            playerDataSaver.SetIsGuest(0);
-            emailInput.text = playerDataSaver.GetEmail();
-            passwordInput.text = playerDataSaver.GetPassword();
-        }
-        if (currentBuildIndex == 1 && playerDataSaver.GetIsGuest() == 0)
+        if (playerDataSaver.GetIsGuest() == 0)
         {
             IsFirstTime();
             StartCoroutine(Initialization());
@@ -234,15 +224,17 @@ public class PlayfabManager : MonoBehaviour
         },
         error => Debug.Log(error.GenerateErrorReport()));        
     }
-
+    /// <summary>
+    /// Trigger by a button in the settings
+    /// </summary>
     public void Logout()
     {
         PlayFabClientAPI.ForgetAllCredentials();
         PlayerPrefs.DeleteKey("Autologin");
         PlayerPrefs.DeleteKey("EmailGiven");
         PlayerPrefs.DeleteKey("PasswordGiven");
-        SceneManager.UnloadSceneAsync(currentBuildIndex);
-        SceneManager.LoadScene(0);
+        LevelManager.Instance.LoadSceneAsyncByName("LogInScreen");
+        LevelManager.Instance.UnloadSceneAsync("MainScreen");
     }
 
     public void IsFirstTime()
@@ -261,7 +253,9 @@ public class PlayfabManager : MonoBehaviour
             },
             error => Debug.LogError(error.GenerateErrorReport()));
     }
-
+    /// <summary>
+    /// Triggered By Button
+    /// </summary>
     public void OnGuestRegistered()
     {
         playerDataSaver.SetIsGuest(0);

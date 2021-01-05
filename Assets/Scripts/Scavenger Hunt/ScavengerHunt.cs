@@ -18,7 +18,7 @@ public class ScavengerHunt : MonoBehaviour
     public GameObject prefabObjectives, mainPanel;
 
     private string taskCompleted = "";
-
+    public Button camBtn;
 
     private void OnEnable()
     {
@@ -106,10 +106,12 @@ public class ScavengerHunt : MonoBehaviour
     }
     public void StartHunting()
     {
+        camBtn.onClick.Invoke();
         playerDataSaver.SetScavHunt(1);
         playerDataSaver.SetShieldUsed(0);
         playerDataSaver.SetProjectileUsed(0);
-        SpawnOnMap.Instance.map.OnUpdated += Spawn;  
+        SpawnOnMap.Instance.map.OnUpdated += Spawn;
+        //SpawnOnMap.Instance.map.OnTilesStarting += Map_OnTilesStarting;
         taskCompletion = new Dictionary<string, bool>()
         {
             { "MonsterPlant", false },
@@ -121,12 +123,19 @@ public class ScavengerHunt : MonoBehaviour
         StartTutorial();
     }
 
+    private void Map_OnTilesStarting(List<Mapbox.Map.UnwrappedTileId> obj)
+    {
+        SpawnOnMap.Instance.map.OnTilesStarting -= Map_OnTilesStarting;
+        SpawnOnMap.Instance.SpawnEnemies("00000");
+        playerDataSaver.SetHuntProgress("00000");
+        StartCoroutine(ShowObjectives());
+    }
+
     private void Spawn()
     {
         SpawnOnMap.Instance.map.OnUpdated -= Spawn;
         SpawnOnMap.Instance.SpawnEnemies("00000");
         playerDataSaver.SetHuntProgress("00000");
-        SpawnOnMap.Instance.map.UpdateMap();
         StartCoroutine(ShowObjectives());
     }
 

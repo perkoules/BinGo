@@ -3317,8 +3317,8 @@ GameObject:
   m_Component:
   - component: {fileID: 466173488}
   - component: {fileID: 466173491}
-  - component: {fileID: 466173490}
   - component: {fileID: 466173489}
+  - component: {fileID: 466173490}
   m_Layer: 5
   m_Name: Leaves
   m_TagString: Untagged
@@ -3393,11 +3393,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb503aa06f2780f44b5111a1f23db9fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leavesHolder: {fileID: 466173487}
-  leaves:
-  - {fileID: 4424785743979386326, guid: 609ba27b7f1f9c04e9fd2c634d6cce27, type: 3}
-  - {fileID: 6446977026001962201, guid: 16d137eaf9c92ba44a7f6fa4248360c2, type: 3}
-  - {fileID: 5734186607094989497, guid: 5264597f4a8debb4486041c0358cd270, type: 3}
 --- !u!222 &466173491
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7659,7 +7654,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 1287.5625}
+  m_AnchoredPosition: {x: 0, y: 1289}
   m_SizeDelta: {x: 1280, y: 85}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &729978003
@@ -13724,6 +13719,65 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1544718967
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1544718969}
+  - component: {fileID: 1544718968}
+  m_Layer: 0
+  m_Name: Object Pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1544718968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1544718967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0617f4a868a420f4aa5c7c97d90d3a83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leavesHolder: {fileID: 466173487}
+  col: {fileID: 466173489}
+  itemsToPool:
+  - objectToPool: {fileID: 6446977026001962201, guid: 16d137eaf9c92ba44a7f6fa4248360c2,
+      type: 3}
+    amountToPool: 2
+    tag: Orange
+  - objectToPool: {fileID: 4424785743979386326, guid: 609ba27b7f1f9c04e9fd2c634d6cce27,
+      type: 3}
+    amountToPool: 2
+    tag: Pink
+  - objectToPool: {fileID: 5734186607094989497, guid: 5264597f4a8debb4486041c0358cd270,
+      type: 3}
+    amountToPool: 2
+    tag: Purple
+  pooledObjects: []
+--- !u!4 &1544718969
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1544718967}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1554846653
 GameObject:

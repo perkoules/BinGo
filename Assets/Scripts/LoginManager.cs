@@ -20,19 +20,7 @@ public class LoginManager : MonoBehaviour
     private PlayerDataSaver playerDataSaver;
     private string myID = "";
     private bool isGuest = false;
-    public static LoginManager LM;
 
-    private void OnEnable()
-    {
-        if (LM == null)
-        {
-            LM = this;
-        }
-        else
-        {
-            Destroy(LM);
-        }
-    }
     private void Awake()
     {
         playerDataSaver = GetComponent<PlayerDataSaver>();
@@ -149,13 +137,6 @@ public class LoginManager : MonoBehaviour
         musicController.PlaySuccessSound();
         success.OpenWindow();
         yield return new WaitForSeconds(2f);
-        if (success.isActiveAndEnabled)
-        {
-            AsyncOperation operation = SceneManager.LoadSceneAsync(1);
-            while (!operation.isDone)
-            {
-                yield return null;
-            }
-        }
+        LevelManager.Instance.LoadSceneAsyncByName("MainScreen");
     }
 }

@@ -38,13 +38,13 @@ namespace GoogleARCore.Examples.AugmentedImage
 
         private void Start()
         {
-            LogoPoints.OnLogoFound += StopTracking;
+            //LogoPoints.OnLogoFound += StopTracking;
         }
 
         private void StopTracking()
         {
             canTrack = false;
-            LogoPoints.OnLogoFound -= StopTracking;
+            //LogoPoints.OnLogoFound -= StopTracking;
         }
         public void Update()
         {
@@ -57,13 +57,12 @@ namespace GoogleARCore.Examples.AugmentedImage
                 }
                 else
                 {
-                    /*canTrack = false;
-                    OnImageFound();*/
+                    canTrack = false;
+                    OnImageFound();
                     float halfWidth = Image.ExtentX / 2;
                     float halfHeight = Image.ExtentZ / 2;
                     objToSpawn.transform.localPosition = new Vector3(halfWidth, 0, halfHeight );
                     objToSpawn.SetActive(true);
-                    Debug.Log("IS ON===============================================================");
                 }                
             }
         }

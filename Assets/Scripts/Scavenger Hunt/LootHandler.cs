@@ -21,7 +21,7 @@ public class LootHandler : MonoBehaviour
     private void Start()
     {
         BookForceField.OnBookObtained += BookForceField_OnBookObtained;
-        LogoPoints.OnLogoFound += LogoObtained;
+        //LogoPoints.OnLogoFound += LogoObtained;
         AugmentedImageVisualizer.OnImageFound += LogoObtained;
     }
 
@@ -33,7 +33,7 @@ public class LootHandler : MonoBehaviour
     private void LogoObtained()
     {
         logoMessage.OpenWindow();
-        LogoPoints.OnLogoFound -= LogoObtained;
+        //LogoPoints.OnLogoFound -= LogoObtained;
         AugmentedImageVisualizer.OnImageFound -= LogoObtained;
     }
 
@@ -43,7 +43,7 @@ public class LootHandler : MonoBehaviour
     /// <param name="coinsGained"></param>
     public void SendCoins(int coinsGained)
     {
-        int newCoins = playerDataSaver.GetCoinsAvailable() - coinsGained;
+        int newCoins = playerDataSaver.GetCoinsAvailable() + coinsGained;
         playerDataSaver.SetCoinsAvailable(newCoins);
         PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
         {

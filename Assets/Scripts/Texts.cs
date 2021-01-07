@@ -21,7 +21,7 @@ public class Texts : MonoBehaviour
         CollectRubbish.OnValuesAdjusted += AdjustAllTexts;
         GiftCardEnabler.OnValuesAdjusted += AdjustCoins;
         GetReduction.OnValuesAdjusted += AdjustCoins;
-        LineTrace.OnValuesAdjusted += AdjustCoinsByLogo;
+        LootHandler.OnValuesAdjusted += AdjustCoinsByLogo;
     }
 
     private void AdjustTeamName(string team, bool on)
@@ -64,7 +64,7 @@ public class Texts : MonoBehaviour
     }
     private void AdjustCoinsByLogo(int coi)
     {
-        LineTrace.OnValuesAdjusted -= AdjustCoinsByLogo;
+        LootHandler.OnValuesAdjusted -= AdjustCoinsByLogo;
         coins.ForEach(t => t.text = coi.ToString());
         float voucher = coi / 100.0f;
         vouchers.ForEach(t => t.text = voucher.ToString(("F2")) + " £");

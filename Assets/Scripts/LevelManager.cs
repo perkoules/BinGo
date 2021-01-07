@@ -19,6 +19,12 @@ public class LevelManager : MonoBehaviour
             Instance = this;
         }
     }
+
+    public void LoadSceneAdditive(string name)
+    {
+        SceneManager.LoadSceneAsync(name, LoadSceneMode.Additive);
+    }
+
     public void UnloadSceneAsync(string name)
     {
         SceneManager.UnloadSceneAsync(name);

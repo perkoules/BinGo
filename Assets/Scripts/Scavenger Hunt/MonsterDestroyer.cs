@@ -65,7 +65,8 @@ public class MonsterDestroyer : MonoBehaviour
 
     public delegate void MonsterClicked(string rayTag, GameObject go);
     public static event MonsterClicked OnMonsterClicked;
-    
+    public delegate void BookHit(string rayTag, GameObject go, RaycastHit hitPoint);
+    public static event BookHit OnBookHit;
     public void BattlePanelController(bool en)
     {
         battlePanel.SetActive(en);
@@ -79,6 +80,7 @@ public class MonsterDestroyer : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
             {
                 OnMonsterClicked(hit.transform.gameObject.tag, hit.transform.gameObject);
+                OnBookHit(hit.transform.gameObject.tag, hit.transform.gameObject, hit);
             }
         }
     }
@@ -141,7 +143,7 @@ public class MonsterDestroyer : MonoBehaviour
             {                
                 playerDataSaver.SetTreeLocation(result.Data["Tree Location"].Value);
                 Debug.Log("Tree Location" + playerDataSaver.GetTreeLocation());
-                if (playerDataSaver.GetTreeLocation() != "-")
+                if (playerDataSaver.GetTreeLocation() != "-")           //If there are coords
                 {
                     SpawnTreeOnMap(playerDataSaver.GetTreeLocation());
                     amountText.text = Mathf.FloorToInt((monstersKilled / 50)).ToString();

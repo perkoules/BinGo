@@ -22,6 +22,7 @@ namespace GoogleARCore.Examples.Common
 {
     using System.Collections.Generic;
     using GoogleARCore;
+    using GoogleARCore.Examples.HelloAR;
     using UnityEngine;
 
     /// <summary>

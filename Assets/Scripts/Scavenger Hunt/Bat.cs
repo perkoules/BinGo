@@ -24,7 +24,7 @@ public class Bat : MonoBehaviour
     {
         cam = FindObjectOfType<MonsterDestroyer>();
         playerDataSaver = GetComponent<PlayerDataSaver>();
-        if (playerDataSaver.GetScavHunt() == 1)
+        if (playerDataSaver.GetScavHunt() == 1 || playerDataSaver.GetScavHunt() == 2)
         {
             Deactivation();
         }

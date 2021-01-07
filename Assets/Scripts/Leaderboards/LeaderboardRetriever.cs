@@ -8,17 +8,21 @@ using System.Linq;
 using System.Net;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class LeaderboardRetriever : MonoBehaviour
 {
     public List<string> allPlayers;
     private string playerID, playerName;
     public Trictionary idTeamnameRubbish;
     public static LeaderboardRetriever Instance { get; private set; }
+
     public delegate void DataRetrieved();
+
     public static event DataRetrieved OnDataRetrieved;
+
     private void OnEnable()
     {
-        if(Instance != null & Instance != this)
+        if (Instance != null & Instance != this)
         {
             Destroy(this.gameObject);
         }
@@ -33,6 +37,7 @@ public class LeaderboardRetriever : MonoBehaviour
         GetPlayerID();
         GetAllPlayers();
     }
+
     public void GetAllPlayers()
     {
         PlayFabAdminAPI.GetPlayersInSegment(
@@ -49,6 +54,7 @@ public class LeaderboardRetriever : MonoBehaviour
                     },
                     error => Debug.LogError(error.GenerateErrorReport()));
     }
+
     private void GetPlayerID()
     {
         var idrequest = new GetAccountInfoRequest { };
@@ -115,7 +121,7 @@ public class LeaderboardRetriever : MonoBehaviour
         error => Debug.LogError(error.GenerateErrorReport()));
     }
 
-    IEnumerator PlayersCountryLeaderboardResults(string playerCountry, GameObject listingPrefab, GameObject leaderboardPanel)
+    private IEnumerator PlayersCountryLeaderboardResults(string playerCountry, GameObject listingPrefab, GameObject leaderboardPanel)
     {
         yield return new WaitForSeconds(0.2f);
         var requestLeaderboard = new GetLeaderboardRequest { StartPosition = 0, StatisticName = playerCountry, MaxResultsCount = 10 };
@@ -173,7 +179,7 @@ public class LeaderboardRetriever : MonoBehaviour
         OnDataRetrieved?.Invoke();
     }
 
-    IEnumerator PlayersProgressInWorldAndCitiesResults(string statName, string place, string whatToLookFor, GameObject listingPrefab, GameObject leaderboardPanel)
+    private IEnumerator PlayersProgressInWorldAndCitiesResults(string statName, string place, string whatToLookFor, GameObject listingPrefab, GameObject leaderboardPanel)
     {
         yield return new WaitForSeconds(0.1f);
         int i = 0;
@@ -233,12 +239,13 @@ public class LeaderboardRetriever : MonoBehaviour
         return country;
     }
 
-
     #region Teams And Countries
+
     public void GetWorldLeaderboardByCountry(GameObject listingPrefab, GameObject leaderboardPanel)
     {
         StartCoroutine(GetWorldLeaderboardByCountryCoroutine(listingPrefab, leaderboardPanel));
     }
+
     public IEnumerator GetWorldLeaderboardByCountryCoroutine(GameObject listingPrefab, GameObject leaderboardPanel)
     {
         yield return new WaitForSeconds(2);
@@ -250,9 +257,7 @@ public class LeaderboardRetriever : MonoBehaviour
                 new PlayFab.ClientModels.GetUserDataRequest { PlayFabId = id },
                 result =>
                 {
-
                     idCountry.Add(id, result.Data["Country"].Value);
-
                 },
                 error => Debug.LogError(error.GenerateErrorReport()));
         }
@@ -309,18 +314,41 @@ public class LeaderboardRetriever : MonoBehaviour
             leaderboardListing.rubbishText.text = orderCountryRubbish.ElementAt(i).Value.ToString();
         }
         OnDataRetrieved?.Invoke();
+        for (int i = 0; i < allPlayers.Count; i++)
+        {
+            Debug.Log(idCountry.ElementAt(i).Key + " - " + idCountry.ElementAt(i).Value);
+        }
+        Debug.Log("==================================");
+        for (int i = 0; i < allPlayers.Count; i++)
+        {
+            Debug.Log(countryRubbish.ElementAt(i).Key + " - " + countryRubbish.ElementAt(i).Value);
+        }
+
+        Debug.Log("==================================");
+        for (int i = 0; i < allPlayers.Count; i++)
+        {
+            Debug.Log(countryPlayers.ElementAt(i).Key + " - " + countryPlayers.ElementAt(i).Value);
+        }
+
+        Debug.Log("==================================");
+        for (int i = 0; i < allPlayers.Count; i++)
+        {
+            Debug.Log(orderCountryRubbish.ElementAt(i).Key + " - " + orderCountryRubbish.ElementAt(i).Value);
+        }
+        Debug.Log("==================================");
     }
+
     public void GetWorldLeaderboardByTeam(GameObject listingPrefab, GameObject leaderboardPanel)
     {
         StartCoroutine(GetWorldLeaderboardByTeamCoroutine(listingPrefab, leaderboardPanel));
     }
+
     public IEnumerator GetWorldLeaderboardByTeamCoroutine(GameObject listingPrefab, GameObject leaderboardPanel)
     {
         idTeamnameRubbish = new Trictionary();
         yield return new WaitForSeconds(6);
         foreach (var id in allPlayers)
         {
-
             PlayFabClientAPI.GetUserData(
                 new PlayFab.ClientModels.GetUserDataRequest { PlayFabId = id },
                 result =>
@@ -369,7 +397,6 @@ public class LeaderboardRetriever : MonoBehaviour
         }
         var orderResults = results.OrderByDescending(key => key.Value);
 
-
         for (int i = 0; i < orderResults.Count(); i++)
         {
             GameObject obj = Instantiate(listingPrefab, leaderboardPanel.transform);
@@ -388,6 +415,6 @@ public class LeaderboardRetriever : MonoBehaviour
         }
         OnDataRetrieved?.Invoke();
     }
-    #endregion
 
+    #endregion Teams And Countries
 }

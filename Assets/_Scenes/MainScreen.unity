@@ -3476,6 +3476,7 @@ RectTransform:
   - {fileID: 5791842386963285909}
   - {fileID: 1457381993}
   - {fileID: 1599755688}
+  - {fileID: 179656748}
   m_Father: {fileID: 892681210}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6897,7 +6898,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &179656748
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6913,12 +6914,12 @@ RectTransform:
   - {fileID: 1485387736}
   - {fileID: 1413268084}
   - {fileID: 1779856665}
-  m_Father: {fileID: 2050974056}
-  m_RootOrder: 1
+  m_Father: {fileID: 88868383}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -300.00003, y: -990.48145}
+  m_AnchoredPosition: {x: -21, y: -152.57928}
   m_SizeDelta: {x: 861.94824, y: 590.33246}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &179656749
@@ -24075,7 +24076,7 @@ PrefabInstance:
     - target: {fileID: 1650788381672151360, guid: 4c551b2a27940e44ba6914f8bfbb5bb9,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 272.5
       objectReference: {fileID: 0}
     - target: {fileID: 1650788381672151360, guid: 4c551b2a27940e44ba6914f8bfbb5bb9,
         type: 3}
@@ -59476,7 +59477,29 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1413268087}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 179656747}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2050974055}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1413268087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74890,7 +74913,7 @@ PrefabInstance:
     - target: {fileID: 1650788381672151360, guid: 4c551b2a27940e44ba6914f8bfbb5bb9,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 272.5
       objectReference: {fileID: 0}
     - target: {fileID: 1650788381672151360, guid: 4c551b2a27940e44ba6914f8bfbb5bb9,
         type: 3}
@@ -80980,7 +81003,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   windowManager: {fileID: 1217464658}
-  leaderboard: {fileID: 11400000, guid: 1902d47863b11d240aa180e752672201, type: 2}
+  leaderboard: {fileID: 11400000, guid: 886219daf50eced49b88c60c1487d6ab, type: 2}
   leaderboardPanel: {fileID: 362169356}
   messagePanel: {fileID: 279978302}
 --- !u!114 &1881462328
@@ -88911,7 +88934,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2050974056
 RectTransform:
   m_ObjectHideFlags: 0
@@ -88924,7 +88947,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1951038646}
-  - {fileID: 179656748}
   m_Father: {fileID: 7777721473644095374}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -99421,7 +99443,7 @@ PrefabInstance:
     - target: {fileID: 1650788381672151360, guid: 4c551b2a27940e44ba6914f8bfbb5bb9,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 272.5
       objectReference: {fileID: 0}
     - target: {fileID: 1650788381672151360, guid: 4c551b2a27940e44ba6914f8bfbb5bb9,
         type: 3}

@@ -23,6 +23,7 @@ public class SetTeamname : MonoBehaviour
 
     private void SubmitTeamName()
     {
+        teamnameText.text = nameToSet.text;
         PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest()
         {
             Permission = UserDataPermission.Public,
@@ -32,7 +33,6 @@ public class SetTeamname : MonoBehaviour
         result => 
         {
             Debug.Log(nameToSet.text + " added");
-            teamnameText.text = nameToSet.text;
             OnNamesAdjusted(nameToSet.text, true);
             SetNameToFriends(nameToSet.text);
             setWindowButton.gameObject.SetActive(false);

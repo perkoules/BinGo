@@ -313,29 +313,7 @@ public class LeaderboardRetriever : MonoBehaviour
             leaderboardListing.countryText.text = val.ToString();
             leaderboardListing.rubbishText.text = orderCountryRubbish.ElementAt(i).Value.ToString();
         }
-        OnDataRetrieved?.Invoke();
-        for (int i = 0; i < allPlayers.Count; i++)
-        {
-            Debug.Log(idCountry.ElementAt(i).Key + " - " + idCountry.ElementAt(i).Value);
-        }
-        Debug.Log("==================================");
-        for (int i = 0; i < allPlayers.Count; i++)
-        {
-            Debug.Log(countryRubbish.ElementAt(i).Key + " - " + countryRubbish.ElementAt(i).Value);
-        }
-
-        Debug.Log("==================================");
-        for (int i = 0; i < allPlayers.Count; i++)
-        {
-            Debug.Log(countryPlayers.ElementAt(i).Key + " - " + countryPlayers.ElementAt(i).Value);
-        }
-
-        Debug.Log("==================================");
-        for (int i = 0; i < allPlayers.Count; i++)
-        {
-            Debug.Log(orderCountryRubbish.ElementAt(i).Key + " - " + orderCountryRubbish.ElementAt(i).Value);
-        }
-        Debug.Log("==================================");
+        OnDataRetrieved?.Invoke();        
     }
 
     public void GetWorldLeaderboardByTeam(GameObject listingPrefab, GameObject leaderboardPanel)

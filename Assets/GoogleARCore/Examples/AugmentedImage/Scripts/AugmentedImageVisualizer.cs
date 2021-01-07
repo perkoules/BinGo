@@ -62,7 +62,7 @@ namespace GoogleARCore.Examples.AugmentedImage
                     float halfWidth = Image.ExtentX / 2;
                     float halfHeight = Image.ExtentZ / 2;
                     objToSpawn.transform.localPosition = new Vector3(halfWidth, 0, halfHeight );
-                    objToSpawn.SetActive(true);
+                    //objToSpawn.SetActive(true);
                 }                
             }
         }

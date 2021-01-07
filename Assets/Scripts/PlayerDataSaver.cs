@@ -24,6 +24,20 @@ public class PlayerDataSaver : MonoBehaviour
     private const string HUNT_PROGRESS = "HuntProgress";
     private const string BOOK_OBTAINED = "BookObtained";
 
+    /*public static PlayerDataSaver Instance { get; set; }
+
+    private void OnEnable()
+    {
+        if(Instance != null &&  Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }*/
+
     public void SetBookObtained(int yes)
     {
         PlayerPrefs.SetInt(BOOK_OBTAINED, yes);

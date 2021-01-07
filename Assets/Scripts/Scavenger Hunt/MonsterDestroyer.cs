@@ -10,6 +10,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using GoogleARCore;
 using UnityEngine.SpatialTracking;
+using Mapbox.Unity.Utilities;
 
 [RequireComponent(typeof(PlayerDataSaver))]
 public class MonsterDestroyer : MonoBehaviour
@@ -170,7 +171,9 @@ public class MonsterDestroyer : MonoBehaviour
             monstersKilled -= 50;
             PlantedTreeLocationToCloud(latlon);
             playerDataSaver.SetMonstersKilled(monstersKilled);
+            playerDataSaver.SetTreeLocation(latlon.ToString());
             SetMonstersStats();
+            amountText.text = Mathf.FloorToInt((monstersKilled / 50)).ToString();
         }
     }
 
@@ -201,14 +204,15 @@ public class MonsterDestroyer : MonoBehaviour
     }
 
     private void SpawnTreeOnMap(string loc)
-    {
-        
+    {        
         treeImg.SetActive(false);
-        waterCan.SetActive(true);
+        waterCan.SetActive(true); 
         string[] locArray = loc.Split(',');
         double x = double.Parse(locArray[0]);
         double y = double.Parse(locArray[1]);
-        Vector2d location = new Vector2d(x, y);
-        SpawnOnMap.Instance.Tree(location);
+        Vector2d location = new Vector2d(y, x);
+        //Vector2d location = Conversions.StringToLatLon(loc);
+        StartCoroutine(SpawnOnMap.Instance.Tree(location));
     }
+
 }

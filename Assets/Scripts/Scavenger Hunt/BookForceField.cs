@@ -1,35 +1,63 @@
-﻿using Michsky.UI.ModernUIPack;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BookForceField : MonoBehaviour
 {
     private PlayerDataSaver playerDataSaver;
-    public GameObject portalRoot;
+    public GameObject portalRoot, prefabHit;
+    public int hitCount = 0;
+
+    public delegate void BookObtained();
+
+    public static event BookObtained OnBookObtained;
 
     private void OnEnable()
     {
-        if(playerDataSaver.GetBookObtained() == 1)
+        if (playerDataSaver.GetBookObtained() == 1)
         {
-            Destroy(this.gameObject.transform.root.gameObject);
+            Destroy(portalRoot);
         }
     }
 
     private void Awake()
     {
         playerDataSaver = GetComponent<PlayerDataSaver>();
-        LineTrace.OnBookObtained += LineTrace_OnBookObtained;
+        MonsterDestroyer.OnBookHit += MonsterDestroyer_OnBookHit;
     }
 
-    private void LineTrace_OnBookObtained()
+    private void MonsterDestroyer_OnBookHit(string rayTag, GameObject go, RaycastHit hitPoint)
+    {
+        if (gameObject.CompareTag(rayTag) && go == this.gameObject)
+        {
+            hitCount++;
+            GameObject obj = Instantiate(prefabHit, hitPoint.transform.position + RandomizeHit(), Quaternion.identity);
+            Destroy(obj, 2f);
+            if (hitCount >= 15)
+            {
+                OnBookObtained?.Invoke();
+                BookObtainedByHits();
+            }
+        }
+    }
+
+    public Vector3 RandomizeHit()
+    {
+        int rand = UnityEngine.Random.Range(0, 3);
+        switch (rand)
+        {
+            case 0:
+                return Vector3.up * UnityEngine.Random.Range(1, 3);
+            case 1:
+                return Vector3.right * UnityEngine.Random.Range(1, 3);
+            case 2:
+                return Vector3.left * UnityEngine.Random.Range(1, 3);
+            default:
+                return Vector3.zero;
+        }
+    }
+
+    private void BookObtainedByHits()
     {
         playerDataSaver.SetBookObtained(1);
-        Destroy(portalRoot);
-    }
-
-    private void OnDestroy()
-    {
-        LineTrace.OnBookObtained -= LineTrace_OnBookObtained;
+        Destroy(portalRoot, 2f);
     }
 }

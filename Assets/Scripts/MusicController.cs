@@ -45,4 +45,8 @@ public class MusicController : MonoBehaviour
     {
         globalAudioSource.PlayOneShot(moneySound);
     }
+    public void StopMusic()
+    {
+        globalAudioSource.Stop();
+    }
 }

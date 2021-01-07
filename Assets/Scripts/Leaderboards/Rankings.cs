@@ -8,6 +8,7 @@ using UnityEngine;
 public class Rankings : MonoBehaviour
 {
     public WindowManager windowManager;
+    public NotificationManager info;
     public LeaderboardSO leaderboard;
     public GameObject leaderboardPanel;
     public RectTransform messagePanel;
@@ -27,5 +28,13 @@ public class Rankings : MonoBehaviour
         leaderboard.ClearLeaderboard(leaderboardPanel);
         yield return new WaitForSeconds(1);
         leaderboard.GetRankings(leaderboard.whichLeaderboard, leaderboardPanel, messagePanel);
+    }
+    /// <summary>
+    /// Triggered by button
+    /// </summary>
+    /// <param name="transform"></param>
+    public void ShowLeaderboardInfo()
+    {
+        info.OpenNotification();
     }
 }

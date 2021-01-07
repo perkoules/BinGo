@@ -19,7 +19,7 @@ public class UnityARUserAnchorExample : MonoBehaviour {
 	private HashSet<string> m_Clones;
 
 
-	private float m_TimeUntilRemove = 5.0f;
+	private float m_TimeUntilRemove = 15.0f;
 
 	void  Awake() {
 		UnityARSessionNativeInterface.ARUserAnchorAddedEvent += ExampleAddAnchor;

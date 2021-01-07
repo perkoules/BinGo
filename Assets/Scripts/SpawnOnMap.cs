@@ -40,6 +40,11 @@ public class SpawnOnMap : MonoBehaviour
 
     private void Start()
     {
+        EnemySpawnLocations();
+    }
+
+    private void EnemySpawnLocations()
+    {
         if (con == Condition.Game)
         {
             enemiesAndLocations = new Dictionary<string, GameObject>()
@@ -63,8 +68,10 @@ public class SpawnOnMap : MonoBehaviour
             };
         }
     }
-    public void Tree(Vector2d latlon)
+
+    public IEnumerator Tree(Vector2d latlon)
     {
+        yield return new WaitForSeconds(5);
         var instance = Instantiate(treePrefab);
         instance.transform.localPosition = map.GeoToWorldPosition(latlon, true);
         instance.transform.localScale = new Vector3(spawnScale, spawnScale, spawnScale);

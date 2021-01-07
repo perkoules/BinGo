@@ -6,6 +6,8 @@ using System.Linq;
 using TMPro;
 using Mapbox.Unity.Map;
 using UnityEngine.UI;
+using PlayFab;
+using PlayFab.ClientModels;
 
 public class ScavengerHunt : MonoBehaviour
 {
@@ -40,9 +42,36 @@ public class ScavengerHunt : MonoBehaviour
     {
         if (playerDataSaver.GetScavHunt() == 1)
         {
-            SpawnOnMap.Instance.map.OnInitialized += ContinueHunting;
+            CheckHuntDate();
         }
     }
+
+    private void CheckHuntDate()
+    {
+        string dateStarted = "";
+        PlayFabClientAPI.GetUserData(new GetUserDataRequest() { },
+        result =>
+        {
+            if (result.Data == null) Debug.Log("No Data");
+            else
+            {
+                dateStarted = result.Data["HuntStartedOn"].Value;
+                DateTime dateSt = DateTime.Parse(dateStarted);
+                DateTime today = DateTime.Today;
+                int daysPassed = (today - dateSt).Days;
+                if (daysPassed >= 7)
+                {
+                    playerDataSaver.SetScavHunt(2);
+                }
+                else
+                {
+                    SpawnOnMap.Instance.map.OnInitialized += ContinueHunting;
+                }
+            }
+        },
+        error => Debug.Log(error.GenerateErrorReport()));
+    }
+
     public void AddEnemy(GameObject go)
     {
         if (!enemiesAdded.Exists(g => g.name == go.name))
@@ -106,6 +135,7 @@ public class ScavengerHunt : MonoBehaviour
     }
     public void StartHunting()
     {
+        RememberHuntDate();
         camBtn.onClick.Invoke();
         playerDataSaver.SetScavHunt(1);
         playerDataSaver.SetShieldUsed(0);
@@ -121,6 +151,21 @@ public class ScavengerHunt : MonoBehaviour
             { "EvilMage", false }
         };
         StartTutorial();
+    }
+
+    private void RememberHuntDate()
+    {
+        string dateStarted = "";
+        DateTime today = DateTime.Now;
+        dateStarted = today.ToString("d");
+        PlayFabClientAPI.UpdateUserData(
+           new UpdateUserDataRequest
+           {
+               Data = new Dictionary<string, string>() { { "HuntStartedOn", dateStarted } },
+               Permission = UserDataPermission.Public
+           },
+           result => Debug.Log("Monster hunt started on " + dateStarted),
+           error => Debug.Log(error.GenerateErrorReport())); ;
     }
 
     private void Map_OnTilesStarting(List<Mapbox.Map.UnwrappedTileId> obj)

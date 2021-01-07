@@ -235,8 +235,14 @@ public class PlayfabManager : MonoBehaviour
         PlayerPrefs.DeleteKey("PasswordGiven");
         LevelManager.Instance.LoadSceneAsyncByName("LogInScreen");
         LevelManager.Instance.UnloadSceneAsync("MainScreen");
+    }    
+    /// <summary>
+    /// Triggered By Button
+    /// </summary>
+    public void QuitApp()
+    {
+        LevelManager.Instance.QuitGame();
     }
-
     public void IsFirstTime()
     {        
         PlayFabClientAPI.GetAccountInfo(
@@ -262,5 +268,8 @@ public class PlayfabManager : MonoBehaviour
         IsFirstTime();
         StartCoroutine(Initialization());
     }
-
+    public void DestroyIncomingObject(GameObject go)
+    {
+        Destroy(go);
+    }
 }

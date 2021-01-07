@@ -19,13 +19,15 @@ public class TrackImages : MonoBehaviour
     }
     private void Start()
     {
-        LogoPoints.OnLogoFound += StopTracking;
+        AugmentedImageVisualizer.OnImageFound += StopTracking;
+        //LogoPoints.OnLogoFound += StopTracking;
     }
 
     private void StopTracking()
     {
         canTrack = false;
-        LogoPoints.OnLogoFound -= StopTracking;
+        //LogoPoints.OnLogoFound -= StopTracking;
+        AugmentedImageVisualizer.OnImageFound -= StopTracking;
     }
     private void Update()
     {

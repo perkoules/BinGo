@@ -109,7 +109,7 @@ public class LoginManager : MonoBehaviour
             {
                 playerDataSaver.SetShouldAutologin(0);
             }
-            StartCoroutine(LoggingProcessSucceeded());
+            LoggingProcessSucceeded();
         }
     }
 
@@ -117,7 +117,7 @@ public class LoginManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
-            musicController.PlayFailedSound();
+            MusicController.Instance.PlayFailedSound();
             failure.OpenWindow();
         }
     }
@@ -132,11 +132,10 @@ public class LoginManager : MonoBehaviour
           error => Debug.LogError(error.GenerateErrorReport()));
     }
 
-    private IEnumerator LoggingProcessSucceeded()
+    private void LoggingProcessSucceeded()
     {
-        musicController.PlaySuccessSound();
+        MusicController.Instance.PlaySuccessSound();
         success.OpenWindow();
-        yield return new WaitForSeconds(2f);
-        LevelManager.Instance.LoadSceneAsyncByName("MainScreen");
+        LevelManager.Instance.LoadSceneAsyncAdditive("MainScreen");
     }
 }

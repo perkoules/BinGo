@@ -55,4 +55,10 @@ public class GiftCardEnabler : MonoBehaviour
         error => Debug.Log(error.GenerateErrorReport()));
         OnValuesAdjusted(newCoins);
     }
+
+    public void MoneySound()
+    {
+        MusicController.Instance.PlayMoneySound();
+    }
+
 }

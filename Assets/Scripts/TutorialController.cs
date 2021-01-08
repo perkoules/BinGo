@@ -21,16 +21,8 @@ public class TutorialController : MonoBehaviour
             }
         }
     }
-
-
-    void Start()
+    public void Click()
     {
-        
-    }
-
-
-    void Update()
-    {
-        
+        MusicController.Instance.PlayClickSound();
     }
 }

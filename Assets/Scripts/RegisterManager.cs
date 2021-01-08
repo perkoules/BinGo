@@ -105,7 +105,7 @@ public class RegisterManager : MonoBehaviour
             OnRegisterSuccess,
             error =>
             {
-                musicController.PlayFailedSound();
+                MusicController.Instance.PlayFailedSound();
                 userExist.OpenWindow();
                 Debug.LogError(error.GenerateErrorReport());
             });
@@ -128,7 +128,7 @@ public class RegisterManager : MonoBehaviour
         myID = result.PlayFabId;
         if (currentBuildLevel == 0)
         {
-            StartCoroutine(LoggingProcessSucceeded());
+            LoggingProcessSucceeded();
         }
     }
 
@@ -176,7 +176,7 @@ public class RegisterManager : MonoBehaviour
             OnRegisterGuestSuccess,
             error =>
             {
-                musicController.PlayFailedSound();
+                MusicController.Instance.PlayFailedSound();
                 userExist.OpenWindow();
                 Debug.LogError(error.GenerateErrorReport());
             });
@@ -206,7 +206,7 @@ public class RegisterManager : MonoBehaviour
                 Debug.LogError(error.GenerateErrorReport());
                 if (currentBuildLevel == 0)
                 {
-                    StartCoroutine(LoggingProcessSucceeded());
+                    LoggingProcessSucceeded();
                 }
             });
         playerDataSaver.SetCountry(countryDropdown.selectedText.text);
@@ -214,7 +214,7 @@ public class RegisterManager : MonoBehaviour
         SetPlayerData();
         playerDataSaver.SetIsGuest(0);
         success.OpenWindow();
-        musicController.PlaySuccessSound();
+        MusicController.Instance.PlaySuccessSound();
     }
 
     public void SetPlayerData()
@@ -238,11 +238,10 @@ public class RegisterManager : MonoBehaviour
             Debug.Log(error.GenerateErrorReport());
         });
     }
-    private IEnumerator LoggingProcessSucceeded()
+    private void LoggingProcessSucceeded()
     {
-        musicController.PlaySuccessSound();
+        MusicController.Instance.PlaySuccessSound();
         success.OpenWindow();
-        yield return new WaitForSeconds(3f);
         if (currentBuildLevel == 0)
         {
             LevelManager.Instance.LoadSceneAsyncByName("MainScreen");

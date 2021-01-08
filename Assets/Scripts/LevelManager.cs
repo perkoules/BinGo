@@ -19,12 +19,17 @@ public class LevelManager : MonoBehaviour
             Instance = this;
         }
     }
-
-    public void LoadSceneAdditive(string name)
+    public AsyncOperation asyncOperation;
+    public void LoadSceneAsyncAdditive(string name)
     {
-        SceneManager.LoadSceneAsync(name, LoadSceneMode.Additive);
+        StartCoroutine(AsyncLoading(name));
     }
-
+    IEnumerator AsyncLoading(string name)
+    {
+        asyncOperation = SceneManager.LoadSceneAsync(name, LoadSceneMode.Single);
+        yield return new WaitUntil(() => asyncOperation.isDone && PlayfabManager.Instance.dataLoaded);
+        Destroy(GameObject.FindGameObjectWithTag("TempCanvas"));
+    }
     public void UnloadSceneAsync(string name)
     {
         SceneManager.UnloadSceneAsync(name);

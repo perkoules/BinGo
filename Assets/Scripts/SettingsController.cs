@@ -14,9 +14,7 @@ public class SettingsController : MonoBehaviour
     private void OnEnable()
     {
         playerDataSaver = GetComponent<PlayerDataSaver>();
-    }
-
-    
+    }    
 
     public void RegisterTemporaryAccount(Button btn)
     {
@@ -34,7 +32,7 @@ public class SettingsController : MonoBehaviour
 
     public void Music(bool isOn)
     {
-        musicController.IsMusicOn(isOn);
+        MusicController.Instance.IsMusicOn(isOn);
     }
 
     public void SFX(bool isOn)

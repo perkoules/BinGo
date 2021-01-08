@@ -12,9 +12,9 @@ public class PortaPrompter : MonoBehaviour
         if (other.gameObject.CompareTag("MainCamera") || other.gameObject.CompareTag("Player"))
         {
             myText.gameObject.SetActive(true);
-            if (Camera.main.enabled && GetComponent<SphereCollider>().enabled)
+            if (Camera.main.enabled && GetComponent<CapsuleCollider>().enabled)
             {
-                GetComponent<SphereCollider>().enabled = false;
+                GetComponent<CapsuleCollider>().enabled = false;
             }
         }
     }

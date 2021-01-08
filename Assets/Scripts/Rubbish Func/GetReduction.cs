@@ -75,4 +75,8 @@ public class GetReduction : MonoBehaviour
         OnValuesAdjusted(newCoins);
         sliderController.ResetSlider();
     }
+    public void MoneySound()
+    {
+        MusicController.Instance.PlayMoneySound();
+    }
 }

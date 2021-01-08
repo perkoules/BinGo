@@ -163,7 +163,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Mysterious field appeared. Open the AR Camera and collect the bulbs.
+  m_text: Mysterious field appeared. Open the AR Camera and tap the book.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -275,7 +275,7 @@ GameObject:
   - component: {fileID: 6831573564557153103}
   - component: {fileID: 7973424878714443524}
   - component: {fileID: 689716755972099434}
-  - component: {fileID: 8067296671302418457}
+  - component: {fileID: 5251658982412274571}
   - component: {fileID: 627812542299523818}
   - component: {fileID: 2746497637265340226}
   m_Layer: 13
@@ -346,8 +346,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &8067296671302418457
-SphereCollider:
+--- !u!136 &5251658982412274571
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -356,8 +356,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
   m_Radius: 1.5
+  m_Height: 1
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &627812542299523818
 Rigidbody:

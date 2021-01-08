@@ -41,7 +41,7 @@ public class PlayfabManager : MonoBehaviour
 
     //<-----------------           Data holders       ------------------------------->
     public RubbishDataHandler dataHandler;
-
+    public bool dataLoaded = false;
     private void OnEnable()
     {
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
@@ -220,10 +220,18 @@ public class PlayfabManager : MonoBehaviour
                 playerDataSaver.SetTasks(myTasks);
                 OnNamesAdjusted(myTeamname, playerDataSaver.GetUsername());
                 OnImageAdjusted(myAvatar, myCountry, progressLevel);
+                StartCoroutine(DoneDoneDone());
             }
         },
         error => Debug.Log(error.GenerateErrorReport()));        
     }
+
+    IEnumerator DoneDoneDone()
+    {
+        yield return new WaitForSeconds(3);
+        dataLoaded = true;
+    }
+
     /// <summary>
     /// Trigger by a button in the settings
     /// </summary>

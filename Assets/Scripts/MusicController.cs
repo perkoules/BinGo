@@ -3,10 +3,22 @@ using UnityEngine;
 
 public class MusicController : MonoBehaviour
 {
-    public AudioSource globalAudioSource;
+    public static MusicController Instance { get; set;} 
+    private AudioSource globalAudioSource;
+    [SerializeField]
+    private AudioClip beepSound, rubbishCollectedSound, clickSound, failedSound, moneySound;
 
-    public AudioClip beepSound, rubbishCollectedSound, clickSound, failedSound, moneySound;
-
+    private void OnEnable()
+    {
+        if(Instance != null && Instance != this)
+        {
+            Destroy(Instance);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
     private void Awake()
     {
         globalAudioSource = GetComponent<AudioSource>();
@@ -27,7 +39,14 @@ public class MusicController : MonoBehaviour
             globalAudioSource.Stop();
         }
     }
-
+    public void PlayRubbishCollectedSound()
+    {
+        globalAudioSource.PlayOneShot(rubbishCollectedSound);
+    }
+    public void PlayBeepSound()
+    {
+        globalAudioSource.PlayOneShot(beepSound);
+    }
     public void PlayClickSound()
     {
         globalAudioSource.PlayOneShot(clickSound);

@@ -143,7 +143,7 @@ public class MonsterDestroyer : MonoBehaviour
             else
             {                
                 playerDataSaver.SetTreeLocation(result.Data["Tree Location"].Value);
-                Debug.Log("Tree Location" + playerDataSaver.GetTreeLocation());
+                Debug.Log("Tree Location at " + playerDataSaver.GetTreeLocation());
                 if (playerDataSaver.GetTreeLocation() != "-")           //If there are coords
                 {
                     SpawnTreeOnMap(playerDataSaver.GetTreeLocation());

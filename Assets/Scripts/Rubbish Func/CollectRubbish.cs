@@ -130,7 +130,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         }
         if (isSfxOn)
         {
-            musicController.globalAudioSource.PlayOneShot(musicController.rubbishCollectedSound);
+            MusicController.Instance.PlayRubbishCollectedSound();
         }
         messageText.text = "WELL DONE! You helped the environment!!!";
         fillerImage.fillAmount = 0;
@@ -147,7 +147,7 @@ public class CollectRubbish : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         {
             if (isSfxOn)
             {
-                musicController.globalAudioSource.PlayOneShot(musicController.beepSound);
+                MusicController.Instance.PlayBeepSound();
             }
             barcodeDetected = true;
             string comparer = "";

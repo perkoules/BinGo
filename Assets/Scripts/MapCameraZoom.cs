@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class MapCameraZoom : MonoBehaviour
 {
+    public delegate void ZoomChanged(float currentZoom);
+    public static event ZoomChanged OnZoomChanged;
     public Camera mapCamera;
     [SerializeField]
     private float speed = 1f;
@@ -33,6 +35,7 @@ public class MapCameraZoom : MonoBehaviour
             {
                 mapCamera.orthographicSize = maxZoom;
             }
+            OnZoomChanged(mapCamera.orthographicSize);
             FindObjectOfType<AbstractMap>().UpdateMap();
         }
     }

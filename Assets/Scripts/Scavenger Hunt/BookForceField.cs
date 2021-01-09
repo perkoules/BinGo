@@ -45,7 +45,7 @@ public class BookForceField : MonoBehaviour
         switch (rand)
         {
             case 0:
-                return Vector3.up * UnityEngine.Random.Range(1, 3);
+                return Vector3.down * UnityEngine.Random.Range(1, 3);
             case 1:
                 return Vector3.right * UnityEngine.Random.Range(1, 3);
             case 2:

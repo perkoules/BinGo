@@ -1,5 +1,5 @@
 # BinGo
-## A Location-Based Augmented Reality Gamified App to help the environment and save you money.
+## A Location-Based Augmented Reality Gamified App to help the environment.
 
 
 ### Objectives:
